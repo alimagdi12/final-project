@@ -243,7 +243,7 @@ const PlaceOrder = () => {
     {cartItems?.map(item => (
         <Grid key={item.productId._id} container spacing={2} alignItems="center" sx={{ display: 'flex', alignItems: 'flex-start', height: 'auto' }}>
             <Grid item xs={12} md={4} sx={{ width: '100%', height: '280px' }}>
-                <Avatar variant="square" src={item.productId.imageUrl?.images[0]} sx={{ width: '100%', height: '80%', borderRadius: '7px' }} />
+                <Avatar variant="square" src={`../../public/${item.productId.folderName}/${item.productId.imagesUrl.images[0]}`} sx={{ width: '100%', height: '80%', borderRadius: '7px' }} />
             </Grid>
             <Grid item xs={12} md={6}>
                 <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.productId.title}</Typography>

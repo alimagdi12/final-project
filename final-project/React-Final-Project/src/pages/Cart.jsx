@@ -117,7 +117,7 @@ const Cart = () => {
                             <Paper key={item.productId._id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item xs={12} md={2}>
-                                        <Avatar variant="square" src={item.productId.imageUrl?.images[0]} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
+                                        <Avatar variant="square" src={`../../public/${item.productId.folderName}/${item.productId.imagesUrl.images[0]}`} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>

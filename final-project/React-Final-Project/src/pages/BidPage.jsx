@@ -16,8 +16,6 @@ const items = [
 
 const BidPage = () => {
 
-
-
     const fetchHighestBidder = async () => {
         try {
             const response = await axios.get(`http://127.0.0.1:3000/api/v1/auth/get-bid`,{auctionId:auction._id}, {
@@ -26,15 +24,11 @@ const BidPage = () => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-
             const data = response.data;
         } catch (error) {
             console.error('Error fetching bid:', error);
         }
     };
-
-
-
 
     const{id}= useParams()
    let hours,seconds,minutes =0

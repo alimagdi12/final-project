@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Box, Container, Grid, CircularProgress } from '@mui/material';
-import CardHeader from '../components/CardHeader.jsx';
-import MainCard from '../components/MainCard.jsx';
-import Hero from '../Hero.jsx/Hero.jsx';
-import ProductsContext from '../contexts/ProductsContext.jsx';
-import CategoryContext from '../contexts/CategoriesContext.jsx';
+import CardHeader from './components/CardHeader.jsx';
+import MainCard from './components/MainCard.jsx';
+import Hero from './components/Hero.jsx';
+import ProductsContext from '../../contexts/ProductsContext.jsx';
+import CategoryContext from '../../contexts/CategoriesContext.jsx';
 
 function Home() {
   const { products } = useContext(ProductsContext);
