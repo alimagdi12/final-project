@@ -54,13 +54,13 @@ export default function AddProduct() {
         });
 
         try {
-            await axios.post('http://127.0.0.1:3000/api/v1/products/add-product', productForm, { 
+           const response = await axios.post('http://127.0.0.1:3000/api/v1/products/add-product', productForm, { 
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'jwt': localStorage.getItem('token')
                 }
             });
-
+console.log(response);
             setFormData({
                 title: '',
                 name: '',

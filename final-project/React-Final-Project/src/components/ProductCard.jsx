@@ -26,15 +26,15 @@ console.log(product)
     navigate(`/bid/${id}`)
     }
     return (
-        <Card sx={{ width: '30%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', margin: 1, height: 330 , position:'relative' }}  onClick={()=>{
+        <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', margin: 1, height: 330 , position:'relative' }}  onClick={()=>{
           navigateToDetails(product._id)
         }}>
             <CardMedia
-                sx={{ height: 140 }}
+                sx={{ height: 140 }}h
                 image="../public/PlaceholderGlossary.svg"
                
             />
-        {product.expirationDate && (
+        {product?.expirationDate && (
                     <FaHammer sx={{ marginRight: 1 }} style={{ position: 'absolute', top: '10px', right: '5px' }} />
                 )}    <CardContent>
                 <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -46,7 +46,7 @@ console.log(product)
             </CardContent>
             <CardActions>
             
-            {!product.expirationDate && (
+            {!product?.expirationDate && (
                   
                 <Button sx={{ width: '100%', backgroundColor: '#ccc' }} onClick={addToCart}>Add to Cart</Button>
                
@@ -56,7 +56,7 @@ console.log(product)
 
 
 
-            {product.expirationDate && (
+            {product?.expirationDate && (
                   
                   <Button sx={{ width: '100%', backgroundColor: '#ccc' }} onClick={()=>{
                     navigateToBidDetail(product._id)
