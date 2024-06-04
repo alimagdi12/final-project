@@ -89,14 +89,14 @@ console.log(product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl
         <Grid container sx={{display:'flex' , flexDirection:'column',alignItems:'center'}} spacing={2}>
           <Grid item xs={6} sx={{ height: '50%',width:'100%' }}>
             <img 
-            src={product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]}
+            src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`}
             alt="Photo 1" 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
             />
           </Grid>
           <Grid item xs={6} sx={{ height: '50%' }}>
             <img 
-            src={product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]}
+             src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[1] }`}
             alt="Photo 2" 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
             />
@@ -105,7 +105,7 @@ console.log(product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl
       </Grid>
       <Grid item xs={3} sx={{ height: '100%' }}>
         <img 
-            src={product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]}
+             src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[2] }`}
             alt="Photo 3" 
           style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
         />
