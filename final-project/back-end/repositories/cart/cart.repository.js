@@ -67,6 +67,7 @@ console.log(data);
 
     async removeFromCart(data, token) {
         const { cartId } = data;
+        console.log(cartId);
         const cart = await Cart.findById(cartId);
         await cart.remove();
         return cart;

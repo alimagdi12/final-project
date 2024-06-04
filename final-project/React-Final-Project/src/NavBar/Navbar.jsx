@@ -30,7 +30,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const navigate = useNavigate();
 
   const handleSettingClick = (event) => {
-    console.log(event.currentTarget.textContent);
     if (event.currentTarget.textContent === 'Profile') {
       navigate('/profile');
     }
@@ -53,7 +52,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   };
 
   const handlePageHover = () => {
-    console.log(categories);
     setHoveredPage(true)
   };
 
@@ -211,7 +209,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge badgeContent={totalItems} color="secondary">
-                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon /></Link>
+                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems.length}</Link>
          
                    
                   </Badge>

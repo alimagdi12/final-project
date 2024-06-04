@@ -15,7 +15,6 @@ export const AuctionProvider = ({ children }) => {
         throw new Error('Failed to fetch Auction');
       }
       const data = await response.json();
-      console.log(data);
       setAuction(data.auctions);
     } catch (error) {
       console.error('Error fetching Auction:', error);

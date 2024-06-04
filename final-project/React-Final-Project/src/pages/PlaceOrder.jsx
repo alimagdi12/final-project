@@ -63,7 +63,6 @@ const PlaceOrder = () => {
     const handleCardClick = (cardId) => {
         if (+selectedCard === +cardId) {
             setSelectedCard(null)
-            console.log('full');
         } else {
             setSelectedCard(cardId)
         }
@@ -107,7 +106,6 @@ const PlaceOrder = () => {
     };
 
     const handleAddressClick = (addressId) => {
-        console.log(addressId);
         if (+selectedAddress === +addressId) {
             setSelectedAddress(null);
         } else {

@@ -39,7 +39,6 @@ const PaymentCard = ({ cardId, cardName, cardNumber, name, number, card, selecte
 
   const handleCvvChange = (event) => {
     setCvv(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleCardClickWithCvv = (cardId) => {

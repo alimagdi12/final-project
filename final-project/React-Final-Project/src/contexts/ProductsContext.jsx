@@ -12,7 +12,6 @@ export const ProductsProvider = ({ children }) => {
         throw new Error('Failed to fetch categories');
       }
       const data = await response.json();
-      console.log(data);
       setProducts(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
