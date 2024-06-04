@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 export default function MainCard() {
   return (
-    <Card sx={{ width: '23%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <CardMedia
         sx={{ height: 140 }}
         image="../public/PlaceholderGlossary.svg"

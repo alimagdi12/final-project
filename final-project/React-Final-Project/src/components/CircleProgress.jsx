@@ -3,7 +3,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Container, Grid } from "@mui/material";
 
 function CircularProgressWithLabel(props) {
     return (
@@ -21,7 +21,10 @@ function CircularProgressWithLabel(props) {
                 variant="determinate"
                 value={100}
                 style={{
-                    width: "400px", height: "400px",
+                    width: "100%",
+                    height: "auto",
+                    maxWidth: "400px",
+                    maxHeight: "400px",
                     '& circle[stroke-width]': {
                         strokeWidth: '2px'
                     },
@@ -36,7 +39,10 @@ function CircularProgressWithLabel(props) {
                 variant="determinate"
                 value={props.value}
                 style={{
-                    width: "400px", height: "400px",
+                    width: "100%",
+                    height: "auto",
+                    maxWidth: "400px",
+                    maxHeight: "400px",
                     '& circle[stroke-width]': {
                         strokeWidth: '2px'
                     },
@@ -57,25 +63,27 @@ function CircularProgressWithLabel(props) {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    textAlign: "center",
+                    padding: "0 10px"
                 }}
             >
-                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontWeight: '700', fontSize: '28px' }}>
+                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontWeight: '700', fontSize: { xs: '20px', md: '28px' } }}>
                     {props.bidderName}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontWeight: '700', fontSize: '28px', backgroundColor: '#5DAA60', borderRadius: '10px', padding: '0px 17px', color: '#fff' }}>
+                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontWeight: '700', fontSize: { xs: '20px', md: '28px' }, backgroundColor: '#5DAA60', borderRadius: '10px', padding: '0px 17px', color: '#fff' }}>
                     {props.highestBid}$
                 </Typography>
-                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontWeight: '700', fontSize: '28px' }}>
+                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontWeight: '700', fontSize: { xs: '20px', md: '28px' } }}>
                     Highest Bidder
                 </Typography>
-                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontSize: '13px', fontWeight: 'bold' }}>
+                <Typography variant="subtitle1" sx={{ marginBottom: "15px", fontSize: { xs: '12px', md: '13px' }, fontWeight: 'bold' }}>
                     Time left
                 </Typography>
                 <Typography
                     sx={{
-                        fontSize: "25px",
-                        padding: "0px 50px",
+                        fontSize: { xs: "20px", md: "25px" },
+                        padding: "0px 20px",
                         margin: "0",
                         borderRadius: "5px",
                         marginBottom: "15px",
@@ -157,7 +165,7 @@ export default function AuctionCard() {
     const progressValue = (12 * 3600 - totalSeconds) / (12 * 3600) * 100;
 
     return (
-        <Box sx={{}}>
+        <Container sx={{ padding: '0 15px' }}>
             <CircularProgressWithLabel
                 bidderName={bidderName}
                 highestBid={highestBid}
@@ -166,7 +174,7 @@ export default function AuctionCard() {
                 minutes={progress.minutes}
                 seconds={progress.seconds}
             />
-            <Box sx={{ display: "flex", flexDirection: 'column', alignItems: 'center' }}>
+            <Box sx={{ display: "flex", flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
                 <TextField
                     label="Place Bid"
                     variant="outlined"
@@ -189,14 +197,14 @@ export default function AuctionCard() {
                                 borderColor: '#5DAA60',
                             },
                         },
-                        width: '70%',
+                        width: { xs: '100%', sm: '70%' },
                     }}
                 />
                 <Box display="flex" alignItems="center" mt={2}
-                    sx={{ width: '70%', justifyContent: 'center' }}
+                    sx={{ width: { xs: '100%', sm: '70%' }, justifyContent: 'center' }}
                 >
                     <Button
-                        sx={{ width: '70%', backgroundColor: '#5DAA60', '&:hover': { backgroundColor: '#3abf3a' } }}
+                        sx={{ width: '100%', backgroundColor: '#5DAA60', '&:hover': { backgroundColor: '#3abf3a' } }}
                         variant="contained"
                         color="primary"
                         onClick={confirmBid ? confirmBidHandler : handleOneBid}
@@ -205,6 +213,6 @@ export default function AuctionCard() {
                     </Button>
                 </Box>
             </Box>
-        </Box>
+        </Container>
     );
 }

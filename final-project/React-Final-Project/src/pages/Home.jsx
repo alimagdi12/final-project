@@ -1,48 +1,63 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
-import Navbar from '../NavBar/Navbar.jsx';
+import { Box, Container, Grid } from '@mui/material';
 import CardHeader from '../components/CardHeader.jsx';
 import MainCard from '../components/MainCard.jsx';
 import Hero from '../Hero.jsx/Hero.jsx';
 
 function Home() {
   return (
-
     <div className="Home">
-
-      <Hero></Hero>
+      <Hero />
       <Container>
         <CardHeader>Home</CardHeader>
-        <Box display={'flex'} justifyContent={'space-between'} sx={{ width: '100%' }}>
-
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-
-        </Box>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+        </Grid>
       </Container>
       <Container>
         <CardHeader>Home</CardHeader>
-        <Box display={'flex'} justifyContent={'space-between'} sx={{ width: '100%' }}>
-
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-
-        </Box>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+        </Grid>
       </Container>
       <Container>
         <CardHeader>Home</CardHeader>
-        <Box display={'flex'} justifyContent={'space-between'} sx={{ width: '100%' }}>
-
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-          <MainCard style={{ flex: '1 0 25%' }}></MainCard>
-
-        </Box>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <MainCard />
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

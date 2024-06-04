@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CssBaseline, Container, Typography } from '@mui/material';
+import { CssBaseline, Container, Typography, Grid } from '@mui/material';
 import BidCard from '../components/BidCard';
 import SimilarItems from '../components/SimilarItems';
 
@@ -14,21 +14,27 @@ const BidPage = () => {
     const [highestBid, setHighestBid] = useState(2500);
     const [heartCount, setHeartCount] = useState(0);
 
-
-
     const handleBid = (amount) => {
         setHighestBid((prev) => prev + amount);
     };
 
     return (
         <div>
-            <CssBaseline />
+            {/* <CssBaseline /> */}
             <Container>
-                <BidCard onBid={handleBid} highestBid={highestBid} />
-                <Typography variant="h6" mt={4}>
-                    You May Also Like:
-                </Typography>
-                <SimilarItems items={items} />
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={12}>
+                        <BidCard onBid={handleBid} highestBid={highestBid} />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <Typography variant="h6" mt={4}>
+                            You May Also Like:
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <SimilarItems items={items} />
+                    </Grid>
+                </Grid>
             </Container>
         </div>
     );
