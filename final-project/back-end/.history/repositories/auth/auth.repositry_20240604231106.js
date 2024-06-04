@@ -102,7 +102,7 @@ async login(email, password) {
     
     return token;
 }
-// console.log(token);
+console.log(token);
 
     // Function to find a user by email and add an image
     async findUserByEmailAndAddImage(email, files) {

@@ -33,7 +33,8 @@ export default function AllProducts() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
-const{getCart}=useContext(CartContext)
+  const { getCart, addToCart } = useContext(CartContext);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -96,27 +97,6 @@ const{getCart}=useContext(CartContext)
       setDisplayedProducts(dp);
     }
     setCurrentPage(1);
-  }
-
-  async function addToCart(productId) {
-    const productForm = new FormData();
-    productForm.append("productId", productId);
-    try {
-      const token = localStorage.getItem("token");
-    const response =  await axios.post(
-        "http://localhost:3000/api/v1/auth/add-to-cart",
-        productForm,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            jwt: token,
-          },
-        }
-      );
-      getCart()
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   return (
@@ -191,10 +171,14 @@ const{getCart}=useContext(CartContext)
           </Box>
         </Box>
 
-        <Box
-          sx={{ width: "70%", display: "flex", flexDirection: "column" }}
-        >
-          <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+        <Box sx={{ width: "70%", display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: 2,
+            }}
+          >
             <Button variant="contained" onClick={() => setToggle(false)}>
               Show Products
             </Button>
@@ -202,28 +186,29 @@ const{getCart}=useContext(CartContext)
               Show Auction
             </Button>
           </Box>
-          <Box
-            sx={{ display: "flex", flexWrap: "wrap" }}
-          >
-            {toggle
-              ? auction?.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    addToCart={() => {
-                      addToCart(product._id);
-                    }}
-                    product={product}
-                  />
-                ))
-              : currentProducts?.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    addToCart={() => {
-                      addToCart(product._id);
-                    }}
-                    product={product}
-                  />
-                ))}
+          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          {toggle
+  ? auction?.map((product) => (
+      <ProductCard
+        key={product._id}
+        addToCart={() => {
+          addToCart(product._id);
+          getCart();
+        }}
+        product={product}
+      />
+    ))
+  : currentProducts?.map((product) => (
+      <ProductCard
+        key={product._id}
+        addToCart={() => {
+          addToCart(product._id);
+          getCart();
+        }}
+        product={product}
+      />
+    ))}
+
           </Box>
         </Box>
       </Container>

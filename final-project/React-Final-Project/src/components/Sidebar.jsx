@@ -10,9 +10,6 @@ function Sidebar({ drawerWidth, handleListItemClick, selectedIndex }) {
         <div style={{ display: 'flex', marginTop: '5%', zIndex: '' }}>
             <Box sx={{ display: 'flex' }}>
 
-                {/* Shape beside the sidebar */}
-                <Shape />
-                
                 {/* Sidebar-Section */}
                 <Drawer
                     variant="permanent"

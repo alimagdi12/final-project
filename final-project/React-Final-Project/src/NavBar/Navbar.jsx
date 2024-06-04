@@ -209,7 +209,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge badgeContent={totalItems} color="secondary">
-                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems.length}</Link>
+                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems?.length}</Link>
          
                    
                   </Badge>

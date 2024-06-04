@@ -73,36 +73,35 @@ class AuthRepositry {
     }
 
     // Function to log in a user
-async login(email, password) {
-    const user = await User.findOne({ email });
-    if (!user) {
-        throw new Error("Invalid email or password.");
-    }
+    async login(email, password) {
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw new Error("Invalid email or password.");
+        }
 
-    // Check if user password is missing
-    if (!user.password) {
-        throw new Error("User password is missing.");
-    }
+        // Check if user password is missing
+        if (!user.password) {
+            throw new Error("User password is missing.");
+        }
 
-    // Compare the passwords
-    const doMatch = await bcrypt.compare(password, user.password);
-    if (!doMatch) {
-        throw new Error("Invalid email/phone number or password.");
-    }
+        // Compare the passwords
+        const doMatch = await bcrypt.compare(password, user.password);
+        if (!doMatch) {
+            throw new Error("Invalid email/phone number or password.");
+        }
 
-    // Create and return a JWT token
-    const token = jwt.sign(
-        {
-            email: user.email,
-            userId: user._id.toString(),
-        },
-        process.env.JWT_SECRET,  // Secret key for signing the token
-        { expiresIn: "1h" }       // Token expiration time
-    );
-    
-    return token;
-}
-// console.log(token);
+        // Create and return a JWT token
+        const token = jwt.sign(
+            {
+                email: user.email,
+                userId: user._id.toString(),
+            },
+            process.env.JWT_SECRET,  // Secret key for signing the token
+            { expiresIn: "1h" }       // Token expiration time
+        );
+        
+        return token;
+    }
 
     // Function to find a user by email and add an image
     async findUserByEmailAndAddImage(email, files) {
