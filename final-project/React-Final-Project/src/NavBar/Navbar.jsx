@@ -33,6 +33,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     if (event.currentTarget.textContent === 'Profile') {
       navigate('/profile');
     }
+    if (event.currentTarget.textContent === 'Logout') {
+      localStorage.setItem('token','')
+      navigate('/login');
+    }
+
+
   };
 
   const handleOpenNavMenu = (event) => {
@@ -149,10 +155,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
          
 
 
-
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
               <Link to="/about" className='text-decoration-none h5 mx-2' >About Us</Link>
             </Box>
+
+
+
 
             <Box
               onMouseEnter={handlePageHover}
@@ -196,7 +204,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           </Box>
 
           <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-            <Link to="/add-product" className='text-decoration-none h4 mx-2'>
+            <Link to="/sell" className='text-decoration-none h4 mx-2'>
               <Button sx={{ backgroundColor: 'gray' }} variant="contained">List</Button>
             </Link>
           </Box>
@@ -209,7 +217,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge badgeContent={totalItems} color="secondary">
-                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems.length}</Link>
+                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems?.length|0}</Link>
          
                    
                   </Badge>

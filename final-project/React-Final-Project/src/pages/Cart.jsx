@@ -42,7 +42,7 @@ const Cart = () => {
                 { cartId: id },
                 {
                   headers: {
-                    'Content-Type': 'application/json', // Adjust content type as necessary
+                    'Content-Type': 'application/json', 
                     jwt: localStorage.getItem('token'),
                   },
                 }
@@ -68,7 +68,6 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        // Assume setCartItems initializes cart items, maybe from an API call or context state
         setCartItems(cartItems);
     }, []);
 
@@ -96,7 +95,7 @@ const Cart = () => {
 
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
-                        {cartItems.map(item => (
+                        {cartItems&&cartItems.map(item => (
                             <Paper key={item.id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item xs={12} md={2}>

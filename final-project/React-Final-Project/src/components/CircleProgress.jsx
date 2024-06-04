@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import { Button, TextField, Container, Grid } from "@mui/material";
+import axios from "axios";
 
 function CircularProgressWithLabel(props) {
     return (
@@ -109,8 +110,7 @@ CircularProgressWithLabel.propTypes = {
     seconds: PropTypes.number.isRequired
 };
 
-export default function AuctionCard({hours,minutes,seconds}) {
-
+export default function AuctionCard({hours,minutes,seconds,id}) {
     const [progress, setProgress] = useState({
         hours:  hours|0,
         minutes: minutes|0,
@@ -137,8 +137,23 @@ setProgress({
         setHighestBid((prev) => prev + amount);
     };
 
-    const confirmBidHandler = () => {
+    const confirmBidHandler = async () => {
+
         handleBid(parseInt(bidAmount));
+        
+        try {
+            const response = await axios.post('http://127.0.0.1:3000/api/v1/auth/add-bid', {amount:bidAmount , auctionId:id}, { 
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'jwt': localStorage.getItem('token')
+                }
+            });
+            
+            console.log(response)
+        } catch (err) {
+            console.error(err);
+        }
+
         setBidAmount('');
         setConfirmBid(false);
     };

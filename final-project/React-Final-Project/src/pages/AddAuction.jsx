@@ -6,7 +6,7 @@ import CategoryContext from '../contexts/CategoriesContext';
 import UserContext from '../contexts/UserContext';
 import axios from 'axios';
 
-export default function AddProduct() {
+export default function AddAuction() {
     const { categories } = useContext(CategoryContext);
     const { token } = useContext(UserContext);
     const catgs = categories?.categories?.map(({ _id, title }) => ({ value: _id, label: title })) || [];
@@ -20,7 +20,7 @@ export default function AddProduct() {
         quantity: '',
         productStatus: '',
         categoryId: '',
-        price: '',
+        initialValue: '',
         userId: '6643d585dd8c6b0c1065f2b5',
     });
 
@@ -47,31 +47,34 @@ export default function AddProduct() {
         productForm.append('categoryId', formData.categoryId);
         productForm.append('quantity', '33');
         productForm.append('location', formData.location);
-        productForm.append('price', formData.price);
+        productForm.append('initialValue', formData.initialValue);
         productForm.append('productStatus', formData.productStatus);
+        productForm.append('expirationDays', 3);
+        productForm.append('productId', '3132123133213133');
+       
         formData.images.forEach((image) => {
             productForm.append('images', image); 
         });
-
         try {
-           const response = await axios.post('http://127.0.0.1:3000/api/v1/products/add-product', productForm, { 
+            const response = await axios.post('http://127.0.0.1:3000/api/v1/add-auction', productForm, { 
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'jwt': localStorage.getItem('token')
                 }
             });
-console.log(response);
-            setFormData({
-                title: '',
-                name: '',
-                location: '',
-                images: [],
-                quantity: '',
-                productStatus: '',
-                categoryId: '',
-                price: '',
-                userId: '6643d585dd8c6b0c1065f2b5',
-            });
+            console.log(response);
+            console.log(formData);
+            // setFormData({
+            //     title: '',
+            //     name: '',
+            //     location: '',
+            //     images: [],
+            //     quantity: '',
+            //     productStatus: '',
+            //     categoryId: '',
+            //     initialValue: '',
+            //     userId: '6643d585dd8c6b0c1065f2b5',
+            // });
         } catch (err) {
             console.error(err);
         }
@@ -96,10 +99,10 @@ console.log(response);
                     />
                 </Box>
                 <Box>
-                    <Typography>price</Typography>
+                    <Typography>initialValue</Typography>
                     <TextField
-                        name="price"
-                        value={formData.price}
+                        name="initialValue"
+                        value={formData.initialValue}
                         onChange={handleChange}
                         fullWidth
                         variant="outlined"
