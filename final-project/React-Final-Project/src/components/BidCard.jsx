@@ -2,21 +2,22 @@ import React from 'react';
 import { Card, CardContent, Typography, Box, Container, Grid } from '@mui/material';
 import CircularWithValueLabel from './CircleProgress';
 
-const AuctionCard = () => {
+const BidCard = ({auction}) => {
+    const now = Date.now();
+    const expirDate = new Date (auction.expirationDate)
+    const differenceInMs = expirDate - now;
+    const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
+    const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
     
-    const expirationDate = new Date(expirationDateString);
-const now = Date.now();
-const differenceInMs = expirationDate - now;
-
-    
+    const product = auction
     return (
-
 
         <Container sx={{ marginTop: '15px' }}>
             <Grid container spacing={3} alignItems="center">
                 <Grid item xs={12} md={6}>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                        <img src="../../public/villa.jpg" alt="Villa" style={{ maxWidth: '100%', height:'100vh' }} />
+                        <img src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`} alt="Villa" style={{ maxWidth: '100%', height:'100vh' }} />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -26,7 +27,7 @@ const differenceInMs = expirationDate - now;
                         </Typography>
                         <Card sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#fff', height: '100%', boxShadow: "0px 0px 15px 5px rgba(0, 0, 0, 0.2)" }}>
                             <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <CircularWithValueLabel hours="30" />
+                                <CircularWithValueLabel hours={+hours} minutes={+minutes} seconds={+seconds} />
                             </CardContent>
                         </Card>
                     </Box>
@@ -36,4 +37,4 @@ const differenceInMs = expirationDate - now;
     );
 };
 
-export default AuctionCard;
+export default BidCard;

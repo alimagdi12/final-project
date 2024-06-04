@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardActions, CardContent, Button, Typography, Box, CardMedia } from '@mui/material';
 
-const FlipCard = ({children}) => {
+const FlipCard = ({children , category}) => {
+  console.log(category);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -42,7 +43,7 @@ zIndex:'3',
           zIndex:'3',
           opacity: isFlipped ? 0.3 : 1,
         }}
-        image="../public/PlaceholderGlossary.svg"
+        image={`/public/${category?.folderName?.replace(/\s+/g, '-') +'/'+category?.imageUrl?.images[0] }`}
         title="green iguana"
       />
         </CardContent>

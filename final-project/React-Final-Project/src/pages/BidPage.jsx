@@ -15,39 +15,65 @@ const items = [
 ];
 
 const BidPage = () => {
+
+
+
+    const fetchHighestBidder = async () => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:3000/api/v1/auth/get-bid`,{auctionId:auction._id}, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'jwt': localStorage.getItem('token')
+                }
+            });
+
+            const data = response.data;
+           console.log(data); 
+        } catch (error) {
+            console.error('Error fetching bid:', error);
+        }
+    };
+
+
+
+
     const{id}= useParams()
-   
-    useEffect(() => {
-        const fetchBid = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:3000/api/v1/get-auction-by-id/${id}`, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'jwt': localStorage.getItem('token')
-                    }
-                });
-
-                const data = response.data;
-               
-                setAuction(response.data.auction)
-
-                const now = Date.now();
-                
-
-              const expirDate = new Date (response.data.auction.expirationDate)
-                const differenceInMs = expirDate - now;
-          
-                const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
-                const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
-          
-                
-            } catch (error) {
-                console.error('Error fetching bid:', error);
+   let hours,seconds,minutes =0
+    
+   const fetchBid = async () => {
+    try {
+        const response = await axios.get(`http://127.0.0.1:3000/api/v1/get-auction-by-id/${id}`, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'jwt': localStorage.getItem('token')
             }
-        };
+        });
 
+        const data = response.data;
+       
+        setAuction(response.data.auction)
+
+        const now = Date.now();
+        
+
+      const expirDate = new Date (response.data.auction.expirationDate)
+        const differenceInMs = expirDate - now;
+  
+        const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
+        const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+  
+        
+    } catch (error) {
+        console.error('Error fetching bid:', error);
+    }
+};
+
+   useEffect(() => {
+
+    
         fetchBid();
+fetchHighestBidder()
     }, [id]);
 
     const [highestBid, setHighestBid] = useState(2500);
@@ -64,7 +90,7 @@ const BidPage = () => {
         <div>
             <CssBaseline />
             <Container>
-                <BidCard auction={auction} onBid={handleBid} highestBid={highestBid} />
+                <BidCard auction={auction}  onBid={handleBid} highestBid={highestBid} />
 
 
                 <Typography variant="h6" mt={4}>

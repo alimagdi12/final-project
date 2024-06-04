@@ -109,12 +109,21 @@ CircularProgressWithLabel.propTypes = {
     seconds: PropTypes.number.isRequired
 };
 
-export default function AuctionCard({hoours}) {
+export default function AuctionCard({hours,minutes,seconds}) {
+
     const [progress, setProgress] = useState({
-        hours: 3,
-        minutes: 0,
-        seconds: 10
+        hours:  hours|0,
+        minutes: minutes|0,
+        seconds: seconds|0
     });
+    useEffect(()=>{
+setProgress({
+    hours:  hours|0,
+    minutes: minutes|0,
+    seconds: seconds|0
+})
+    
+},[hours])
     const [bidderName, setBidderName] = useState("Mohamed Ayman");
     const [bidAmount, setBidAmount] = useState('');
     const [highestBid, setHighestBid] = useState(2500);
