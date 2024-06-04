@@ -30,7 +30,7 @@ console.log(product)
           navigateToDetails(product._id)
         }}>
             <CardMedia
-                sx={{ height: 140 }}
+                sx={{ height: 140 }}h
                 image="../public/PlaceholderGlossary.svg"
                
             />
