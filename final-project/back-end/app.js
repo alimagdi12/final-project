@@ -15,28 +15,24 @@ const jwt = require('jsonwebtoken');
 
 const getUserIdFromToken = (socket) => {
     return new Promise((resolve, reject) => {
-        // Extract the token from the headers
         const token = socket.handshake.headers['jwt'];
         
-        // Check if the token is provided
         if (!token) {
             return reject(new Error('No token provided'));
         }
 
-        // Verify the token using a secret key
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 return reject(new Error('Failed to authenticate token'));
             }
 
-            // Resolve with the userId if token is valid
             resolve(decoded.userId);
         });
     });
 };
 const io = socket(server,{
   cors: {
-    origin: "*", // Allow all origins (adjust as needed)
+    origin: "*", 
     methods: ["GET", "POST"]
   }
 });
@@ -44,8 +40,6 @@ const io = socket(server,{
 io.on('connection', async (socket) => {
     console.log('a connection started', socket.id);
     
-    // Assume you have a way to get the userId, e.g., from a token
-    // const userId = await getUserIdFromToken(socket);
     const userId = '664778157312fd64b4f49dd1';
     if (userId) {
         await userController.handleSocketConnection(userId, socket.id);
@@ -92,6 +86,9 @@ const BidController = require('./controllers/bid/bid.controllers');
 // calling CartRepository and CartController
 const CartRepository = require('./repositories/cart/cart.repository');
 const CartController = require('./controllers/cart/cart.controllers');
+// calling CartRepository and CartController
+const PaymentRepository = require('./repositories/payment/payment.reposetory');
+const PaymentController = require('./controllers/payment/payment.controller');
 
 
 
@@ -130,6 +127,9 @@ const bidController = new BidController(bidRepository);
 // Create instances of CartRepository and CartController
 const cartRepository = new CartRepository();
 const cartController = new CartController(cartRepository);
+// Create instances of CartRepository and CartController
+const paymentRepository = new PaymentRepository();
+const paymentController = new PaymentController(paymentRepository);
 
 
 
@@ -146,14 +146,14 @@ const userRoutes = require('./routes/user/user.routes');
 const auctionRoutes = require('./routes/auction/aucttion.routes');
 const bidRoutes = require('./routes/bid/bid.routes');
 const cartRoutes = require('./routes/cart/cart.routes');
-
+const paymentRoutes = require('./routes/payment/payment.routes')
 
 // Middleware to get client's IP address
 app.use(requestIp.mw());
 app.use(express.json());
 
 // executing the routes 
-app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController)]);
+app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController)]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
 app.use('/api/v1/admin', [

@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 class ProductRepositry{
     constructor() { }
 
-    async addProduct(productData , token) {
+    async addProduct(productData , token , files) {
         try {
             const { title , imagesUrl, categoryId, quantity, location, price , productStatus } = productData;
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
@@ -18,10 +18,6 @@ class ProductRepositry{
             const user = await User.findOne({ email });
             const userId = user._id;
             const folderName = title + new Date().toISOString().split('T')[0];
-            // const category = await Category.findOne({ title: categoryName });
-            // const categoryId = category._id;
-            // const subCategory = await SubCategory.findOne({ title: SubCategoryName });
-            // const subCategoryId = subCategory._id;
             const status = await ProductStatus.findOne({ status: productStatus });
             const statusId = status._id;
             const product = new Product({
@@ -29,13 +25,17 @@ class ProductRepositry{
                 imagesUrl: { images:[] },
                 userId,
                 categoryId,
-                // subCategoryId,
                 quantity,
                 location,
                 price,
                 folderName,
                 status:statusId
             })
+            if (files && files.length > 0) {
+            files.forEach(file => {
+                product.imagesUrl.images.push(file.filename); 
+            });
+            }
             await product.save();
 
         } catch (err) {
