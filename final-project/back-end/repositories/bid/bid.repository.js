@@ -14,6 +14,7 @@ class BidRepository {
 
     async addBid(data, token) {
         const { amount, auctionId } = data;
+        console.log(amount);
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
         const auction = await Auction.findById(auctionId).populate('bidsId').exec();
