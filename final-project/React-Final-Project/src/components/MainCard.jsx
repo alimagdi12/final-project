@@ -6,12 +6,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function MainCard() {
+export default function MainCard({product}) {
+if(product?.imagesUrl){
   return (
     <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <CardMedia
         sx={{ height: 140 }}
-        image="../public/PlaceholderGlossary.svg"
+        image={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`}
         title="green iguana"
       />
       <CardContent>
@@ -34,4 +35,32 @@ export default function MainCard() {
       </CardActions>
     </Card>
   );
+}
+return (
+  <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <CardMedia
+      sx={{ height: 140 }}
+      image={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imageUrl?.images[0] }`}
+      title="green iguana"
+    />
+    <CardContent>
+      <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="body2" color="text.secondary">Lizard</Typography>
+        <Typography variant="body2" color="text.secondary">Lizard</Typography>
+      </CardActions>
+
+      <Typography gutterBottom variant="h5" component="div">Lizard</Typography>
+      <Typography variant="body2" color="text.secondary">
+        Lizards 
+      </Typography>
+
+      <Typography variant="body2" color="text.secondary">Lizard</Typography>
+      <Typography variant="body2" color="text.secondary">Lizard</Typography>
+    </CardContent>
+    <CardActions>
+      <Button size="small">Share</Button>
+      <Button size="small">Learn More</Button>
+    </CardActions>
+  </Card>
+);
 }

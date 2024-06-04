@@ -110,4 +110,3 @@ class ProductRepositry{
 
 
 module.exports = ProductRepositry;
-
