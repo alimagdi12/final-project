@@ -150,13 +150,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
          
 
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link to="/login" className='text-decoration-none h5 mx-2' >Login</Link>
-            </Box>
 
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link to="/cart" className='text-decoration-none h5 mx-2' >Cart</Link>
-            </Box>
 
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
               <Link to="/about" className='text-decoration-none h5 mx-2' >About Us</Link>
@@ -181,7 +175,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                     top: '100%',
                     left: '50%',
                     width: '1000px',
-                    transform: 'translateX(-50%)',
+                    // transform: 'translateX(-50%)',
                     background: 'white',
                     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.3)',
                     borderRadius: '5px',
@@ -201,9 +195,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               )}
             </Box>
 
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link to="/home" className='text-decoration-none h5 mx-2' >Home</Link>
-            </Box>
           </Box>
 
           <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
@@ -220,7 +211,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge badgeContent={totalItems} color="secondary">
-                    <ShoppingCartIcon />
+                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon /></Link>
+         
+                   
                   </Badge>
                 </IconButton>
               </>
