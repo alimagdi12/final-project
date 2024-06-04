@@ -20,6 +20,7 @@ import { CartContext } from '../contexts/CartContext';
 
 const pages = ['Products', 'Categories', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems } = useContext(CartContext)
@@ -34,9 +35,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
       navigate('/profile');
     }
   };
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -44,7 +47,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -67,7 +69,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           <Typography
             variant="h6"
             noWrap
-            component="a"
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -117,66 +120,66 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </MenuItem>
               ))}
             </Menu>
-
           </Box>
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Link to={'products'}>
-            <Typography
-              id="RouterNavLink"
-              variant="h5"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-          </Link>
+
+          <Typography
+            variant="h5"
+            noWrap
+            component={Link}
+            to="/products"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }} 
+          >
+            LOGO
+          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, textAlign: 'center' }}>
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link id="RouterNavLink" to={'products'} className='text-decoration-none h5 mx-2 ' >Products </Link>
+              <Link to="/products" className='text-decoration-none h5 mx-2' >Products</Link>
             </Box>
 
+         
 
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link id="RouterNavLink" to={'bid'} className='text-decoration-none h5 mx-2 ' >BidPage </Link>
-            </Box>
-
-
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link id="RouterNavLink" to={'login'} className='text-decoration-none h5 mx-2 ' >login </Link>
-            </Box>
-
-
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link id="RouterNavLink" to={'cart'} className='text-decoration-none h5 mx-2 ' >cart </Link>
+              <Link to="/login" className='text-decoration-none h5 mx-2' >Login</Link>
             </Box>
 
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link id="RouterNavLink" to={'about'} className='text-decoration-none h5 mx-2 ' >About us </Link>
+              <Link to="/cart" className='text-decoration-none h5 mx-2' >Cart</Link>
+            </Box>
+
+            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
+              <Link to="/about" className='text-decoration-none h5 mx-2' >About Us</Link>
             </Box>
 
             <Box
-              onMouseEnter={(event) => handlePageHover(event)}
+              onMouseEnter={handlePageHover}
               onMouseLeave={handlePageHoverOut}
               sx={{ my: 2, textAlign: 'center', position: 'relative' }}
             >
-              <Link id="RouterNavLink" className='text-decoration-none h5 mx-2 ' >Categories </Link>
+              <Typography
+                component={Link}
+                to="/categories"
+                className='text-decoration-none h5 mx-2'
+              >
+                Categories
+              </Typography>
               {hoveredPage && (
                 <Box
                   sx={{
                     position: 'absolute',
                     top: '100%',
-                    left: '500px',
+                    left: '50%',
                     width: '1000px',
                     transform: 'translateX(-50%)',
                     background: 'white',
@@ -188,8 +191,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   }}
                 >
                   <Box className='d-flex flex-wrap' sx={{ zIndex: '999', height: '100%' }}  >
-                    {categories && categories?.categories?.map(category => (
-                      <FlipCard key={category.title} >
+                    {categories?.categories?.map(category => (
+                      <FlipCard key={category.title}>
                         {category.title}
                       </FlipCard>
                     ))}
@@ -199,14 +202,17 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             </Box>
 
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-              <Link id="RouterNavLink" to={'Home'} className='text-decoration-none h5 mx-2 ' >Home </Link>
+              <Link to="/home" className='text-decoration-none h5 mx-2' >Home</Link>
             </Box>
           </Box>
-          <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
-            <Link id="RouterNavLink" to={'add-product'} className='text-decoration-none h4 mx-2 ' ><Button sx={{ backgroundColor: 'gray' }} variant="contained" >List</Button> </Link>
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
 
+          <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
+            <Link to="/add-product" className='text-decoration-none h4 mx-2'>
+              <Button sx={{ backgroundColor: 'gray' }} variant="contained">List</Button>
+            </Link>
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -240,7 +246,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <MenuItem onClick={handleSettingClick} textAlign="center">{setting}</MenuItem>
+                  <Typography onClick={handleSettingClick} textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
