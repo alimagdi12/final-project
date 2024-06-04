@@ -191,6 +191,7 @@ export default function AuctionCard({ hours, minutes, seconds, id }) {
           },
         }
       );
+      console.log(response);
 
       if (response.data && response.data.msg) {
         console.log(response.data.msg);

@@ -15,9 +15,9 @@ const BidCard = ({auction}) => {
 
         <Container sx={{ marginTop: '15px' }}>
             <Grid container spacing={3} alignItems="center">
-                <Grid item xs={12} md={6}>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                        <img src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`} alt="Villa" style={{ maxWidth: '100%', height:'100vh' }} />
+                <Grid  item xs={12} md={6}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-start' ,alignItems:'center' }}>
+                        <img  src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`} alt="Villa" style={{ maxWidth: '100%', height:'79vh' , marginTop:'50px' }} />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
