@@ -3,7 +3,15 @@ import { Card, CardContent, Typography, Box, Container, Grid } from '@mui/materi
 import CircularWithValueLabel from './CircleProgress';
 
 const AuctionCard = () => {
+    
+    const expirationDate = new Date(expirationDateString);
+const now = Date.now();
+const differenceInMs = expirationDate - now;
+
+    
     return (
+
+
         <Container sx={{ marginTop: '15px' }}>
             <Grid container spacing={3} alignItems="center">
                 <Grid item xs={12} md={6}>
@@ -18,7 +26,7 @@ const AuctionCard = () => {
                         </Typography>
                         <Card sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#fff', height: '100%', boxShadow: "0px 0px 15px 5px rgba(0, 0, 0, 0.2)" }}>
                             <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <CircularWithValueLabel />
+                                <CircularWithValueLabel hours="30" />
                             </CardContent>
                         </Card>
                     </Box>

@@ -109,7 +109,7 @@ CircularProgressWithLabel.propTypes = {
     seconds: PropTypes.number.isRequired
 };
 
-export default function AuctionCard() {
+export default function AuctionCard({hoours}) {
     const [progress, setProgress] = useState({
         hours: 3,
         minutes: 0,
