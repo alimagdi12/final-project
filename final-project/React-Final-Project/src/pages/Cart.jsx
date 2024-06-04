@@ -50,8 +50,11 @@ const Cart = () => {
         setDeleteItemId(null);
     };
 
+
+
+
     const navigate = useNavigate();
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalPrice = 100
     const Tax = 50;
     const totalCash = totalPrice + Tax;
 

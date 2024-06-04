@@ -69,6 +69,7 @@ export default function AllProducts() {
     setCurrentPage(1)
   }
 
+
   async function addToCart(productId) {
     const productForm = new FormData()
     productForm.append('productId', productId)
@@ -147,7 +148,9 @@ export default function AllProducts() {
           </Grid>
         </Grid>
       </Container>
-      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <Container
+        sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+      >
         <Pagination
           count={Math.ceil(displayedProducts?.length / productsPerPage)}
           page={currentPage}
@@ -156,5 +159,6 @@ export default function AllProducts() {
         />
       </Container>
     </>
-  )
+  );
 }
+
