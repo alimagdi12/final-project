@@ -26,7 +26,11 @@ class AuctionRepository {
             location,
             status:statusId
         });
-
+        if (files && files.length > 0) {
+            files.forEach(file => {
+                auction.imagesUrl.images.push(file.filename); 
+            });
+            }
         await auction.save();
         return auction;
     }
