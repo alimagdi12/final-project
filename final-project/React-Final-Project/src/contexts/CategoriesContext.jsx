@@ -12,6 +12,7 @@ export const CategoryProvider = ({ children }) => {
         throw new Error('Failed to fetch categories');
       }
       const data = await response.json();
+      
       setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);

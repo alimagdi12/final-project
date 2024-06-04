@@ -35,11 +35,12 @@ export default function ProductCard({ product, addToCart }) {
           display: 'flex',
           flexDirection: 'column',
         }}
-        onClick={() => {
-          navigateToDetails(product._id);
-        }}
+        
       >
-        <CardMedia sx={{ height: 140 }} image="../public/PlaceholderGlossary.svg" />
+        <CardMedia onClick={() => {
+          navigateToDetails(product._id);
+        }} sx={{ height: 140 }} image={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`}
+            />
 
         {product?.expirationDate && (
           <FaHammer

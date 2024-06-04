@@ -35,7 +35,7 @@ const [product,setProduct]= useState({})
             });
             const data = response.data;
           
-         console.log(data);
+      
      setProduct(data.product)
         } catch (error) {
             console.error('Error fetching bid:', error);
@@ -43,9 +43,8 @@ const [product,setProduct]= useState({})
     };
 
     fetchBid();
-    console.log(product);
+   
 }, [id]);
-console.log(product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]);
 
     const [value, setValue] = React.useState(4);
     const items = [

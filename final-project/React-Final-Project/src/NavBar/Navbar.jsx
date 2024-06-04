@@ -186,7 +186,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 >
                   <Box className='d-flex flex-wrap' sx={{ zIndex: '999', height: '100%' }}  >
                     {categories?.categories?.map(category => (
-                      <FlipCard key={category.title}>
+                      <FlipCard category={category} key={category.title}>
                         {category.title}
                       </FlipCard>
                     ))}
