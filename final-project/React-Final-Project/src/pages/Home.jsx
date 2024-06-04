@@ -9,6 +9,7 @@ import CategoryContext from '../contexts/CategoriesContext.jsx';
 function Home() {
   const {products} = useContext(ProductsContext)
   const {categories} = useContext(CategoryContext)
+  console.log(categories);
   return (
     <div className="Home">
       <Hero />
@@ -16,16 +17,16 @@ function Home() {
         <CardHeader>Home</CardHeader>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard product={products?.products[0]} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard product={products?.products[0]}/>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard  product={products?.products[0]}/>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard product={products?.products[0]}/>
           </Grid>
         </Grid>
       </Container>
@@ -33,16 +34,16 @@ function Home() {
         <CardHeader>Home</CardHeader>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard product={categories?.categories[3]}/>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard  product={categories?.categories[0]}/>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard  product={categories?.categories[1]}/>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MainCard />
+            <MainCard  product={categories?.categories[2]}/>
           </Grid>
         </Grid>
       </Container>
