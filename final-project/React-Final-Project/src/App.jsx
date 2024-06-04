@@ -45,7 +45,7 @@ function App() {
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/bid" element={<BidPage />} />
+          <Route path="/bid/:id" element={<BidPage />} />
           <Route path="/orderDone" element={<OrderDone />} />
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
@@ -55,7 +55,7 @@ function App() {
           <Route path="/products" element={<AllProducts />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/product-details" element={<ProductDetails />} />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
         </Routes>
         {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>

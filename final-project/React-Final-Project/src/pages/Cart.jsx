@@ -33,7 +33,7 @@ const Cart = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
-
+console.log(cartItems);
 
 
     const handleQuantityChange = (id, quantity) => {
@@ -56,8 +56,11 @@ const Cart = () => {
         setDeleteItemId(null);
     };
 
+
+
+
     const navigate = useNavigate();
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalPrice = 100
     const Tax = 50;
     const totalCash = totalPrice + Tax
 
@@ -80,7 +83,7 @@ const Cart = () => {
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Box sx={{ width: '65%', marginBottom: '5%' }}>
-                            {cartItems.map(item => (
+                            {cartItems?.map(item => (
                                 <Paper key={item.id} sx={{ p: 2, mt: 2, border: '2px solid #5DAA60' }}>
                                     <Grid container spacing={2} alignItems="center" sx={{ display: 'flex', justifyContent: 'space-around' }}>
                                         <Grid item xs={12} md={3}>

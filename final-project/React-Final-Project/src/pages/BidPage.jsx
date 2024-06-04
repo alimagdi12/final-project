@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CssBaseline, Container, Typography } from '@mui/material';
 import BidCard from '../components/BidCard';
 import SimilarItems from '../components/SimilarItems';
+import { useParams } from 'react-router-dom';
 
 const items = [
     { title: 'MacBook Pro MNEH3', image: '../public/villa2.jpg' },
@@ -11,6 +12,8 @@ const items = [
 ];
 
 const BidPage = () => {
+    
+    const {id} = useParams()
     const [highestBid, setHighestBid] = useState(2500);
     const [heartCount, setHeartCount] = useState(0);
 
