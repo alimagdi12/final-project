@@ -9,13 +9,11 @@ import { useNavigate } from "react-router-dom";
 export default function Auth() {
   const navigate =useNavigate()
   const handleSignUp = async () => {
-    console.log(signUpForm);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/signup",
         signUpForm
       );
-      console.log(response.data);
     } catch (error) {
       console.error("Signup failed:", error);
     }
@@ -23,14 +21,12 @@ export default function Auth() {
 
   const { setToken } = useContext(UserContext);
   const handleSignIn = async () => {
-    console.log(signInForm);
-  
+   
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/login",
         signInForm
       );
-      console.log(response.data.user.token);
       setToken(response.data.user.token);
       localStorage.setItem("token", response.data.user.token);
       navigate('/home')

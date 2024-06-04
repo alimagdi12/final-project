@@ -9,7 +9,7 @@ import CategoryContext from '../contexts/CategoriesContext.jsx';
 function Home() {
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
-console.log(categories);
+
   // Check if products and products.products are defined
   const prd = products?.products?.[0];
 

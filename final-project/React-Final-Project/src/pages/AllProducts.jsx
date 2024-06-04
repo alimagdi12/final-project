@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import ProductCard from "../../components/ProductCard";
-import ProductsContext from "../../contexts/ProductsContext";
-import CategoryContext from "../../contexts/CategoriesContext";
-import AuctionContext from "../../contexts/AuctionContext";
+import ProductCard from "../components/ProductCard";
+import ProductsContext from "../contexts/ProductsContext";
+import CategoryContext from "../contexts/CategoriesContext";
+import AuctionContext from "../contexts/AuctionContext";
 import axios from "axios";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   Pagination,
   Button,
 } from "@mui/material";
+import { CartContext } from "../contexts/CartContext";
 
 export default function AllProducts() {
   const [toggle, setToggle] = useState(true);
@@ -32,7 +33,7 @@ export default function AllProducts() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
+const{getCart}=useContext(CartContext)
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -102,7 +103,7 @@ export default function AllProducts() {
     productForm.append("productId", productId);
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
+    const response =  await axios.post(
         "http://localhost:3000/api/v1/auth/add-to-cart",
         productForm,
         {
@@ -112,6 +113,7 @@ export default function AllProducts() {
           },
         }
       );
+      getCart()
     } catch (err) {
       console.error(err);
     }

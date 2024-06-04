@@ -17,21 +17,19 @@ if(product?.imagesUrl){
       />
       <CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="body2" color="text.secondary">Lizard</Typography>
-          <Typography variant="body2" color="text.secondary">Lizard</Typography>
+          <Typography variant="body2" color="text.secondary">{product.title}</Typography>
+          <Typography variant="body2" color="text.secondary">{product.price}</Typography>
         </CardActions>
 
-        <Typography gutterBottom variant="h5" component="div">Lizard</Typography>
+        <Typography gutterBottom variant="h5" component="div">{product.title}</Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards 
+        {product.location}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary">Lizard</Typography>
-        <Typography variant="body2" color="text.secondary">Lizard</Typography>
+        <Typography variant="body2" color="text.secondary">{product.categoryId.title}</Typography>
+        <Typography variant="body2" color="text.secondary">{product.addingDate}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
   );
@@ -45,21 +43,14 @@ return (
     />
     <CardContent>
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="body2" color="text.secondary">Lizard</Typography>
-        <Typography variant="body2" color="text.secondary">Lizard</Typography>
+        <Typography variant="body2" color="text.secondary">title</Typography>
       </CardActions>
 
-      <Typography gutterBottom variant="h5" component="div">Lizard</Typography>
-      <Typography variant="body2" color="text.secondary">
-        Lizards 
-      </Typography>
+      <Typography gutterBottom variant="h5" component="div">{product.title}</Typography>
+     
 
-      <Typography variant="body2" color="text.secondary">Lizard</Typography>
-      <Typography variant="body2" color="text.secondary">Lizard</Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">Share</Button>
-      <Button size="small">Learn More</Button>
     </CardActions>
   </Card>
 );

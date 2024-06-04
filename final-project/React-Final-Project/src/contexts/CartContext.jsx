@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
                 }
             });
             setCartItems(response.data.cart);
-        console.log(token);
+   
         } catch (err) {
             console.error(err);
            alert('Failed to fetch cart items');
@@ -44,7 +44,7 @@ export const CartProvider = ({ children }) => {
     const totalItems = 0
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems }}>
+        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems , getCart }}>
             {children}
         </CartContext.Provider>
     );

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
     Container,
     Typography,
@@ -21,9 +21,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 import { CartContext } from '../contexts/CartContext';
+import axios from 'axios';
 
 const Cart = () => {
-    const { cartItems, updateCartItemQuantity, setCartItems, totalItems } = useContext(CartContext);
+    const { cartItems, updateCartItemQuantity, setCartItems, totalItems ,getCart } = useContext(CartContext);
 
     const safeTotalItems = isNaN(totalItems) ? 0 : totalItems;
 
@@ -34,13 +35,29 @@ const Cart = () => {
         updateCartItemQuantity(id, quantity);
     };
 
-    const handleDelete = id => {
-        setDeleteItemId(id);
-        setOpenDialog(true);
+    const handleDelete = async (id) => {
+         try {
+            const response = await axios.post(
+                'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
+                { cartId: id },
+                {
+                  headers: {
+                    'Content-Type': 'application/json', // Adjust content type as necessary
+                    jwt: localStorage.getItem('token'),
+                  },
+                }
+              );
+          getCart()
+            if (response.status === 200) {
+                setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+            }
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        }
     };
 
     const confirmDelete = () => {
-        setCartItems(cartItems.filter(item => item.id !== deleteItemId));
+        handleDelete(deleteItemId);
         setOpenDialog(false);
         setDeleteItemId(null);
     };
@@ -50,11 +67,14 @@ const Cart = () => {
         setDeleteItemId(null);
     };
 
+    useEffect(() => {
+        // Assume setCartItems initializes cart items, maybe from an API call or context state
+        setCartItems(cartItems);
+    }, []);
 
-
-
+   
     const navigate = useNavigate();
-    const totalPrice = 100
+    const totalPrice = 100;
     const Tax = 50;
     const totalCash = totalPrice + Tax;
 
@@ -77,13 +97,13 @@ const Cart = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
                         {cartItems.map(item => (
-                            <Paper key={item.id} sx={{ p: 2, marginBottom:'25px', border: '2px solid #5DAA60' }}>
+                            <Paper key={item.id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item xs={12} md={2}>
-                                        <Avatar variant="square" src={item.image} sx={{ width:'100%', height:'auto', borderRadius: '5px' }} />
+                                        <Avatar variant="square" src={item.image} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
                                     </Grid>
                                     <Grid item xs={12} md={8}>
-                                        <Grid container spacing={2} sx={{display:'flex', justifyContent:'flex-end', alignItems:'center'}}>
+                                        <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                                             <Grid item xs={12} md={4}>
                                                 <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.name}</Typography>
                                                 <Typography>Color - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.color}</Typography></Typography>
@@ -103,8 +123,8 @@ const Cart = () => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={6} md={2} sx={{display:'flex', justifyContent:'flex-end', alignItems:'flex-start'}}>
-                                        <IconButton sx={{ fontWeight: 'bold', fontSize: '17px', color: '#F14247' }} color="secondary" onClick={() => handleDelete(item.id)}>
+                                    <Grid item xs={6} md={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start' }}>
+                                        <IconButton sx={{ fontWeight: 'bold', fontSize: '17px', color: '#F14247' }} color="secondary" onClick={() => { setDeleteItemId(item._id); setOpenDialog(true); }}>
                                             <DeleteIcon />
                                         </IconButton>
                                     </Grid>
@@ -136,7 +156,7 @@ const Cart = () => {
                                 </Typography>
                             </Box>
                         </Box>
-                        <Button onClick={() => navigate('/placeOrder')} sx={{ backgroundColor: '#5DAA60', marginBottom: '40px', fontWeight: 'bold', width: '100%', '&:hover': { backgroundColor: '#66BB6A' } }} variant="contained" >
+                        <Button onClick={() => navigate('/placeOrder')} sx={{ backgroundColor: '#5DAA60', marginBottom: '40px', fontWeight: 'bold', width: '100%', '&:hover': { backgroundColor: '#66BB6A' } }} variant="contained">
                             Checkout
                         </Button>
                     </Grid>

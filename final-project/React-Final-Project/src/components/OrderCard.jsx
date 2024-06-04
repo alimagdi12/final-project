@@ -3,9 +3,7 @@ import { Card, CardMedia, CardContent, Typography, Button, ButtonBase, Box } fro
 
 const OrderCard = ({ order, onCancelClick }) => {
 
-    console.log(order);
-    console.log(order.image);
-    return (
+   return (
         <Card sx={{ marginLeft: '15px' }}>
             <Box sx={{ position: 'relative', padding: '5px' }}>
                 <CardMedia

@@ -36,7 +36,6 @@ export default function Profile() {
 
     const handleConfirm = (event) => {
         const { name, value } = event.target;
-        console.log('Confirmed:', userData);
         setUserData((prevData) => ({
             ...prevData, [name]: value
         }));
