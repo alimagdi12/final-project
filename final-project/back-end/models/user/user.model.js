@@ -38,7 +38,7 @@ const UserSchema = new Schema({
         }
     },
     birthDay: {
-        type: String,
+        type: Date,
         required: [
             true,
             'You must enter a birthday'
