@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const upload = require('../../middlewares/multer');  // Import middleware for file uploads
+const upload = require('../../utils/multer');  // Import middleware for file uploads
 const { getPublicIpMiddleware } = require("../../middlewares/location");  // Import middleware for getting public IP
 const geoip = require('geoip-lite');  // Import GeoIP library for IP-based geolocation
 const Email = require('../../middlewares/email');  // Import middleware for sending emails
+const validateUser  = require('../../middlewares/userValidator');
 
 const authRouter = (authController) => {
     
     // Route for user signup
-    router.post('/signup', async (req, res, next) => {
+    router.post('/signup', validateUser, async (req, res, next) => {
         try {
             body = req.body;
             files = req.files;

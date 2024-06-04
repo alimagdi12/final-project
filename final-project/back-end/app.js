@@ -7,7 +7,7 @@ const app = express();
 const requestIp = require('request-ip');
 const socket = require('socket.io');
 const cors = require('cors');
-
+const bodyParser = require("body-parser");
 const server = http.createServer(app);
 
 
@@ -151,6 +151,8 @@ const paymentRoutes = require('./routes/payment/payment.routes')
 // Middleware to get client's IP address
 app.use(requestIp.mw());
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // executing the routes 
 app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController)]);
