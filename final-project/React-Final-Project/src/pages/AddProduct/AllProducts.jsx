@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 export default function AllProducts() {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
   const { auction } = useContext(AuctionContext);
@@ -189,7 +189,9 @@ export default function AllProducts() {
           </Box>
         </Box>
 
-        <Box sx={{ width: "70%", display: "flex", flexDirection: "column" }}>
+        <Box
+          sx={{ width: "70%", display: "flex", flexDirection: "column" }}
+        >
           <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
             <Button variant="contained" onClick={() => setToggle(false)}>
               Show Products
@@ -198,19 +200,25 @@ export default function AllProducts() {
               Show Auction
             </Button>
           </Box>
-          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          <Box
+            sx={{ display: "flex", flexWrap: "wrap" }}
+          >
             {toggle
               ? auction?.map((product) => (
                   <ProductCard
                     key={product._id}
-                    addToCart={() => addToCart(product._id)}
+                    addToCart={() => {
+                      addToCart(product._id);
+                    }}
                     product={product}
                   />
                 ))
               : currentProducts?.map((product) => (
                   <ProductCard
                     key={product._id}
-                    addToCart={() => addToCart(product._id)}
+                    addToCart={() => {
+                      addToCart(product._id);
+                    }}
                     product={product}
                   />
                 ))}
