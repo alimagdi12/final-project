@@ -34,7 +34,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
       navigate('/profile');
     }
     if (event.currentTarget.textContent === 'Logout') {
-      localStorage.setItem('token','')
+      localStorage.setItem('token', '')
       navigate('/login');
     }
 
@@ -142,7 +142,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
-            }} 
+            }}
           >
             LOGO
           </Typography>
@@ -152,7 +152,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               <Link to="/products" className='text-decoration-none h5 mx-2' >Products</Link>
             </Box>
 
-         
+
 
 
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
@@ -217,9 +217,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge badgeContent={totalItems} color="secondary">
-                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems?.length|0}</Link>
-         
-                   
+                    <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems?.length | 0}</Link>
+
+
                   </Badge>
                 </IconButton>
               </>

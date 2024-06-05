@@ -25,6 +25,7 @@ const BidPage = () => {
                 }
             });
             const data = response.data;
+            console.log(data);
         } catch (error) {
             console.error('Error fetching bid:', error);
         }
