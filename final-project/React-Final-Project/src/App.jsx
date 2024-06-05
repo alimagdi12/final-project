@@ -19,6 +19,8 @@ import OrderDone from './pages/OrderDone.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
 import List from './pages/List.jsx';
 import AddAuction from './pages/AddAuction.jsx';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -42,6 +44,7 @@ function App() {
 
   return (
     <div className="App">
+       <ToastContainer />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}

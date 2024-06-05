@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,12 +21,15 @@ import { CartContext } from '../contexts/CartContext';
 const pages = ['Products', 'Categories', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
+const colors = ['#5daa60', '#ff5722', '#2196f3', '#9c27b0', '#ffeb3b'];
+
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const { categories } = useContext(CategoryContext);
-  const { totalItems, cartItems } = useContext(CartContext)
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [hoveredPage, setHoveredPage] = React.useState(null);
+  const { totalItems, cartItems } = useContext(CartContext);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [hoveredPage, setHoveredPage] = useState(null);
+  const [navbarColor, setNavbarColor] = useState('#5daa60');
   const navigate = useNavigate();
 
   const handleSettingClick = (event) => {
@@ -37,8 +40,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
       localStorage.setItem('token','')
       navigate('/login');
     }
-
-
   };
 
   const handleOpenNavMenu = (event) => {
@@ -58,15 +59,19 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   };
 
   const handlePageHover = () => {
-    setHoveredPage(true)
+    setHoveredPage(true);
   };
 
   const handlePageHoverOut = () => {
     setHoveredPage(null);
   };
 
+  const handleColorChange = (color) => {
+    setNavbarColor(color);
+  };
+
   return (
-    <AppBar position="static" sx={{ background: '#5daa60', zIndex: 9 }} >
+    <AppBar position="static" sx={{ background: navbarColor, zIndex: 9 }} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} color="gray" />
@@ -152,15 +157,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               <Link to="/products" className='text-decoration-none h5 mx-2' >Products</Link>
             </Box>
 
-         
-
-
             <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
               <Link to="/about" className='text-decoration-none h5 mx-2' >About Us</Link>
             </Box>
-
-
-
 
             <Box
               onMouseEnter={handlePageHover}
@@ -181,7 +180,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                     top: '100%',
                     left: '50%',
                     width: '1000px',
-                    // transform: 'translateX(-50%)',
                     background: 'white',
                     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.3)',
                     borderRadius: '5px',
@@ -200,7 +198,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </Box>
               )}
             </Box>
-
           </Box>
 
           <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }} >
@@ -217,9 +214,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 </IconButton>
                 <IconButton color="inherit">
                   <Badge badgeContent={totalItems} color="secondary">
-                  <Link to="/cart" className='text-decoration-none h5 mx-2' > <ShoppingCartIcon />   {cartItems?.length|0}</Link>
-         
-                   
+                    <Link to="/cart" className='text-decoration-none h5 mx-2' > 
+                      <ShoppingCartIcon /> {cartItems?.length || 0}
+                    </Link>
                   </Badge>
                 </IconButton>
               </>
@@ -251,6 +248,23 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             </Menu>
           </Box>
         </Toolbar>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+          {colors.map((color) => (
+            <Box
+              key={color}
+              sx={{
+                width: 40,
+                height: 40,
+                backgroundColor: color,
+                cursor: 'pointer',
+                borderRadius: '50%',
+                mx: 1,
+                border: color === navbarColor ? '3px solid black' : 'none',
+              }}
+              onClick={() => handleColorChange(color)}
+            />
+          ))}
+        </Box>
       </Container>
     </AppBar>
   );

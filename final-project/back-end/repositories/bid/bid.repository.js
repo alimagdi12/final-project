@@ -52,6 +52,7 @@ class BidRepository {
     }
 
     async getBid(data) {
+      console.log(data);
         const auctionId = data.auctionId;
         if (!auctionId) {
             throw new Error('You must enter a auction Id');

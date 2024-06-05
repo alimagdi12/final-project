@@ -5,6 +5,7 @@ import ScheduleListing from '../components/ScheduleListing';
 import CategoryContext from '../contexts/CategoriesContext';
 import UserContext from '../contexts/UserContext';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function AddAuction() {
     const { categories } = useContext(CategoryContext);
@@ -75,8 +76,11 @@ export default function AddAuction() {
             //     initialValue: '',
             //     userId: '6643d585dd8c6b0c1065f2b5',
             // });
+toast.success('added sucessfully')
         } catch (err) {
             console.error(err);
+            
+toast.error('failed to add auction')
         }
     };
 

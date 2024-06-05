@@ -15,19 +15,23 @@ const items = [
 ];
 
 const BidPage = () => {
-
-    const fetchHighestBidder = async () => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:3000/api/v1/auth/get-bid,{auctionId:auction._id}`, {
+    const fetchHighestBidder = async (id) => {
+       console.log(id);
+       if(id){
+       try {
+            const response = await axios.post(`http://127.0.0.1:3000/api/v1/auth/get-bid`,{auctionId:"665f58956308242d7c8b7b63"}, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                     'jwt': localStorage.getItem('token')
                 }
-            });
+            })
+            
+            console.log(response);
             const data = response.data;
         } catch (error) {
             console.error('Error fetching bid:', error);
         }
+    }
     };
 
     const { id } = useParams()
@@ -45,7 +49,9 @@ const BidPage = () => {
             const data = response.data;
 
             setAuction(response.data.auction)
-
+setTimeout(() => {
+    fetchHighestBidder(response.data.auction)
+}, 3000);
             const now = Date.now();
 
 
@@ -66,7 +72,7 @@ const BidPage = () => {
 
 
         fetchBid();
-        fetchHighestBidder()
+       
     }, [id]);
 
     const [highestBid, setHighestBid] = useState(2500);
