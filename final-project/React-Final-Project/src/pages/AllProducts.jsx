@@ -18,7 +18,7 @@ import {
 import { CartContext } from "../contexts/CartContext";
 
 export default function AllProducts() {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
   const { auction } = useContext(AuctionContext);

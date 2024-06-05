@@ -21,6 +21,7 @@ import List from './pages/List.jsx';
 import AddAuction from './pages/AddAuction.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ColorPicker from './components/ColorPicker.jsx';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
     <div className="App">
        <ToastContainer />
       <ThemeProvider theme={theme}>
+       <ColorPicker/>
         <CssBaseline />
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>

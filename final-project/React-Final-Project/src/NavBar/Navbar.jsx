@@ -17,11 +17,11 @@ import CategoryContext from '../contexts/CategoriesContext';
 import { Link, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { CartContext } from '../contexts/CartContext';
+import ColorContext from '../contexts/ColorContext';
 
 const pages = ['Products', 'Categories', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const colors = ['#5daa60', '#ff5722', '#2196f3', '#9c27b0', '#ffeb3b'];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const { categories } = useContext(CategoryContext);
@@ -29,15 +29,15 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [hoveredPage, setHoveredPage] = useState(null);
-  const [navbarColor, setNavbarColor] = useState('#5daa60');
   const navigate = useNavigate();
+const {color} = useContext(ColorContext)
 
   const handleSettingClick = (event) => {
     if (event.currentTarget.textContent === 'Profile') {
       navigate('/profile');
     }
     if (event.currentTarget.textContent === 'Logout') {
-      localStorage.setItem('token','')
+      localStorage.setItem('token', '')
       navigate('/login');
     }
   };
@@ -66,12 +66,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     setHoveredPage(null);
   };
 
-  const handleColorChange = (color) => {
-    setNavbarColor(color);
-  };
 
   return (
-    <AppBar position="static" sx={{ background: navbarColor, zIndex: 9 }} >
+    <AppBar position="static" sx={{ background: color, zIndex: 9 }} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} color="gray" />
@@ -147,7 +144,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
-            }} 
+            }}
           >
             LOGO
           </Typography>
@@ -248,23 +245,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             </Menu>
           </Box>
         </Toolbar>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          {colors.map((color) => (
-            <Box
-              key={color}
-              sx={{
-                width: 40,
-                height: 40,
-                backgroundColor: color,
-                cursor: 'pointer',
-                borderRadius: '50%',
-                mx: 1,
-                border: color === navbarColor ? '3px solid black' : 'none',
-              }}
-              onClick={() => handleColorChange(color)}
-            />
-          ))}
-        </Box>
+    
       </Container>
     </AppBar>
   );

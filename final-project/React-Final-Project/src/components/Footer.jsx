@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Container,
@@ -9,12 +9,14 @@ import {
 } from "@mui/material";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import ColorContext from "../contexts/ColorContext";
 
 const Footer = () => {
+  const {color} = useContext(ColorContext)
   return (
     <Box
       sx={{
-        backgroundColor: "#5DAA60",
+        backgroundColor: color,
         padding: "30px",
         color: "white",
         position: "absolute",

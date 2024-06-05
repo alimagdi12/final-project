@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardActions, CardContent, Box, CardMedia } from '@mui/material';
 
-const AboutCard = ({ children }) => {
+const AboutCard = ({ img, name, children }) => {
 
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -37,16 +37,15 @@ const AboutCard = ({ children }) => {
         <CardContent>
           <CardMedia
             sx={{
-              height: 140,
+              height: 370,
               zIndex: '3',
               opacity: showOverlay ? 0.3 : 1,
             }}
-            image="../public/PlaceholderGlossary.svg"
-            title="green iguana"
+            image={img}
+            title={name}
           />
         </CardContent>
-        <CardActions>
-        </CardActions>
+
         {showOverlay && (
           <Box
             sx={{
