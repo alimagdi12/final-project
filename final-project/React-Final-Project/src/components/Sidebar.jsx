@@ -4,19 +4,22 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import PaymentsIcon from '@mui/icons-material/Payments';
+import { useContext } from "react";
+import ColorContext from "../contexts/ColorContext";
 
 function Sidebar({ drawerWidth, handleListItemClick, selectedIndex }) {
+    const {color} =useContext(ColorContext)
     return (
-        <div style={{ display: 'flex', marginTop: '5%', zIndex: '' }}>
-            <Box sx={{ display: 'flex' }}>
+        <div style={{ display: 'flex', marginTop: '5%', width:'100%' }}>
+            <Box sx={{ display: 'flex', width:'100%', gap:'20px' }}>
 
                 {/* Sidebar-Section */}
                 <Drawer
                     variant="permanent"
                     sx={{
-                        width: drawerWidth,
+                        width: '100%',
                         '& .MuiDrawer-paper': {
-                            width: drawerWidth, bgcolor: '#5daa60', border: 'none', color: '#FFFFFF', height: '600px', borderRadius: '10px', position: 'unset'
+                            width: '100%', backgroundColor: color, border: 'none', color: '#FFFFFF', height: '600px', borderRadius: '10px', position: 'unset'
                         },
                     }}
                 >
@@ -27,7 +30,7 @@ function Sidebar({ drawerWidth, handleListItemClick, selectedIndex }) {
 
                     <Box>
                         <List>
-                            {['Profile Info', 'Orders', 'Addresses', 'Payments'].map((text, index) => (
+                            {['Profile Info', 'Orders', 'Addresses'].map((text, index) => (
                                 <ListItem
                                     key={text}
                                     disablePadding
@@ -40,7 +43,7 @@ function Sidebar({ drawerWidth, handleListItemClick, selectedIndex }) {
                                             {index === 0 ? <AccountCircleIcon /> : ""}
                                             {index === 1 ? <FactCheckIcon /> : ""}
                                             {index === 2 ? <MapsHomeWorkIcon /> : ""}
-                                            {index === 3 ? <PaymentsIcon /> : ""}
+                                            {/* {index === 3 ? <PaymentsIcon /> : ""} */}
                                         </ListItemIcon>
                                         <ListItemText primary={text} />
                                     </ListItemButton>

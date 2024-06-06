@@ -14,7 +14,7 @@ function ProfileInfo({ handleOpen, handleClose, handleChange, handleConfirm, use
                                 <ProfileAvatar />
 
                                 {/* Profile-Info */}
-                                <ProfileInfo1 userData={userData} handleOpen={handleOpen} />
+                                <ProfileInfo1  handleOpen={handleOpen} />
                             </Container>
                         </>
                     )
@@ -49,7 +49,7 @@ function ProfileInfo({ handleOpen, handleClose, handleChange, handleConfirm, use
                                 </DialogContent>
                                 <DialogActions>
                                     <Button onClick={handleClose}>Cancel</Button>
-                                    <Button onClick={handleConfirm}>Confirm</Button>
+                                    <Button  onClick={handleConfirm}>Confirm</Button>
                                 </DialogActions>
                             </Dialog>
                         </div>

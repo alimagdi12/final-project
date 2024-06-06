@@ -3,7 +3,7 @@ import ProfileInfo from './ProfileInfo';
 import Sidebar from '../components/Sidebar';
 import Orders from './Orders';
 import Payment from './Payment';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import Address from './Address';
 
 
@@ -16,7 +16,7 @@ export default function Profile() {
     const [userData, setUserData] = useState({
         name: '',
         email: '',
-        gender:'male'
+        gender: 'male'
     });
 
     const handleOpen = () => {
@@ -48,50 +48,28 @@ export default function Profile() {
 
 
     return (
-        <Box sx={{ width: selectedIndex === 1 ? '72%' : 'auto', display: 'flex' }}>
-            <Sidebar drawerWidth={drawerWidth} handleListItemClick={handleListItemClick} selectedIndex={selectedIndex} />
-            {
-                selectedIndex === 0 && (
-                    <div style={{width:'100%'}}>
-                        <ProfileInfo
-                            handleOpen={handleOpen}
-                            handleClose={handleClose}
-                            handleChange={handleChange}
-                            handleConfirm={handleConfirm}
-                            userData={userData}
-                            open={open}
-                            selectedIndex={selectedIndex}
-                        />
-                    </div>
-                )
-            }
-            
-            {/* Order-Section */}
-            {
-                selectedIndex === 1 && (
-                    <div style={{width:'100%'}}>
-                        <Orders />
-                    </div>
-                )
-            }
+        <Grid container xs={12} md={12}  sm={12}>
+            {/* Sidebar */}
+            <Grid item xs={12} md={3}>
+                <Sidebar drawerWidth={drawerWidth} handleListItemClick={handleListItemClick} selectedIndex={selectedIndex} />
+            </Grid>
 
-            {/* Address-Section */}
-            {
-                selectedIndex === 2 && (
-                    <Box sx={{width:'100%' }}>
-                        <Address />
-                    </Box>
-                )
-            }
-
-            {/* Payment-Section */}
-            {
-                selectedIndex === 3 && (
-                    <Box sx={{ marginLeft:'2%', width:'50%'}}>
-                        <Payment />
-                    </Box>
-                )
-            }
-        </Box>
+            {/* Main Content */}
+            <Grid item xs={12} md={9}>
+                {selectedIndex === 0 && (
+                    <ProfileInfo
+                        handleOpen={handleOpen}
+                        handleClose={handleClose}
+                        handleChange={handleChange}
+                        handleConfirm={handleConfirm}
+                        userData={userData}
+                        selectedIndex={selectedIndex}
+                    />
+                )}
+                {selectedIndex === 1 && <Orders />}
+                {selectedIndex === 2 && <Address />}
+                {/* {selectedIndex === 3 && <Payment />} */}
+            </Grid>
+        </Grid>
     );
 }

@@ -5,7 +5,7 @@ const OrderCard = ({ order, onCancelClick }) => {
 
    return (
         <Card sx={{ marginLeft: '15px' }}>
-            <Box sx={{ position: 'relative', padding: '5px' }}>
+            <Box sx={{ padding: '5px' }}>
                 <CardMedia
                     component="img"
                     height="250px"

@@ -103,22 +103,26 @@ export default function AllProducts() {
     <>
       <Container
         sx={{
-          display: "flex",
-          marginTop: "20px",
-          justifyContent: "space-between",
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' }, // Flex direction changes based on screen size
+          marginTop: '20px',
+          justifyContent: 'space-between',
         }}
       >
         <Box
           sx={{
-            width: "25%",
-            height: "82vh",
-            border: "3px solid #76a85f",
-            borderRadius: "10px",
-            padding: "10px",
-            color: "#76a85f",
+            width: { xs: '100%', md: '25%' }, // Adjust width for smaller screens
+            height: '82vh',
+            border: '3px solid #76a85f',
+            borderRadius: '10px',
+            padding: '10px',
+            color: '#76a85f',
+            marginBottom: { xs: '20px', md: 0 }, // Add bottom margin for smaller screens
           }}
         >
-          <Box sx={{ width: "75%", margin: "auto", marginTop: 2 }}>
+          {/* Categories and City filters */}
+          <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
+            {/* Categories filter */}
             <FormControl>
               <FormLabel id="demo-radio-buttons-group-label">
                 Categories
@@ -129,7 +133,11 @@ export default function AllProducts() {
                 name="radio-buttons-group"
                 onChange={filterByCategory}
               >
-                <FormControlLabel value="All" control={<Radio />} label="All" />
+                <FormControlLabel
+                  value="All"
+                  control={<Radio />}
+                  label="All"
+                />
                 {categories?.categories?.map((category) => (
                   <FormControlLabel
                     key={category?.title}
@@ -141,7 +149,8 @@ export default function AllProducts() {
               </RadioGroup>
             </FormControl>
           </Box>
-          <Box sx={{ width: "75%", margin: "auto", marginTop: 2 }}>
+          <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
+            {/* City filter */}
             <FormControl>
               <FormLabel id="demo-radio-buttons-group-label">City</FormLabel>
               <RadioGroup
@@ -150,7 +159,11 @@ export default function AllProducts() {
                 name="radio-buttons-group"
                 onChange={filterByLocation}
               >
-                <FormControlLabel value="All" control={<Radio />} label="All" />
+                <FormControlLabel
+                  value="All"
+                  control={<Radio />}
+                  label="All"
+                />
                 <FormControlLabel
                   value="portsaid"
                   control={<Radio />}
@@ -171,14 +184,23 @@ export default function AllProducts() {
           </Box>
         </Box>
 
-        <Box sx={{ width: "70%", display: "flex", flexDirection: "column" }}>
+        <Box
+          sx={{
+            width: { xs: '100%', md: '70%' }, // Adjust width for smaller screens
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {/* Buttons and Product Cards */}
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
+              display: 'flex',
+              justifyContent: 'space-between',
               marginBottom: 2,
+              marginTop: { xs: 2, md: 0 }, // Add top margin for smaller screens
             }}
           >
+            {/* Show Products and Show Auction buttons */}
             <Button variant="contained" onClick={() => setToggle(false)}>
               Show Products
             </Button>
@@ -186,35 +208,34 @@ export default function AllProducts() {
               Show Auction
             </Button>
           </Box>
-          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-          {toggle
-  ? auction?.map((product) => (
-      <ProductCard
-        key={product._id}
-        addToCart={() => {
-          addToCart(product._id);
-          getCart();
-        }}
-        product={product}
-      />
-    ))
-  : currentProducts?.map((product) => (
-      <ProductCard
-        key={product._id}
-        addToCart={() => {
-          addToCart(product._id);
-          getCart();
-        }}
-        product={product}
-      />
-    ))}
-
+          {/* Product Cards */}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {/* Product Cards */}
+            {toggle
+              ? auction?.map((product) => (
+                  <ProductCard
+                    key={product._id}
+                    addToCart={() => {
+                      addToCart(product._id);
+                      getCart();
+                    }}
+                    product={product}
+                  />
+                ))
+              : currentProducts?.map((product) => (
+                  <ProductCard
+                    key={product._id}
+                    addToCart={() => {
+                      addToCart(product._id);
+                      getCart();
+                    }}
+                    product={product}
+                  />
+                ))}
           </Box>
         </Box>
       </Container>
-      <Container
-        sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-      >
+      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
         <Pagination
           count={Math.ceil(displayedProducts?.length / productsPerPage)}
           page={currentPage}

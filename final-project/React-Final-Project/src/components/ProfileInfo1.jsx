@@ -1,17 +1,64 @@
-import { Box, Grid, TextField, Typography } from '@mui/material'
-import React from 'react'
-import GreenButton from './StyedButton'
+import React, { useContext, useState } from 'react';
+import { Box, Grid, TextField, Typography } from '@mui/material';
+import GreenButton from './StyedButton';
 import ManIcon from '@mui/icons-material/Man';
 import Woman2Icon from '@mui/icons-material/Woman2';
+import UserContext from '../contexts/UserContext';
+import UpdateProfilePopup from './UpdateProfilePopup';
 
-const ProfileInfo1 = ({ handleOpen, userData }) => {
+const ProfileInfo1 = () => {
+    const { userData, setUserData } = useContext(UserContext);
+    const [updatedProfile, setUpdatedProfile] = useState({
+        email: userData.result?.email || '',
+        firstName: userData.result?.firstName || '',
+        lastName: userData?.result?.lastName || '',
+        phoneNumber: userData?.result?.phoneNumber || '',
+        birthDay: userData?.result?.birthDay || '',
+    });
+    const [openPopup, setOpenPopup] = useState(false);
+    const handleOpen = () => {
+        setOpenPopup(true);
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        console.log('handleChange triggered:', name, value);
+        setUpdatedProfile((prevProfile) => ({
+            ...prevProfile,
+            [name]: value,
+        }));
+        console.log('Updated Profile:', updatedProfile);
+    };
+
+    const handleProfileUpdate = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/v1/auth/edit-user', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'jwt': localStorage.getItem('token')
+                },
+                body: JSON.stringify(updatedProfile),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUserData(data);
+                setOpenPopup(false); // Close the popup after updating the profile
+            } else {
+                console.error('Failed to update profile');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+        }
+    };
+
+
+
+
+
     return (
-        <Box
-            component="main"
-            sx={{
-                marginTop: '30px'
-            }}
-        >
+        <Box component="main" sx={{ marginTop: '30px' }}>
             <Box bgcolor={'#F4F4F4'} sx={{ boxShadow: '2', padding: '20px' }}>
                 <Typography
                     variant="h4"
@@ -32,8 +79,7 @@ const ProfileInfo1 = ({ handleOpen, userData }) => {
                         <TextField
                             id="email"
                             label="Email"
-                            placeholder='oh.22697@gmail.com'
-                            value={userData.email}
+                            value={updatedProfile.email}
                             variant="outlined"
                             InputLabelProps={{ style: { color: "#5daa60" } }}
                             sx={{
@@ -47,7 +93,7 @@ const ProfileInfo1 = ({ handleOpen, userData }) => {
                             id="firstName"
                             label="First Name"
                             placeholder='Omar'
-                            value={userData.firstName}
+                            value={updatedProfile.firstName}
                             variant="outlined"
                             InputLabelProps={{ style: { color: "#5daa60" } }}
                             sx={{
@@ -60,6 +106,7 @@ const ProfileInfo1 = ({ handleOpen, userData }) => {
                         <TextField
                             id="lastName"
                             label="Last Name"
+                            value={updatedProfile.lastName}
                             placeholder='Hassan'
                             variant="outlined"
                             InputLabelProps={{ style: { color: "#5daa60" } }}
@@ -78,6 +125,7 @@ const ProfileInfo1 = ({ handleOpen, userData }) => {
                             id="phoneNumber"
                             label="Phone Number"
                             placeholder='+201066035716'
+                            value={updatedProfile.phoneNumber}
                             variant="outlined"
                             InputLabelProps={{ style: { color: "#5daa60" } }}
                             sx={{
@@ -91,6 +139,7 @@ const ProfileInfo1 = ({ handleOpen, userData }) => {
                             id="birthday"
                             label="Birthday"
                             placeholder='06|22|1997'
+                            value={updatedProfile.birthDay}
                             variant="outlined"
                             InputLabelProps={{ style: { color: "#5daa60" } }}
                             sx={{
@@ -114,14 +163,26 @@ const ProfileInfo1 = ({ handleOpen, userData }) => {
                 {/* Update Profile */}
                 <Grid container spacing={2} marginBottom={5}>
                     <Grid item xs={12}>
-                        <GreenButton onClick={handleOpen} variant="contained" sx={{ backgroundColor: '#5daa60', color: '#fff', '&:hover': { color: '#5daa60', backgroundColor: '#fff', border: '2px solid #5daa60' }, width: '100%', height: '45px' }}>
+                        <button onClick={handleOpen} >
                             Update Profile
-                        </GreenButton>
+                        </button>
                     </Grid>
                 </Grid>
             </Box>
-        </Box>
-    )
-}
 
-export default ProfileInfo1
+            {/* Update Profile Popup */}
+            {
+                openPopup &&
+                <UpdateProfilePopup
+                    handleProfileUpdate={handleProfileUpdate}
+                    updatedProfile={updatedProfile}
+                    setUpdatedProfile={setUpdatedProfile}
+                    handleChange={handleChange}
+                    setOpen={setOpenPopup}
+                    open={openPopup}
+                />}
+        </Box>
+    );
+};
+
+export default ProfileInfo1;

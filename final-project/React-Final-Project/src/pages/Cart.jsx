@@ -91,7 +91,7 @@ const Cart = () => {
 
 
     const navigate = useNavigate();
-    const totalPrice = cartItems?.reduce((acc, curr) => (acc + curr.productId.price)*curr.quantity, 0);
+    const totalPrice = cartItems?.reduce((acc, curr) => (acc + curr.productId?.price)*curr.quantity, 0);
     const Tax = 50;
     const totalCash = totalPrice + Tax;
 
@@ -114,26 +114,26 @@ const Cart = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
                         {cartItems?.map(item => (
-                            <Paper key={item.productId._id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
+                            <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item xs={12} md={2}>
-                                        <Avatar variant="square" src={`../../public/${item.productId.folderName}/${item.productId.imagesUrl.images[0]}`} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
+                                        <Avatar variant="square" src={`../../public/${item.productId?.folderName}/${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                                             <Grid item xs={12} md={4}>
-                                                <Typography>Title - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId.title}</Typography></Typography>
-                                                <Typography>City - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId.location}</Typography></Typography>
+                                                <Typography>Title - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId?.title}</Typography></Typography>
+                                                <Typography>City - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId?.location}</Typography></Typography>
                                                 {/* <Typography>Size - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.size}</Typography></Typography> */}
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId.price} EGP</Typography>
+                                                <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId?.price} EGP</Typography>
                                             </Grid>
                                             <Grid item xs={12} md={4}>
                                                 <TextField
                                                     type="number"
                                                     value={item.quantity}
-                                                    onChange={(e) => handleQuantityChange(item.productId._id, parseInt(e.target.value, 10))}
+                                                    onChange={(e) => handleQuantityChange(item.productId?._id, parseInt(e.target.value, 10))}
                                                     inputProps={{ min: 1 }}
                                                     fullWidth
                                                 />
