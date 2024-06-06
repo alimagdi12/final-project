@@ -12,15 +12,10 @@ function Home() {
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
 
-  useEffect(() => {
-    toast.success("Success Notification!", {
-      position: toast.POSITION?.TOP_RIGHT
-    });
-  }, []);
-
   const prd = products?.products?.[0];
 
   if (!products || !products.products || !categories.categories) {
+
     return (
       <Container>
         <CircularProgress />

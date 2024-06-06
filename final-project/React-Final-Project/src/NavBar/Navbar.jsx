@@ -1,33 +1,30 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/jsx-key */
-import React, { useContext, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Badge, Button, Switch } from '@mui/material';
-import FlipCard from '../components/FlipCard';
-import CategoryContext from '../contexts/CategoriesContext';
-import { Link, useNavigate } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { CartContext } from '../contexts/CartContext';
-import ColorContext from '../contexts/ColorContext';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { LoveContext } from "../contexts/LoveContext";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import React, { useContext, useEffect, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Badge, Switch } from "@mui/material";
+import FlipCard from "../components/FlipCard";
+import CategoryContext from "../contexts/CategoriesContext";
+import { Link, useNavigate } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { CartContext } from "../contexts/CartContext";
+import ColorContext from "../contexts/ColorContext";
+import UserContext from "../contexts/UserContext";
+import { toast } from "react-toastify";
 
-const pages = ['Products', 'Categories', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Products", "Categories", "Blog"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
-  const { love } = useContext(LoveContext);
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems } = useContext(CartContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -35,19 +32,28 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const [hoveredPage, setHoveredPage] = useState(null);
   const navigate = useNavigate();
   const { color } = useContext(ColorContext);
-
-  const handleSettingClick = (event) => {
-    if (event.currentTarget.textContent === 'Profile') {
-      navigate('/profile');
-    }
-    if (event.currentTarget.textContent === 'Dashboard') {
-      navigate('/dashboard');
-    }
-    if (event.currentTarget.textContent === 'Logout') {
-      localStorage.setItem('token', '');
-      navigate('/login');
+  const { token } = useContext(UserContext);
+  const handleProfileClick = () => {
+    if (token !== "" || token) {
+      console.log(token);
+      navigate("/profile");
+    } else {
+      toast.error("You muse login first");
     }
   };
+
+
+
+  const handleLogOutClick = () => {
+  localStorage.setItem('token','')
+    console.log(token);
+      navigate("/login");
+  };
+
+
+  useEffect(() => {
+    console.log(token);
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -158,13 +164,23 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             LOGO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, textAlign: 'center' }}>
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }}>
-              <Link to="/products" className='text-decoration-none h6 mx-2'>Products</Link>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              textAlign: "center",
+            }}
+          >
+            <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
+              <Link to="/products" className="text-decoration-none h5 mx-2">
+                Products
+              </Link>
             </Box>
 
-            <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }}>
-              <Link to="/about" className='text-decoration-none h6 mx-2'>About Us</Link>
+            <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
+              <Link to="/about" className="text-decoration-none h5 mx-2">
+                About Us
+              </Link>
             </Box>
 
             <Box
@@ -174,7 +190,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             >
               <Typography
                 component={Link}
-                className='text-decoration-none h5 mx-2'
+                className="text-decoration-none h5 mx-2"
               >
                 Categories
               </Typography>
@@ -193,10 +209,13 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                     zIndex: 3,
                   }}
                 >
-                  <Box className='d-flex flex-wrap' sx={{ zIndex: '999', height: '100%' }}>
-                    {categories?.categories?.map(category => (
-                      <Link to={`/products/${category._id}`} key={category._id}>
-                        <FlipCard category={category}>
+                  <Box
+                    className="d-flex flex-wrap"
+                    sx={{ zIndex: "999", height: "100%" }}
+                  >
+                    {categories?.categories?.map((category) => (
+                      <Link to={`/products/${category._id}`}>
+                        <FlipCard category={category} key={category.title}>
                           {category.title}
                         </FlipCard>
                       </Link>
@@ -206,37 +225,48 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               )}
             </Box>
           </Box>
-
-          <IconButton color="inherit">
-            <Badge badgeContent={love} color="secondary">
-              <FavoriteIcon sx={{ cursor: 'pointer' }} />
-            </Badge>
-          </IconButton>
-
-          <Box sx={{ my: 2, textAlign: 'center', position: 'relative' }}>
-            <Link to="/sell" className='text-decoration-none h6 mx-2'>
-              <Button sx={{
-                backgroundColor: 'white', color: color, fontWeight: 'bold',
-                '&:hover': { outline: '2px solid white', backgroundColor: color, color: 'white' }
-              }} variant="contained">List</Button>
-            </Link>
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, fontSize: 40, color: 'white' }} />
-                </IconButton>
-                <IconButton color="inherit">
-                  <Badge badgeContent={totalItems} color="secondary">
-                    <Link to="/cart" className='text-decoration-none h5 mx-2'>
-                      <ShoppingCartIcon /> {cartItems?.length || 0}
-                    </Link>
-                  </Badge>
-                </IconButton>
-              </>
-            </Tooltip>
+          {!token && (
+            <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
+              <Link to="/login" className="text-decoration-none h4 mx-2">
+                <Button sx={{ backgroundColor: "#fff" , color:color }} variant="contained">
+                  Log In
+                </Button>
+              </Link>
+            </Box>
+          )}
+          {token && (
+            <>
+              <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
+                <Link to="/sell" className="text-decoration-none h4 mx-2">
+                  <Button sx={{ backgroundColor: "gray" }} variant="contained">
+                    List
+                  </Button>
+                </Link>
+              </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <>
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <AdbIcon
+                        sx={{
+                          display: { xs: "none", md: "flex" },
+                          mr: 1,
+                          fontSize: 40,
+                        }}
+                      />
+                    </IconButton>
+                    <IconButton color="inherit">
+                      <Badge badgeContent={totalItems} color="secondary">
+                        <Link
+                          to="/cart"
+                          className="text-decoration-none h5 mx-2"
+                        >
+                          <ShoppingCartIcon /> {cartItems?.length || 0}
+                        </Link>
+                      </Badge>
+                    </IconButton>
+                  </>
+                </Tooltip>
 
                 <Switch checked={darkMode} onChange={toggleDarkMode} />
 
@@ -261,10 +291,15 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                       Profile
                     </Typography>
                   </MenuItem>
+                  
+                  <MenuItem key={"1"} onClick={handleCloseUserMenu}>
+                    <Typography onClick={handleLogOutClick} textAlign="center">
+                      logout
+                    </Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
         </Toolbar>
-
       </Container>
     </AppBar>
           )}

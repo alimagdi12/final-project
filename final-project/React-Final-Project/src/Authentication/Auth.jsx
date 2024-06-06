@@ -6,7 +6,8 @@ import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ColorContext from "../contexts/ColorContext";
-
+import { toast } from "react-toastify";
+import { lighten, rgba } from 'polished';
 export default function Auth() {
 
 // const {user,setUser}= useContext(UserContext)
@@ -43,8 +44,10 @@ export default function Auth() {
       if (response.data && response?.data?.user && response?.data?.user?.token) {
         setToken(response.data.user.token);
         localStorage.setItem("token", response.data.user.token);
+        toast.success('logged sucessfully')
         navigate('/home');
       } else {
+        toast.error('log in failed')
         console.error("Token not found in response:", response);
       }
     } catch (error) {
@@ -165,12 +168,33 @@ export default function Auth() {
       setFade(false);
     }, 300);
   };
-
+  const colorWithOpacity = lighten(0.2, color);
+  const colorLighten = lighten(0.4, color);
   return (
     <Box className="container d-flex align-items-center text-center">
       <Box
         className={`clipped-element ${moveToRegister ? "move-bottom" : ""}`}
-      ></Box>
+      >
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 270">
+    <defs>
+      <style>
+        {`
+          .cls-1{fill:${colorWithOpacity};}
+          .cls-2{fill:${color};}
+        `}
+      </style>
+    </defs>
+    <title>Asset 2</title>
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="visual">
+        <path className="cls-1" d="M0,0C27.9,22.3,55.8,44.5,89.2,54.7s72.2,8.4,101,25.1,47.6,52.1,59.2,86.9,16.1,69,20.6,103.3H0Z"/>
+        <path className="cls-2" d="M0,135c13.9,11.1,27.9,22.3,44.6,27.4s36.1,4.1,50.5,12.5,23.8,26,29.6,43.4,8.1,34.6,10.3,51.7H0Z"/>
+      </g>
+    </g>
+  </svg>
+        
+      </Box>
 
       {/* registeration Box */}
       <Grid
@@ -200,7 +224,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
         "& .MuiInput-underline:after": {
           borderBottomColor: "rgb(150, 187, 124)",
           color: "rgb(150, 187, 124)",
@@ -211,7 +235,7 @@ export default function Auth() {
           },
         },
       }}
-      InputLabelProps={{ style: { color: "#79987a" } }}
+      InputLabelProps={{ style: { color: color } }}
       label="First Name"
       name="firstName"
       value={signUpForm.firstName}
@@ -223,7 +247,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
         "& .MuiInput-underline:after": {
           borderBottomColor: "rgb(150, 187, 124)",
           color: "rgb(150, 187, 124)",
@@ -234,7 +258,7 @@ export default function Auth() {
           },
         },
       }}
-      InputLabelProps={{ style: { color: "#79987a" } }}
+      InputLabelProps={{ style: { color: color } }}
       label="Last Name"
       name="lastName"
       value={signUpForm.lastName}
@@ -249,7 +273,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
         "& .MuiInput-underline:after": {
           borderBottomColor: "rgb(150, 187, 124)",
           color: "rgb(150, 187, 124)",
@@ -260,7 +284,7 @@ export default function Auth() {
           },
         },
       }}
-      InputLabelProps={{ style: { color: "#79987a" } }}
+      InputLabelProps={{ style: { color: color } }}
       label="Email"
       name="email"
       value={signUpForm.email}
@@ -272,7 +296,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
       }}
       label="Phone Number"
       name="phoneNumber"
@@ -285,7 +309,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
       }}
       label="Password"
       name="password"
@@ -299,7 +323,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
       }}
       label="Confirm Password"
       name="confirmPassword"
@@ -313,7 +337,7 @@ export default function Auth() {
       sx={{
         width: "100%",
         marginBottom: "16px",
-        backgroundColor: "rgba(0, 255, 0, 0.1)",
+        backgroundColor:colorLighten,
       }}
       label="Birthday"
       name="birthDay"
@@ -322,7 +346,7 @@ export default function Auth() {
       onChange={handleSignUpInputChange}
       InputLabelProps={{
         shrink: true,
-        style: { color: "#79987a" },
+        style: { color: color },
       }}
     />
   </Grid>
@@ -330,11 +354,11 @@ export default function Auth() {
     <Button
       variant="contained"
       sx={{
-        backgroundColor: "#76a85f",
+        backgroundColor:color,
         "&:hover": {
           backgroundColor: "#fff",
-          color: "#76a85f",
-          outline: "2px solid #76a85f",
+          color: color,
+          outline: `"2px solid ${color}"`,
         },
       }}
       onClick={handleSignUp}
@@ -352,7 +376,7 @@ export default function Auth() {
       <Typography
         marginX={1}
         sx={{
-          color: "#76a85f",
+          color: color,
           "&:hover": { cursor: "pointer", textDecoration: "underline" },
         }}
         onClick={handleToLogin}
@@ -387,7 +411,7 @@ export default function Auth() {
             sx={{
               width: "100%",
               marginBottom: "16px",
-              backgroundColor: "rgba(0, 255, 0, 0.1)",
+              backgroundColor:colorLighten,
             }}
             label="Email"
             name="email"
@@ -398,7 +422,7 @@ export default function Auth() {
             sx={{
               width: "100%",
               marginBottom: "16px",
-              backgroundColor: "rgba(0, 255, 0, 0.1)",
+              backgroundColor:colorLighten,
             }}
             label="password"
             name="password"
@@ -406,7 +430,7 @@ export default function Auth() {
             onChange={handleSignInInputChange}
           />
           <Typography
-            sx={{ color: "#76a85f", textAlign: "end" }}
+            sx={{ color: color, textAlign: "end" }}
             onClick={handleToForget}
           >
             forget Password?{" "}
@@ -415,11 +439,11 @@ export default function Auth() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#76a85f",
+            backgroundColor: color,
             "&:hover": {
               backgroundColor: "#fff",
-              color: "#76a85f",
-              outline: "2px solid #76a85f",
+              color: color,
+              outline: `"2px solid ${color}"`,
             },
           }}
           onClick={handleSignIn}
@@ -435,7 +459,7 @@ export default function Auth() {
           <Typography
             marginX={1}
             sx={{
-              color: "#76a85f",
+              color: color,
               "&:hover": { cursor: "pointer", textDecoration: "underline" },
             }}
             onClick={handleToRegister}
@@ -471,7 +495,7 @@ export default function Auth() {
             sx={{
               width: "100%",
               marginBottom: "16px",
-              backgroundColor: "rgba(0, 255, 0, 0.1)",
+              backgroundColor:colorLighten,
             }}
             label="password"
             name="password"
@@ -480,7 +504,7 @@ export default function Auth() {
           />
           <Typography
             sx={{
-              color: "#76a85f",
+              color: color,
               textAlign: "end",
               display: "flex",
               justifyContent: "flex-start",
@@ -493,11 +517,11 @@ export default function Auth() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#76a85f",
+            backgroundColor: color,
             "&:hover": {
               backgroundColor: "#fff",
-              color: "#76a85f",
-              outline: "2px solid #76a85f",
+              color: color,
+              outline: `"2px solid ${color}"`,
             },
           }}
           onClick={handleToOtp}
@@ -530,7 +554,7 @@ export default function Auth() {
             sx={{
               width: "100%",
               marginBottom: "16px",
-              backgroundColor: "rgba(0, 255, 0, 0.1)",
+              backgroundColor:colorLighten,
             }}
             label="password"
             name="password"
@@ -539,7 +563,7 @@ export default function Auth() {
           />
           <Typography
             sx={{
-              color: "#76a85f",
+              color: color,
               textAlign: "end",
               display: "flex",
               justifyContent: "flex-start",
@@ -552,11 +576,11 @@ export default function Auth() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#76a85f",
+            backgroundColor: color,
             "&:hover": {
               backgroundColor: "#fff",
-              color: "#76a85f",
-              outline: "2px solid #76a85f",
+              color: color,
+              outline: `"2px solid ${color}"`,
             },
           }}
           onClick={handleToReset}
@@ -589,7 +613,7 @@ export default function Auth() {
             sx={{
               width: "100%",
               marginBottom: "16px",
-              backgroundColor: "rgba(0, 255, 0, 0.1)",
+              backgroundColor:colorLighten,
             }}
             label="password"
             name="password"
@@ -600,7 +624,7 @@ export default function Auth() {
             sx={{
               width: "100%",
               marginBottom: "16px",
-              backgroundColor: "rgba(0, 255, 0, 0.1)",
+              backgroundColor:colorLighten,
             }}
             label="password"
             name="password"
@@ -609,7 +633,7 @@ export default function Auth() {
           />
           <Typography
             sx={{
-              color: "#76a85f",
+              color: color,
               textAlign: "end",
               display: "flex",
               justifyContent: "flex-start",
@@ -622,11 +646,11 @@ export default function Auth() {
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "#76a85f",
+            backgroundColor: color,
             "&:hover": {
               backgroundColor: "#fff",
-              color: "#76a85f",
-              outline: "2px solid #76a85f",
+              color: color,
+              outline: `"2px solid ${color}"`,
             },
           }}
           onClick={handleToLogin}
