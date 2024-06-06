@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Login from './Authentication/Auth.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './NavBar/Navbar.jsx';
-import {  CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import AddProduct from './pages/AddProduct.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AllProducts from './pages/AllProducts.jsx';
@@ -23,6 +23,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ColorPicker from './components/ColorPicker.jsx';
 import CategoryProducts from './pages/CategoryProducts.jsx';
+import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
 
 
 function App() {
@@ -46,9 +47,9 @@ function App() {
 
   return (
     <div className="App">
-       <ToastContainer />
+      <ToastContainer />
       <ThemeProvider theme={theme}>
-       <ColorPicker/>
+        <ColorPicker />
         <CssBaseline />
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
@@ -67,6 +68,7 @@ function App() {
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/sell" element={<List />} />
           <Route path="/add-auction" element={<AddAuction />} />
+          <Route path="/dashboard" element={<Dashboard/>} />
         </Routes>
         {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
