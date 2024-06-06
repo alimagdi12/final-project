@@ -17,8 +17,10 @@ import {
 } from "@mui/material";
 import { CartContext } from "../contexts/CartContext";
 import { useParams } from "react-router-dom";
+import ColorContext from "../contexts/ColorContext";
 
 export default function CategoryProducts() {
+    const {color} = useContext(ColorContext)
   const {id} = useParams()
   const [toggle, setToggle] = useState(false);
   const { products } = useContext(ProductsContext);

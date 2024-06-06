@@ -28,7 +28,7 @@ export default function AllProducts() {
   const [searchLocation, setSearchLocation] = useState([]);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 3; // Number of products to display per page
+  const productsPerPage = 6; // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(

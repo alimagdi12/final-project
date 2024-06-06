@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import ColorContext from '../contexts/ColorContext';
 import { FaCog } from 'react-icons/fa';
-const colors = ['#5daa60', '#ff5722', '#2196f3', '#9c27b0', '#ffeb3b' , '#ccc'];
+const colors = ['#5daa60', '#ff5722', '#2196f3', '#9c27b0', '#000' , 'red' , 'blue', 'gray', 'blueViolet'];
 
 const ColorPicker = () => {
  const {color,setColor} = useContext(ColorContext)

@@ -165,7 +165,7 @@ const {color} = useContext(ColorContext)
             >
               <Typography
                 component={Link}
-                to="/categories"
+              
                 className='text-decoration-none h5 mx-2'
               >
                 Categories
