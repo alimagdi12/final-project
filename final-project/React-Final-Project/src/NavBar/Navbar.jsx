@@ -188,7 +188,7 @@ const {color} = useContext(ColorContext)
                   <Box className='d-flex flex-wrap' sx={{ zIndex: '999', height: '100%' }}  >
                     {categories?.categories?.map(category => (
                   <Link  to={`/products/${category._id}`} >
-                    <FlipCard category={category} key={category.title}>
+                    <FlipCard category={category} key={category._id}>
                         {category.title}
                       </FlipCard>
                       </Link>
