@@ -74,9 +74,13 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   return (
     <AppBar position="static" sx={{ background: color, zIndex: 9 }}>
+    <AppBar position="static" sx={{ background: color, zIndex: 9 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} color="gray" />
+          <AdbIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            color="gray"
+          />
           <Typography
             variant="h6"
             noWrap
@@ -84,18 +88,18 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             to="/"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: ".3rem",
               color: "#ccc",
-              textDecoration: 'none',
+              textDecoration: "none",
             }}
           >
             LOGO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -111,18 +115,18 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
@@ -133,7 +137,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             </Menu>
           </Box>
 
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 
           <Typography
             variant="h5"
@@ -142,13 +146,13 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             to="/products"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
             LOGO
@@ -166,7 +170,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             <Box
               onMouseEnter={handlePageHover}
               onMouseLeave={handlePageHoverOut}
-              sx={{ my: 2, textAlign: 'center', position: 'relative' }}
+              sx={{ my: 2, textAlign: "center", position: "relative" }}
             >
               <Typography
                 component={Link}
@@ -177,16 +181,16 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               {hoveredPage && (
                 <Box
                   sx={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: '50%',
-                    width: '1000px',
-                    background: 'white',
-                    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.3)',
-                    borderRadius: '5px',
+                    position: "absolute",
+                    top: "100%",
+                    left: "50%",
+                    width: "1000px",
+                    background: "white",
+                    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
+                    borderRadius: "5px",
                     py: 1,
                     px: 2,
-                    zIndex: 3
+                    zIndex: 3,
                   }}
                 >
                   <Box className='d-flex flex-wrap' sx={{ zIndex: '999', height: '100%' }}>
@@ -234,31 +238,33 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </>
             </Tooltip>
 
-            <Switch checked={darkMode} onChange={toggleDarkMode} />
+                <Switch checked={darkMode} onChange={toggleDarkMode} />
 
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography onClick={handleSettingClick} textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem key={"1"} onClick={handleCloseUserMenu}>
+                    <Typography onClick={handleProfileClick} textAlign="center">
+                      Profile
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </>
+          )}
         </Toolbar>
 
       </Container>

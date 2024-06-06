@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import { Button, TextField, Container, Grid } from "@mui/material";
 import axios from "axios";
+import UserContext from "../contexts/UserContext";
+import { toast } from "react-toastify";
 
 function CircularProgressWithLabel(props) {
   return (
@@ -159,7 +161,7 @@ export default function AuctionCard({ hours, minutes, seconds, id }) {
   const [bidAmount, setBidAmount] = useState("");
   const [highestBid, setHighestBid] = useState(2500);
   const [confirmBid, setConfirmBid] = useState(false);
-
+  const {token} = useContext(UserContext)
   const handleOneBid = () => {
     setConfirmBid(true);
   };
@@ -170,8 +172,7 @@ export default function AuctionCard({ hours, minutes, seconds, id }) {
 
   const confirmBidHandler = async () => {
     console.log(id);
-
-    // Ensure bid amount is a number and not empty
+if(token){
     const bidAmountNumber = parseInt(bidAmount);
     if (isNaN(bidAmountNumber) || bidAmountNumber <= 0) {
       console.error("Invalid bid amount");
@@ -180,6 +181,7 @@ export default function AuctionCard({ hours, minutes, seconds, id }) {
 
     const bidDetails = { amount: bidAmountNumber, auctionId: id };
 
+    
     try {
       const response = await axios.post(
         "http://127.0.0.1:3000/api/v1/auth/add-bid",
@@ -204,6 +206,11 @@ export default function AuctionCard({ hours, minutes, seconds, id }) {
 
     setBidAmount("");
     setConfirmBid(false);
+  }
+  else{
+    toast.error('you must login first')
+  }
+  
   };
 
   useEffect(() => {

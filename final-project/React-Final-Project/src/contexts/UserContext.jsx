@@ -4,11 +4,12 @@ import React, { createContext, useEffect, useState } from 'react';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [token, setToken] = useState([]);
+  const [token, setToken] = useState('');
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
 
     useEffect(() => {
+      setToken(localStorage.getItem('token'))
         const fetchUserData = async () => {
             try {
                 const token = localStorage.getItem('token'); // Ensure the token is stored in localStorage
@@ -35,10 +36,6 @@ export const UserProvider = ({ children }) => {
 
   if (error) {
     return <div>Error: {error}</div>;
-  }
-
-  if (!userData) {
-    return <div>Loading...</div>;
   }
 
 
