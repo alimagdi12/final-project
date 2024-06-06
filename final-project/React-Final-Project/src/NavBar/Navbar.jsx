@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,11 +21,14 @@ import { CartContext } from "../contexts/CartContext";
 import ColorContext from "../contexts/ColorContext";
 import UserContext from "../contexts/UserContext";
 import { toast } from "react-toastify";
+import { LoveContext } from './../contexts/LoveContext';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
+  const {love} = useContext(LoveContext)
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems } = useContext(CartContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -234,11 +238,16 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </Link>
             </Box>
           )}
+          <IconButton color="inherit">
+            <Badge badgeContent={love} color="secondary">
+              <FavoriteIcon sx={{ cursor: 'pointer' }} />
+            </Badge>
+          </IconButton>
           {token && (
             <>
               <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
                 <Link to="/sell" className="text-decoration-none h4 mx-2">
-                  <Button sx={{ backgroundColor: "gray" }} variant="contained">
+                  <Button sx={{ backgroundColor: "white" , color:color, '&:hover':{color:'white' , backgroundColor:color} }} variant="contained">
                     List
                   </Button>
                 </Link>
@@ -252,6 +261,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                           display: { xs: "none", md: "flex" },
                           mr: 1,
                           fontSize: 40,
+                          color:'white'
                         }}
                       />
                     </IconButton>
@@ -299,8 +309,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   </MenuItem>
                 </Menu>
               </Box>
+              </>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
           )}
+          
   
