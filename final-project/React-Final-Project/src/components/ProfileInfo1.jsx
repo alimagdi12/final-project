@@ -6,8 +6,10 @@ import Woman2Icon from '@mui/icons-material/Woman2';
 import UserContext from '../contexts/UserContext';
 import UpdateProfilePopup from './UpdateProfilePopup';
 import axios from 'axios';
+import ColorContext from '../contexts/ColorContext';
 
 const ProfileInfo1 = () => {
+    const { color } = useContext(ColorContext)
     const { userData, setUserData } = useContext(UserContext);
     const [updatedProfile, setUpdatedProfile] = useState({
         email: userData.result?.email || '',
@@ -40,21 +42,21 @@ const ProfileInfo1 = () => {
         userForm.append('lastName', updatedProfile.lastName);
         userForm.append('firstName', updatedProfile.firstName);
         userForm.append('email', updatedProfile.email);
-       
+
         try {
-            const response = await axios.put('http://127.0.0.1:3000/api/v1/auth/edit-user',userForm, { 
+            const response = await axios.put('http://127.0.0.1:3000/api/v1/auth/edit-user', userForm, {
                 headers: {
                     'Content-Type': 'application/json',
                     'jwt': localStorage.getItem('token')
                 }
             });
             console.log(response);
-         console.log(updatedProfile.firstName);
-// toast.success('added sucessfully')
+            console.log(updatedProfile.firstName);
+            // toast.success('added sucessfully')
         } catch (err) {
             console.error(err);
-            
-// toast.error('failed to add auction')
+
+            // toast.error('failed to add auction')
         }
     };
 
@@ -68,7 +70,7 @@ const ProfileInfo1 = () => {
                 <Typography
                     variant="h4"
                     gutterBottom
-                    color={"#5daa60"}
+                    color={color}
                     display={"flex"}
                     justifyContent={"flex-start"}
                     fontWeight={"bold"}
@@ -86,7 +88,7 @@ const ProfileInfo1 = () => {
                             label="Email"
                             value={updatedProfile.email}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -100,7 +102,7 @@ const ProfileInfo1 = () => {
                             placeholder='Omar'
                             value={updatedProfile.firstName}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -114,7 +116,7 @@ const ProfileInfo1 = () => {
                             value={updatedProfile.lastName}
                             placeholder='Hassan'
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -132,7 +134,7 @@ const ProfileInfo1 = () => {
                             placeholder='+201066035716'
                             value={updatedProfile.phoneNumber}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -146,7 +148,7 @@ const ProfileInfo1 = () => {
                             placeholder='06|22|1997'
                             value={updatedProfile.birthDay}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -168,7 +170,7 @@ const ProfileInfo1 = () => {
                 {/* Update Profile */}
                 <Grid container spacing={2} marginBottom={5}>
                     <Grid item xs={12}>
-                        <button onClick={handleOpen} >
+                        <button className='update-button' onClick={handleOpen} style={{ backgroundColor: color, color: 'white' }}>
                             Update Profile
                         </button>
                     </Grid>

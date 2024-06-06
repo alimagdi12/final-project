@@ -3,55 +3,40 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useContext } from 'react';
+import { LoveContext } from '../../../contexts/LoveContext';
 
-export default function MainCard({product}) {
-if(product?.imagesUrl){
+export default function MainCard({ product }) {
+  const { handleLoveClick, selectedLove } = useContext(LoveContext);
+
+  const productImage = product?.imagesUrl?.images?.[0] || product?.imageUrl?.images?.[0];
+  const isLoved = selectedLove.includes(product._id);
+
   return (
     <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`}
-        title="green iguana"
-      />
+      {productImage && (
+        <CardMedia
+          sx={{ height: 140 }}
+          image={`/public/${product?.folderName?.replace(/\s+/g, '-') + '/' + productImage}`}
+          title={product.title}
+        />
+      )}
       <CardContent>
         <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="body2" color="text.secondary">{product.title}</Typography>
-          <Typography variant="body2" color="text.secondary">{product.price}</Typography>
+          <Typography variant="body2" color="text.secondary">{product?.title}</Typography>
+          <Typography variant="body2" color="text.secondary">{product?.price}</Typography>
+          <div onClick={() => handleLoveClick(product)} style={{ cursor: 'pointer' }}>
+            {isLoved ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
+          </div>
         </CardActions>
-
-        <Typography gutterBottom variant="h5" component="div">{product.title}</Typography>
-        <Typography variant="body2" color="text.secondary">
-        {product.location}
-        </Typography>
-
-        <Typography variant="body2" color="text.secondary">{product.categoryId.title}</Typography>
-        <Typography variant="body2" color="text.secondary">{product.addingDate}</Typography>
+        <Typography gutterBottom variant="h5" component="div">{product?.title}</Typography>
+        <Typography variant="body2" color="text.secondary">{product?.location}</Typography>
+        <Typography variant="body2" color="text.secondary">{product?.categoryId?.title}</Typography>
+        <Typography variant="body2" color="text.secondary">{product?.addingDate}</Typography>
       </CardContent>
-      <CardActions>
-      </CardActions>
     </Card>
   );
-}
-return (
-  <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
-    <CardMedia
-      sx={{ height: 140 }}
-      image={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imageUrl?.images[0] }`}
-      title="green iguana"
-    />
-    <CardContent>
-      <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="body2" color="text.secondary">title</Typography>
-      </CardActions>
-
-      <Typography gutterBottom variant="h5" component="div">{product.title}</Typography>
-     
-
-    </CardContent>
-    <CardActions>
-    </CardActions>
-  </Card>
-);
 }

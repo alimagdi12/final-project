@@ -18,11 +18,9 @@ function Home() {
     });
   }, []);
 
-  // Check if products and products.products are defined
   const prd = products?.products?.[0];
 
   if (!products || !products.products || !categories.categories) {
-    // Show a loading state while the data is being fetched
     return (
       <Container>
         <CircularProgress />
@@ -32,7 +30,6 @@ function Home() {
 
   return (
     <div className="Home">
-     
       <Hero />
       <Container>
         <CardHeader>Categories</CardHeader>
