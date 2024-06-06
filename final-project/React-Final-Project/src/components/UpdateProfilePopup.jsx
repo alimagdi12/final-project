@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -6,17 +6,18 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { Grid, TextField } from '@mui/material';
 import GreenButton from './StyedButton';
+import ColorContext from '../contexts/ColorContext';
 
 const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, updatedProfile , setUpdatedProfile}) => {
     const handleClose = () => {
         setOpen(false);
     };
-
-
+    
+const {color} =useContext(ColorContext)
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Update Your Profile</DialogTitle>
+            <DialogTitle sx={{color:color}}>Update Your Profile</DialogTitle>
             <DialogContent>
                 {/* Section 1 */}
                 <Grid container spacing={2} marginBottom={5}>
@@ -28,7 +29,7 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
                             value={updatedProfile.email}
                             variant="outlined"
                             onChange={handleChange}
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -44,7 +45,7 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
                             value={updatedProfile.firstName}
                             onChange={handleChange}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -60,7 +61,7 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
                             onChange={handleChange}
                             placeholder='Hassan'
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -80,7 +81,7 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
                             value={updatedProfile.phoneNumber}
                             onChange={handleChange}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -96,7 +97,7 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
                             value={updatedProfile.birthDay}
                             onChange={handleChange}
                             variant="outlined"
-                            InputLabelProps={{ style: { color: "#5daa60" } }}
+                            InputLabelProps={{ style: { color: color } }}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",

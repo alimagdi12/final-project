@@ -25,7 +25,6 @@ function Home() {
 
   return (
     <div className="Home">
-     
       <Hero />
       <Container>
         <CardHeader>Categories</CardHeader>

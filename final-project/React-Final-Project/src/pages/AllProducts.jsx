@@ -233,16 +233,10 @@ export default function AllProducts() {
             }}
           >
             {/* Show Products and Show Auction buttons */}
-            <Button variant="contained" onClick={() => setToggle(false)} sx={{backgroundColor:color ,  '&:hover': {
-      backgroundColor: '#fff', // Change this to the color you want on hover
-      color: color, // Change this to the color you want on hover
-    }}}  >
+            <Button variant="contained" onClick={() => setToggle(false)}               sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}  >
               Show Products
             </Button>
-            <Button variant="contained" onClick={() => setToggle(true)} sx={{backgroundColor:color ,'&:hover': {
-      backgroundColor: '#fff', // Change this to the color you want on hover
-      color: color, 
-    }}}>
+            <Button variant="contained" onClick={() => setToggle(true)} sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}>
               Show Auction
             </Button>
           </Box>

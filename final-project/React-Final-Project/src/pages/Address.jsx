@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Typography, Box, Button, Card, CardContent, CardActions, IconButton } from '@mui/material';
+import { Container, Typography, Box, Button, Card, CardContent, CardActions, IconButton, Grid } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import AddAddressForm from '../components/AddAddressForm';
 import EditAddressForm from '../components/EditAddressForm';
@@ -55,46 +55,75 @@ const Address = () => {
             </Typography>
             {
                 !editingAddress && !openAdd &&
-                <Box sx={{ display: 'flex', p: 3, gap: '20px', flexWrap: 'wrap', padding: '10px' }}>
-                    <Button
-                        variant="outlined"
-                        onClick={handleOpenAdd}
-                        sx={{ color: '#5DAA60', fontWeight: 'bold', fontSize: '45px', border: '2px solid #5DAA60', borderStyle: 'dashed', width: '15%' }}
-                    >
-                        +
-                    </Button>
+                <Grid container spacing={2} sx={{ padding: '10px' }}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button
+                            variant="outlined"
+                            onClick={handleOpenAdd}
+                            sx={{
+                                color: '#5DAA60',
+                                fontWeight: 'bold',
+                                fontSize: '20px',
+                                border: '2px solid #5DAA60',
+                                borderStyle: 'dashed',
+                                width: '100%',
+                                height: '150px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Typography variant="h1" component="span">+</Typography>
+                            <Typography component="span">Add Address</Typography>
+                        </Button>
+                    </Grid>
                     {addresses.map((address) => (
-                        <Card key={address.id} sx={{ width: '30%' }}>
-                            <CardContent>
-                                <Typography gutterBottom variant="h6" component="div">
-                                    {address.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {address.street}
-                                    <br />
-                                    {address.city}
-                                    <br />
-                                    {address.zone}
-                                    <br />
-                                    {address.country}
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{display:'flex', justifyContent:'space-around'}}>
-                                <IconButton size="small" onClick={() => handleOpenEdit(address)} color="primary">
-                                    <Edit />
-                                </IconButton>
-                                <IconButton color="error" onClick={() => handleDelete(address.id)}>
-                                    <Delete />
-                                </IconButton>
-                            </CardActions>
-                        </Card>
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={address.id} sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Card sx={{ width: '100%', border: '1px solid #5DAA60', borderRadius: '10px' }}>
+                                <CardContent>
+                                    <Typography variant="subtitle1" color="#5DAA60" gutterBottom>
+                                        Address name
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {address.name}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="#5DAA60" gutterBottom>
+                                        Governorate
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {address.city}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="#5DAA60" gutterBottom>
+                                        Street
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {address.street}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="#5DAA60" gutterBottom>
+                                        Building
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {address.zone}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions sx={{ display: 'flex', justifyContent: 'space-between', padding: '16px' }}>
+                                    <Button variant="contained" color="primary" size="small" onClick={() => handleOpenEdit(address)}>
+                                        Edit
+                                    </Button>
+                                    <Button variant="text" color="error" size="small" onClick={() => handleDelete(address.id)}>
+                                        remove
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
                     ))}
-                </Box>
+                </Grid>
             }
             {/* Add Address Component */}
             {openAdd && <AddAddressForm open={openAdd} handleClose={handleCloseAdd} handleAddAddress={handleAddAddress} />}
             {/* Edit Address Component */}
-            {editingAddress && <EditAddressForm open={openEdit} handleClose={handleCloseEdit} address={editingAddress} handleSaveEdit={handleEditAddress} />}
+            {editingAddress && <EditAddressForm open={handleOpenEdit} handleClose={handleCloseEdit} address={editingAddress} handleSaveEdit={handleEditAddress} />}
         </Container>
     );
 };

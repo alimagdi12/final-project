@@ -36,7 +36,7 @@ function Sidebar({ drawerWidth, handleListItemClick, selectedIndex }) {
                                     disablePadding
                                     selected={selectedIndex === index}
                                     onClick={() => handleListItemClick(index)}
-                                    sx={{ '&.Mui-selected': { bgcolor: '#FFFFFF', color: '#5daa60', borderLeft: '4px solid #5daa60', '& .MuiListItemIcon-root': { color: '#5daa60' } } }}
+                                    sx={{ '&.Mui-selected': { bgcolor: '#FFFFFF', color: color, borderLeft: '4px solid black', '& .MuiListItemIcon-root': { color: color } } }}
                                 >
                                     <ListItemButton >
                                         <ListItemIcon sx={{ color: '#FFFFFF' }}>

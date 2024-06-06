@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Box, ButtonBase, Typography, Card, Grid } from '@mui/material';
 import OrderCard from '../components/OrderCard';
 import AuctionCard from '../components/AuctionCard';
@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import CompletedBidCard from '../components/CompletedBidCard';
 import CompletedOrderCard from '../components/CompletedOrderCard';
 import { useMediaQuery } from '@mui/material';
+import ColorContext from '../contexts/ColorContext';
 
 const activeBidsObj = [
     {
@@ -111,6 +112,7 @@ const completedOrders = [
 
 
 function Orders() {
+    const { color } = useContext(ColorContext)
     const [activeTab, setActiveTab] = useState('active');
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const sliderSettings = {
@@ -133,11 +135,11 @@ function Orders() {
     <Grid container>
             {/* Green Tab */}
             <Grid item xs={12} md={6}>
-                <Box bgcolor="#5DAA60" display="flex" p={2} mb={4} padding={1.5} borderRadius={'0px 0px 20px 20px'} justifyContent={'center'}>
+                <Box bgcolor={color} display="flex" p={2} mb={4} marginTop={2} padding={1.5} borderRadius={'0px 0px 20px 20px'} justifyContent={'center'}>
                     <ButtonBase
                         onClick={() => handleTabToggle('active')}
                         sx={{
-                            bgcolor: activeTab === 'active' && '#5DAA60',
+                            bgcolor: activeTab === 'active' && color,
                             color: 'white',
                             borderBottom: activeTab === 'active' && '4px solid white',
                             mr: 2,
@@ -150,7 +152,7 @@ function Orders() {
                     <ButtonBase
                         onClick={() => handleTabToggle('complete')}
                         sx={{
-                            bgcolor: activeTab === 'complete' && '#5DAA60',
+                            bgcolor: activeTab === 'complete' && color,
                             color: 'white',
                             borderBottom: activeTab === 'complete' && '4px solid white',
                             borderRadius: 1,

@@ -21,20 +21,18 @@ export default function Hero() {
           overflow: "hidden",
         }}
       >
-        <iframe
-          width="100%"
-          height="100%"
-          src="https://www.youtube.com/embed/UcgV4OFRS-w?autoplay=1&loop=1&start=2&end=12&controls=0&playlist=UcgV4OFRS-w&mute=1"
+        <img
+          src="/public/space2.webp"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
+          // allowFullScreen
           style={{
             position: "absolute",
             top: 0,
             left: 0,
-            width: "100%",
+            width: "120%",
             height: "100%",
             pointerEvents: "none",
           }}

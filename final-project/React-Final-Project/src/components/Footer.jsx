@@ -85,7 +85,7 @@ const Footer = () => {
               </Link>
               <Link
                 style={{ textDecoration: "none", color: "white" }}
-                to={"/listItem"}
+                to={"/sell"}
               >
                 List an item
               </Link>
@@ -113,17 +113,7 @@ const Footer = () => {
                 sx={{ bgcolor: "white", borderRadius: 1, mr: 2, width: "70%" }}
               />
               <Button
-                sx={{
-                  height: "65%",
-                  backgroundColor: "#F0F8F0",
-                  color: "#5DAA60",
-                  border: "2px solid #5DAA60",
-                  "&:hover": {
-                    backgroundColor: "#5DAA60",
-                    color: "#F0F0F0",
-                    border: "2px solid #F0F0F0"
-                  }
-                }}
+sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}
                 variant="contained"
                 color="primary"
               >
