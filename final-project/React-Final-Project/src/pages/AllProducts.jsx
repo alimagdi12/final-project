@@ -16,9 +16,10 @@ import {
   Button,
 } from "@mui/material";
 import { CartContext } from "../contexts/CartContext";
+import ColorContext from "../contexts/ColorContext";
 
 export default function AllProducts() {
-  
+  const {color}= useContext(ColorContext)
   const [toggle, setToggle] = useState(false);
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
@@ -27,7 +28,7 @@ export default function AllProducts() {
   const [searchLocation, setSearchLocation] = useState([]);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 3; // Number of products to display per page
+  const productsPerPage = 6; // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(
@@ -114,10 +115,10 @@ export default function AllProducts() {
           sx={{
             width: { xs: '100%', md: '25%' }, // Adjust width for smaller screens
             height: '82vh',
-            border: '3px solid #76a85f',
+            border: `3px solid ${color}`,
             borderRadius: '10px',
-            padding: '10px',
-            color: '#76a85f',
+            paddingX: '50px',
+            color: 'black',
             marginBottom: { xs: '20px', md: 0 }, // Add bottom margin for smaller screens
           }}
         >
@@ -125,7 +126,7 @@ export default function AllProducts() {
           <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
             {/* Categories filter */}
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">
+              <FormLabel sx={{color:color}} id="demo-radio-buttons-group-label">
                 Categories
               </FormLabel>
               <RadioGroup
@@ -136,14 +137,24 @@ export default function AllProducts() {
               >
                 <FormControlLabel
                   value="All"
-                  control={<Radio />}
-                  label="All"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="All"
                 />
                 {categories?.categories?.map((category) => (
                   <FormControlLabel
                     key={category?.title}
                     value={category?.title}
-                    control={<Radio />}
+                    control={<Radio sx={{
+                      color: 'black',
+                      '&.Mui-checked': {
+                        color: color,
+                      },
+                    }}/>} 
                     label={category?.title}
                   />
                 ))}
@@ -153,7 +164,7 @@ export default function AllProducts() {
           <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
             {/* City filter */}
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">City</FormLabel>
+              <FormLabel sx={{color:color}} id="demo-radio-buttons-group-label">City</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue="All"
@@ -162,23 +173,43 @@ export default function AllProducts() {
               >
                 <FormControlLabel
                   value="All"
-                  control={<Radio />}
-                  label="All"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="All"
                 />
                 <FormControlLabel
                   value="portsaid"
-                  control={<Radio />}
-                  label="portsaid"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="portsaid"
                 />
                 <FormControlLabel
                   value="Ismailia"
-                  control={<Radio />}
-                  label="Ismailia"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="Ismailia"
                 />
                 <FormControlLabel
                   value="Alex"
-                  control={<Radio />}
-                  label="Alex"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="Alex"
                 />
               </RadioGroup>
             </FormControl>
@@ -202,10 +233,16 @@ export default function AllProducts() {
             }}
           >
             {/* Show Products and Show Auction buttons */}
-            <Button variant="contained" onClick={() => setToggle(false)}>
+            <Button variant="contained" onClick={() => setToggle(false)} sx={{backgroundColor:color ,  '&:hover': {
+      backgroundColor: '#fff', // Change this to the color you want on hover
+      color: color, // Change this to the color you want on hover
+    }}}  >
               Show Products
             </Button>
-            <Button variant="contained" onClick={() => setToggle(true)}>
+            <Button variant="contained" onClick={() => setToggle(true)} sx={{backgroundColor:color ,'&:hover': {
+      backgroundColor: '#fff', // Change this to the color you want on hover
+      color: color, 
+    }}}>
               Show Auction
             </Button>
           </Box>
@@ -241,7 +278,15 @@ export default function AllProducts() {
           count={Math.ceil(displayedProducts?.length / productsPerPage)}
           page={currentPage}
           onChange={handlePageChange}
-          color="primary"
+          sx={{
+            '& .MuiPaginationItem-root': {
+              color: '{color}', // Change this to your desired color
+            },
+            '& .Mui-selected': {
+              backgroundColor: color, // Change this to your desired color for selected item
+              color: '#fff', // Optional: Set text color for selected item
+            },
+          }}
         />
       </Container>
     </>

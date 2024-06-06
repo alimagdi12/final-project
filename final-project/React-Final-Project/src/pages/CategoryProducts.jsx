@@ -17,8 +17,10 @@ import {
 } from "@mui/material";
 import { CartContext } from "../contexts/CartContext";
 import { useParams } from "react-router-dom";
+import ColorContext from "../contexts/ColorContext";
 
 export default function CategoryProducts() {
+    const {color} = useContext(ColorContext)
   const {id} = useParams()
   const [toggle, setToggle] = useState(false);
   const { products } = useContext(ProductsContext);
@@ -103,11 +105,19 @@ export default function CategoryProducts() {
         </Box>
       </Container>
       <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-        <Pagination
+      <Pagination
           count={Math.ceil(displayedProducts?.length / productsPerPage)}
           page={currentPage}
           onChange={handlePageChange}
-          color="primary"
+          sx={{
+            '& .MuiPaginationItem-root': {
+              color: '{color}', // Change this to your desired color
+            },
+            '& .Mui-selected': {
+              backgroundColor: color, // Change this to your desired color for selected item
+              color: '#fff', // Optional: Set text color for selected item
+            },
+          }}
         />
       </Container>
     </>

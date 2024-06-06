@@ -9,10 +9,13 @@ import BuildIcon from '@mui/icons-material/Build';
 import { FaHammer } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import ColorContext from '../contexts/ColorContext';
+import { useContext } from 'react';
 
 export default function ProductCard({ product, addToCart }) {
+ 
   const navigate = useNavigate();
-
+const {color}= useContext(ColorContext)
   const navigateToDetails = (id) => {
     if (!product.expirationDate) {
       navigate(`/product-details/${id}`);
@@ -64,14 +67,14 @@ export default function ProductCard({ product, addToCart }) {
         </CardContent>
         <CardActions>
           {!product?.expirationDate && (
-            <Button sx={{ width: '100%', backgroundColor: '#ccc' }} onClick={addToCart}>
+            <Button sx={{ width: '100%', backgroundColor: color , color:'#fff' }} onClick={addToCart}>
               Add to Cart
             </Button>
           )}
 
           {product?.expirationDate && (
             <Button
-              sx={{ width: '100%', backgroundColor: '#ccc' }}
+              sx={{ width: '100%', backgroundColor: color ,color:'#FFF'}}
               onClick={() => {
                 navigateToBidDetail(product._id);
               }}
