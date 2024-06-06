@@ -5,6 +5,7 @@ import ManIcon from '@mui/icons-material/Man';
 import Woman2Icon from '@mui/icons-material/Woman2';
 import UserContext from '../contexts/UserContext';
 import UpdateProfilePopup from './UpdateProfilePopup';
+import axios from 'axios';
 
 const ProfileInfo1 = () => {
     const { userData, setUserData } = useContext(UserContext);
@@ -30,26 +31,30 @@ const ProfileInfo1 = () => {
         console.log('Updated Profile:', updatedProfile);
     };
 
-    const handleProfileUpdate = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/api/v1/auth/edit-user', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'jwt': localStorage.getItem('token')
-                },
-                body: JSON.stringify(updatedProfile),
-            });
 
-            if (response.ok) {
-                const data = await response.json();
-                setUserData(data);
-                setOpenPopup(false); // Close the popup after updating the profile
-            } else {
-                console.error('Failed to update profile');
-            }
-        } catch (error) {
-            console.error('Error updating profile:', error);
+
+    const handleProfileUpdate = async () => {
+        const userForm = new FormData();
+        userForm.append('birthDay', updatedProfile.birthDay);
+        userForm.append('phoneNumber', updatedProfile.phoneNumber);
+        userForm.append('lastName', updatedProfile.lastName);
+        userForm.append('firstName', updatedProfile.firstName);
+        userForm.append('email', updatedProfile.email);
+       
+        try {
+            const response = await axios.put('http://127.0.0.1:3000/api/v1/auth/edit-user',userForm, { 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'jwt': localStorage.getItem('token')
+                }
+            });
+            console.log(response);
+         console.log(updatedProfile.firstName);
+// toast.success('added sucessfully')
+        } catch (err) {
+            console.error(err);
+            
+// toast.error('failed to add auction')
         }
     };
 
