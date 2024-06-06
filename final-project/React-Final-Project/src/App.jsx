@@ -22,6 +22,7 @@ import AddAuction from './pages/AddAuction.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ColorPicker from './components/ColorPicker.jsx';
+import CategoryProducts from './pages/CategoryProducts.jsx';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/products" element={<AllProducts />} />
+          <Route path="/products/:id" element={<CategoryProducts />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />

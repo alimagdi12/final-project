@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
+const {color} = useContext(Color)
   const navigate =useNavigate()
   const handleSignUp = async () => {
     try {
