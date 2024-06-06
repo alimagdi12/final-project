@@ -10,8 +10,8 @@ import axios from 'axios';
 const ProfileInfo1 = () => {
     const { userData, setUserData } = useContext(UserContext);
     const [updatedProfile, setUpdatedProfile] = useState({
-        email: userData.result?.email || '',
-        firstName: userData.result?.firstName || '',
+        email: userData?.result?.email || '',
+        firstName: userData?.result?.firstName || '',
         lastName: userData?.result?.lastName || '',
         phoneNumber: userData?.result?.phoneNumber || '',
         birthDay: userData?.result?.birthDay || '',

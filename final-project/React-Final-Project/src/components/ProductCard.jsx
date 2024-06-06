@@ -67,14 +67,22 @@ const {color}= useContext(ColorContext)
         </CardContent>
         <CardActions>
           {!product?.expirationDate && (
-            <Button sx={{ width: '100%', backgroundColor: color , color:'#fff' }} onClick={addToCart}>
+            <Button sx={{ width: '100%', backgroundColor: color , color:'#fff', "&:hover": {
+              backgroundColor: "#fff",
+              color: color,
+              outline: "`2px solid ${color}`",
+            }, }} onClick={addToCart}>
               Add to Cart
             </Button>
           )}
 
           {product?.expirationDate && (
             <Button
-              sx={{ width: '100%', backgroundColor: color ,color:'#FFF'}}
+              sx={{ width: '100%', backgroundColor: color ,color:'#FFF', "&:hover": {
+              backgroundColor: "#fff",
+              color: color,
+              outline: "`2px solid ${color}`",
+            }}}
               onClick={() => {
                 navigateToBidDetail(product._id);
               }}

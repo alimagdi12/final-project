@@ -1,13 +1,14 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import UserContext from './UserContext';
+import { toast } from 'react-toastify';
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
-    const token = localStorage.getItem('token')
-
+   
+const {token} = useContext(UserContext)
     useEffect(() => {
         if (token) {
             getCart();
@@ -35,6 +36,10 @@ export const CartProvider = ({ children }) => {
     async function addToCart(productId) {
         const productForm = new FormData();
         productForm.append("productId", productId);
+      
+   if(token){
+       
+      
         try {
             const token = localStorage.getItem("token");
             console.log(token);
@@ -53,6 +58,12 @@ export const CartProvider = ({ children }) => {
         } catch (err) {
             console.error(err);
         }
+    
+    
+   }
+   else{
+    toast.error('you must login first')
+   }
     }
 
     const updateCartItemQuantity = (id, quantity) => {

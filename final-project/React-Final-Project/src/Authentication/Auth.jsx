@@ -5,9 +5,12 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ColorContext from "../contexts/ColorContext";
 
 export default function Auth() {
-const {color} = useContext(Color)
+
+// const {user,setUser}= useContext(UserContext)
+  const {color} = useContext(ColorContext)
   const navigate =useNavigate()
   const handleSignUp = async () => {
     try {
@@ -37,7 +40,7 @@ const {color} = useContext(Color)
       console.log('Response Data User Token:', response.data.user.token);
       
       // Check if token exists before setting it
-      if (response.data && response.data.user && response.data.user.token) {
+      if (response.data && response?.data?.user && response?.data?.user?.token) {
         setToken(response.data.user.token);
         localStorage.setItem("token", response.data.user.token);
         navigate('/home');
