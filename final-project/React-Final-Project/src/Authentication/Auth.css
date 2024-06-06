@@ -64,7 +64,7 @@
 .clipped-element {
   width: 150px;
   height: 150px;
-  /* background-image: url('./../../public/Asset 1.svg'); */
+  background-image: url('./../../public/Asset 1.svg');
   position: absolute;
   top: calc(100% - 150px); 
   right: calc(100% - 150px); 

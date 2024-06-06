@@ -12,7 +12,7 @@ import { colors } from '../Util/utilities';
 export default function AboutUs() {
   const members = [
     { img: '/public/Omar.jpg', name: 'Omar Hassan' },
-    { img: '/public/omar1.jpg', name: 'Omar Gaber' },
+    { img: '/public/omar1.jpg', name: 'Omar Tolba' },
     { img: '/public/Ali.jpg', name: 'Ali' },
     { img: '/public/Mohamed Ayman.jpg', name: 'Mohamed Ayman' },
     { img: '/public/Sara.jpg', name: 'Sara' }
