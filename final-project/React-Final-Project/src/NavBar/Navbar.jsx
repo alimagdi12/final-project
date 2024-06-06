@@ -42,6 +42,15 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     }
   };
 
+
+
+  const handleLogOutClick = () => {
+  localStorage.setItem('token','')
+    console.log(token);
+      navigate("/login");
+  };
+
+
   useEffect(() => {
     console.log(token);
   }, []);
@@ -280,6 +289,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   <MenuItem key={"1"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleProfileClick} textAlign="center">
                       Profile
+                    </Typography>
+                  </MenuItem>
+                  
+                  <MenuItem key={"1"} onClick={handleCloseUserMenu}>
+                    <Typography onClick={handleLogOutClick} textAlign="center">
+                      logout
                     </Typography>
                   </MenuItem>
                 </Menu>

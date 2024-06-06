@@ -12,17 +12,10 @@ function Home() {
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
 
-  useEffect(() => {
-    toast.success("Success Notification!", {
-      position: toast.POSITION?.TOP_RIGHT
-    });
-  }, []);
-
-  // Check if products and products.products are defined
   const prd = products?.products?.[0];
 
   if (!products || !products.products || !categories.categories) {
-    // Show a loading state while the data is being fetched
+
     return (
       <Container>
         <CircularProgress />
