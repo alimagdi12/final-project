@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/jsx-key */
 import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -73,7 +74,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   };
 
   return (
-    <AppBar position="static" sx={{ background: color, zIndex: 9 }}>
     <AppBar position="static" sx={{ background: color, zIndex: 9 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -263,11 +263,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   </MenuItem>
                 </Menu>
               </Box>
-            </>
-          )}
         </Toolbar>
 
       </Container>
     </AppBar>
-  );
-}
+          )}
+  
