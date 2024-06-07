@@ -65,6 +65,8 @@ const authRouter = (authController) => {
         };
     });
 
+    
+
     return router;
 }
 
