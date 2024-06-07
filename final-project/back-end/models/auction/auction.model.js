@@ -24,8 +24,8 @@ const AuctionSchema = new Schema({
     title: {
         type: String,
         required: [
-            true,
-            'You must enter a product name'
+            false,
+            'You must enter a title'
         ],
         minlength: [
             3,

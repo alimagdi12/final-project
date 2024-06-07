@@ -30,6 +30,7 @@ const getUserIdFromToken = (socket) => {
         });
     });
 };
+
 const io = socket(server,{
   cors: {
     origin: "*", 
@@ -38,15 +39,20 @@ const io = socket(server,{
 });
 
 io.on('connection', async (socket) => {
-    console.log('a connection started', socket.id);
-    
-    const userId = '664778157312fd64b4f49dd1';
-    if (userId) {
-        await userController.handleSocketConnection(userId, socket.id);
+    console.log('A connection started', socket.id);
+    try {
+        const userId = await getUserIdFromToken(socket);
+        if (userId) {
+            await userController.handleSocketConnection(userId, socket.id);
+        }
+    } catch (err) {
+        console.error('Error getting user ID from token:', err.message);
+        socket.disconnect();
+        return;
     }
 
     socket.on('disconnect', async () => {
-        console.log('a connection disconnected', socket.id);
+        console.log('A connection disconnected', socket.id);
         await userController.handleSocketDisconnection(socket.id);
     });
 });
@@ -89,6 +95,9 @@ const CartController = require('./controllers/cart/cart.controllers');
 // calling CartRepository and CartController
 const PaymentRepository = require('./repositories/payment/payment.reposetory');
 const PaymentController = require('./controllers/payment/payment.controller');
+// calling wishListRepository and wishListController
+const WishListRepository = require('./repositories/wishlist/wishlist.repository');
+const WishListController = require('./controllers/wishlist/wishlist.controllers');
 
 
 
@@ -130,6 +139,9 @@ const cartController = new CartController(cartRepository);
 // Create instances of CartRepository and CartController
 const paymentRepository = new PaymentRepository();
 const paymentController = new PaymentController(paymentRepository);
+// Create instances of CartRepository and CartController
+const wishlistRepository = new WishListRepository();
+const wishlistController = new WishListController(wishlistRepository);
 
 
 
@@ -146,7 +158,10 @@ const userRoutes = require('./routes/user/user.routes');
 const auctionRoutes = require('./routes/auction/aucttion.routes');
 const bidRoutes = require('./routes/bid/bid.routes');
 const cartRoutes = require('./routes/cart/cart.routes');
-const paymentRoutes = require('./routes/payment/payment.routes')
+const paymentRoutes = require('./routes/payment/payment.routes');
+const wishListRoutes = require('./routes/wishlist/wishlist.routes');
+
+
 
 // Middleware to get client's IP address
 app.use(requestIp.mw());
@@ -155,9 +170,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // executing the routes 
-app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController)]);
+app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController),wishListRoutes(wishlistController)]);
 app.use("/api/v1/products", productsRoutes(productController));
-app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController) ]);
+app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
 app.use('/api/v1/admin', [
     userRoleRoutes(userRoleController),
     categoryRoutes(categoryController),
