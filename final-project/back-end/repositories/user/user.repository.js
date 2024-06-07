@@ -15,13 +15,13 @@ class UserRepositry {
 
 
     async getUser(token) {
-            const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-            const email = decodedToken.email;
-            const user = await User.findOne({ email });
-            if (!user) {
-                throw new Error("User not found.");
-            }
-    return user;
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const email = decodedToken.email;
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw new Error("User not found.");
+        }
+        return user;
     }
 
 
@@ -51,7 +51,7 @@ class UserRepositry {
             return user;
         } catch (err) {
             console.log(err);
-            throw new Error(err) ;
+            throw new Error(err);
         }
     }
 
@@ -122,7 +122,7 @@ class UserRepositry {
             user.userSocketId = socketId;
             await user.save();
             console.log('socketid saved successfully')
-            this.io.emit('newUser',{user})
+            this.io.emit('newUser', { user })
             return user;
         } catch (err) {
             console.log(err);
@@ -132,7 +132,7 @@ class UserRepositry {
 
     async removeSocketId(socketId) {
         try {
-            const user = await User.findOne({ userSocketId:socketId });
+            const user = await User.findOne({ userSocketId: socketId });
             if (!user) {
                 throw new Error("User not found.");
             }
@@ -150,12 +150,12 @@ class UserRepositry {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const email = decodedToken.email;
         const user = await User.findOne({ email });
-       const product = await Product.findOne({_id:productId})
-       console.log(product);
+        const product = await Product.findOne({ _id: productId })
+        console.log(product);
 
-       if(!product){
-        throw new Error('no product')
-       }
+        if (!product) {
+            throw new Error('no product')
+        }
         if (!user) throw new Error('User not found');
 
         if (!user.favorites.includes(productId)) {
@@ -166,7 +166,15 @@ class UserRepositry {
     }
 
     async removeFavorite(token, productId) {
-        const user = await User.findByToken(token);
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const email = decodedToken.email;
+        const user = await User.findOne({ email });
+        const product = await Product.findOne({ _id: productId })
+        console.log(product);
+
+        if (!product) {
+            throw new Error('no product')
+        }
         if (!user) throw new Error('User not found');
 
         user.favorites = user.favorites.filter(id => id !== productId);
@@ -179,7 +187,7 @@ class UserRepositry {
         // const user = await User.findByToken(token);
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const email = decodedToken.email;
-        const user = await User.findOne({ email }).populate('favorites'); 
+        const user = await User.findOne({ email }).populate('favorites');
         if (!user) throw new Error('User not found');
         return user.favorites;
     }
