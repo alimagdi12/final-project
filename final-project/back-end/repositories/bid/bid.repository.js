@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Auction = require('../../models/auction/auction.model');
 const Bid = require('../../models/bid/bid.model')
-
+const User = require('../../models/user/user.model')
 class BidRepository {
     constructor(io) {
         this.io = io;
@@ -14,7 +14,6 @@ class BidRepository {
 
     async addBid(data, token) {
         const { amount, auctionId } = data;
-        console.log(amount);
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
         const auction = await Auction.findById(auctionId).populate('bidsId').exec();
@@ -45,9 +44,18 @@ class BidRepository {
         await newBid.save();
         await auction.addBidId(newBid._id);
 
-        // Emit the new bid amount to all connected clients
-        this.io.emit('newBid', { amount });
+        const bids = await Bid.find({ auctionId }).select('biderId');
+        const userIds = [...new Set(bids.map(bid => bid.biderId.toString()))];
 
+        for (const id of userIds) {
+            const user = await User.findById(id);
+            if (user) {
+                await user.addNotification(`A new bid has been placed on an auction you are bidding on. and the amount is ${amount}`);
+            }
+        }
+
+        this.io.emit('newBid', { amount });
+        this.io.emit('notification',{notification:`A new bid has been placed on an auction you are bidding on. and the amount is ${amount}`})
         return newBid;
     }
 
