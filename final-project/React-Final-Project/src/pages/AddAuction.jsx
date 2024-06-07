@@ -4,9 +4,11 @@ import CustomSelect from '../components/CustomSelect';
 import CategoryContext from '../contexts/CategoriesContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ColorContext from '../contexts/ColorContext';
 
 export default function AddAuction() {
     const { categories } = useContext(CategoryContext);
+    const { color } = useContext(ColorContext);
 //     const { token } = useContext(UserContext);
     const catgs = categories?.categories?.map(({ _id, title }) => ({ value: _id, label: title })) || [];
 
@@ -201,7 +203,7 @@ toast.error('failed to add auction')
                                         },
                                         '@media (max-width: 1440px)': { 
                                             width:'60%'
-                                        }, backgroundColor: '#5daa60', color: '#ffffff', '&:hover': { backgroundColor: '#fff', color: '#5daa60', outline: '2px solid #5daa60' } }}>
+                                        }, backgroundColor: color, color: '#ffffff', '&:hover': { backgroundColor: '#fff', color: color, outline: `2px solid ${color}`} }}>
                                     Add Auction Product
                                 </Button>
                             </Grid>

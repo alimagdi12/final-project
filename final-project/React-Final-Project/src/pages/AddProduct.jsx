@@ -6,8 +6,10 @@ import CategoryContext from '../contexts/CategoriesContext';
 import UserContext from '../contexts/UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ColorContext from '../contexts/ColorContext';
 
 export default function AddProduct() {
+    const { color } = useContext(ColorContext);
     const navigate = useNavigate()
     const { categories } = useContext(CategoryContext);
     const { token } = useContext(UserContext);
@@ -205,12 +207,13 @@ export default function AddProduct() {
                                     type="submit"
                                     variant="contained"
                                     sx={{
-                                        backgroundColor: '#5daa60',
+                                        width:'60%',
+                                        backgroundColor: color,
                                         color: '#ffffff',
                                         '&:hover': {
                                             backgroundColor: '#fff',
-                                            color: '#5daa60',
-                                            outline: '2px solid #5daa60',
+                                            color: color,
+                                            outline: `2px solid ${color}`,
                                         },
                                         '@media (max-width: 600px)': { 
                                             width:'80%'

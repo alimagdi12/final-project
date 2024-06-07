@@ -38,7 +38,7 @@ function App() {
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
-    },
+    }
   });
 
   const toggleDarkMode = () => {

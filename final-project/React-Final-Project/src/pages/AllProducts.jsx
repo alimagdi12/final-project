@@ -274,11 +274,11 @@ export default function AllProducts() {
           onChange={handlePageChange}
           sx={{
             '& .MuiPaginationItem-root': {
-              color: '{color}', // Change this to your desired color
+              color: color, 
             },
             '& .Mui-selected': {
-              backgroundColor: color, // Change this to your desired color for selected item
-              color: '#fff', // Optional: Set text color for selected item
+              backgroundColor: color, 
+              color: '#fff', 
             },
           }}
         />

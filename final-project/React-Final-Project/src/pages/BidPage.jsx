@@ -7,35 +7,32 @@ import AuctionContext from '../contexts/AuctionContext';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from '../contexts/UserContext';
+import ProductsContext from '../contexts/ProductsContext';
 
-const items = [
-    { title: 'MacBook Pro MNEH3', image: '../public/villa2.jpg' },
-    { title: 'MacBook Pro MNEH3', image: '../public/villa3.jpg' },
-    { title: 'MacBook Pro MNEH3', image: '../public/vila.jpg' },
-    { title: 'MacBook Pro MNEH3', image: '../public/laptop.jpg' },
-];
 
 const BidPage = () => {
-  const {token} = useContext(UserContext)
+    const { products } = useContext(ProductsContext);
+    console.log(products);
+    const { token } = useContext(UserContext)
     const fetchHighestBidder = async (id) => {
-       console.log(id);
-       if(id){
+        console.log(id);
+        if (id) {
 
-        try {
-            const response = await axios.post(`http://127.0.0.1:3000/api/v1/auth/get-bid`,{auctionId:"665f58956308242d7c8b7b63"}, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'jwt': localStorage.getItem('token')
-                }
-            })
+            try {
+                const response = await axios.post(`http://127.0.0.1:3000/api/v1/auth/get-bid`, { auctionId: "665f58956308242d7c8b7b63" }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'jwt': localStorage.getItem('token')
+                    }
+                })
 
-            console.log(response);
-            const data = response.data;
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching bid:', error);
+                console.log(response);
+                const data = response.data;
+                console.log(data);
+            } catch (error) {
+                console.error('Error fetching bid:', error);
+            }
         }
-    }
     };
 
     const { id } = useParams()
@@ -51,11 +48,12 @@ const BidPage = () => {
             });
 
             const data = response.data;
+            console.log(data);
 
             setAuction(response.data.auction)
-setTimeout(() => {
-    fetchHighestBidder(response.data.auction)
-}, 3000);
+            setTimeout(() => {
+                fetchHighestBidder(response.data.auction)
+            }, 3000);
             const now = Date.now();
 
 
@@ -76,7 +74,7 @@ setTimeout(() => {
 
 
         fetchBid();
-       
+
     }, [id]);
 
     const [highestBid, setHighestBid] = useState(2500);
@@ -99,7 +97,7 @@ setTimeout(() => {
                 <Typography variant="h6" mt={4}>
                     You May Also Like:
                 </Typography>
-                <SimilarItems items={items} />
+                <SimilarItems products={products} />
             </Container>
         </div>
     );

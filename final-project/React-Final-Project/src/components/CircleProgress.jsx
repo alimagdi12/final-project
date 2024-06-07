@@ -7,8 +7,10 @@ import { Button, TextField, Container, Grid } from "@mui/material";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
 import { toast } from "react-toastify";
+import ColorContext from "../contexts/ColorContext";
 
 function CircularProgressWithLabel(props) {
+  const {color} = useContext(ColorContext)
   return (
     <Box
       sx={{
@@ -31,7 +33,7 @@ function CircularProgressWithLabel(props) {
           "& circle[stroke-width]": {
             strokeWidth: "2px",
           },
-          color: "#98D19B",
+          color: "#E9EEF1",
           position: "absolute",
         }}
         thickness={2}
@@ -49,7 +51,7 @@ function CircularProgressWithLabel(props) {
           "& circle[stroke-width]": {
             strokeWidth: "2px",
           },
-          color: "#5DAA60",
+          color: color,
           borderRadius: "50%",
           strokeLinecap: "rounded",
         }}
@@ -87,7 +89,7 @@ function CircularProgressWithLabel(props) {
             marginBottom: "15px",
             fontWeight: "700",
             fontSize: { xs: "20px", md: "28px" },
-            backgroundColor: "#5DAA60",
+            backgroundColor: color,
             borderRadius: "10px",
             padding: "0px 17px",
             color: "#fff",
@@ -122,8 +124,9 @@ function CircularProgressWithLabel(props) {
             margin: "0",
             borderRadius: "5px",
             marginBottom: "15px",
-            backgroundColor: "#92E3A9",
+            backgroundColor: color,
             fontWeight: "bold",
+            color: "#fff",  
           }}
           variant="caption"
           component="div"
@@ -145,6 +148,7 @@ CircularProgressWithLabel.propTypes = {
 };
 
 export default function AuctionCard({ hours, minutes, seconds, id }) {
+  const {color} = useContext(ColorContext)
   const [progress, setProgress] = useState({
     hours: hours | 0,
     minutes: minutes | 0,
@@ -264,23 +268,23 @@ if(token){
         <TextField
           label="Place Bid"
           variant="outlined"
-          InputLabelProps={{ style: { color: "#5DAA60" } }}
+          InputLabelProps={{ style: { color: color } }}
           value={bidAmount}
           onChange={(e) => setBidAmount(e.target.value)}
           sx={{
             "& .MuiOutlinedInput-root": {
               fontWeight: "bold",
               color: "black",
-              borderColor: "#5DAA60",
+              borderColor: color,
               "&:hover fieldset": {
-                borderColor: "#5DAA60",
+                borderColor: color,
               },
               "& fieldset": {
-                borderColor: "#5DAA60",
+                borderColor: color,
                 backgroundColor: "",
               },
               "&.Mui-focused fieldset": {
-                borderColor: "#5DAA60",
+                borderColor: color,
               },
             },
             width: { xs: "100%", sm: "70%" },
@@ -295,8 +299,8 @@ if(token){
           <Button
             sx={{
               width: "100%",
-              backgroundColor: "#5DAA60",
-              "&:hover": { backgroundColor: "#3abf3a" },
+              backgroundColor: color,
+              "&:hover":{backgroundColor:color}
             }}
             variant="contained"
             color="primary"

@@ -249,12 +249,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                       />
                     </IconButton>
                     <IconButton color="inherit">
-                      <Badge badgeContent={totalItems} color="secondary">
+                      <Badge badgeContent={cartItems.length || 0} color="secondary">
                         <Link
                           to="/cart"
                           className="text-decoration-none h5 mx-2"
                         >
-                          <ShoppingCartIcon /> {cartItems?.length || 0}
+                          <ShoppingCartIcon /> 
                         </Link>
                       </Badge>
                     </IconButton>
