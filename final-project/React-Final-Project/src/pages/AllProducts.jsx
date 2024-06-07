@@ -28,7 +28,7 @@ export default function AllProducts() {
   const [searchLocation, setSearchLocation] = useState([]);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6; // Number of products to display per page
+  const productsPerPage = 6; 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(
@@ -218,7 +218,7 @@ export default function AllProducts() {
 
         <Box
           sx={{
-            width: { xs: '100%', md: '70%' }, // Adjust width for smaller screens
+            width: { xs: '100%', md: '70%' }, 
             display: 'flex',
             flexDirection: 'column',
           }}
@@ -229,11 +229,11 @@ export default function AllProducts() {
               display: 'flex',
               justifyContent: 'space-between',
               marginBottom: 2,
-              marginTop: { xs: 2, md: 0 }, // Add top margin for smaller screens
+              marginTop: { xs: 2, md: 0 }
             }}
           >
             {/* Show Products and Show Auction buttons */}
-            <Button variant="contained" onClick={() => setToggle(false)}               sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}  >
+            <Button variant="contained" onClick={() => setToggle(false)} sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}  >
               Show Products
             </Button>
             <Button variant="contained" onClick={() => setToggle(true)} sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}>

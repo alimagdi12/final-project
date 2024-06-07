@@ -12,6 +12,8 @@ function Home() {
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
 
+  console.log(products);
+
   const prd = products?.products?.[0];
 
   if (!products || !products.products || !categories.categories) {

@@ -29,7 +29,11 @@ export default function MainCard({ product }) {
           <Typography variant="body2" color="text.secondary">{product?.title}</Typography>
           <Typography variant="body2" color="text.secondary">{product?.price}</Typography>
           <div onClick={() => handleLoveClick(product)} style={{ cursor: 'pointer' }}>
-            {isLoved ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}
+            {
+              product.price && (
+                isLoved ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />
+              )
+            }
           </div>
         </CardActions>
         <Typography gutterBottom variant="h5" component="div">{product?.title}</Typography>
