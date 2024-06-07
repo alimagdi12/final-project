@@ -5,8 +5,13 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ColorContext from "../contexts/ColorContext";
+import { toast } from "react-toastify";
 
 export default function Auth() {
+
+// const {user,setUser}= useContext(UserContext)
+  const {color} = useContext(ColorContext)
   const navigate =useNavigate()
   const handleSignUp = async () => {
     try {
@@ -21,19 +26,35 @@ export default function Auth() {
 
   const { setToken } = useContext(UserContext);
   const handleSignIn = async () => {
-   
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/login",
         signInForm
       );
-      setToken(response.data.user.token);
-      localStorage.setItem("token", response.data.user.token);
-      navigate('/home')
+      
+      // Log the entire response to understand its structure
+      console.log('Response:', response);
+      
+      // Log specific parts of the response
+      console.log('Response Data:', response.data);
+      console.log('Response Data User:', response.data.user);
+      console.log('Response Data User Token:', response.data.user.token);
+      
+      // Check if token exists before setting it
+      if (response.data && response?.data?.user && response?.data?.user?.token) {
+        setToken(response.data.user.token);
+        localStorage.setItem("token", response.data.user.token);
+        toast.success('logged sucessfully')
+        navigate('/home');
+      } else {
+        toast.error('log in failed')
+        console.error("Token not found in response:", response);
+      }
     } catch (error) {
-      console.error("Signup failed:", error);
+      console.error("Signin failed:", error);
     }
   };
+  
 
   const [isSwitched, setIsSwitched] = useState(false);
   const [signUpForm, setsignUpForm] = useState({
@@ -152,7 +173,9 @@ export default function Auth() {
     <Box className="container d-flex align-items-center text-center">
       <Box
         className={`clipped-element ${moveToRegister ? "move-bottom" : ""}`}
-      ></Box>
+      >
+        
+      </Box>
 
       {/* registeration Box */}
       <Grid

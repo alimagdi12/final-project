@@ -21,7 +21,7 @@ const bidRouter = (bidController) => {
         }
     })
 
-    router.get('/get-bid', async (req, res, next) => {
+    router.post('/get-bid', async (req, res, next) => {
         try {
             const bid = await bidController.getBid(req.body);
             res.status(200).json(bid)

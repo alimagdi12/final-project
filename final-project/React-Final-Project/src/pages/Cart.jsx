@@ -24,57 +24,74 @@ import { CartContext } from '../contexts/CartContext';
 import axios from 'axios';
 
 const Cart = () => {
-    const { cartItems, updateCartItemQuantity, setCartItems, totalItems ,getCart } = useContext(CartContext);
+    const { cartItems, updateCartItemQuantity, setCartItems, totalItems, getCart } = useContext(CartContext);
 
     const safeTotalItems = isNaN(totalItems) ? 0 : totalItems;
 
     const [openDialog, setOpenDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
 
-    const handleQuantityChange = (id, quantity) => {
-        updateCartItemQuantity(id, quantity);
-    };
 
-    const handleDelete = async (id) => {
-         try {
-            const response = await axios.post(
-                'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
-                { cartId: id },
-                {
-                  headers: {
-                    'Content-Type': 'application/json', // Adjust content type as necessary
-                    jwt: localStorage.getItem('token'),
-                  },
+    console.log("Imports are working fine.");
+
+        // Inside Cart component
+    
+        useEffect(() => {
+            console.log("Fetching cart data...");
+            getCart().then(() => {
+                console.log("Cart data fetched successfully.");
+                setCartItems(cartItems);
+            }).catch(error => {
+                console.error("Error fetching cart data:", error);
+            });
+        }, []);
+    
+        const handleQuantityChange = (id, quantity) => {
+            console.log(`Updating quantity for item ${id} to ${quantity}.`);
+            updateCartItemQuantity(id, quantity);
+        };
+    
+        const handleDelete = async (id) => {
+            try {
+                console.log("Deleting item from cart...");
+                const response = await axios.post(
+                    'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
+                    { cartId: id },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json', // Adjust content type as necessary
+                            jwt: localStorage.getItem('token'),
+                        },
+                    }
+                );
+                getCart()
+                if (response.status === 200) {
+                    console.log(`Item ${id} deleted successfully.`);
+                    setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
                 }
-              );
-          getCart()
-            if (response.status === 200) {
-                setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+            } catch (error) {
+                console.error('Error removing item from cart:', error);
             }
-        } catch (error) {
-            console.error('Error removing item from cart:', error);
-        }
-    };
+        };
+    
+        const confirmDelete = () => {
+            console.log("Confirming item deletion.");
+            handleDelete(deleteItemId);
+            setOpenDialog(false);
+            setDeleteItemId(null);
+        };
+    
+        const handleDialogClose = () => {
+            console.log("Closing dialog.");
+            setOpenDialog(false);
+            setDeleteItemId(null);
+        };
+    
+        console.log("Rendering Cart component.");
 
-    const confirmDelete = () => {
-        handleDelete(deleteItemId);
-        setOpenDialog(false);
-        setDeleteItemId(null);
-    };
 
-    const handleDialogClose = () => {
-        setOpenDialog(false);
-        setDeleteItemId(null);
-    };
-
-    useEffect(() => {
-        // Assume setCartItems initializes cart items, maybe from an API call or context state
-        setCartItems(cartItems);
-    }, []);
-
-   
     const navigate = useNavigate();
-    const totalPrice = 100;
+    const totalPrice = cartItems?.reduce((acc, curr) => (acc + curr.productId?.price)*curr.quantity, 0);
     const Tax = 50;
     const totalCash = totalPrice + Tax;
 
@@ -88,7 +105,7 @@ const Cart = () => {
                     </Box>
                     <Box sx={{ display: 'flex' }}>
                         <Box sx={{ width: "26px", height: '35px', backgroundColor: '#5DAA60', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '5px' }}>
-                            {safeTotalItems}
+                            {cartItems?.length}
                         </Box>
                         <Typography variant="h4" ml={1}>Items</Typography>
                     </Box>
@@ -96,27 +113,27 @@ const Cart = () => {
 
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
-                        {cartItems.map(item => (
-                            <Paper key={item.id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
+                        {cartItems?.map(item => (
+                            <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '25px', border: '2px solid #5DAA60' }}>
                                 <Grid container spacing={2} alignItems="center">
                                     <Grid item xs={12} md={2}>
-                                        <Avatar variant="square" src={item.image} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
+                                        <Avatar variant="square" src={`../../public/${item.productId?.folderName}/${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                                             <Grid item xs={12} md={4}>
-                                                <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.name}</Typography>
-                                                <Typography>Color - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.color}</Typography></Typography>
-                                                <Typography>Size - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.size}</Typography></Typography>
+                                                <Typography>Title - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId?.title}</Typography></Typography>
+                                                <Typography>City - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId?.location}</Typography></Typography>
+                                                {/* <Typography>Size - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.size}</Typography></Typography> */}
                                             </Grid>
                                             <Grid item xs={12} md={4}>
-                                                <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.price} EGP</Typography>
+                                                <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '17px', color: '#5DAA60' }}>{item.productId?.price} EGP</Typography>
                                             </Grid>
                                             <Grid item xs={12} md={4}>
                                                 <TextField
                                                     type="number"
                                                     value={item.quantity}
-                                                    onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
+                                                    onChange={(e) => handleQuantityChange(item.productId?._id, parseInt(e.target.value, 10))}
                                                     inputProps={{ min: 1 }}
                                                     fullWidth
                                                 />

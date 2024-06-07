@@ -67,14 +67,7 @@ const AuctionSchema = new Schema({
             "a date must be entered automatically"
         ]
     },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: [
-            true,
-            "a user id must be entered automatically"
-        ]
-    },
+   
     categoryId: {
         type: Schema.Types.ObjectId,
         ref: 'Category',

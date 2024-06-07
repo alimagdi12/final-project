@@ -117,7 +117,7 @@ const PlaceOrder = () => {
         navigate('/orderDone')
     }
 
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalPrice = cartItems?.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
     const COD = 70;
     const Tax = 50;
     const total = totalPrice + COD
@@ -236,20 +236,20 @@ const PlaceOrder = () => {
     <Typography variant="h5" mb={2} display={'flex'} justifyContent={'space-between'} flexDirection={'column'}>
         <Typography variant="h5" sx={{ borderBottom: '2px solid #66BB6A', lineHeight: '50px', color: '#66BB6A', fontWeight: 'bold', fontSize: '22px', display: 'flex', alignItems: 'center' }} width={'100%'} ml={2}><ShoppingCartIcon /> Your Order</Typography>
         <Typography variant="h5" sx={{ display: 'flex', marginTop: '15px' }}>
-            <Typography variant="h5" sx={{ backgroundColor: '#66BB6A', padding: '0px 8px', borderRadius: '8px', fontWeight: 'bold', color: 'white', fontSize: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} ml={2}>{cartItems.length}</Typography>
+            <Typography variant="h5" sx={{ backgroundColor: '#66BB6A', padding: '0px 8px', borderRadius: '8px', fontWeight: 'bold', color: 'white', fontSize: '17px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} ml={2}>{cartItems?.length}</Typography>
             <Typography sx={{ color: '#66BB6A', fontWeight: 'bold' }} variant="h6" ml={2}>Items</Typography>
         </Typography>
     </Typography>
-    {cartItems.map(item => (
-        <Grid key={item.id} container spacing={2} alignItems="center" sx={{ display: 'flex', alignItems: 'flex-start', height: 'auto' }}>
+    {cartItems?.map(item => (
+        <Grid key={item.productId._id} container spacing={2} alignItems="center" sx={{ display: 'flex', alignItems: 'flex-start', height: 'auto' }}>
             <Grid item xs={12} md={4} sx={{ width: '100%', height: '280px' }}>
-                <Avatar variant="square" src={item.image} sx={{ width: '100%', height: '80%', borderRadius: '7px' }} />
+                <Avatar variant="square" src={`../../public/${item.productId.folderName}/${item.productId.imagesUrl.images[0]}`} sx={{ width: '100%', height: '80%', borderRadius: '7px' }} />
             </Grid>
             <Grid item xs={12} md={6}>
-                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.name}</Typography>
-                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.price} EGP</Typography>
+                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.productId.title}</Typography>
+                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.productId.price} EGP</Typography>
                 <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Quantity:{item.quantity}</Typography>
-                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Total:{item.price * item.quantity}</Typography>
+                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Total:{item.productId.price * item.quantity}</Typography>
             </Grid>
         </Grid>
     ))}

@@ -152,10 +152,15 @@ const userRoutes = require('./routes/user/user.routes');
 const auctionRoutes = require('./routes/auction/aucttion.routes');
 const bidRoutes = require('./routes/bid/bid.routes');
 const cartRoutes = require('./routes/cart/cart.routes');
+<<<<<<< HEAD
 const paymentRoutes = require('./routes/payment/payment.routes');
 const wishLisrRoutes = require('./routes/wishlist/wishlist.routes');
 
 
+=======
+const paymentRoutes = require('./routes/payment/payment.routes')
+const favoriteRoutes = require('./routes/favorite/favorite.routes');
+>>>>>>> cacb611a6a2f1ff0cb5f639093f9434018f4e264
 
 // Middleware to get client's IP address
 app.use(requestIp.mw());
@@ -166,7 +171,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // executing the routes 
 app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController),wishLisrRoutes(wishlistController)]);
 app.use("/api/v1/products", productsRoutes(productController));
-app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
+app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController) , favoriteRoutes(userController)]);
 app.use('/api/v1/admin', [
     userRoleRoutes(userRoleController),
     categoryRoutes(categoryController),

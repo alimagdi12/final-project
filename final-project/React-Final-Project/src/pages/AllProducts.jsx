@@ -16,9 +16,11 @@ import {
   Button,
 } from "@mui/material";
 import { CartContext } from "../contexts/CartContext";
+import ColorContext from "../contexts/ColorContext";
 
 export default function AllProducts() {
-  const [toggle, setToggle] = useState(true);
+  const {color}= useContext(ColorContext)
+  const [toggle, setToggle] = useState(false);
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
   const { auction } = useContext(AuctionContext);
@@ -26,14 +28,15 @@ export default function AllProducts() {
   const [searchLocation, setSearchLocation] = useState([]);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 3; // Number of products to display per page
+  const productsPerPage = 6; // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-const{getCart}=useContext(CartContext)
+  const { getCart, addToCart } = useContext(CartContext);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -98,49 +101,32 @@ const{getCart}=useContext(CartContext)
     setCurrentPage(1);
   }
 
-  async function addToCart(productId) {
-    const productForm = new FormData();
-    productForm.append("productId", productId);
-    try {
-      const token = localStorage.getItem("token");
-    const response =  await axios.post(
-        "http://localhost:3000/api/v1/auth/add-to-cart",
-        productForm,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            jwt: token,
-          },
-        }
-      );
-      getCart()
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   return (
     <>
       <Container
         sx={{
-          display: "flex",
-          marginTop: "20px",
-          justifyContent: "space-between",
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' }, // Flex direction changes based on screen size
+          marginTop: '20px',
+          justifyContent: 'space-between',
         }}
       >
         <Box
           sx={{
-            width: "25%",
-            height: "82vh",
-            border: "3px solid #76a85f",
-            borderRadius: "10px",
-            padding: "10px",
-            color: "#76a85f",
+            width: { xs: '100%', md: '25%' }, // Adjust width for smaller screens
+            height: '82vh',
+            border: `3px solid ${color}`,
+            borderRadius: '10px',
+            paddingX: '50px',
+            color: 'black',
+            marginBottom: { xs: '20px', md: 0 }, // Add bottom margin for smaller screens
           }}
         >
-          <Box sx={{ width: "75%", margin: "auto", marginTop: 2 }}>
+          {/* Categories and City filters */}
+          <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
+            {/* Categories filter */}
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">
+              <FormLabel sx={{color:color}} id="demo-radio-buttons-group-label">
                 Categories
               </FormLabel>
               <RadioGroup
@@ -149,42 +135,81 @@ const{getCart}=useContext(CartContext)
                 name="radio-buttons-group"
                 onChange={filterByCategory}
               >
-                <FormControlLabel value="All" control={<Radio />} label="All" />
+                <FormControlLabel
+                  value="All"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="All"
+                />
                 {categories?.categories?.map((category) => (
                   <FormControlLabel
                     key={category?.title}
                     value={category?.title}
-                    control={<Radio />}
+                    control={<Radio sx={{
+                      color: 'black',
+                      '&.Mui-checked': {
+                        color: color,
+                      },
+                    }}/>} 
                     label={category?.title}
                   />
                 ))}
               </RadioGroup>
             </FormControl>
           </Box>
-          <Box sx={{ width: "75%", margin: "auto", marginTop: 2 }}>
+          <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
+            {/* City filter */}
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">City</FormLabel>
+              <FormLabel sx={{color:color}} id="demo-radio-buttons-group-label">City</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue="All"
                 name="radio-buttons-group"
                 onChange={filterByLocation}
               >
-                <FormControlLabel value="All" control={<Radio />} label="All" />
+                <FormControlLabel
+                  value="All"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="All"
+                />
                 <FormControlLabel
                   value="portsaid"
-                  control={<Radio />}
-                  label="portsaid"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="portsaid"
                 />
                 <FormControlLabel
                   value="Ismailia"
-                  control={<Radio />}
-                  label="Ismailia"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="Ismailia"
                 />
                 <FormControlLabel
                   value="Alex"
-                  control={<Radio />}
-                  label="Alex"
+                  control={<Radio sx={{
+                    color: 'black',
+                    '&.Mui-checked': {
+                      color: color,
+                    },
+                  }}/>} 
+                label="Alex"
                 />
               </RadioGroup>
             </FormControl>
@@ -192,25 +217,39 @@ const{getCart}=useContext(CartContext)
         </Box>
 
         <Box
-          sx={{ width: "70%", display: "flex", flexDirection: "column" }}
+          sx={{
+            width: { xs: '100%', md: '70%' }, // Adjust width for smaller screens
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-            <Button variant="contained" onClick={() => setToggle(false)}>
+          {/* Buttons and Product Cards */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: 2,
+              marginTop: { xs: 2, md: 0 }, // Add top margin for smaller screens
+            }}
+          >
+            {/* Show Products and Show Auction buttons */}
+            <Button variant="contained" onClick={() => setToggle(false)}               sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}  >
               Show Products
             </Button>
-            <Button variant="contained" onClick={() => setToggle(true)}>
+            <Button variant="contained" onClick={() => setToggle(true)} sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}>
               Show Auction
             </Button>
           </Box>
-          <Box
-            sx={{ display: "flex", flexWrap: "wrap" }}
-          >
+          {/* Product Cards */}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {/* Product Cards */}
             {toggle
               ? auction?.map((product) => (
                   <ProductCard
                     key={product._id}
                     addToCart={() => {
                       addToCart(product._id);
+                      getCart();
                     }}
                     product={product}
                   />
@@ -220,6 +259,7 @@ const{getCart}=useContext(CartContext)
                     key={product._id}
                     addToCart={() => {
                       addToCart(product._id);
+                      getCart();
                     }}
                     product={product}
                   />
@@ -227,14 +267,20 @@ const{getCart}=useContext(CartContext)
           </Box>
         </Box>
       </Container>
-      <Container
-        sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-      >
+      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
         <Pagination
           count={Math.ceil(displayedProducts?.length / productsPerPage)}
           page={currentPage}
           onChange={handlePageChange}
-          color="primary"
+          sx={{
+            '& .MuiPaginationItem-root': {
+              color: color, 
+            },
+            '& .Mui-selected': {
+              backgroundColor: color, 
+              color: '#fff', 
+            },
+          }}
         />
       </Container>
     </>

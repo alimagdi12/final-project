@@ -1,18 +1,19 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import UserContext from './UserContext';
+import { toast } from 'react-toastify';
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
-    const  token  = localStorage.getItem('token')
-
+   
+const {token} = useContext(UserContext)
     useEffect(() => {
         if (token) {
             getCart();
         }
-        
+
     }, []);
 
     const getCart = async () => {
@@ -24,27 +25,59 @@ export const CartProvider = ({ children }) => {
                 }
             });
             setCartItems(response.data.cart);
-   
+            console.log(cartItems);
+
         } catch (err) {
             console.error(err);
-           alert('Failed to fetch cart items');
+            alert('Failed to fetch cart items');
         }
     };
 
-    const addToCart = (item) => {
-        setCartItems(prevItems => [...prevItems, item]);
-    };
+    async function addToCart(productId) {
+        const productForm = new FormData();
+        productForm.append("productId", productId);
+      
+   if(token){
+       
+      
+        try {
+            const token = localStorage.getItem("token");
+            console.log(token);
+            const response = await axios.post(
+                "http://localhost:3000/api/v1/auth/add-to-cart",
+                productForm,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        jwt: token,
+                    },
+                }
+            );
+            console.log(response);
+            getCart()
+        } catch (err) {
+            console.error(err);
+        }
+    
+    
+   }
+   else{
+    toast.error('you must login first')
+   }
+    }
 
     const updateCartItemQuantity = (id, quantity) => {
-        setCartItems(prevItems =>
-            prevItems.map(item => (item.id === id ? { ...item, quantity } : item))
+        setCartItems((prevItems) =>
+            prevItems.map((item) =>
+                item.productId._id === id ? { ...item, quantity } : item
+            )
         );
     };
 
     const totalItems = 0
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems , getCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems, getCart }}>
             {children}
         </CartContext.Provider>
     );

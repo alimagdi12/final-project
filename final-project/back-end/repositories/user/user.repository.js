@@ -5,6 +5,7 @@ const Email = require('../../middlewares/email');
 const User = require("../../models/user/user.model");
 const UserRole = require('../../models/userRole/userRole.model');
 const fs = require('fs');
+const Product = require('../../models/products/product.model');
 
 class UserRepositry {
     constructor(io) {
@@ -142,6 +143,45 @@ class UserRepositry {
             console.log(err);
             throw new Error(err);
         }
+    }
+
+    async addFavorite(token, productId) {
+        // const user = await User.findByToken(token);
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const email = decodedToken.email;
+        const user = await User.findOne({ email });
+       const product = await Product.findOne({_id:productId})
+       console.log(product);
+
+       if(!product){
+        throw new Error('no product')
+       }
+        if (!user) throw new Error('User not found');
+
+        if (!user.favorites.includes(productId)) {
+            user.favorites.push(productId);
+            await user.save();
+        }
+        return user.favorites;
+    }
+
+    async removeFavorite(token, productId) {
+        const user = await User.findByToken(token);
+        if (!user) throw new Error('User not found');
+
+        user.favorites = user.favorites.filter(id => id !== productId);
+        await user.save();
+
+        return user.favorites;
+    }
+
+    async getFavorites(token) {
+        // const user = await User.findByToken(token);
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const email = decodedToken.email;
+        const user = await User.findOne({ email }).populate('favorites'); 
+        if (!user) throw new Error('User not found');
+        return user.favorites;
     }
 
 };

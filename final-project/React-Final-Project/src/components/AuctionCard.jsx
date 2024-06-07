@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, Box, ButtonBase } from '@mui/material';
+import ColorContext from '../contexts/ColorContext';
 
 const AuctionCard = ({ item, onBidClick }) => {
+    const { color } = useContext(ColorContext)
     return (
         <Card sx={{ marginLeft: '15px' }}>
-            <Box sx={{ position: 'relative', padding: '5px' }}>
+            <Box sx={{  padding: '5px' }}>
                 <CardMedia
                     component="img"
                     height="250px"
@@ -21,7 +23,7 @@ const AuctionCard = ({ item, onBidClick }) => {
                         position: 'absolute',
                         bottom: 16,
                         right: 16,
-                        backgroundColor: '#5DAA60',
+                        backgroundColor: color,
                         color: '#fff',
                     }}
                     variant="contained"
@@ -37,10 +39,10 @@ const AuctionCard = ({ item, onBidClick }) => {
                 </Typography>
                 <Box textAlign={'center'}>
                     <Typography sx={{ marginTop: '16px', display: 'flex', justifyContent: 'space-around', fontWeight: 'bold' }} variant="body2" >
-                        Your last bid:<Box sx={{ backgroundColor: '#5DAA60', color: '#fff', padding: '6px 12px', borderRadius: '5px', fontWeight: 'bold' }}> {item.yourBid}$</Box>
+                        Your last bid:<Box sx={{ backgroundColor: color, color: '#fff', padding: '6px 12px', borderRadius: '5px', fontWeight: 'bold' }}> {item.yourBid}$</Box>
                     </Typography>
                     <Typography sx={{ marginTop: '22px', display: 'flex', justifyContent: 'space-around', fontWeight: 'bold' }} variant="body2" >
-                        Highest bid: <Box sx={{ backgroundColor: '#5DAA60', color: '#fff', padding: '6px 12px', borderRadius: '5px', fontWeight: 'bold' }}>{item.highestBid}$</Box>
+                        Highest bid: <Box sx={{ backgroundColor: color, color: '#fff', padding: '6px 12px', borderRadius: '5px', fontWeight: 'bold' }}>{item.highestBid}$</Box>
                     </Typography>
                     <ButtonBase
                         sx={{
@@ -48,8 +50,8 @@ const AuctionCard = ({ item, onBidClick }) => {
                             fontWeight: 'bold',
                             fontSize: '12px',
                             padding: '10px 10px',
-                            backgroundColor: '#5DAA60',
-                            color: '#fff', marginTop: '22px', '&:hover': { backgroundColor: '#fff', color: '#5DAA60', outline: '2px solid #5DAA60' }
+                            backgroundColor: color,
+                            color: '#fff', marginTop: '22px', '&:hover': { backgroundColor: '#fff' , transition:'0.3s ease in out', color: color, outline: `2px solid ${color}`  }
                         }}
                         variant="contained"
                     >

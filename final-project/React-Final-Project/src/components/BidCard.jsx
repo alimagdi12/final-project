@@ -15,9 +15,9 @@ const BidCard = ({auction}) => {
 
         <Container sx={{ marginTop: '15px' }}>
             <Grid container spacing={3} alignItems="center">
-                <Grid item xs={12} md={6}>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                        <img src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`} alt="Villa" style={{ maxWidth: '100%', height:'100vh' }} />
+                <Grid  item xs={12} md={6}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-start' ,alignItems:'center' }}>
+                        <img  src={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`} alt="Villa" style={{ maxWidth: '100%', height:'79vh' , marginTop:'50px' }} />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -27,7 +27,7 @@ const BidCard = ({auction}) => {
                         </Typography>
                         <Card sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#fff', height: '100%', boxShadow: "0px 0px 15px 5px rgba(0, 0, 0, 0.2)" }}>
                             <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <CircularWithValueLabel hours={+hours} minutes={+minutes} seconds={+seconds} />
+                                <CircularWithValueLabel auction={auction} hours={+hours} minutes={+minutes} seconds={+seconds} id={auction._id} />
                             </CardContent>
                         </Card>
                     </Box>
