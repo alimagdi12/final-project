@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../../controllers/user/user.controller'); // Make sure to import your userController
 
 const favoriteRouter = () => {
+    
     router.post('/add-favorite', async (req, res, next) => {
         try {
             const token = req.headers['jwt'];
