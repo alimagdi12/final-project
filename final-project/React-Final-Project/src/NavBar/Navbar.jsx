@@ -38,7 +38,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const { color } = useContext(ColorContext);
   const { token } = useContext(UserContext);
   const handleProfileClick = () => {
-    if (token !== "" || token) {
+    if (token !== "" || token ) {
       console.log(token);
       navigate("/profile");
     } else {
@@ -149,24 +149,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 
-          <Typography
-            variant="h5"
-            noWrap
-            component={Link}
-            to="/products"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+
 
           <Box
             sx={{
