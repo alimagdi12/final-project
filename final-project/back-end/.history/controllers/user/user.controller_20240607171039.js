@@ -74,36 +74,34 @@ async getUser(token){
         }
     }
 
-    async addFavorite(token, productId) {
-        try {
-            const result = await this.userRepositry.addFavorite(token, productId);
-            return { message: 'Favorite added successfully', result };
-        } catch (error) {
-            console.log(error);
-            return { msg: 'Failed to add favorite', error: error.message };
+    addFavorite: async (token, productId) => {
+        const user = await User.findByToken(token);
+        if (!user) throw new Error('User not found');
+        
+        if (!user.favorites.includes(productId)) {
+            user.favorites.push(productId);
+            await user.save();
         }
-    }
+        
+        return user.favorites;
+    },
 
-    async removeFavorite(token, productId) {
-        try {
-            const result = await this.userRepositry.removeFavorite(token, productId);
-            return { message: 'Favorite removed successfully', result };
-        } catch (error) {
-            console.log(error);
-            return { msg: 'Failed to remove favorite', error: error.message };
-        }
-    }
+    removeFavorite: async (token, productId) => {
+        const user = await User.findByToken(token);
+        if (!user) throw new Error('User not found');
 
-    async getFavorites(token) {
-        try {
-            const result = await this.userRepositry.getFavorites(token);
-            return { message: 'Favorites fetched successfully', result };
-        } catch (error) {
-            console.log(error);
-            return { msg: 'Failed to fetch favorites', error: error.message };
-        }
+        user.favorites = user.favorites.filter(id => id !== productId);
+        await user.save();
+        
+        return user.favorites;
+    },
+
+    getFavorites: async (token) => {
+        const user = await User.findByToken(token);
+        if (!user) throw new Error('User not found');
+        
+        return user.favorites;
     }
-    
 }
 
 module.exports = UserController;

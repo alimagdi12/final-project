@@ -37,7 +37,6 @@ const UserSchema = new Schema({
             message: 'Last name must contain only letters'
         }
     },
-    favorites: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
     birthDay: {
         type: Date,
         required: [

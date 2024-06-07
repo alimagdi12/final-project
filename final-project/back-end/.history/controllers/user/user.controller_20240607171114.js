@@ -73,36 +73,6 @@ async getUser(token){
             throw new Error(err);
         }
     }
-
-    async addFavorite(token, productId) {
-        try {
-            const result = await this.userRepositry.addFavorite(token, productId);
-            return { message: 'Favorite added successfully', result };
-        } catch (error) {
-            console.log(error);
-            return { msg: 'Failed to add favorite', error: error.message };
-        }
-    }
-
-    async removeFavorite(token, productId) {
-        try {
-            const result = await this.userRepositry.removeFavorite(token, productId);
-            return { message: 'Favorite removed successfully', result };
-        } catch (error) {
-            console.log(error);
-            return { msg: 'Failed to remove favorite', error: error.message };
-        }
-    }
-
-    async getFavorites(token) {
-        try {
-            const result = await this.userRepositry.getFavorites(token);
-            return { message: 'Favorites fetched successfully', result };
-        } catch (error) {
-            console.log(error);
-            return { msg: 'Failed to fetch favorites', error: error.message };
-        }
-    }
     
 }
 

@@ -158,7 +158,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // executing the routes 
 app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController)]);
 app.use("/api/v1/products", productsRoutes(productController));
-app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController) , favoriteRoutes(userController)]);
+app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController) , favoriteRoutes(UserController)]);
 app.use('/api/v1/admin', [
     userRoleRoutes(userRoleController),
     categoryRoutes(categoryController),
