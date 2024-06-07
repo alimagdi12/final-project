@@ -24,6 +24,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ColorPicker from './components/ColorPicker.jsx';
 import CategoryProducts from './pages/CategoryProducts.jsx';
 import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
+import FavoritePage from './pages/FavoritePage.jsx';
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
           <Route path="/sell" element={<List />} />
           <Route path="/add-auction" element={<AddAuction />} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/favorite" element={<FavoritePage/>} />
         </Routes>
         {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>

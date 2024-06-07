@@ -223,7 +223,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           )}
           <IconButton color="inherit">
             <Badge badgeContent={love} color="secondary">
-              <FavoriteIcon sx={{ cursor: 'pointer' }} />
+              <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer',color:'white' }} /></Link>
             </Badge>
           </IconButton>
           {token && (

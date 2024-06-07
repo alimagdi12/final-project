@@ -9,7 +9,7 @@ import UserContext from "../contexts/UserContext";
 import { toast } from "react-toastify";
 import ColorContext from "../contexts/ColorContext";
 
-function CircularProgressWithLabel(props) {
+function CircularProgressWithLabel({auction, bidderName,highestBid,value,hours,minutes,seconds}) {
   const {color} = useContext(ColorContext)
   return (
     <Box
@@ -42,7 +42,7 @@ function CircularProgressWithLabel(props) {
       <CircularProgress
         sx={{ strokeDashoffset: "100%" }}
         variant="determinate"
-        value={props.value}
+        value={value}
         style={{
           width: "100%",
           height: "auto",
@@ -81,7 +81,7 @@ function CircularProgressWithLabel(props) {
             fontSize: { xs: "20px", md: "28px" },
           }}
         >
-          {props.bidderName}
+          {auction?.title}
         </Typography>
         <Typography
           variant="subtitle1"
@@ -95,7 +95,7 @@ function CircularProgressWithLabel(props) {
             color: "#fff",
           }}
         >
-          {props.highestBid}$
+          {highestBid}$
         </Typography>
         <Typography
           variant="subtitle1"
@@ -131,7 +131,7 @@ function CircularProgressWithLabel(props) {
           variant="caption"
           component="div"
         >
-          {`${props.hours}:${props.minutes}:${props.seconds}`}
+          {`${hours}:${minutes}:${seconds}`}
         </Typography>
       </Box>
     </Box>
@@ -147,7 +147,7 @@ CircularProgressWithLabel.propTypes = {
   seconds: PropTypes.number.isRequired,
 };
 
-export default function AuctionCard({ hours, minutes, seconds, id }) {
+export default function AuctionCard({ hours, minutes, seconds, id , auction}) {
   const {color} = useContext(ColorContext)
   const [progress, setProgress] = useState({
     hours: hours | 0,
@@ -256,6 +256,7 @@ if(token){
         hours={progress.hours}
         minutes={progress.minutes}
         seconds={progress.seconds}
+        auction = {auction}
       />
       <Box
         sx={{
