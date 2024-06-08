@@ -89,7 +89,7 @@ app.get('/api/chat-history', (req, res) => {
 
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST','PUT', 'DELETE']
+    methods: ['GET', 'POST','PUT']
 }));
 
 // calling AuthRespositry and AuthController
