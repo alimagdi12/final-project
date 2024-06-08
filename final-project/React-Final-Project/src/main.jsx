@@ -30,6 +30,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </CategoryProvider>
       </LoveProvider>
     </ColorProvider>
-
   </UserProvider>
 )

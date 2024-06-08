@@ -2,29 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Login from './Authentication/Auth.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './NavBar/Navbar.jsx';
+import Navbar from './components/NavBar/Navbar.jsx'
 import { CssBaseline } from '@mui/material';
-import AddProduct from './pages/AddProduct.jsx';
+import AddProduct from './pages/AddProducts/AddProduct.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AllProducts from './pages/AllProducts.jsx';
+import AllProducts from './pages/AllProducts/AllProducts.jsx';
 import Home from './pages/Home/Home.jsx';
-import AboutUs from './pages/AboutUs.jsx';
-import Profile from './pages/Profile.jsx';
-import Cart from './pages/Cart.jsx';
-import PlaceOrder from './pages/PlaceOrder.jsx';
+import AboutUs from './pages/About/AboutUs.jsx';
+import Profile from './pages/Profile/Profile.jsx';
+import Cart from './pages/Cart/Cart.jsx';
+import PlaceOrder from './pages/Shipping/PlaceOrder.jsx';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import BidPage from './pages/BidPage.jsx';
-import Footer from './components/Footer.jsx';
-import OrderDone from './pages/OrderDone.jsx';
-import ProductDetails from './pages/ProductDetails.jsx';
-import List from './pages/List.jsx';
-import AddAuction from './pages/AddAuction.jsx';
-import { ToastContainer, toast } from 'react-toastify';
+import BidPage from './pages/Bid/BidPage.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import OrderDone from './pages/OrderCompleted/OrderDone.jsx';
+import ProductDetails from './pages/ProductDetails/ProductDetails.jsx';
+import List from './pages/ListItems/List.jsx';
+import AddAuction from './pages/AddAuction/AddAuction.jsx';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ColorPicker from './components/ColorPicker.jsx';
-import CategoryProducts from './pages/CategoryProducts.jsx';
+import ColorPicker from './components/Color/ColorPicker.jsx';
+import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
 import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
-import FavoritePage from './pages/FavoritePage.jsx';
+import FavoritePage from './pages/Favorite/FavoritePage.jsx';
+import Chat from './components/Chat/Chat.jsx';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
       <ToastContainer />
       <ThemeProvider theme={theme}>
         <ColorPicker />
+        <Chat/>
         <CssBaseline />
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
