@@ -25,6 +25,7 @@ import ColorPicker from './components/Color/ColorPicker.jsx';
 import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
 import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
 import FavoritePage from './pages/Favorite/FavoritePage.jsx';
+import Chat from './components/Chat/Chat.jsx';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
       <ToastContainer />
       <ThemeProvider theme={theme}>
         <ColorPicker />
+        <Chat/>
         <CssBaseline />
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
