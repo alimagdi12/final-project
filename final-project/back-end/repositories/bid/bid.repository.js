@@ -47,7 +47,7 @@ class BidRepository {
 
         // Emit the new bid amount to all connected clients
         this.io.emit('newBid', { amount });
-
+        
         return newBid;
     }
 

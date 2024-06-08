@@ -30,6 +30,7 @@ const getUserIdFromToken = (socket) => {
         });
     });
 };
+
 const io = socket(server,{
   cors: {
     origin: "*", 
