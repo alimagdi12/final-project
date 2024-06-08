@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Typography, TextField, Button, Paper } from '@mui/material';
+import ColorContext from '../contexts/ColorContext';
 
 const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
+    const {color} = useContext(ColorContext)
     const [formData, setFormData] = useState({
         name: '',
         street: '',
@@ -89,7 +91,7 @@ const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
                         value={formData.country}
                         onChange={handleChange}
                     />
-                    <Button type="submit" fullWidth variant="contained" color="primary">
+                    <Button sx={{backgroundColor:color , "&:hover":{color:color, backgroundColor:'white', outline:`2px solid ${color}`}}} type="submit" fullWidth variant="contained" color="primary">
                         Save Address
                     </Button>
                 </form>

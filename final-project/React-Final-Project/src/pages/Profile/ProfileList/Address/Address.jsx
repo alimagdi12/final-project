@@ -49,7 +49,7 @@ const Address = () => {
     };
 
     return (
-        <Container sx={{ width: '100%', marginTop: '10%' }}>
+        <Container sx={{ width: '100%'}}>
             <Typography sx={{ padding: '10px' }} variant="h5" gutterBottom>
                 Your Addresses
             </Typography>

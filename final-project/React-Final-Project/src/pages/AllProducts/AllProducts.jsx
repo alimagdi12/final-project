@@ -126,7 +126,7 @@ export default function AllProducts() {
           <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
             {/* Categories filter */}
             <FormControl>
-              <FormLabel sx={{color:color}} id="demo-radio-buttons-group-label">
+              <FormLabel sx={{color:color, borderBottom:`2px solid ${color}`,width:'100%'}} id="demo-radio-buttons-group-label">
                 Categories
               </FormLabel>
               <RadioGroup
@@ -164,7 +164,7 @@ export default function AllProducts() {
           <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
             {/* City filter */}
             <FormControl>
-              <FormLabel sx={{color:color}} id="demo-radio-buttons-group-label">City</FormLabel>
+                    <FormLabel sx={{color:color, borderBottom:`2px solid ${color}`}} id="demo-radio-buttons-group-label">City</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue="All"
