@@ -1,3 +1,4 @@
+
 const express = require('express');
 const http = require('http');
 require('dotenv').config();
@@ -12,6 +13,13 @@ const server = http.createServer(app);
 
 
 const jwt = require('jsonwebtoken');
+
+
+
+const MessageRepository = require('./repositories/Messages/Messages.repository');
+const MessageController = require('./controllers/Messages/Messages.controller');
+const messagesRepository = new MessageRepository()
+const mesaagecontroller = new MessageController(messagesRepository)
 
 
 // Helper function to get user ID from token
@@ -60,7 +68,11 @@ io.on('connection', async (socket) => {
     socket.emit('chat history', chatHistory);
 
     socket.on('chat message', async (message) => {
-        chatHistory.push(message);
+        console.log(message);
+        chatHistory.push(message.message);
+        messagesRepository.createMessage(message.sender,"6643adccc5f7d7391c1fbd11",message.message)
+        console.log('hambozo');
+        
         io.emit('chat message', message); // Broadcast the message to all connected clients
     });
 
@@ -77,7 +89,7 @@ app.get('/api/chat-history', (req, res) => {
 
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+    methods: ['GET', 'POST','PUT']
 }));
 
 // calling AuthRespositry and AuthController
@@ -168,9 +180,6 @@ const chatRepository = new ChatRepository();
 const chatController = new ChatController(chatRepository);
 
 
-
-
-
 // routes of the whole application
 const authRoutes = require("./routes/auth/auth.routes");
 const productsRoutes = require('./routes/products/products.routes');
@@ -184,6 +193,7 @@ const bidRoutes = require('./routes/bid/bid.routes');
 const cartRoutes = require('./routes/cart/cart.routes');
 const paymentRoutes = require('./routes/payment/payment.routes');
 const wishListRoutes = require('./routes/wishlist/wishlist.routes');
+const MessagesRouter = require('./routes/Messages/Messages.routes');
 
 
 // Middleware to get client's IP address
@@ -193,7 +203,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // executing the routes 
-app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController), bidRoutes(bidController), cartRoutes(cartController), paymentRoutes(paymentController), wishListRoutes(wishlistController)]);
+app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController), bidRoutes(bidController), cartRoutes(cartController), paymentRoutes(paymentController), wishListRoutes(wishlistController), MessagesRouter(mesaagecontroller)]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
 app.use('/api/v1/admin', [

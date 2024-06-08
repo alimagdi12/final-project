@@ -24,14 +24,16 @@ export const UserProvider = ({ children }) => {
                       'jwt': localStorage.getItem('token') // Use Bearer token format
                     }
                 });
-                setUserData(response.data);
-                console.log(response);
-            } catch (err) {
+                setUserData(response.data.result);
+                console.log(response.data.result);
+        console.log(userData);
+              } catch (err) {
                 console.error('Error fetching user data:', err);
             }
         };
 
         fetchUserData();
+        
     }, []);
 
   if (error) {

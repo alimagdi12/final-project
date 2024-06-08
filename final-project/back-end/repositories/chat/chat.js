@@ -1,22 +1,28 @@
 // repositories/chat/chat.repository.js
+const MessageRepository = require('../../repositories/Messages/Messages.repository')
 
 class ChatRepository {
-    constructor() {
-        this.messages = []; // In-memory message storage, replace with database in production
+    constructor(messageRepo) {
+        this.messages = [];
+        this.messageRepo = new MessageRepository() // In-memory message storage, replace with database in production
     }
 
     async saveMessage(userId, message) {
-        const chatMessage = {
-            userId,
-            message,
-            timestamp: new Date(),
-        };
-        this.messages.push(chatMessage);
-        return chatMessage;
+    //     const chatMessage = {
+    //         userId,
+    //         message,
+    //         timestamp: new Date(),
+    //     };
+
+    //     this.messageRepo.createMessage(userId,userId,message)
+    // console.log('hambozo');
+    // console.log(chatMessage);
+    //     this.messages.push(chatMessage);
+    //     return chatMessage;
     }
 
     async getMessages() {
-        return this.messages;
+        // return this.messages;
     }
 }
 
