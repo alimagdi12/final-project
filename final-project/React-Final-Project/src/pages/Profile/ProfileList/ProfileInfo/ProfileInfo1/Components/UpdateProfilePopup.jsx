@@ -5,8 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { Grid, TextField } from '@mui/material';
-import GreenButton from './StyedButton';
-import ColorContext from '../contexts/ColorContext';
+import ColorContext from '../../../../../../contexts/ColorContext';
 
 const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, updatedProfile , setUpdatedProfile}) => {
     const handleClose = () => {

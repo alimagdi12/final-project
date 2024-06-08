@@ -9,7 +9,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import { FaHammer } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
-import ColorContext from '../contexts/ColorContext';
+import ColorContext from '../../contexts/ColorContext';
 import { useContext } from 'react';
 
 export default function ProductCard({ product, addToCart }) {

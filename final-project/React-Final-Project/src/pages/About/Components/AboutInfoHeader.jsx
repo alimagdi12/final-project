@@ -5,7 +5,7 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import PaidIcon from '@mui/icons-material/Paid';
-import { colors } from '../Util/utilities';
+import { colors } from '../../../Util/utilities';
 const AboutInfoHeader = () => {
 
     return (

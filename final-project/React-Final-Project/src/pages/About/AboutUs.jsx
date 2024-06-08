@@ -1,9 +1,9 @@
 import { Box, CardMedia, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
-import ServiceBox from '../../components/ServiceBox';
+import ServiceBox from './Components/ServiceBox';
 import PaymentsIcon from '@mui/icons-material/Payments';
-import AboutCard from '../../components/AboutCard';
-import AboutInfoHeader from '../../components/AboutInfoHeader';
+import AboutCard from './Components/AboutCard';
+import AboutInfoHeader from './Components/AboutInfoHeader';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PaidIcon from '@mui/icons-material/Paid';

@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { colors } from '../Util/utilities';
+import { colors } from '../../../Util/utilities';
 
 export default function ServiceBox({ children, title, text }) {
   return (

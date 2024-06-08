@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
-import CustomSelect from '../../components/CustomSelect';
-import ScheduleListing from '../../components/ScheduleListing';
+import CustomSelect from '../AddAuction/Components/CustomSelect';
 import CategoryContext from '../../contexts/CategoriesContext';
 import UserContext from '../../contexts/UserContext';
 import axios from 'axios';

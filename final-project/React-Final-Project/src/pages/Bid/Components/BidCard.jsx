@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box, Container, Grid } from '@mui/material';
-import CircularWithValueLabel from './CircleProgress';
+import CircularWithValueLabel from './Components/AuctionCard';
 
 const BidCard = ({auction}) => {
     const now = Date.now();

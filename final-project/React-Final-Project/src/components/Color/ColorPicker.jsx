@@ -1,9 +1,20 @@
-import React, { useContext, useState } from 'react';
-import Box from '@mui/material/Box';
-import ColorContext from '../contexts/ColorContext';
-import { FaCog } from 'react-icons/fa';
+import React, { useContext, useState } from "react";
+import Box from "@mui/material/Box";
+import ColorContext from "../../contexts/ColorContext";
+import { FaCog } from "react-icons/fa";
 
-const colors = ['#5daa60', '#ff5722', '#2196f3', '#9c27b0', '#000', 'red', 'blue', 'gray', 'blueViolet'];
+const colors = [
+  "#5daa60",
+  "#ff5722",
+  "#2196f3",
+  "#9c27b0",
+  "#09102C",
+  "#000",
+  "red",
+  "blue",
+  "gray",
+  "blueViolet"
+];
 
 const ColorPicker = () => {
   const { color, setColor } = useContext(ColorContext);
@@ -17,26 +28,26 @@ const ColorPicker = () => {
     <>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
           mt: 2,
-          position: 'fixed',
-          right: show ? '0' : '-150px',
-          transition: 'right 0.5s ease', // Adjusted transition property
+          position: "fixed",
+          right: show ? "0" : "-150px",
+          transition: "right 0.5s ease", // Adjusted transition property
           zIndex: 9,
-          flexWrap: 'wrap',
-          py: '50px', // Shorthand for paddingY
+          flexWrap: "wrap",
+          py: "50px" // Shorthand for paddingY
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            backgroundColor: '#ccc',
+            display: "flex",
+            backgroundColor: "#ccc",
             color: color,
             padding: 1,
             height: 30,
             mt: 2,
-            cursor: 'pointer',
+            cursor: "pointer"
           }}
           onClick={() => {
             setShow(!show);
@@ -46,29 +57,28 @@ const ColorPicker = () => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
             mt: 2,
-            flexWrap: 'wrap',
-            py: '10px',
+            flexWrap: "wrap",
+            py: "10px",
             width: 150,
-            backgroundColor: '#ccc',
+            backgroundColor: "#ccc"
           }}
         >
           {colors.map((color) => (
             <Box
-              display={'flex'}
+              display={"flex"}
               key={color}
               sx={{
-                display: 'flex',
+                display: "flex",
                 width: 30,
                 height: 30,
                 backgroundColor: color,
-                cursor: 'pointer',
-                borderRadius: '50%',
+                cursor: "pointer",
+                borderRadius: "50%",
                 mx: 0.5,
-                mt: 0.5,
-               
+                mt: 0.5
               }}
               onClick={() => handleColorChange(color)}
             />

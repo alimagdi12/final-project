@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Box, Grid, TextField, Typography } from '@mui/material';
-import GreenButton from './StyedButton';
+import GreenButton from '../../../../../components/StyledButton/StyedButton';
 import ManIcon from '@mui/icons-material/Man';
 import Woman2Icon from '@mui/icons-material/Woman2';
-import UserContext from '../contexts/UserContext';
-import UpdateProfilePopup from './UpdateProfilePopup';
+import UserContext from '../../../../../contexts/UserContext';
+import UpdateProfilePopup from './Components/UpdateProfilePopup';
 import axios from 'axios';
-import ColorContext from '../contexts/ColorContext';
+import ColorContext from '../../../../../contexts/ColorContext';
 
 const ProfileInfo1 = () => {
     const { color } = useContext(ColorContext)

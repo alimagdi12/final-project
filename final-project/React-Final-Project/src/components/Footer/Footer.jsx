@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import ColorContext from "../contexts/ColorContext";
+import ColorContext from "../../contexts/ColorContext";
 
 const Footer = () => {
   const {color} = useContext(ColorContext)

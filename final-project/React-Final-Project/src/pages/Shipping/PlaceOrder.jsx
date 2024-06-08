@@ -32,7 +32,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import HomeIcon from '@mui/icons-material/Home';
 import { CartContext } from '../../contexts/CartContext';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PaymentCard from '../../components/PaymentCard';
+import PaymentCard from './Components/PaymentCard';
 import { Check, CheckBox } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 

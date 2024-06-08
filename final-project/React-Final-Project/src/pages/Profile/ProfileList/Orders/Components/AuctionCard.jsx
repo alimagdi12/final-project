@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, Box, ButtonBase } from '@mui/material';
-import ColorContext from '../contexts/ColorContext';
+import ColorContext from '../../../../../contexts/ColorContext';
 
 const AuctionCard = ({ item, onBidClick }) => {
     const { color } = useContext(ColorContext)

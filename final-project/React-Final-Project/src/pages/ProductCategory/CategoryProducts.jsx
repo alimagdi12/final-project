@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContext from "../../contexts/ProductsContext";
 import CategoryContext from "../../contexts/CategoriesContext";
 import AuctionContext from "../../contexts/AuctionContext";

@@ -14,7 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Badge, Switch } from "@mui/material";
-import FlipCard from "../FlipCard";
+import FlipCard from "../FlibCard/FlipCard";
 import CategoryContext from "../../contexts/CategoriesContext";
 import { Link, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";

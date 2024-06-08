@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ProfileInfo from '../Profile/ProfileList/ProfileInfo/ProfileInfo';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from './Components/Sidebar';
 import Orders from '../Profile/ProfileList/Orders/Orders';
 import { Box, Grid } from '@mui/material';
 import Address from '../Profile/ProfileList/Address/Address';

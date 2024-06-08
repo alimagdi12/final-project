@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
@@ -5,147 +6,10 @@ import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import { Button, TextField, Container, Grid } from "@mui/material";
 import axios from "axios";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../../../contexts/UserContext";
 import { toast } from "react-toastify";
-import ColorContext from "../contexts/ColorContext";
+import ColorContext from "../../../../contexts/ColorContext";
 
-function CircularProgressWithLabel({auction, bidderName,highestBid,value,hours,minutes,seconds}) {
-  const {color} = useContext(ColorContext)
-  return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "inline-flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        borderRadius: "50%",
-      }}
-    >
-      <CircularProgress
-        variant="determinate"
-        value={100}
-        style={{
-          width: "100%",
-          height: "auto",
-          maxWidth: "400px",
-          maxHeight: "400px",
-          "& circle[stroke-width]": {
-            strokeWidth: "2px",
-          },
-          color: "#E9EEF1",
-          position: "absolute",
-        }}
-        thickness={2}
-        strokeLinecap={"round"}
-      />
-      <CircularProgress
-        sx={{ strokeDashoffset: "100%" }}
-        variant="determinate"
-        value={value}
-        style={{
-          width: "100%",
-          height: "auto",
-          maxWidth: "400px",
-          maxHeight: "400px",
-          "& circle[stroke-width]": {
-            strokeWidth: "2px",
-          },
-          color: color,
-          borderRadius: "50%",
-          strokeLinecap: "rounded",
-        }}
-        thickness={2}
-      />
-
-      <Box
-        sx={{
-          top: 30,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          padding: "0 10px",
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          sx={{
-            marginBottom: "15px",
-            fontWeight: "700",
-            fontSize: { xs: "20px", md: "28px" },
-          }}
-        >
-          {auction?.title}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            marginBottom: "15px",
-            fontWeight: "700",
-            fontSize: { xs: "20px", md: "28px" },
-            backgroundColor: color,
-            borderRadius: "10px",
-            padding: "0px 17px",
-            color: "#fff",
-          }}
-        >
-          {highestBid}$
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            marginBottom: "15px",
-            fontWeight: "700",
-            fontSize: { xs: "20px", md: "28px" },
-          }}
-        >
-          Highest Bidder
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            marginBottom: "15px",
-            fontSize: { xs: "12px", md: "13px" },
-            fontWeight: "bold",
-          }}
-        >
-          Time left
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: "20px", md: "25px" },
-            padding: "0px 20px",
-            margin: "0",
-            borderRadius: "5px",
-            marginBottom: "15px",
-            backgroundColor: color,
-            fontWeight: "bold",
-            color: "#fff",  
-          }}
-          variant="caption"
-          component="div"
-        >
-          {`${hours}:${minutes}:${seconds}`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
-
-CircularProgressWithLabel.propTypes = {
-  value: PropTypes.number.isRequired,
-  bidderName: PropTypes.string.isRequired,
-  highestBid: PropTypes.number.isRequired,
-  hours: PropTypes.number.isRequired,
-  minutes: PropTypes.number.isRequired,
-  seconds: PropTypes.number.isRequired,
-};
 
 export default function AuctionCard({ hours, minutes, seconds, id , auction}) {
   const {color} = useContext(ColorContext)
@@ -314,3 +178,141 @@ if(token){
     </Container>
   );
 }
+
+function CircularProgressWithLabel({auction, bidderName,highestBid,value,hours,minutes,seconds}) {
+  const {color} = useContext(ColorContext)
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        display: "inline-flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        borderRadius: "50%",
+      }}
+    >
+      <CircularProgress
+        variant="determinate"
+        value={100}
+        style={{
+          width: "100%",
+          height: "auto",
+          maxWidth: "400px",
+          maxHeight: "400px",
+          "& circle[stroke-width]": {
+            strokeWidth: "2px",
+          },
+          color: "#E9EEF1",
+          position: "absolute",
+        }}
+        thickness={2}
+        strokeLinecap={"round"}
+      />
+      <CircularProgress
+        sx={{ strokeDashoffset: "100%" }}
+        variant="determinate"
+        value={value}
+        style={{
+          width: "100%",
+          height: "auto",
+          maxWidth: "400px",
+          maxHeight: "400px",
+          "& circle[stroke-width]": {
+            strokeWidth: "2px",
+          },
+          color: color,
+          borderRadius: "50%",
+          strokeLinecap: "rounded",
+        }}
+        thickness={2}
+      />
+
+      <Box
+        sx={{
+          top: 30,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          padding: "0 10px",
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          sx={{
+            marginBottom: "15px",
+            fontWeight: "700",
+            fontSize: { xs: "20px", md: "28px" },
+          }}
+        >
+          {auction?.title}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            marginBottom: "15px",
+            fontWeight: "700",
+            fontSize: { xs: "20px", md: "28px" },
+            backgroundColor: color,
+            borderRadius: "10px",
+            padding: "0px 17px",
+            color: "#fff",
+          }}
+        >
+          {highestBid}$
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            marginBottom: "15px",
+            fontWeight: "700",
+            fontSize: { xs: "20px", md: "28px" },
+          }}
+        >
+          Highest Bidder
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            marginBottom: "15px",
+            fontSize: { xs: "12px", md: "13px" },
+            fontWeight: "bold",
+          }}
+        >
+          Time left
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: { xs: "20px", md: "25px" },
+            padding: "0px 20px",
+            margin: "0",
+            borderRadius: "5px",
+            marginBottom: "15px",
+            backgroundColor: color,
+            fontWeight: "bold",
+            color: "#fff",  
+          }}
+          variant="caption"
+          component="div"
+        >
+          {`${hours}:${minutes}:${seconds}`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  value: PropTypes.number.isRequired,
+  bidderName: PropTypes.string.isRequired,
+  highestBid: PropTypes.number.isRequired,
+  hours: PropTypes.number.isRequired,
+  minutes: PropTypes.number.isRequired,
+  seconds: PropTypes.number.isRequired,
+};

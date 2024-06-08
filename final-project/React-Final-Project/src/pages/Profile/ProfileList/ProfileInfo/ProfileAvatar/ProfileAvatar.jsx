@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material'
 import React, { useContext } from 'react'
-import GreenButton from './StyedButton'
-import ColorContext from '../contexts/ColorContext'
+import GreenButton from '../../../../../components/StyledButton/StyedButton'
+import ColorContext from '../../../../../contexts/ColorContext'
 
 const ProfileAvatar = () => {
     const {color} = useContext(ColorContext)

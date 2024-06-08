@@ -1,11 +1,10 @@
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material"
-import Shape from "./Shape"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import { useContext } from "react";
-import ColorContext from "../contexts/ColorContext";
+import ColorContext from "../../../contexts/ColorContext";
 
 function Sidebar({ drawerWidth, handleListItemClick, selectedIndex }) {
     const {color} =useContext(ColorContext)

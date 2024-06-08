@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
-import ColorContext from '../contexts/ColorContext';
+import ColorContext from '../../contexts/ColorContext';
 
 const GreenButton = ({children}) => {
     const {color} = useContext(ColorContext)
