@@ -6,15 +6,14 @@ class AuctionRepository {
     constructor() {}
 
     async addAuction(data,files, token) {
-        const { expirationDays , initialValue , title , imagesUrl, categoryId, quantity, location , productStatus} = data;
+        const { expirationDays , initialValue , title , categoryId, quantity, location , productStatus} = data;
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
-        
         const expirationDate = new Date(Date.now() + expirationDays * 24 * 60 * 60 * 1000);
         const folderName = title + new Date().toISOString().split('T')[0];
-        const status = await ProductStatus.findOne({ status: productStatus });
-        const statusId = status._id;
-
+        const getStatus = await ProductStatus.findOne({ status: productStatus });
+        const statusId = getStatus._id;
+        console.log(data);
         const auction = new Auction({ 
             expirationDate, 
             userId,

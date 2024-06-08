@@ -9,6 +9,7 @@ lerna-debug.log*
 
 .history
 node_modules
+history
 dist
 dist-ssr
 *.local

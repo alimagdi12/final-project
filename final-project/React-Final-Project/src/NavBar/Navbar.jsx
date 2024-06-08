@@ -21,7 +21,7 @@ import { CartContext } from "../contexts/CartContext";
 import ColorContext from "../contexts/ColorContext";
 import UserContext from "../contexts/UserContext";
 import { toast } from "react-toastify";
-import { LoveContext } from './../contexts/LoveContext';
+import { LoveContext } from '../contexts/LoveContext';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const pages = ["Products", "Categories", "Blog"];

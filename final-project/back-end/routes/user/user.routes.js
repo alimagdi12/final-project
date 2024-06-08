@@ -24,6 +24,7 @@ const userRouter = (userController) => {
             res.status(400).json(editedUser)
         }
     });
+
     
     
     router.put('/edit-user-image', async (req, res, next) => {
@@ -55,6 +56,24 @@ const userRouter = (userController) => {
         }
     });
 
+    router.post('add-socketId', async (req, res, next) => {
+        try {
+            const token = req.headers['jwt'];
+        } catch (err) {
+            res.status(500).json({ message: 'Failed to add socketId' });
+        }
+    })
+
+    router.post('/add-favorite', async (req, res, next) => {
+        try {
+            const token = req.headers['jwt'];
+            const { productId } = req.body;
+            const result = await userController.addFavorite(token, productId);
+            res.status(200).json(result);
+        } catch (err) {
+            res.status(500).json({ message: 'Failed to add favorite', error: err.message });
+        }
+    });
 
     router.delete('/remove-favorite', async (req, res, next) => {
         try {
@@ -77,25 +96,6 @@ const userRouter = (userController) => {
         }
     });
 
-
-    router.post('/add-favorite', async (req, res, next) => {
-        try {
-            const token = req.headers['jwt'];
-            const { productId } = req.body;
-            const result = await userController.addFavorite(token, productId);
-            res.status(200).json(result);
-        } catch (err) {
-            res.status(500).json({ message: 'Failed to add favorite', error: err.message });
-        }
-    });
-
-    router.post('add-socketId', async (req, res, next) => {
-        try {
-            const token = req.headers['jwt'];
-        } catch (err) {
-            res.status(500).json({ message: 'Failed to add socketId' });
-        }
-    })
     return router;
 }
 
