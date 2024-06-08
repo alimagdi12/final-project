@@ -49,7 +49,7 @@ const Chat = () => {
   }, []);
 
   const sendMessage = () => {
-    const message = { sender: userData._id, message: input };
+    const message = { sender: userData._id,receiver:userD , message: input };
     socket.emit("chat message", message);
     setInput("");
   };
