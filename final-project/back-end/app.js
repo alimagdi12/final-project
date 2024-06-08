@@ -13,6 +13,8 @@ const server = http.createServer(app);
 
 const jwt = require('jsonwebtoken');
 
+
+// Helper function to get user ID from token
 const getUserIdFromToken = (socket) => {
     return new Promise((resolve, reject) => {
         const token = socket.handshake.headers['jwt'];
@@ -31,19 +33,22 @@ const getUserIdFromToken = (socket) => {
     });
 };
 
-const io = socket(server,{
-  cors: {
-    origin: "*", 
-    methods: ["GET", "POST"]
-  }
+const io = socket(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
 });
+
+// Chat history (in-memory for demonstration purposes, use a database in production)
+let chatHistory = [];
 
 io.on('connection', async (socket) => {
     console.log('A connection started', socket.id);
     try {
         const userId = await getUserIdFromToken(socket);
         if (userId) {
-            await userController.handleSocketConnection(userId, socket.id);
+            console.log(`User ${userId} connected with socket ID ${socket.id}`);
         }
     } catch (err) {
         console.error('Error getting user ID from token:', err.message);
@@ -51,15 +56,28 @@ io.on('connection', async (socket) => {
         return;
     }
 
+    // Send chat history to the newly connected client
+    socket.emit('chat history', chatHistory);
+
+    socket.on('chat message', async (message) => {
+        chatHistory.push(message);
+        io.emit('chat message', message); // Broadcast the message to all connected clients
+    });
+
     socket.on('disconnect', async () => {
         console.log('A connection disconnected', socket.id);
-        await userController.handleSocketDisconnection(socket.id);
     });
 });
 
+// API endpoint to fetch chat history
+app.get('/api/chat-history', (req, res) => {
+    res.json(chatHistory);
+});
+
+
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'POST','PUT']
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 
 // calling AuthRespositry and AuthController
@@ -98,6 +116,9 @@ const PaymentController = require('./controllers/payment/payment.controller');
 // calling wishListRepository and wishListController
 const WishListRepository = require('./repositories/wishlist/wishlist.repository');
 const WishListController = require('./controllers/wishlist/wishlist.controllers');
+// Import chatController
+const ChatRepository = require('./repositories/chat/chat');
+const ChatController = require('./controllers/chat/chat');
 
 
 
@@ -142,6 +163,9 @@ const paymentController = new PaymentController(paymentRepository);
 // Create instances of CartRepository and CartController
 const wishlistRepository = new WishListRepository();
 const wishlistController = new WishListController(wishlistRepository);
+//Chat
+const chatRepository = new ChatRepository();
+const chatController = new ChatController(chatRepository);
 
 
 
@@ -162,7 +186,6 @@ const paymentRoutes = require('./routes/payment/payment.routes');
 const wishListRoutes = require('./routes/wishlist/wishlist.routes');
 
 
-
 // Middleware to get client's IP address
 app.use(requestIp.mw());
 app.use(express.json());
@@ -170,7 +193,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // executing the routes 
-app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController),bidRoutes(bidController),cartRoutes(cartController),paymentRoutes(paymentController),wishListRoutes(wishlistController)]);
+app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController), bidRoutes(bidController), cartRoutes(cartController), paymentRoutes(paymentController), wishListRoutes(wishlistController)]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
 app.use('/api/v1/admin', [
