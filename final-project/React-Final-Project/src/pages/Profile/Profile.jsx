@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import ProfileInfo from './ProfileInfo';
-import Sidebar from '../components/Sidebar';
-import Orders from './Orders';
-import Payment from './Payment';
+import ProfileInfo from '../Profile/ProfileList/ProfileInfo/ProfileInfo';
+import Sidebar from '../../components/Sidebar';
+import Orders from '../Profile/ProfileList/Orders/Orders';
 import { Box, Grid } from '@mui/material';
-import Address from './Address';
+import Address from '../Profile/ProfileList/Address/Address';
 
 
 const drawerWidth = 300;

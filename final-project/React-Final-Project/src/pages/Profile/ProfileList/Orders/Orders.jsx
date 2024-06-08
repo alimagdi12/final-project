@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Container, Box, ButtonBase, Typography, Card, Grid } from '@mui/material';
-import OrderCard from '../components/OrderCard';
-import AuctionCard from '../components/AuctionCard';
+import OrderCard from '../../../../components/OrderCard';
+import AuctionCard from '../../../../components/AuctionCard';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import CompletedBidCard from '../components/CompletedBidCard';
-import CompletedOrderCard from '../components/CompletedOrderCard';
+import CompletedBidCard from '../../../../components/CompletedBidCard';
+import CompletedOrderCard from '../../../../components/CompletedOrderCard';
 import { useMediaQuery } from '@mui/material';
-import ColorContext from '../contexts/ColorContext';
+import ColorContext from '../../../../contexts/ColorContext';
 
 const activeBidsObj = [
     {

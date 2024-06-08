@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from 'react';
 import { CssBaseline, Container, Typography } from '@mui/material';
-import BidCard from '../components/BidCard';
-import SimilarItems from '../components/SimilarItems';
-import AuctionContext from '../contexts/AuctionContext';
+import BidCard from '../../components/BidCard';
+import SimilarItems from '../../components/SimilarItems';
+import AuctionContext from '../../contexts/AuctionContext';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import UserContext from '../contexts/UserContext';
-import ProductsContext from '../contexts/ProductsContext';
+import UserContext from '../../contexts/UserContext';
+import ProductsContext from '../../contexts/ProductsContext';
 
 
 const BidPage = () => {

@@ -1,6 +1,6 @@
 import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Stack, TextField, Typography } from "@mui/material";
-import ProfileAvatar from "../components/ProfileAvatar";
-import ProfileInfo1 from "../components/ProfileInfo1";
+import ProfileAvatar from "../../../../components/ProfileAvatar";
+import ProfileInfo1 from "../../../../components/ProfileInfo1";
 
 function ProfileInfo({ handleOpen, handleClose, handleChange, handleConfirm, userData, open, selectedIndex }) {
     return (

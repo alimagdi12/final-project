@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
-import { LoveContext } from '../contexts/LoveContext';
+import { LoveContext } from '../../contexts/LoveContext';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 
 const FavoritePage = () => {

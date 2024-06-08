@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
-import ProductsContext from "../contexts/ProductsContext";
-import CategoryContext from "../contexts/CategoriesContext";
-import AuctionContext from "../contexts/AuctionContext";
+import ProductCard from "../../components/ProductCard";
+import ProductsContext from "../../contexts/ProductsContext";
+import CategoryContext from "../../contexts/CategoriesContext";
+import AuctionContext from "../../contexts/AuctionContext";
 import axios from "axios";
 import {
   Box,
@@ -15,9 +16,9 @@ import {
   Pagination,
   Button,
 } from "@mui/material";
-import { CartContext } from "../contexts/CartContext";
+import { CartContext } from "../../contexts/CartContext";
 import { useParams } from "react-router-dom";
-import ColorContext from "../contexts/ColorContext";
+import ColorContext from "../../contexts/ColorContext";
 
 export default function CategoryProducts() {
     const {color} = useContext(ColorContext)

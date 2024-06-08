@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
-import ProductsContext from "../contexts/ProductsContext";
-import CategoryContext from "../contexts/CategoriesContext";
-import AuctionContext from "../contexts/AuctionContext";
+import ProductCard from "../../components/ProductCard";
+import ProductsContext from "../../contexts/ProductsContext";
+import CategoryContext from "../../contexts/CategoriesContext";
+import AuctionContext from "../../contexts/AuctionContext";
 import axios from "axios";
 import {
   Box,
@@ -15,8 +15,8 @@ import {
   Pagination,
   Button,
 } from "@mui/material";
-import { CartContext } from "../contexts/CartContext";
-import ColorContext from "../contexts/ColorContext";
+import { CartContext } from "../../contexts/CartContext";
+import ColorContext from "../../contexts/ColorContext";
 
 export default function AllProducts() {
   const {color}= useContext(ColorContext)

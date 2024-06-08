@@ -1,25 +1,35 @@
-import React, { useContext, useState } from 'react';
-import { Box, Container, Grid, TextField, Typography, Button } from '@mui/material';
-import CustomSelect from '../components/CustomSelect';
-import CategoryContext from '../contexts/CategoriesContext';
+import React, { useContext, useState, useEffect } from 'react';
+import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
+import CustomSelect from '../../components/CustomSelect';
+import ScheduleListing from '../../components/ScheduleListing';
+import CategoryContext from '../../contexts/CategoriesContext';
+import UserContext from '../../contexts/UserContext';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import ColorContext from '../contexts/ColorContext';
+import { useNavigate } from 'react-router-dom';
+import ColorContext from '../../contexts/ColorContext';
 
-export default function AddAuction() {
-    const { categories } = useContext(CategoryContext);
+export default function AddProduct() {
     const { color } = useContext(ColorContext);
-//     const { token } = useContext(UserContext);
+    const navigate = useNavigate()
+    const { categories } = useContext(CategoryContext);
+    const { token } = useContext(UserContext);
     const catgs = categories?.categories?.map(({ _id, title }) => ({ value: _id, label: title })) || [];
+
+    useEffect(() => {
+        console.log('Categories:', categories);
+        console.log('Token:', token);
+    }, [categories, token]);
 
     const [formData, setFormData] = useState({
         title: '',
+        name: '',
         location: '',
+        images: [],
         quantity: '',
         productStatus: '',
         categoryId: '',
-        initialValue: '',
-        expirationDays: '',
+        price: '',
+        folderName: '',
         userId: '6643d585dd8c6b0c1065f2b5',
     });
 
@@ -44,41 +54,40 @@ export default function AddAuction() {
         const productForm = new FormData();
         productForm.append('title', formData.title);
         productForm.append('categoryId', formData.categoryId);
-        productForm.append('quantity', '33');
+        productForm.append('quantity', formData.quantity);  // Ensure quantity is appended
         productForm.append('location', formData.location);
-        productForm.append('initialValue', formData.initialValue);
+        productForm.append('price', formData.price);
         productForm.append('productStatus', formData.productStatus);
-        productForm.append('expirationDays', 3);
-        productForm.append('productId', '3132123133213133');
-       
+        productForm.append('folderName', formData.folderName);
+        productForm.append('userId', formData.userId);
         formData.images.forEach((image) => {
-            productForm.append('images', image); 
+            productForm.append('images', image);
         });
+
         try {
-            const response = await axios.post('http://127.0.0.1:3000/api/v1/add-auction', productForm, { 
+            const response = await axios.post('http://127.0.0.1:3000/api/v1/products/add-product', productForm, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'jwt': localStorage.getItem('token')
                 }
             });
             console.log(response);
-            console.log(formData);
-            // setFormData({
-            //     title: '',
-            //     name: '',
-            //     location: '',
-            //     images: [],
-            //     quantity: '',
-            //     productStatus: '',
-            //     categoryId: '',
-            //     initialValue: '',
-            //     userId: '6643d585dd8c6b0c1065f2b5',
-            // });
-toast.success('added sucessfully')
+            setFormData({
+                title: '',
+                name: '',
+                location: '',
+                images: [],
+                quantity: '',
+                productStatus: '',
+                categoryId: '',
+                price: '',
+                folderName: '',
+                userId: '6643d585dd8c6b0c1065f2b5',
+            });
+            navigate('/products')
+            window.location.reload();
         } catch (err) {
-            console.error(err);
-            
-toast.error('failed to add auction')
+            console.error('Error adding product:', err.response ? err.response.data : err);
         }
     };
 
@@ -114,10 +123,10 @@ toast.error('failed to add auction')
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Typography variant="h6">Initial Value</Typography>
+                        <Typography variant="h6">Price</Typography>
                         <TextField
-                            name="initialValue"
-                            value={formData.initialValue}
+                            name="price"
+                            value={formData.price}
                             onChange={handleChange}
                             fullWidth
                             variant="outlined"
@@ -137,21 +146,19 @@ toast.error('failed to add auction')
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <Typography variant="h6">Expiration Days</Typography>
+                        <Typography variant="h6">Folder Name</Typography>
                         <TextField
-                            name="expirationDays"
-                            value={formData.expirationDays}
+                            name="folderName"
+                            value={formData.folderName}
                             onChange={handleChange}
                             fullWidth
                             variant="outlined"
-                            multiline
                             sx={{ mt: 1 }}
                         />
                     </Grid>
                     <Grid sx={{ display: 'flex', paddingTop: '16px', '@media(max-width:600px)':{
-                            flexDirection:'column'
-                        }}} xs={12} sm={12}>
-
+                        flexDirection: 'column',
+                    } }} xs={12} sm={12}>
                         <Grid item xs={12} sm={6} sx={{ paddingLeft: '16px' }}>
                             <Typography variant="h6">Location</Typography>
                             <TextField
@@ -165,9 +172,9 @@ toast.error('failed to add auction')
                                 sx={{ mt: 1 }}
                             />
                         </Grid>
-                        <Grid sx={{ display: 'flex', flexDirection: 'column',width:'50%', '@media(max-width:600px)':{
-                            width:'100%'
-                        } }}>
+                        <Grid sx={{ display: 'flex', flexDirection: 'column', width: '50%' , '@media(max-width:600px)':{
+                            width: '100%',
+                        }}}>
                             <Grid xs={12} md={12} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
                                 <Grid item xs={12} sm={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                                     <Typography variant="h6">Status</Typography>
@@ -183,7 +190,6 @@ toast.error('failed to add auction')
                                         sx={{ mt: 1 }}
                                     />
                                 </Grid>
-
                                 <Grid item xs={12} sm={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <Typography variant="h6">Category</Typography>
                                     <CustomSelect
@@ -197,18 +203,32 @@ toast.error('failed to add auction')
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sm={12} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Button  style={{ width: '60%' }} type="submit" variant="contained" sx={{
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    sx={{
+                                        width:'60%',
+                                        backgroundColor: color,
+                                        color: '#ffffff',
+                                        '&:hover': {
+                                            backgroundColor: '#fff',
+                                            color: color,
+                                            outline: `2px solid ${color}`,
+                                        },
                                         '@media (max-width: 600px)': { 
                                             width:'80%'
                                         },
                                         '@media (max-width: 1440px)': { 
                                             width:'60%'
-                                        }, backgroundColor: color, color: '#ffffff', '&:hover': { backgroundColor: '#fff', color: color, outline: `2px solid ${color}`} }}>
+                                        },
+                                    }}
+                                >
                                     Add Auction Product
                                 </Button>
                             </Grid>
                         </Grid>
                     </Grid>
+
                 </Grid>
             </form>
         </Container>

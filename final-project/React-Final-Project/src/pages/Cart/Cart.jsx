@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import {
     Container,
@@ -19,8 +20,8 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../contexts/UserContext';
-import { CartContext } from '../contexts/CartContext';
+import UserContext from '../../contexts/UserContext';
+import { CartContext } from '../../contexts/CartContext';
 import axios from 'axios';
 
 const Cart = () => {

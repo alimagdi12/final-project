@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Typography, Box, Button, Card, CardContent, CardActions, IconButton, Grid } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
-import AddAddressForm from '../components/AddAddressForm';
-import EditAddressForm from '../components/EditAddressForm';
+import AddAddressForm from '../../../../components/AddAddressForm';
+import EditAddressForm from '../../../../components/EditAddressForm';
 
 const Address = () => {
     const [openAdd, setOpenAdd] = useState(false);

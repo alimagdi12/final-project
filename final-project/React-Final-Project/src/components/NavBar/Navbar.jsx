@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
 import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
@@ -13,15 +14,15 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Badge, Switch } from "@mui/material";
-import FlipCard from "../components/FlipCard";
-import CategoryContext from "../contexts/CategoriesContext";
+import FlipCard from "../FlipCard";
+import CategoryContext from "../../contexts/CategoriesContext";
 import { Link, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { CartContext } from "../contexts/CartContext";
-import ColorContext from "../contexts/ColorContext";
-import UserContext from "../contexts/UserContext";
+import { CartContext } from "../../contexts/CartContext";
+import ColorContext from "../../contexts/ColorContext";
+import UserContext from "../../contexts/UserContext";
 import { toast } from "react-toastify";
-import { LoveContext } from '../contexts/LoveContext';
+import { LoveContext } from '../../contexts/LoveContext';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const pages = ["Products", "Categories", "Blog"];

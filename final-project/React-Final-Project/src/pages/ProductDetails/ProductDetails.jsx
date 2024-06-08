@@ -4,15 +4,15 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
-import SimilarItems from '../components/SimilarItems';
+import SimilarItems from '../../components/SimilarItems';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useContext } from 'react';
-import ProductsContext from '../contexts/ProductsContext';
-import HoverRating from '../components/HoverRating';
-import ColorContext from '../contexts/ColorContext';
+import ProductsContext from '../../contexts/ProductsContext';
+import HoverRating from '../../components/HoverRating';
+import ColorContext from '../../contexts/ColorContext';
 
 export default function ProductDetails() {
   const { color } = useContext(ColorContext)
