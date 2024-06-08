@@ -1,42 +1,42 @@
+const { ref, uploadBytes, getDownloadURL } = require('firebase/storage');
+const { storage } = require('../config/firebase/firebase.config');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const stream = require('stream');
 
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const uploadPath = '../React-Final-Project/public/'; // Base upload path
-        const email = req.body.email;
-        const productName = req.body.title;
-        const category = req.body.category;
-        // Create a dynamic folder name based on current date
-        const folderName = (email ? email : (productName ? productName : category)) + new Date().toISOString().split('T')[0];
-        const fullPath = path.join(uploadPath, (email ? folderName : folderName.split(' ').join('-')));
-        if (!fs.existsSync(fullPath)) {
-            fs.mkdirSync(fullPath, { recursive: true });
-        }
-
-        cb(null, fullPath);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname); // Unique filename
-    }
-});
-
-const upload = multer({ storage: storage }).array('images', 5); // Up to 5 images
+const upload = multer().array('images', 5); // Up to 5 images
 
 exports.uploadImage = (req, res, next) => {
     return new Promise((resolve, reject) => {
-        upload(req, res, (err) => {
+        upload(req, res, async (err) => {
             if (err) {
                 reject(err);
             } else {
-                // Files uploaded successfully
-                console.log('Files uploaded successfully');
-                resolve();
+                try {
+                    // Upload each file to Firebase Storage using streaming
+                    const fileUrls = [];
+                    for (const file of req.files) {
+                        const storageRef = ref(storage, `images/${req.body.email}/${Date.now()}-${file.originalname}`);
+                        const metadata = { contentType: file.mimetype };
+
+                        // Create a readable stream from the buffer
+                        const fileStream = new stream.PassThrough();
+                        fileStream.end(file.buffer);
+
+                        // Upload the file stream to Firebase Storage
+                        await uploadBytes(storageRef, fileStream, metadata);
+
+                        // Get the download URL and push it to the URLs array
+                        const imageUrl = await getDownloadURL(storageRef);
+                        fileUrls.push(imageUrl);
+                    }
+
+                    // Files uploaded successfully, return the URLs
+                    console.log('Files uploaded successfully');
+                    resolve(fileUrls);
+                } catch (uploadError) {
+                    reject(uploadError);
+                }
             }
         });
     });
 };
-
-

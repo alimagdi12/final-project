@@ -1,8 +1,7 @@
-
 const express = require('express');
 const http = require('http');
 require('dotenv').config();
-const connect = require('./db/connection')
+const connect = require('./config/db/connection.config')
 const PORT = process.env.PORT;
 const app = express();
 const requestIp = require('request-ip');

@@ -4,15 +4,19 @@ const SubCategory = require('../../models/subCategory/subCategory.model');
 const User = require('../../models/user/user.model');
 const ProductStatus = require('../../models/productStatus/productStatus.model');
 const jwt = require("jsonwebtoken");
+const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
+const { storage } = require('../../config/firebase/firebase.config');
+const fs = require('fs');
+const stream = require('stream');
 
 
 
 class ProductRepositry{
     constructor() { }
 
-    async addProduct(productData , token , files) {
+    async addProduct(productData, token, files) {
         try {
-            const { title , imagesUrl, categoryId, quantity, location, price , productStatus } = productData;
+            const { title, categoryId, quantity, location, price, productStatus } = productData;
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const email = decodedToken.email;
             const user = await User.findOne({ email });
@@ -22,26 +26,37 @@ class ProductRepositry{
             const statusId = status._id;
             const product = new Product({
                 title,
-                imagesUrl: { images:[] },
+                imagesUrl: { images: [] },
                 userId,
                 categoryId,
                 quantity,
                 location,
                 price,
                 folderName,
-                status:statusId
-            })
-            if (files && files.length > 0) {
-            files.forEach(file => {
-                product.imagesUrl.images.push(file.filename); 
+                status: statusId
             });
-            }
+
+            // Upload images using buffer directly
+            const uploadPromises = files.map(async (file) => {
+                const storageRef = ref(storage, `images/${folderName}/${Date.now()}-${file.originalname}`);
+                const metadata = { contentType: file.mimetype };
+
+                // Upload the file buffer directly to Firebase Storage
+                const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
+
+                // Get the download URL and push it to the images array
+                const imageUrl = await getDownloadURL(snapshot.ref);
+                product.imagesUrl.images.push(imageUrl);
+            });
+
+            await Promise.all(uploadPromises);
             await product.save();
+
+            return product; // Return the created product
 
         } catch (err) {
             throw err;
         }
-        
     }
 
 

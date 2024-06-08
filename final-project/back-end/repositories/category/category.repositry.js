@@ -1,5 +1,8 @@
 const Category = require('../../models/category/category.model');
-
+const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
+const { storage } = require('../../config/firebase/firebase.config');
+const fs = require('fs');
+const stream = require('stream');
 
 class CategoryRepository{
     constructor() { };
@@ -29,21 +32,36 @@ class CategoryRepository{
     };
     
     async getCategoryByNameAndAddImage(title, files) {
-        try { 
+        try {
             const category = await Category.findOne({ title });
-                if (category && files && files.length > 0) {
-                    if (!category.imageUrl ) {
-                        category.imageUrl = { images: [] };
-                    }
-                    category.addImageUrl(files[0].filename);
-                    return category
+            if (category && files && files.length > 0) {
+                if (!category.imageUrl) {
+                    category.imageUrl = { images: [] };
+                }
+
+                // Upload images using the file buffer directly
+                const uploadPromises = files.map(async (file) => {
+                    const storageRef = ref(storage, `categories/${category.folderName}/${Date.now()}-${file.originalname}`);
+                    const metadata = { contentType: file.mimetype };
+
+                    // Upload the file buffer directly to Firebase Storage
+                    const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
+
+                    // Get the download URL and push it to the images array
+                    const imageUrl = await getDownloadURL(snapshot.ref);
+                    category.imageUrl.images.push(imageUrl);
+                });
+
+                await Promise.all(uploadPromises);
+                await category.save();
             }
+            return category;
+
         } catch (err) {
             console.log(err);
             throw new Error(err);
         }
     }
-
 
     async getCategories() { 
         try { 
