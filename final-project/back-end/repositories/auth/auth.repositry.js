@@ -4,6 +4,8 @@ require("dotenv").config();  // Load environment variables from .env file
 const Email = require('../../middlewares/email');
 const User = require("../../models/user/user.model");
 const UserRole = require('../../models/userRole/userRole.model');
+const { storage } = require('../../config/firebase/firebase.config');
+const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 
 class AuthRepositry {
     constructor() { };
@@ -108,11 +110,23 @@ async login(email, password) {
     async findUserByEmailAndAddImage(email, files) {
         const user = await User.findOne({ email });
         if (user && files && files.length > 0) {
+            const storageRef = ref(storage, `images/${user.email}/${Date.now()}-${files[0].originalname}`);
+            const metadata = {
+                contentType: files[0].mimetype,
+            };
+
+            // Upload the file to Firebase Storage
+            await uploadBytes(storageRef, files[0].buffer, metadata);
+            const imageUrl = await getDownloadURL(storageRef);
+
+            // Add the image URL to the user's image URL array
             if (!user.imageUrl) {
                 user.imageUrl = { images: [] };
             }
+            user.imageUrl.images.push(imageUrl);
 
-            user.addImageUrl(files[0].filename);  // Add the image file name to the user's image URL array
+            // Save the user with the new image URL
+            await user.save();
         }
         return user;
     }

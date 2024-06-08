@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import SimilarItems from '../../components/SimilarItems/SimilarItems';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -120,7 +120,7 @@ export default function ProductDetails() {
               <li>Quantity: {product.quantity}</li>
             </ul>
 
-            <Link to={'/chat'}> <Button variant="contained" sx={{marginRight:'5px', backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Chat With Seller</Button></Link>
+            <Button variant="contained" sx={{marginRight:'5px', backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Contained</Button>
             {['right'].map((anchor) => (
               <React.Fragment key={anchor}>
                 <Button variant="contained" onClick={toggleDrawer(anchor, true)} sx={{ backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Add</Button>

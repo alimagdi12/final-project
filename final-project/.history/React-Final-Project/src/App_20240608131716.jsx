@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Login from './Authentication/Auth.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/NavBar/Navbar.jsx'
-import { Box, CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import AddProduct from './pages/AddProducts/AddProduct.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AllProducts from './pages/AllProducts/AllProducts.jsx';
@@ -53,11 +53,11 @@ function App() {
       <ToastContainer />
       <ThemeProvider theme={theme}>
         <ColorPicker />
+        <Chat/>
         <CssBaseline />
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chat" element={<Chat />} />
           <Route path="/bid/:id" element={<BidPage />} />
           <Route path="/orderDone" element={<OrderDone />} />
           <Route path="/" element={<Home />} />

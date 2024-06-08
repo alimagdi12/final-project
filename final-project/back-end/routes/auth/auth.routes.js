@@ -9,7 +9,7 @@ const validateUser  = require('../../middlewares/userValidator');
 const authRouter = (authController) => {
     
     // Route for user signup
-    router.post('/signup', validateUser, async (req, res, next) => {
+    router.post('/signup', async (req, res, next) => {
         try {
             body = req.body;
             files = req.files;

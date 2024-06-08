@@ -25,7 +25,8 @@ import ColorPicker from './components/Color/ColorPicker.jsx';
 import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
 import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
 import FavoritePage from './pages/Favorite/FavoritePage.jsx';
-import Chat from './components/Chat/Chat.jsx';
+import Sidebar from './components/Chat/Sidebar.jsx';
+import ChatWindow from './components/Chat/ChatWindow.jsx';
 
 
 function App() {
@@ -54,10 +55,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
+        
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chat" element={<Chat />} />
           <Route path="/bid/:id" element={<BidPage />} />
           <Route path="/orderDone" element={<OrderDone />} />
           <Route path="/" element={<Home />} />
