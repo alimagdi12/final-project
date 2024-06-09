@@ -74,6 +74,7 @@ class UserRepositry {
     }
 
     async updateUserImage(token, files) {
+        console.log(files);
         try {
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const email = decodedToken.email;
@@ -95,7 +96,7 @@ class UserRepositry {
                 }
 
                 // Save the new image in the user's folder
-                const folderName = user.folderName;
+                const folderName = 'user.folderName';
                 const uploadPath = `./uploads/${folderName}`;
                 fs.renameSync(file.path, `${uploadPath}/${file.filename}`);
 
@@ -112,6 +113,7 @@ class UserRepositry {
             throw new Error(err);
         }
     }
+
 
     async updateSocketId(userId, socketId) {
         try {
