@@ -30,6 +30,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const { love } = useContext(LoveContext);
+  const {userData} = useContext(UserContext)
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems } = useContext(CartContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -236,14 +237,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 <Tooltip title="Open settings">
                   <>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <AdbIcon
-                        sx={{
-                          display: { xs: "none", md: "flex" },
-                          mr: 1,
-                          fontSize: 40,
-                          color: 'white'
-                        }}
-                      />
+                    <img
+              src={userData?.imageUrl?.images[0]}
+              alt="User Photo"
+              style={{ cursor: 'pointer', width: '40px', height:'40px' , borderRadius:'50%' }}
+            />
                     </IconButton>
                     <IconButton color="inherit">
                       <Badge badgeContent={cartItems?.length || 0} color="secondary">

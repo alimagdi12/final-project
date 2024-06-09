@@ -1,13 +1,14 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import GreenButton from '../../../../../components/StyledButton/StyedButton';
 import ColorContext from '../../../../../contexts/ColorContext';
 import axios from 'axios';
+import UserContext from '../../../../../contexts/UserContext';
 
 const ProfileAvatar = () => {
   const { color } = useContext(ColorContext);
   const [userForm, setUserForm] = useState(new FormData()); // Use state to track userForm
-
+const {userData,fetchUserData} = useContext(UserContext)
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     console.log(files);
@@ -18,6 +19,10 @@ const ProfileAvatar = () => {
     });
     setUserForm(updatedForm); // Update userForm state
   };
+
+useEffect(()=>{
+    console.log(userData);
+},[])
 
   const handleImage = async () => {
     try {
@@ -32,6 +37,7 @@ const ProfileAvatar = () => {
         }
       );
       console.log(response);
+      fetchUserData()
     } catch (err) {
       console.error('Error adding photo:', err.response ? err.response.data : err);
     }
@@ -42,9 +48,9 @@ const ProfileAvatar = () => {
         <Grid item xs={12}>
         <label style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }}>
             <img
-              src="/profile3.png"
+              src={userData?.imageUrl?.images[0]}
               alt="Upload Photo"
-              style={{ cursor: 'pointer', width: '10%' }}
+              style={{ cursor: 'pointer', width: '150px', height:'150px' , borderRadius:'50%' }}
             />
             <Typography sx={{ fontWeight: 'bold', fontSize: '20px', marginLeft: '10px' }}></Typography>
             <input

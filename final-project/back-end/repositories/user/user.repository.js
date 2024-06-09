@@ -6,7 +6,8 @@ const User = require("../../models/user/user.model");
 const UserRole = require('../../models/userRole/userRole.model');
 const fs = require('fs');
 const Product = require('../../models/products/product.model');
-
+const { storage } = require('../../config/firebase/firebase.config');
+const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 class UserRepositry {
     constructor(io) {
         this.io = io;
@@ -78,14 +79,16 @@ class UserRepositry {
         try {
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const email = decodedToken.email;
+            
             const user = await User.findOne({ email });
+            const folderName = user.firstName + new Date().toISOString().split('T')[0];
             if (!user) {
                 throw new Error("User not found.");
             }
 
             if (files && files.length > 0) {
                 const file = files[0];
-
+console.log(file);
                 // If the user has an existing image, delete it
                 if (user.imageUrl && user.imageUrl.images && user.imageUrl.images.length > 0) {
                     const existingImage = user.imageUrl.images[0];
@@ -96,14 +99,21 @@ class UserRepositry {
                 }
 
                 // Save the new image in the user's folder
-                const folderName = 'user.folderName';
-                const uploadPath = `./uploads/${folderName}`;
-                fs.renameSync(file.path, `${uploadPath}/${file.filename}`);
+                const uploadPromises = files.map(async (file) => {
+                    const storageRef = ref(storage, `images/${folderName}/${Date.now()}-${file.originalname}`);
+                    const metadata = { contentType: file.mimetype };
+    
+                    // Upload the file buffer directly to Firebase Storage
+                    const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
+    
+                    // Get the download URL and push it to the images array
+                    const imageUrl = await getDownloadURL(snapshot.ref);
+                   user.imageUrl.images = []
+                    user?.imageUrl?.images?.push(imageUrl);
+                });
 
-                // Update the image name in the database
-                user.clearImageUrl();
-                user.addImageUrl(`${file.filename}`);
-
+                await Promise.all(uploadPromises);
+                await user.save();
                 return { success: true, user };
             } else {
                 return { success: false, message: 'No image provided' };
