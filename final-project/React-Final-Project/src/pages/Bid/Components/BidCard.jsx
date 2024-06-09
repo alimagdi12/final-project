@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, Typography, Box, Container, Grid } from '@mui/material';
 import CircularWithValueLabel from './Components/AuctionCard';
 
-const BidCard = ({auction}) => {
+const BidCard = ({auction, highestBid,setHighestBid}) => {
     const now = Date.now();
     const expirDate = new Date (auction.expirationDate)
     const differenceInMs = expirDate - now;
@@ -27,7 +27,7 @@ const BidCard = ({auction}) => {
                         </Typography>
                         <Card sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#fff', height: '100%', boxShadow: "0px 0px 15px 5px rgba(0, 0, 0, 0.2)" }}>
                             <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <CircularWithValueLabel auction={auction} hours={+hours} minutes={+minutes} seconds={+seconds} id={auction._id} />
+                                <CircularWithValueLabel setHighestBid={setHighestBid} highestBid={highestBid} auction={auction} hours={+hours} minutes={+minutes} seconds={+seconds} id={auction._id} />
                             </CardContent>
                         </Card>
                     </Box>

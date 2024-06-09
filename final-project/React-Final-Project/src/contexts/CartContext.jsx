@@ -53,7 +53,6 @@ const {token} = useContext(UserContext)
                     },
                 }
             );
-            console.log(response);
             getCart()
         } catch (err) {
             console.error(err);

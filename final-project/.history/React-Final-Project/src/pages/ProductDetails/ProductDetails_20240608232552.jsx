@@ -31,7 +31,7 @@ export default function ProductDetails() {
           }
         });
         const data = response.data;
-        console.log(data);
+        // console.log(data);
 
         setProduct(data.product)
       } catch (error) {

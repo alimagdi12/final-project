@@ -12,7 +12,7 @@ const MessagesRouter = (MessageController) => {
     }
   });
 
-  router.get("/messages/:userId", async (req, res, next) => {
+  router.post("/usersMessages", async (req, res, next) => {
     try {
       const result = await MessageController.getMessagesForUser(req, res);
     } catch (err) {

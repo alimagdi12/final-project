@@ -12,24 +12,34 @@ import ProductsContext from '../../contexts/ProductsContext';
 
 
 const BidPage = () => {
+    
+    const [highestBid, setHighestBid] = useState(2500);
+    const [heartCount, setHeartCount] = useState(0);
+    const [auction, setAuction] = useState({})
+
     const { products } = useContext(ProductsContext);
     console.log(products);
     const { token } = useContext(UserContext)
+    
+    
+    
+    
     const fetchHighestBidder = async (id) => {
         console.log(id);
         if (id) {
 
             try {
-                const response = await axios.post(`http://127.0.0.1:3000/api/v1/auth/get-bid`, { auctionId: "665f58956308242d7c8b7b63" }, {
+                const response = await axios.get(`http://127.0.0.1:3000/api/v1/get-heighst-bid/${id._id}`,  {
                     headers: {
                         'Content-Type': 'application/json',
                         'jwt': localStorage.getItem('token')
                     }
                 })
 
-                console.log(response);
+                // console.log(response);
                 const data = response.data;
-                console.log(data);
+                console.log(response.data.bid.amount);
+                setHighestBid(response.data.bid.amount)
             } catch (error) {
                 console.error('Error fetching bid:', error);
             }
@@ -78,11 +88,7 @@ const BidPage = () => {
 
     }, [id]);
 
-    const [highestBid, setHighestBid] = useState(2500);
-    const [heartCount, setHeartCount] = useState(0);
-    const [auction, setAuction] = useState({})
-
-
+ 
 
     const handleBid = (amount) => {
         setHighestBid((prev) => prev + amount);
@@ -92,7 +98,7 @@ const BidPage = () => {
         <div>
             <CssBaseline />
             <Container>
-                <BidCard auction={auction} onBid={handleBid} highestBid={highestBid} />
+                <BidCard auction={auction} onBid={handleBid} setHighestBid={setHighestBid} highestBid={highestBid} />
 
 
                 <Typography variant="h6" mt={4}>

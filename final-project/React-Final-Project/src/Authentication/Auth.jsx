@@ -33,12 +33,12 @@ export default function Auth() {
       );
       
       // Log the entire response to understand its structure
-      console.log('Response:', response);
+      // console.log('Response:', response);
       
       // Log specific parts of the response
-      console.log('Response Data:', response.data);
-      console.log('Response Data User:', response.data.user);
-      console.log('Response Data User Token:', response.data.user.token);
+      // console.log('Response Data:', response.data);
+      // console.log('Response Data User:', response.data.user);
+      // console.log('Response Data User Token:', response.data.user.token);
       
       // Check if token exists before setting it
       if (response.data && response?.data?.user && response?.data?.user?.token) {
