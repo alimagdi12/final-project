@@ -6,7 +6,9 @@ import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
+
 let socket;
+
 const Chat = () => {
     const { id } = useParams();
     const [chats, setChats] = useState([]);
@@ -85,10 +87,8 @@ const Chat = () => {
 
     const sendMessage = () => {
         const message = { sender: userData?._id, receiver: id, content: input };
-        console.log(message);
         socket.emit("chat message", message);
         setInput("");
-        console.log(message);
         setMessages((prevMessages) => [...prevMessages, message]);
     };
 
@@ -99,7 +99,7 @@ const Chat = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', width: '100%' }}>
+        <Box sx={{ display: 'flex', width: '100%', height:'100vh' ,position:'relative', top:'24px'}}>
             <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
             <ChatWindow
                 selectedChat={selectedChat}

@@ -17,7 +17,7 @@ const Sidebar = ({ conversation, userData, handleChatClick }) => {
   const navigate = useNavigate();
   const {color}= useContext(ColorContext)
   return (
-    <Box sx={{ width: '400px', backgroundColor: color, color: '#fff', padding: '16px', height:'90vh' }}>
+    <Box sx={{ width: '400px', backgroundColor: color, color: '#fff', padding: '16px', height:'100vh' }}>
       <Typography variant="h6" gutterBottom>
         All Chats
       </Typography>

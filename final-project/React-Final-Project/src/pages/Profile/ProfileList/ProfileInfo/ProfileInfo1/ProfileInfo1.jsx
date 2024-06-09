@@ -12,11 +12,11 @@ const ProfileInfo1 = () => {
     const { color } = useContext(ColorContext)
     const {userData,fetchUserData} = useContext(UserContext)
     const [updatedProfile, setUpdatedProfile] = useState({
-        email: userData?.email || '',
-        firstName: userData?.firstName || '',
-        lastName: userData?.lastName || '',
-        phoneNumber: userData?.phoneNumber || '',
-        birthDay: userData?.birthDay || '',
+        email: userData?.result?.email || '',
+        firstName: userData?.result?.firstName || '',
+        lastName: userData?.result?.lastName || '',
+        phoneNumber: userData?.result?.phoneNumber || '',
+        birthDay: userData?.result?.birthDay || '',
     });
     const [openPopup, setOpenPopup] = useState(false);
     const handleOpen = () => {
@@ -55,7 +55,7 @@ const ProfileInfo1 = () => {
                 }
             });
             console.log(response);
-            console.log(updatedProfile.firstName);
+            console.log(updatedProfile);
         } catch (err) {
             console.error(err);
         }
@@ -87,7 +87,7 @@ const ProfileInfo1 = () => {
                         <TextField
                             id="email"
                             label="Email"
-                            value={updatedProfile?.email}
+                            value={userData?.email}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
