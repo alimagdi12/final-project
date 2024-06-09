@@ -25,7 +25,7 @@ export default function AllProducts() {
   const { categories } = useContext(CategoryContext);
   const { auction } = useContext(AuctionContext);
   const [displayedProducts, setDisplayedProducts] = useState([]);
-  const [searchLocation, setSearchLocation] = useState([]);
+  const [searchLocation, setSearchLocation] = useState(null);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6; 
@@ -50,23 +50,27 @@ export default function AllProducts() {
     setCurrentPage(1);
 
     if (event.target.value === "All") {
-      if (searchLocation === "" || searchLocation === "All") {
+      if (!searchLocation  || searchLocation === "All") {
+        console.log('ccccc');
         setDisplayedProducts(products?.products);
         return;
       } else {
+        console.log('vvvv');
         const dp = products.products.filter(
           (product) => product?.location === searchLocation
         );
         setDisplayedProducts(dp);
         return;
       }
-    } else if (searchLocation === "" || searchLocation === "All") {
+    } else if (!searchLocation  || searchLocation === "All") {
+      console.log('aaa');
       const dp = products.products.filter(
         (product) => product?.categoryId?.title === event.target.value
       );
       setDisplayedProducts(dp);
       return;
-    } else {
+    } else if(searchLocation ) {
+      console.log(searchLocation);
       const dp = products.products.filter(
         (product) =>
           product?.categoryId?.title === event.target.value &&
