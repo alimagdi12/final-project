@@ -12,6 +12,7 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 
 const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, userData }) => {
+  console.log(userData);
   return (
     <Box sx={{ flex: 1, display: "flex", flexDirection: "column", padding: "16px" }}>
       <Box sx={{ flexGrow: 1, overflowY: "auto", marginBottom: "16px" }}>
@@ -29,7 +30,7 @@ const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, user
               <ListItemAvatar>
                 <Avatar>{msg.sender[0]}</Avatar>
               </ListItemAvatar>
-              <ListItemText primary={msg.sender} secondary={msg.message} />
+              <ListItemText primary={userData.firstName} secondary={msg.content} />
             </ListItem>
           ))}
         </List>
