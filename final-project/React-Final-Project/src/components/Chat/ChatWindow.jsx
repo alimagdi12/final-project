@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, userData }) => {
+const ChatWindow = ({id, selectedChat, messagesByChat, input, setInput, sendMessage, userData }) => {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -30,7 +30,7 @@ const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, user
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, selectedChat?.messages]);
+  }, [messagesByChat[id]]);
 
   return (
     <Box
@@ -60,7 +60,7 @@ const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, user
               <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
             </ListItem>
           ))}
-          {messages.map((msg, index) => (
+          {messagesByChat[id]?.map((msg, index) => (
             <ListItem key={index} alignItems="flex-start">
               <ListItemAvatar>
                 <Avatar>{msg.sender[0]}</Avatar>

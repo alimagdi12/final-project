@@ -12,6 +12,7 @@ let socket;
 const Chat = () => {
     const { id } = useParams();
     const [chats, setChats] = useState([]);
+    const [messagesByChat, setMessagesByChat] = useState({});
     const { userData, fetchUserData } = useContext(UserContext);
     const [messages, setMessages] = useState([]);
     const [chatMessages, setChatMessages] = useState([]);
@@ -28,23 +29,26 @@ const Chat = () => {
                 jwt: localStorage.getItem("token"),
             },
         });
-
+    
         socket.on("connect", () => {
             console.log("Connected to server");
         });
-
+    
         socket.on("chat message", (message) => {
             if ((message.sender === userData?._id && message.receiver === id) || (message.sender === id && message.receiver === userData?._id)) {
-                setMessages((prevMessages) => [...prevMessages, message]);
+                setMessagesByChat((prevMessagesByChat) => ({
+                    ...prevMessagesByChat,
+                    [id]: [...(prevMessagesByChat[id] || []), message],
+                }));
             }
+            console.log(message);
         });
-
+    
         // Cleanup on component unmount
         return () => {
             socket.disconnect();
         };
     }, [id, userData?._id]);
-
     const getMessages = async () => {
         try {
             const response = await axios.post(
@@ -89,7 +93,11 @@ const Chat = () => {
         const message = { sender: userData?._id, receiver: id, content: input };
         socket.emit("chat message", message);
         setInput("");
-        setMessages((prevMessages) => [...prevMessages, message]);
+        // setMessagesByChat((prevMessagesByChat) => ({
+        //     ...prevMessagesByChat,
+        //     [id]: [...(prevMessagesByChat[id] || []), message],
+        //     }));
+        console.log(messagesByChat, selectedChat[id]);
     };
 
     const handleChatClick = (chat) => {
@@ -97,13 +105,16 @@ const Chat = () => {
         navigate(`/chat/${participantId}`);
         setSelectedChat(chat);
     };
+    
 
     return (
         <Box sx={{ display: 'flex', width: '100%', height:'100vh' ,position:'relative', top:'24px'}}>
-            <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
+            <Sidebar conversation={conversation}  userData={userData} handleChatClick={handleChatClick} />
             <ChatWindow
+            messagesByChat={messagesByChat}
                 selectedChat={selectedChat}
                 messages={messages}
+                id={id}
                 input={input}
                 setInput={setInput}
                 sendMessage={sendMessage}
