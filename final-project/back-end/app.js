@@ -74,7 +74,7 @@ io.on('connection', async (socket) => {
     socket.on('chat message', async (message) => {
         (message);
         chatHistory.push(message.message);
-        messagesRepository.createMessage(message.sender,message.receiver,message.message)
+        messagesRepository.createMessage(message.sender,message.receiver,message.content)
   
         
         io.emit('chat message', message); // Broadcast the message to all connected clients

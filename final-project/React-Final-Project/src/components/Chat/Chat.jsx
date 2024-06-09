@@ -5,14 +5,8 @@ import io from "socket.io-client";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Container } from "@mui/material";
-
-const socket = io("http://localhost:3000", {
-  extraHeaders: {
-    jwt: localStorage.getItem("token"),
-  },
-});
-
+import { Box } from "@mui/material";
+let socket;
 const Chat = () => {
   const { id } = useParams();
   const [chats, setChats] = useState([]);
@@ -23,7 +17,32 @@ const Chat = () => {
   const [conversation, setConversation] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const senderMessages = {};
-const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // Initialize socket connection
+  useEffect(() => {
+    socket = io("http://localhost:3000", {
+      extraHeaders: {
+        jwt: localStorage.getItem("token"),
+      },
+    });
+
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    socket.on("chat message", (message) => {
+      if ((message.sender === userData?._id && message.receiver === id)||(message.sender === id && message.receiver === userData?._id)) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
+    });
+
+    // Cleanup on component unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, [id, userData?._id]);
+
   const getMessages = async () => {
     try {
       const response = await axios.post(
@@ -31,7 +50,7 @@ const navigate = useNavigate()
         { sender: userData?._id, receiver: id }
       );
 
-      response.data.forEach(message => {
+      response.data.forEach((message) => {
         if (!senderMessages[message.sender._id]) {
           senderMessages[message.sender._id] = []; // Initialize array if not exists
         }
@@ -62,42 +81,25 @@ const navigate = useNavigate()
     fetchUserData();
     getConversations();
     getMessages();
-    socket.on("connect", () => {
-      console.log("Connected to server");
-    });
-
-    socket.on("chat message", (message) => {
-      if ((message.sender === userData?._id) || (message.receiver === userData?._id)) {
-        setMessages((prevMessages) => [...prevMessages, message]);
-      }
-    });
-
-    return () => {
-      socket.off("connect");
-      socket.off("chat message");
-    };
   }, [id, userData?._id]);
 
   const sendMessage = () => {
-    const message = { sender: userData?._id, receiver: id, message: input };
+    const message = { sender: userData?._id, receiver: id, content: input };
+    console.log(message);
     socket.emit("chat message", message);
     setInput("");
+    console.log(message);
+    setMessages((prevMessages) => [...prevMessages, message]);
   };
 
   const handleChatClick = (chat) => {
-    if(userData._id === chat.participants[1]._id){
-      navigate(`/chat/${chat.participants[1]._id}`)
-    }
-    else if(userData._id === chat.participants[0]._id){
-      navigate(`/chat/${chat.participants[0]._id}`)
-    }
+    const participantId = userData._id === chat.participants[0]._id ? chat.participants[1]._id : chat.participants[0]._id;
+    navigate(`/chat/${participantId}`);
     setSelectedChat(chat);
   };
 
   return (
-    <>
-<Box sx={{display:'flex', width:'100%'}}>
-
+    <Box sx={{ display: 'flex', width: '100%' }}>
       <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
       <ChatWindow
         selectedChat={selectedChat}
@@ -106,9 +108,8 @@ const navigate = useNavigate()
         setInput={setInput}
         sendMessage={sendMessage}
         userData={userData}
-        />
-        </Box>
-    </>
+      />
+    </Box>
   );
 };
 
