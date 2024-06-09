@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Search as SearchIcon } from '@mui/icons-material';
 import {
   Box,
@@ -11,12 +11,13 @@ import {
   Avatar,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ColorContext from "../../contexts/ColorContext";
 
 const Sidebar = ({ conversation, userData, handleChatClick }) => {
   const navigate = useNavigate();
-  
+  const {color}= useContext(ColorContext)
   return (
-    <Box sx={{ width: '400px', backgroundColor: '#2f3b52', color: '#fff', padding: '16px', height:'90vh' }}>
+    <Box sx={{ width: '400px', backgroundColor: color, color: '#fff', padding: '16px', height:'90vh' }}>
       <Typography variant="h6" gutterBottom>
         All Chats
       </Typography>

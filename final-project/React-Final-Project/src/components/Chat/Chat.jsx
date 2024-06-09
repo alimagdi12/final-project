@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 const socket = io("http://localhost:3000", {
   extraHeaders: {
@@ -96,7 +96,7 @@ const navigate = useNavigate()
 
   return (
     <>
-<Container sx={{display:'flex', width:'100%'}}>
+<Box sx={{display:'flex', width:'100%'}}>
 
       <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
       <ChatWindow
@@ -107,7 +107,7 @@ const navigate = useNavigate()
         sendMessage={sendMessage}
         userData={userData}
         />
-        </Container>
+        </Box>
     </>
   );
 };
