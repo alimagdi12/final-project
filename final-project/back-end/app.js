@@ -21,6 +21,11 @@ const messagesRepository = new MessageRepository()
 const mesaagecontroller = new MessageController(messagesRepository)
 
 
+const conversationRepository = require('./repositories/conversation/Conversation.repositiry')
+const conversationController = require('./controllers/conversation/conversation.controller')
+const conversationsRepository = new conversationRepository 
+const conversationsController = new conversationController(conversationsRepository)
+
 // Helper function to get user ID from token
 const getUserIdFromToken = (socket) => {
     return new Promise((resolve, reject) => {
@@ -51,11 +56,11 @@ const io = socket(server, {
 let chatHistory = [];
 
 io.on('connection', async (socket) => {
-    console.log('A connection started', socket.id);
+    ('A connection started', socket.id);
     try {
         const userId = await getUserIdFromToken(socket);
         if (userId) {
-            console.log(`User ${userId} connected with socket ID ${socket.id}`);
+            (`User ${userId} connected with socket ID ${socket.id}`);
         }
     } catch (err) {
         console.error('Error getting user ID from token:', err.message);
@@ -67,16 +72,16 @@ io.on('connection', async (socket) => {
     socket.emit('chat history', chatHistory);
 
     socket.on('chat message', async (message) => {
-        console.log(message);
+        (message);
         chatHistory.push(message.message);
-        messagesRepository.createMessage(message.sender,"6643adccc5f7d7391c1fbd11",message.message)
-        console.log('hambozo');
+        messagesRepository.createMessage(message.sender,message.receiver,message.message)
+  
         
         io.emit('chat message', message); // Broadcast the message to all connected clients
     });
 
     socket.on('disconnect', async () => {
-        console.log('A connection disconnected', socket.id);
+        ('A connection disconnected', socket.id);
     });
 });
 
@@ -193,6 +198,8 @@ const cartRoutes = require('./routes/cart/cart.routes');
 const paymentRoutes = require('./routes/payment/payment.routes');
 const wishListRoutes = require('./routes/wishlist/wishlist.routes');
 const MessagesRouter = require('./routes/Messages/Messages.routes');
+const ConversationRouter = require('./routes/Conversation/Conversation.routes');
+const ConversationRepository = require('./repositories/conversation/Conversation.repositiry');
 
 
 // Middleware to get client's IP address
@@ -202,7 +209,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // executing the routes 
-app.use("/api/v1/auth", [authRoutes(authController), userRoutes(userController), bidRoutes(bidController), cartRoutes(cartController), paymentRoutes(paymentController), wishListRoutes(wishlistController), MessagesRouter(mesaagecontroller)]);
+app.use("/api/v1/auth", [authRoutes(authController),ConversationRouter(conversationsController) ,userRoutes(userController), bidRoutes(bidController), cartRoutes(cartController), paymentRoutes(paymentController), wishListRoutes(wishlistController), MessagesRouter(mesaagecontroller)]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
 app.use('/api/v1/admin', [
@@ -214,9 +221,9 @@ app.use('/api/v1/admin', [
 connect.connection
     .then(result => {
         server.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+            (`Server is running on port ${PORT}`);
         });
     })
     .catch(err => {
-        console.log(err);
+        (err);
     });

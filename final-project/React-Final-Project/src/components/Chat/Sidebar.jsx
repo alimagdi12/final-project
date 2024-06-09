@@ -1,35 +1,48 @@
-import React from 'react';
-import { Box, List, ListItem, ListItemAvatar, ListItemText, Avatar, Typography, InputBase } from '@mui/material';
+import React from "react";
 import { Search as SearchIcon } from '@mui/icons-material';
+import {
+  Box,
+  Typography,
+  InputBase,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
-    const chats = [
-        { name: "Bessie Cooper", message: "I have something to tell you 🙌", avatar: "/path/to/avatar1.jpg" },
-        { name: "Darrell", message: "The current situation 😈", avatar: "/path/to/avatar2.jpg" },
-        { name: "Designers", message: "Sure !! 😘", avatar: "/path/to/avatar3.jpg " },
-    ];
-
-    return (
-        <Box sx={{ width: '300px', backgroundColor: '#2f3b52', color: '#fff', padding: '16px' }}>
-            <Typography variant="h6" gutterBottom>
-                All Chats
-            </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
-                <SearchIcon />
-                <InputBase placeholder="Search…" sx={{ marginLeft: '8px', flex: 1, color: '#fff' }} />
-            </Box>
-            <List>
-                {chats.map((chat, index) => (
-                    <ListItem key={index} button>
-                        <ListItemAvatar>
-                            <Avatar src={chat.avatar} />
-                        </ListItemAvatar>
-                        <ListItemText primary={chat.name} secondary={chat.message} />
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+const Sidebar = ({ conversation, userData, handleChatClick }) => {
+  const navigate = useNavigate();
+  
+  return (
+    <Box sx={{ width: '400px', backgroundColor: '#2f3b52', color: '#fff', padding: '16px', height:'90vh' }}>
+      <Typography variant="h6" gutterBottom>
+        All Chats
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+        <SearchIcon />
+        <InputBase placeholder="Search…" sx={{ marginLeft: '8px', flex: 1, color: '#fff' }} />
+      </Box>
+      <List>
+        {conversation.map((chat, index) => (
+          <ListItem key={index} button onClick={() => handleChatClick(chat)}>
+            <ListItemAvatar>
+              <Avatar />
+            </ListItemAvatar>
+            <ListItemText
+              primary={
+                chat.participants[0]._id === userData._id
+                  ? chat.participants[1].firstName
+                  : chat.participants[0].firstName
+              }
+              secondary={chat?.message}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 };
 
 export default Sidebar;

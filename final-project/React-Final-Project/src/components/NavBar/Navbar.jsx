@@ -29,7 +29,7 @@ const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
-  const {love} = useContext(LoveContext)
+  const { love } = useContext(LoveContext);
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems } = useContext(CartContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,26 +38,24 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const navigate = useNavigate();
   const { color } = useContext(ColorContext);
   const { token } = useContext(UserContext);
+
   const handleProfileClick = () => {
-    if (token !== "" || token ) {
+    if (token !== "" || token) {
       console.log(token);
       navigate("/profile");
     } else {
-      toast.error("You muse login first");
+      toast.error("You must login first");
     }
   };
 
-
-
   const handleLogOutClick = () => {
-  localStorage.setItem('token','')
-    console.log(token);
-      navigate("/login");
+    localStorage.setItem('token', '');
+    // console.log(token);
+    navigate("/login");
   };
 
-
   useEffect(() => {
-    console.log(token);
+    // console.log(token);
   }, []);
 
   const handleOpenNavMenu = (event) => {
@@ -150,8 +148,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 
-
-
           <Box
             sx={{
               flexGrow: 1,
@@ -202,8 +198,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                     sx={{ zIndex: "999", height: "100%" }}
                   >
                     {categories?.categories?.map((category) => (
-                      <Link to={`/products/${category._id}`}>
-                        <FlipCard category={category} key={category.title}>
+                      <Link to={`/products/${category._id}`} key={category._id}>
+                        <FlipCard category={category} key={category._id}>
                           {category.title}
                         </FlipCard>
                       </Link>
@@ -216,7 +212,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           {!token && (
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
               <Link to="/login" className="text-decoration-none h4 mx-2">
-                <Button sx={{ backgroundColor: "#fff" , color:color }} variant="contained">
+                <Button sx={{ backgroundColor: "#fff", color: color }} variant="contained">
                   Log In
                 </Button>
               </Link>
@@ -224,14 +220,14 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           )}
           <IconButton color="inherit">
             <Badge badgeContent={love} color="secondary">
-              <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer',color:'white' }} /></Link>
+              <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
             </Badge>
           </IconButton>
           {token && (
             <>
               <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
                 <Link to="/sell" className="text-decoration-none h4 mx-2">
-                  <Button sx={{ backgroundColor: "white" , color:color, '&:hover':{color:'white' , backgroundColor:color} }} variant="contained">
+                  <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color } }} variant="contained">
                     List
                   </Button>
                 </Link>
@@ -245,18 +241,18 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                           display: { xs: "none", md: "flex" },
                           mr: 1,
                           fontSize: 40,
-                          color:'white'
+                          color: 'white'
                         }}
                       />
                     </IconButton>
                     <IconButton color="inherit">
                       <Badge badgeContent={cartItems?.length || 0} color="secondary">
                         <Link
-                          style={{margin:'0'}}
+                          style={{ margin: '0' }}
                           to="/cart"
                           className="text-decoration-none h5"
                         >
-                          <ShoppingCartIcon/> 
+                          <ShoppingCartIcon />
                         </Link>
                       </Badge>
                     </IconButton>
@@ -286,19 +282,18 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                       Profile
                     </Typography>
                   </MenuItem>
-                  
-                  <MenuItem key={"1"} onClick={handleCloseUserMenu}>
+
+                  <MenuItem key={"2"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleLogOutClick} textAlign="center">
-                      logout
+                      Logout
                     </Typography>
                   </MenuItem>
                 </Menu>
               </Box>
-              </>
+            </>
           )}
         </Toolbar>
       </Container>
     </AppBar>
-          )}
-          
-  
+  );
+}

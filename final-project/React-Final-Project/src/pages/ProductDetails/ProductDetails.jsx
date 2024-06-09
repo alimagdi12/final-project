@@ -50,7 +50,7 @@ export default function ProductDetails() {
     bottom: false,
     right: false,
   });
-
+console.log(product);
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -120,7 +120,7 @@ export default function ProductDetails() {
               <li>Quantity: {product.quantity}</li>
             </ul>
 
-            <Link to={'/chat'}> <Button variant="contained" sx={{marginRight:'5px', backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Chat With Seller</Button></Link>
+            <Link to={`/chat/${product?.userId?._id}`}> <Button variant="contained" sx={{marginRight:'5px', backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Chat With Seller</Button></Link>
             {['right'].map((anchor) => (
               <React.Fragment key={anchor}>
                 <Button variant="contained" onClick={toggleDrawer(anchor, true)} sx={{ backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Add</Button>

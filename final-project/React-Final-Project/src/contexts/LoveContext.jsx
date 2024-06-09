@@ -22,7 +22,7 @@ useEffect(()=>{
                     jwt: localStorage.getItem("token"),
                 },
             });
-            console.log(response);
+            // console.log(response);
             setFavorites(response.data.result);
          setLove(response.data.result.length)
             setSelectedLove(response.data.result.map(product => product._id));
@@ -34,7 +34,7 @@ useEffect(()=>{
     const handleLoveClick = async (product) => {
         try {
             if (selectedLove.includes(product._id)) {
-               console.log('hambozo');
+            //    console.log('hambozo');
                const response = await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
                 headers: {
                     "Content-Type": "application/json",
@@ -44,11 +44,9 @@ useEffect(()=>{
                     productId: product._id
                 }
             });
-                  console.log(response);
                 setSelectedLove(selectedLove.filter(id => id.toString() !== product._id.toString()));
                 setLove(love - 1);
             } else {
-                console.log('hamada');
                 await axios.post("http://localhost:3000/api/v1/auth/add-favorite", { productId: product._id }, {
                     headers: {
                         "Content-Type": "application/json",

@@ -3,7 +3,7 @@ import { Badge, Box, Card, CardContent, CardMedia, IconButton, Typography, Grid 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const SimilarItems = ({ products }) => {
-    console.log(products); // Debugging log to check the value of products
+    // console.log(products); // Debugging log to check the value of products
     const productList = products.products;
     return (
         <Box mt={4}>
