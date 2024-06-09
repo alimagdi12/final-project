@@ -49,6 +49,15 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     }
   };
 
+  const handleDashboardClick = () => {
+    if (token !== "" || token) {
+      console.log(token);
+      navigate("/dashboard");
+    } else {
+      toast.error("You Are Not Admin ");
+    }
+  };
+
   const handleLogOutClick = () => {
     localStorage.setItem('token', '');
     // console.log(token);
@@ -65,6 +74,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+    console.log(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -243,7 +253,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               style={{ cursor: 'pointer', width: '40px', height:'40px' , borderRadius:'50%' }}
             />
                     </IconButton>
-                    <IconButton color="inherit">
+                    {/* <IconButton color="inherit">
                       <Badge badgeContent={cartItems?.length || 0} color="secondary">
                         <Link
                           style={{ margin: '0' }}
@@ -253,7 +263,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                           <ShoppingCartIcon />
                         </Link>
                       </Badge>
-                    </IconButton>
+                    </IconButton> */}
                   </>
                 </Tooltip>
 
@@ -275,6 +285,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
+                  <MenuItem key={"1"} onClick={handleCloseUserMenu}>
+                    <Typography onClick={handleDashboardClick} textAlign="center">
+                      Dashboard
+                    </Typography>
+                  </MenuItem>
+
                   <MenuItem key={"1"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleProfileClick} textAlign="center">
                       Profile

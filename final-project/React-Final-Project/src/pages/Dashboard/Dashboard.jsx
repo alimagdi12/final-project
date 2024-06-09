@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
-import Sidebar from './Products/Components/Sidebar';
+import Sidebar from './Components/Sidebar';
 import Topbar from './Products/Topbar';
 import Content from './Products/Content';
 import OrderList from './Orders/Components/OrderList';

@@ -48,7 +48,7 @@ const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, user
           flexGrow: 1,
           overflowY: "auto", 
           marginBottom: "16px",
-          maxHeight: "calc(100vh - 120px)", 
+          maxHeight: "calc(100vh )", 
         }}
       >
         <List>

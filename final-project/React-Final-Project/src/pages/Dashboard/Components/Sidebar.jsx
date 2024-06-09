@@ -10,10 +10,6 @@ const Sidebar = ({ onMenuItemClick }) => {
             </Box>
             <Divider />
             <List>
-                <ListItem button onClick={() => onMenuItemClick('dashboard')}>
-                    <ListItemIcon><Dashboard style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Dashboard" />
-                </ListItem>
                 <ListItem button onClick={() => onMenuItemClick('products')}>
                     <ListItemIcon><ShoppingCart style={{ color: '#AC51CC' }} /></ListItemIcon>
                     <ListItemText primary="Products" />
@@ -22,15 +18,7 @@ const Sidebar = ({ onMenuItemClick }) => {
                     <ListItemIcon><ListAlt style={{ color: '#AC51CC' }} /></ListItemIcon>
                     <ListItemText primary="Orders" />
                 </ListItem>
-                <ListItem button onClick={() => onMenuItemClick('analytics')}>
-                    <ListItemIcon><BarChart style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Analytics" />
-                </ListItem>
-                <Divider />
-                <ListItem button onClick={() => onMenuItemClick('settings')}>
-                    <ListItemIcon><Settings style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Settings" />
-                </ListItem>
+
                 <ListItem button onClick={() => onMenuItemClick('logout')}>
                     <ListItemIcon><ExitToApp style={{ color: '#AC51CC' }} /></ListItemIcon>
                     <ListItemText primary="Log Out" />
