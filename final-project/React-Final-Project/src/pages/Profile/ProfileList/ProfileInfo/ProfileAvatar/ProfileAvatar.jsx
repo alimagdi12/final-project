@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
-import GreenButton from '../../../../../components/StyledButton/StyedButton';
 import ColorContext from '../../../../../contexts/ColorContext';
 import axios from 'axios';
 import UserContext from '../../../../../contexts/UserContext';

@@ -23,9 +23,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ColorPicker from './components/Color/ColorPicker.jsx';
 import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
-import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
 import FavoritePage from './pages/Favorite/FavoritePage.jsx';
 import Chat from './components/Chat/Chat.jsx';
+import Dashboard from './pages/Dashboard/Dashboard.jsx';
 
 
 function App() {
