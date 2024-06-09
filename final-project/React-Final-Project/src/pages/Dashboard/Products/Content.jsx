@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Typography, Grid, Card, CardContent, CardMedia, IconButton, Fab } from '@mui/material';
 import { Edit, Delete, Add as AddIcon } from '@mui/icons-material';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 
-const initialProducts = [
-    {id:'1', title: 'Iphone 12', price: '33.500 $', image: '../../../../public/iphone1.jpg' },
-    {id:'2', title: 'Iphone 12', price: '33.500 $', image: '../../../../public/iphone2.webp' },
-    {id:'3', title: 'Iphone 12', price: '33.500 $', image: '../../../../public/iphone3.webp' },
-];
+import ProductsContext from '../../../contexts/ProductsContext'
+import axios from 'axios';
 
 const Content = () => {
-    const [products, setProducts] = useState(initialProducts);
-
-    const handleDelete = (id) => {
-        // Filter out the product with the given id
-        const updatedProducts = products.filter(product => product.id !== id);
-        // Update the state with the filtered array
-        setProducts(updatedProducts);
+    // const {token} = useContext(usee)
+const {products,fetchProducts} = useContext(ProductsContext)
+console.log(products);
+    const handleDelete =async (id) => {
+        try {
+            const response = await axios.delete(
+                `http://127.0.0.1:3000/api/v1/products/delete-product/${id}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        jwt: localStorage.getItem("token"),
+                    },
+                }
+            );
+            console.log(response);
+            fetchProducts()
+        } catch (error) {
+            console.error("Error fetching chat history:", error);
+        }
     };
 
     return (
@@ -26,13 +35,13 @@ const Content = () => {
                 Top Selling of The Day
             </Typography>
             <Grid container spacing={2}>
-                {products.map((product, index) => (
+                {products?.products?.map((product, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card sx={{ backgroundColor: '#1F1B24', color: '#fff' }}>
                             <CardMedia
                                 component="img"
                                 height="140"
-                                image={product.image}
+                                image={product?.imagesUrl?.images[0]}
                                 alt={product.title}
                             />
                             <CardContent>
@@ -43,7 +52,7 @@ const Content = () => {
                                     </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '8px' }}>
-                                    <IconButton onClick={() => handleDelete(product.id)} color="error"><AutoDeleteIcon /></IconButton>
+                                    <IconButton onClick={() => handleDelete(product._id)} color="error"><AutoDeleteIcon /></IconButton>
                                 </Box>
                             </CardContent>
                         </Card>
