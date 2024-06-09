@@ -30,7 +30,7 @@ const ChatWindow = ({ selectedChat, messages, input, setInput, sendMessage, user
               <ListItemAvatar>
                 <Avatar>{msg.sender[0]}</Avatar>
               </ListItemAvatar>
-              <ListItemText primary={userData._id.firstName} secondary={msg.content} />
+              <ListItemText primary={userData.firstName} secondary={msg.content} />
             </ListItem>
           ))}
         </List>
