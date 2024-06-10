@@ -16,6 +16,19 @@ class CategoryController{
         }
     }
 
+    async editCategory(body,files){
+        try {
+            const result = await this.categoryRepository.editCategory(body,files);
+            // const category = await this.categoryRepository.getCategoryByNameAndAddImage(body.title,files)
+            return {msg:"category added successfully",result}
+        } catch (err) {
+            console.error(err);
+            return { message: 'Failed to add category', error: err.message };
+        }
+    }
+
+
+
     async getCategories() {
         try {
             const categories = await this.categoryRepository.getCategories();

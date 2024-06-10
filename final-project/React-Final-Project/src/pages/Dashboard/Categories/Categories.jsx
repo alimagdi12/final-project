@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Box, Typography, Grid, Card, CardContent, CardMedia, IconButton, Fab, TextField, Button, styled, Popover } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { Box, Typography, Grid, Card, CardContent, CardMedia, IconButton, Fab, TextField, Button, styled, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Delete, Add as AddIcon } from '@mui/icons-material';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import EditIcon from '@mui/icons-material/Edit';
+import CategoryContext from '../../../contexts/CategoriesContext';
+import axios from 'axios';
 
 const initialCategories = [
     { id: '1', name: 'Electronics', image: '../../../../public/electronics.jpg' },
@@ -24,158 +26,167 @@ const GradientButton = styled(Button)({
 });
 
 const Categories = () => {
-    const [categories, setCategories] = useState(initialCategories);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [updatedCategory, setUpdatedCategory] = useState(null);
+
+const {categories,fetchCategories} = useContext(CategoryContext)
+
+const [dialogOpen, setDialogOpen] = useState(false);
+    const [updatedCategory, setUpdatedCategory] = useState({});
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryImage, setNewCategoryImage] = useState('');
     const [isAdding, setIsAdding] = useState(false);
 
-    const handleDelete = (id) => {
-        const updatedCategories = categories.filter(category => category.id !== id);
-        setCategories(updatedCategories);
+    const handleDelete =async (id) => {
+        // const updatedCategories = categories.filter(category => category.id !== id);
+        console.log(id);
+        try {
+            const response = await axios.delete(`http://127.0.0.1:3000/api/v1/admin//delete-category/${id}`,  {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'jwt': localStorage.getItem('token')
+                }
+            });
+            console.log(response);
+            fetchCategories( )
+        } catch (err) {
+            console.error('Error adding product:', err.response ? err.response.data : err);
+        }
     };
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleEditClick = (category) => {
+         setUpdatedCategory(category);
+        setDialogOpen(true);
     };
+
 
     const handleClose = () => {
-        setAnchorEl(null);
+        // console.log(updatedCategory);
+        setDialogOpen(false);
+        // setUpdatedCategory(null);
+        setNewCategoryName('');
+        setNewCategoryImage('');
     };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-    const handleUpdate = (id, newName) => {
-        const updatedCategories = categories.map(category => {
-            if (category.id === id) {
-                return { ...category, name: newName };
-            }
-            return category;
-        });
-        setCategories(updatedCategories);
-        setUpdatedCategory(null);
-    };
-
-    const handleEditClick = (id) => {
-        const categoryToUpdate = categories.find(category => category.id === id);
-        setUpdatedCategory(categoryToUpdate);
+    const handleUpdate = async(id) => {
+        const updateForm = new FormData();
+        updateForm.append('id', updatedCategory._id);
+        updateForm.append('title', newCategoryName);
+        updateForm.append('images', newCategoryImage);
+        try {
+            const response = await axios.post('http://127.0.0.1:3000/api/v1/admin/edit-category', updateForm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'jwt': localStorage.getItem('token')
+                }
+            });
+            console.log(response);
+        } catch (err) {
+            console.error('Error adding product:', err.response ? err.response.data : err);
+        }
     };
 
     const handleAdd = () => {
         setIsAdding(true);
+        setDialogOpen(true);
     };
 
     const handleAddCategory = () => {
-        const newId = (Math.random() * 1000).toString(); 
         const newCategory = {
             id: newId,
             name: newCategoryName,
             image: newCategoryImage,
         };
-        setCategories([...categories, newCategory]);
-        setNewCategoryName('');
-        setNewCategoryImage('');
-        setIsAdding(false);
+
+        console.log(category);
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            if (isAdding) {
+                setNewCategoryImage(reader.result);
+            } else {
+                // setUpdatedCategory({ ...updatedCategory, image: reader.result });
+            }
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+       setNewCategoryImage(file)
     };
 
     return (
-        <Box sx={{height:'auto', flexGrow: 1, padding: '16px', backgroundColor: '#333340', color: '#fff' }}>
+        <Box sx={{ height: 'auto', flexGrow: 1, padding: '16px', backgroundColor: '#333340', color: '#fff' }}>
             <Typography variant="h5" gutterBottom sx={{ color: '#fff' }}>
                 Top Categories
             </Typography>
             <Grid container spacing={2}>
-                {categories.map((category, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
+                {categories.categories.map((category) => (
+                    <Grid item xs={12} sm={6} md={4} key={category.id}>
                         <Card sx={{ backgroundColor: '#1F1B24', color: '#fff' }}>
                             <CardMedia
                                 component="img"
                                 height="140"
-                                image={category.image}
-                                alt={category.name}
+                                image={category.imageUrl.images[0]}
+                                alt={category.title}
                             />
                             <CardContent>
-                                {updatedCategory && updatedCategory.id === category.id ? (
-                                    <Box>
-                                        <TextField
-                                            label="New Name"
-                                            defaultValue={category.name}
-                                            fullWidth
-                                            sx={{ marginBottom: '16px' }}
-                                            onChange={(e) => setUpdatedCategory({ ...updatedCategory, name: e.target.value })}
-                                        />
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => handleUpdate(updatedCategory.id, updatedCategory.name)}
-                                            sx={{ marginRight: '8px' }}
-                                        >
-                                            Save
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => setUpdatedCategory(null)}
-                                        >
-                                            Cancel
-                                        </Button>
-                                    </Box>
-                                ) : (
-                                    <Box>
-                                        <Typography variant="h6">{category.name}</Typography>
-                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
-                                            <IconButton onClick={() => handleDelete(category.id)} color="error"><AutoDeleteIcon /></IconButton>
-                                            <IconButton onClick={() => handleEditClick(category.id)} color="primary"><EditIcon /></IconButton>
-                                        </Box>
-                                    </Box>
-                                )}
+                                <Typography variant="h6">{category.title}</Typography>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
+                                    <IconButton onClick={() => handleDelete(category._id)} color="error"><AutoDeleteIcon /></IconButton>
+                                    <IconButton onClick={() => handleEditClick(category)} color="primary"><EditIcon /></IconButton>
+                                </Box>
                             </CardContent>
                         </Card>
                     </Grid>
                 ))}
             </Grid>
-            {isAdding ? (
-                <div>
-                    <Fab sx={{ height: '6%', width: '3%', position: 'fixed', top: 139, right: 16, background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)' }} color="primary" aria-label="add" onClick={handleClick}>
-                        <AddIcon />
-                    </Fab>
-                    <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                    >
-                        <Box sx={{ padding: '16px', minWidth: '200px' }}>
-                            <TextField
-                                label="Category Name"
-                                value={newCategoryName}
-                                onChange={(e) => setNewCategoryName(e.target.value)}
-                                variant="outlined"
-                                sx={{ marginBottom: '8px' }}
-                            />
-                            <TextField
-                                label="Category Image URL"
-                                value={newCategoryImage}
-                                onChange={(e) => setNewCategoryImage(e.target.value)}
-                                variant="outlined"
-                                sx={{ marginBottom: '8px' }}
-                            />
-                            <GradientButton variant="contained" onClick={handleAddCategory}>
-                                Add
-                            </GradientButton>
-                        </Box>
-                    </Popover>
-                </div>
-            ) : (
-                <Fab color="primary" aria-label="add" sx={{ height: '6%', width: '3%', position: 'fixed', top: 139, right: 16, background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)' }} onClick={handleAdd}>
+          
+            <Dialog open={dialogOpen} onClose={handleClose} PaperProps={{ sx: { backgroundColor: '#333340', color: '#fff' } }}>
+                <DialogTitle>{isAdding ? 'Add New Category' : 'Edit Category'}</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        label="Category Name"
+                        value={isAdding ? newCategoryName : (updatedCategory ? updatedCategory.name : '')}
+                        onChange={(e) => setNewCategoryName(e.target.value)}
+                        variant="outlined"
+                        fullWidth
+                        sx={{ marginY: '8px', input: { color: '#fff' } }}
+                        InputLabelProps={{ style: { color: '#fff' } }}
+                    />
+                    <TextField
+                        type="file"
+                        onChange={handleFileChange}
+                        variant="outlined"
+                        fullWidth
+                        sx={{ marginBottom: '8px', input: { color: '#fff' } }}
+                        InputLabelProps={{ style: { color: '#fff' } }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <GradientButton variant="contained" onClick={isAdding ? handleAddCategory : handleUpdate}>
+                        {isAdding ? 'Add' : 'Save'}
+                    </GradientButton>
+                    <Button onClick={handleClose} color="secondary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {!isAdding && (
+                <Fab
+                    color="primary"
+                    aria-label="add"
+                    sx={{
+                        height: '6%',
+                        width: '3%',
+                        position: 'fixed',
+                        top: 139,
+                        right: 16,
+                        background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)'
+                    }}
+                    onClick={handleAdd}
+                >
                     <AddIcon />
                 </Fab>
             )}

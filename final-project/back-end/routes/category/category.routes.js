@@ -16,6 +16,23 @@ const categoryRouter = (categoryController) => {
         
     });
 
+
+
+    router.post('/edit-category', async (req, res, next) => {
+        try {
+            await upload.uploadImage(req, res);
+            const category = await categoryController.editCategory(req.body, req.files);
+            if(category){
+
+                res.status(200).json(category)
+            }
+        } catch (err) {
+            res.status(400).json(err);
+        };
+        
+    });
+
+
     router.get('/categories',async (req, res, next) => {
         try {
             const categories = await categoryController.getCategories();

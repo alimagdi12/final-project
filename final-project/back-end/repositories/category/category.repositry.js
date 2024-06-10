@@ -7,6 +7,39 @@ const stream = require('stream');
 class CategoryRepository{
     constructor() { };
 
+    async editCategory( body, files) {
+        const id = body.id
+        console.log(body);
+        try {
+            const category = await Category.findById(id);
+            if (!category) {
+                throw new Error('Category not found');
+            } 
+            if (body.title) {
+                category.title = body.title;
+            }
+            if (files) {
+                  const uploadPromises = files.map(async (file) => {
+                    const storageRef = ref(storage, `categories/${category.folderName}/${Date.now()}-${file.originalname}`);
+                    const metadata = { contentType: file.mimetype };
+
+                    const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
+
+                    // Get the download URL and push it to the images array
+                    const imageUrl = await getDownloadURL(snapshot.ref);
+                    category.imageUrl.images=[]
+                    category.imageUrl.images.push(imageUrl);})
+
+                    await Promise.all(uploadPromises);
+                    console.log(files);
+                    }
+            await category.save();
+            return category;
+        } catch (err) {
+            console.log(err);
+            throw new Error(err);
+        }
+    }
 
     async addCategory(body) {
         try {

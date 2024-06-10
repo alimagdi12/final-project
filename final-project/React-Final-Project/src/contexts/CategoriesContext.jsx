@@ -24,7 +24,7 @@ export const CategoryProvider = ({ children }) => {
   }, []); 
 
   return (
-    <CategoryContext.Provider value={{ categories }}>
+    <CategoryContext.Provider value={{ categories,fetchCategories }}>
       {children}
     </CategoryContext.Provider>
   );
