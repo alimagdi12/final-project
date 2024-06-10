@@ -10,12 +10,10 @@ import {
   IconButton,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import UserContext from "../../contexts/UserContext";
 
 const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMessage, userData }) => {
 
   console.log(selectedChat);
-  // sender ---> userData._id
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -77,7 +75,7 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
                     <ListItemAvatar>
                       <Avatar />
                     </ListItemAvatar>
-                    <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
+                    <ListItemText sx={{display:'flex', flexDirection:'column', alignItems:'flex-start'}} primary={msg.sender.firstName} secondary={msg.content} />
                   </ListItem>
                 )
                 :
@@ -101,7 +99,49 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
             ))
           }
 
-          {messagesByChat[id]?.map((msg, index) => (
+{messagesByChat[id]?.map((msg, index) => (
+
+msg.sender === userData._id ?
+  (
+    <ListItem
+    key={index}
+    alignItems="flex-end"
+    sx={{
+      alignSelf: 'end',
+      width: '30%',
+      justifyContent: "flex-end",
+      textAlign: "right",
+    }}
+  >
+    <ListItemAvatar>
+    <Avatar/>
+    </ListItemAvatar>
+    <ListItemText sx={{display:'flex', flexDirection:'column', alignItems:'flex-start'}} primary={userData.firstName} secondary={msg.content} />
+  </ListItem>
+  )
+  :
+  (
+    <ListItem
+    key={index}
+    alignItems="flex-start"
+    sx={{
+      alignSelf: 'start',
+      width: '30%',
+      justifyContent: "flex-start",
+      textAlign: "left",
+    }}
+  >
+    <ListItemAvatar>
+      <Avatar/>
+    </ListItemAvatar>
+    <ListItemText primary={userData.firstName} secondary={msg.content} />
+  </ListItem>
+  )
+))
+}
+
+          {/* {messagesByChat[id]?.map((msg, index) => (
+            
             <ListItem
               key={index}
               alignItems="flex-start"
@@ -115,7 +155,7 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
               </ListItemAvatar>
               <ListItemText primary={userData.firstName} secondary={msg.content} />
             </ListItem>
-          ))}
+          ))} */}
           <div ref={messagesEndRef} />
         </List>
       </Box>
