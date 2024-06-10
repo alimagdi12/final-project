@@ -13,7 +13,7 @@ const Sidebar = ({ onMenuItemClick }) => {
     };
 
     return (
-        <Box sx={{  height: '100%', width: { xs: '100%', md: 250 }, backgroundColor: '#1F1B24', color: '#fff', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{  height: '100%', width: { xs: '100%', md: '100%' }, backgroundColor: '#1F1B24', color: '#fff', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ padding: '16px', textAlign: 'center', background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)' }}>
                 <Typography variant="h5" component="div" sx={{ color: '#fff' }}>VibeVerse</Typography>
             </Box>

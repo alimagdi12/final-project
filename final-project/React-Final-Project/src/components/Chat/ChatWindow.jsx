@@ -98,55 +98,16 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
                     <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
                   </ListItem>
                 )
-
-
             ))
           }
 
-          {
-            messagesByChat[id]?.map((msg, index) => (
-
-              // msg.sender === userData._id ?
-              //   (
-                  <ListItem
-                    key={index}
-                    alignItems="flex-end"
-                    sx={{
-                      justifyContent: "flex-end",
-                      textAlign: "right", // Align sender messages to the right
-                    }}
-                  >
-                    <ListItemAvatar>
-                      <Avatar>{msg.sender[0]}</Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={userData.firstName} secondary={msg.content} />
-                  </ListItem>
-                // )
-                // :
-                // (
-                //   <ListItem
-                //     key={index}
-                //     alignItems="flex-start"
-                //     sx={{
-                //       justifyContent: "flex-start",
-                //       textAlign: "left", // Align sender messages to the right
-                //     }}
-                //   >
-                //     <ListItemAvatar>
-                //       <Avatar>{msg.sender[0]}</Avatar>
-                //     </ListItemAvatar>
-                //     <ListItemText primary={userData.firstName} secondary={msg.content} />
-                //   </ListItem>
-                // )
-            ))
-          }
           {messagesByChat[id]?.map((msg, index) => (
             <ListItem
               key={index}
               alignItems="flex-start"
               sx={{
                 justifyContent: "flex-end",
-                textAlign: "right", // Align sender messages to the right
+                textAlign: "right", 
               }}
             >
               <ListItemAvatar>
