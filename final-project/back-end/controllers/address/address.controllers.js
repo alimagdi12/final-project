@@ -29,7 +29,17 @@ class AddressController {
         } catch (err) {
             return { err: err.message };
         }
-}
+    }
+
+    async editAddress(id, body, token) {
+        try {
+            const updatedAddress = await this.addressRepository.editAddress(id, body, token);
+            return { msg: 'Address updated successfully', address: updatedAddress };
+        } catch (err) {
+            return { err: err.message };
+        }
+    }
+
     
 }
 

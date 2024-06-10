@@ -30,16 +30,29 @@ const addressRouter = (addressController) => {
     })
 
     router.delete('/delete-address/:id', async (req, res, next) => {
-    try {
-        const token = req.headers['jwt'];
-        const addressId = req.params.id; // Use req.params.id instead of req.query.addressId
-        const result = await addressController.deleteAddress(addressId, token);
-        res.status(200).json({ message: 'Address deleted successfully', address: result.address });
-    } catch (error) {
-        console.error(error);
-        res.status(401).json({ message: error.message });
-    }
-});
+        try {
+            const token = req.headers['jwt'];
+            const addressId = req.params.id; // Use req.params.id instead of req.query.addressId
+            const result = await addressController.deleteAddress(addressId, token);
+            res.status(200).json({ message: 'Address deleted successfully', address: result.address });
+        } catch (error) {
+            console.error(error);
+            res.status(401).json({ message: error.message });
+        }
+    });
+
+    router.put('/edit-address/:id', async (req, res, next) => {
+        try {
+            const token = req.headers['jwt'];
+            const addressId = req.params.id;
+            const updatedAddress = await addressController.editAddress(addressId, req.body, token);
+            res.status(200).json(updatedAddress);
+        } catch (error) {
+            console.error(error);
+            res.status(401).json(error.message);
+        }
+    });
+
 
 
     return router;

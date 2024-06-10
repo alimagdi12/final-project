@@ -82,6 +82,8 @@ class CategoryRepository{
             throw new Error(err);
         }
     }
+
+    
 };
 
 

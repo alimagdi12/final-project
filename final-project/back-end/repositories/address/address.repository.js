@@ -55,6 +55,29 @@ class AddressRepository {
         }
     }
     
+
+    async editAddress(id, newData, token) {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
+        if (!decodedToken) {
+            return new Error('No token provided');
+        }
+        const address = await Address.findById(id);
+        if (!address) {
+            return new Error('Address not found');
+        }
+        if (address.userId.toString() !== userId) {
+            return new Error('Unauthorized to edit this address');
+        }
+        address.street = newData.street || address.street;
+        address.city = newData.city || address.city;
+        address.state = newData.state || address.state;
+        address.zip = newData.zip || address.zip;
+        address.country = newData.country || address.country;
+        await address.save();
+        return address;
+    }
+    
 }
 
 module.exports = AddressRepository;
