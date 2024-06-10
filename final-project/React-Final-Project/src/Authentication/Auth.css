@@ -83,7 +83,7 @@
 .inputs {
   transition: opacity 1s ease;
   opacity: 1;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
 }

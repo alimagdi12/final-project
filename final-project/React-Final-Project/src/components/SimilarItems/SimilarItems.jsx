@@ -4,7 +4,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const SimilarItems = ({ products }) => {
     // console.log(products); // Debugging log to check the value of products
-    const productList = products.products;
+    const productList = products.products.slice(0, 4);
+
     return (
         <Box mt={4}>
             <Grid container spacing={2}>

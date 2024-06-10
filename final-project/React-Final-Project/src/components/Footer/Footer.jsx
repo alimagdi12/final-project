@@ -21,7 +21,6 @@ const Footer = () => {
         color: "white",
         position: "absolute",
         width: "100%",
-        marginTop:'5%'
       }}
     >
       <Container maxWidth="lg">

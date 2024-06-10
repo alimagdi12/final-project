@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Login from './Authentication/Auth.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/NavBar/Navbar.jsx'
+import Navbar from './components/NavBar/Navbar.jsx';
 import { Box, CssBaseline } from '@mui/material';
 import AddProduct from './pages/AddProducts/AddProduct.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -23,18 +23,19 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ColorPicker from './components/Color/ColorPicker.jsx';
 import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
-import Dashboard from './pages/scenes/dashboard/Dashboard.jsx';
 import FavoritePage from './pages/Favorite/FavoritePage.jsx';
 import Chat from './components/Chat/Chat.jsx';
-
+import Dashboard from './pages/Dashboard/Dashboard.jsx';
 
 function App() {
   const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
   const [isAuthRoute, setIsAuthRoute] = useState(false);
+  const [isChatRoute, setIsChatRoute] = useState(false);
 
   useEffect(() => {
     setIsAuthRoute(location.pathname === '/login');
+    setIsChatRoute(location.pathname.startsWith('/chat'));
   }, [location.pathname]);
 
   const theme = createTheme({
@@ -49,12 +50,11 @@ function App() {
 
   return (
     <div className="App">
-      
       <ToastContainer />
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
-        {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && !isChatRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/chat/:id" element={<Chat />} />
@@ -72,12 +72,11 @@ function App() {
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/sell" element={<List />} />
           <Route path="/add-auction" element={<AddAuction />} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/favorite" element={<FavoritePage/>} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/favorite" element={<FavoritePage />} />
         </Routes>
-        {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && !isChatRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
-
     </div>
   );
 }

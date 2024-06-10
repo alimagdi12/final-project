@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Search as SearchIcon } from '@mui/icons-material';
 import {
   Box,
@@ -12,12 +12,26 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ColorContext from "../../contexts/ColorContext";
+import userContext from "../../contexts/UserContext"
 
-const Sidebar = ({ conversation, userData, handleChatClick }) => {
+const Sidebar = ({ conversation, handleChatClick }) => {
+  const {userData} = useContext(userContext)
+  // console.log(userData.imageUrl.images[0]);
   const navigate = useNavigate();
-  const {color}= useContext(ColorContext)
+  const { color } = useContext(ColorContext);
+  const [selectedChatIndex, setSelectedChatIndex] = useState(null);
+
+  const selectChat = (chat, index) => {
+    handleChatClick(chat);
+    setSelectedChatIndex(index);
+  };
+
+  // console.log(userData);
+  // console.log(userData._id);
+  // console.log(conversation);
+
   return (
-    <Box sx={{ width: '400px', backgroundColor: color, color: '#fff', padding: '16px', height:'90vh' }}>
+    <Box sx={{ width: '400px', backgroundColor: color, color: '#fff', paddingLeft:'16px',paddingTop:'16px', height:'100vh' }}>
       <Typography variant="h6" gutterBottom>
         All Chats
       </Typography>
@@ -25,11 +39,23 @@ const Sidebar = ({ conversation, userData, handleChatClick }) => {
         <SearchIcon />
         <InputBase placeholder="Search…" sx={{ marginLeft: '8px', flex: 1, color: '#fff' }} />
       </Box>
-      <List>
+      <List sx={{width:'100%'}}>
         {conversation.map((chat, index) => (
-          <ListItem key={index} button onClick={() => handleChatClick(chat)}>
+          <ListItem
+            key={index}
+            button
+            onClick={() => selectChat(chat, index)}
+            sx={{
+              backgroundColor: selectedChatIndex === index ? "#ffff" : "transparent",
+              color: selectedChatIndex === index ? "black" : "white",
+              borderRadius:'50px 0 0 50px',
+              "&:hover":{color:'black',backgroundColor:'#EFEAE2'},
+              width:'100%'
+            }}
+          >
             <ListItemAvatar>
-              <Avatar />
+              {/* Use the user's photo if available, otherwise use a default Avatar */}
+              <Avatar src={chat.participants[0]._id === userData._id ? chat.participants[1].imageUrl.images[0] : chat.participants[0].imageUrl.images[0]} />
             </ListItemAvatar>
             <ListItemText
               primary={

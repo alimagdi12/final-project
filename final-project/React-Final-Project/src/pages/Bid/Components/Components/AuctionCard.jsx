@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import ColorContext from "../../../../contexts/ColorContext";
 
 
-export default function AuctionCard({ hours, minutes, seconds, id , auction}) {
+export default function AuctionCard({highestBid, hours, minutes, seconds, id , auction,setHighestBid}) {
   const {color} = useContext(ColorContext)
   const [progress, setProgress] = useState({
     hours: hours | 0,
@@ -27,7 +27,7 @@ export default function AuctionCard({ hours, minutes, seconds, id , auction}) {
   }, [hours]);
   const [bidderName, setBidderName] = useState("Mohamed Ayman");
   const [bidAmount, setBidAmount] = useState("");
-  const [highestBid, setHighestBid] = useState(2500);
+  // const [highestBid, setHighestBid] = useState(2500);
   const [confirmBid, setConfirmBid] = useState(false);
   const {token} = useContext(UserContext)
   const handleOneBid = () => {
@@ -39,6 +39,12 @@ export default function AuctionCard({ hours, minutes, seconds, id , auction}) {
   };
 
   const confirmBidHandler = async () => {
+ 
+ if(bidAmount <= highestBid){
+  toast.error('you muse add highe Bid')
+ }
+ else{
+ 
     console.log(id);
 if(token){
     const bidAmountNumber = parseInt(bidAmount);
@@ -78,7 +84,7 @@ if(token){
   else{
     toast.error('you must login first')
   }
-  
+}
   };
 
   useEffect(() => {

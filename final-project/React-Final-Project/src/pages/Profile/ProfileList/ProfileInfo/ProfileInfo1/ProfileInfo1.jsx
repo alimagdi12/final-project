@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Grid, TextField, Typography } from '@mui/material';
 import GreenButton from '../../../../../components/StyledButton/StyedButton';
 import ManIcon from '@mui/icons-material/Man';
@@ -10,7 +10,7 @@ import ColorContext from '../../../../../contexts/ColorContext';
 
 const ProfileInfo1 = () => {
     const { color } = useContext(ColorContext)
-    const { userData, setUserData } = useContext(UserContext);
+    const {userData,fetchUserData} = useContext(UserContext)
     const [updatedProfile, setUpdatedProfile] = useState({
         email: userData?.result?.email || '',
         firstName: userData?.result?.firstName || '',
@@ -22,6 +22,10 @@ const ProfileInfo1 = () => {
     const handleOpen = () => {
         setOpenPopup(true);
     }
+
+    useEffect(()=>{
+        fetchUserData()
+    })
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -51,12 +55,9 @@ const ProfileInfo1 = () => {
                 }
             });
             console.log(response);
-            console.log(updatedProfile.firstName);
-            // toast.success('added sucessfully')
+            console.log(updatedProfile);
         } catch (err) {
             console.error(err);
-
-            // toast.error('failed to add auction')
         }
     };
 
@@ -86,7 +87,7 @@ const ProfileInfo1 = () => {
                         <TextField
                             id="email"
                             label="Email"
-                            value={updatedProfile.email}
+                            value={userData?.email}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -100,7 +101,7 @@ const ProfileInfo1 = () => {
                             id="firstName"
                             label="First Name"
                             placeholder='Omar'
-                            value={updatedProfile.firstName}
+                            value={userData?.firstName}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -113,7 +114,7 @@ const ProfileInfo1 = () => {
                         <TextField
                             id="lastName"
                             label="Last Name"
-                            value={updatedProfile.lastName}
+                            value={userData?.lastName}
                             placeholder='Hassan'
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
@@ -132,7 +133,7 @@ const ProfileInfo1 = () => {
                             id="phoneNumber"
                             label="Phone Number"
                             placeholder='+201066035716'
-                            value={updatedProfile.phoneNumber}
+                            value={userData?.phoneNumber}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -141,12 +142,12 @@ const ProfileInfo1 = () => {
                             }}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} sm={8}>
                         <TextField
                             id="birthday"
                             label="Birthday"
                             placeholder='06|22|1997'
-                            value={updatedProfile.birthDay}
+                            value={userData?.birthDay}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -154,16 +155,6 @@ const ProfileInfo1 = () => {
                                 textAlign: "center",
                             }}
                         />
-                    </Grid>
-                    <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <GreenButton variant="contained" sx={{ backgroundColor: '#606060', textAlign: 'center', width: '80%' }}>
-                            <ManIcon color='black' />
-                            Male
-                        </GreenButton>
-                        <GreenButton variant="contained" sx={{ backgroundColor: '#606060', textAlign: 'center', width: '80%', marginLeft: '5%' }}>
-                            <Woman2Icon color='black' />
-                            Female
-                        </GreenButton>
                     </Grid>
                 </Grid>
 
