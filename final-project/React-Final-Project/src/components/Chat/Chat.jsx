@@ -29,11 +29,11 @@ const Chat = () => {
                 jwt: localStorage.getItem("token"),
             },
         });
-    
+
         socket.on("connect", () => {
             console.log("Connected to server");
         });
-    
+
         socket.on("chat message", (message) => {
             if ((message.sender === userData?._id && message.receiver === id) || (message.sender === id && message.receiver === userData?._id)) {
                 setMessagesByChat((prevMessagesByChat) => ({
@@ -43,7 +43,7 @@ const Chat = () => {
             }
             console.log(message);
         });
-    
+
         // Cleanup on component unmount
         return () => {
             socket.disconnect();
@@ -84,6 +84,10 @@ const Chat = () => {
     };
 
     useEffect(() => {
+        getMessages();
+    }, []);
+
+    useEffect(() => {
         fetchUserData();
         getConversations();
         getMessages();
@@ -105,13 +109,13 @@ const Chat = () => {
         navigate(`/chat/${participantId}`);
         setSelectedChat(chat);
     };
-    
+
 
     return (
-        <Box sx={{ display: 'flex', width: '100%', height:'100vh' ,position:'relative', top:'24px'}}>
-            <Sidebar conversation={conversation}  userData={userData} handleChatClick={handleChatClick} />
+        <Box sx={{ display: 'flex', width: '100%', height: '100vh', position: 'relative', top: '24px' }}>
+            <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
             <ChatWindow
-            messagesByChat={messagesByChat}
+                messagesByChat={messagesByChat}
                 selectedChat={selectedChat}
                 messages={messages}
                 id={id}

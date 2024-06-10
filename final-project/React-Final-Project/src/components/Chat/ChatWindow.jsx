@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import {
   Box,
   List,
@@ -10,8 +10,12 @@ import {
   IconButton,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import UserContext from "../../contexts/UserContext";
 
-const ChatWindow = ({id, selectedChat, messagesByChat, input, setInput, sendMessage, userData }) => {
+const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMessage, userData }) => {
+
+  console.log(selectedChat);
+  // sender ---> userData._id
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,10 +23,8 @@ const ChatWindow = ({id, selectedChat, messagesByChat, input, setInput, sendMess
   };
 
   useEffect(() => {
-    // Prevent page scrolling
     document.body.style.overflow = "hidden";
 
-    // Restore page scrolling when component unmounts
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -39,29 +41,114 @@ const ChatWindow = ({id, selectedChat, messagesByChat, input, setInput, sendMess
         display: "flex",
         flexDirection: "column",
         padding: "16px",
-        height: "100vh", 
-        overflow: "hidden", 
+        height: "100vh",
+        overflow: "hidden",
       }}
     >
       <Box
         sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
           flexGrow: 1,
-          overflowY: "auto", 
+          overflowY: "auto",
           marginBottom: "16px",
-          maxHeight: "calc(100vh )", 
+          maxHeight: "calc(100vh )",
+          widows: '100%'
         }}
       >
-        <List>
-          {selectedChat?.messages?.map((msg, index) => (
-            <ListItem key={index} alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar />
-              </ListItemAvatar>
-              <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
-            </ListItem>
-          ))}
+        <List sx={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap' }}>
+          {
+            selectedChat?.messages?.map((msg, index) => (
+
+              msg.sender === userData._id ?
+                (
+                  <ListItem
+                    key={index}
+                    alignItems="flex-end"
+                    sx={{
+                      alignSelf: 'end',
+                      width: '30%',
+                      justifyContent: "flex-end",
+                      textAlign: "right",
+                    }}
+                  >
+                    <ListItemAvatar>
+                      <Avatar />
+                    </ListItemAvatar>
+                    <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
+                  </ListItem>
+                )
+                :
+                (
+                  <ListItem
+                    key={index}
+                    alignItems="flex-start"
+                    sx={{
+                      width: '100%',
+                      justifyContent: "flex-start",
+                      textAlign: "left",
+                      alignItems:'center'
+                    }}
+                  >
+                    <ListItemAvatar>
+                      <Avatar />
+                    </ListItemAvatar>
+                    <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
+                  </ListItem>
+                )
+
+
+            ))
+          }
+
+          {
+            messagesByChat[id]?.map((msg, index) => (
+
+              // msg.sender === userData._id ?
+              //   (
+                  <ListItem
+                    key={index}
+                    alignItems="flex-end"
+                    sx={{
+                      justifyContent: "flex-end",
+                      textAlign: "right", // Align sender messages to the right
+                    }}
+                  >
+                    <ListItemAvatar>
+                      <Avatar>{msg.sender[0]}</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={userData.firstName} secondary={msg.content} />
+                  </ListItem>
+                // )
+                // :
+                // (
+                //   <ListItem
+                //     key={index}
+                //     alignItems="flex-start"
+                //     sx={{
+                //       justifyContent: "flex-start",
+                //       textAlign: "left", // Align sender messages to the right
+                //     }}
+                //   >
+                //     <ListItemAvatar>
+                //       <Avatar>{msg.sender[0]}</Avatar>
+                //     </ListItemAvatar>
+                //     <ListItemText primary={userData.firstName} secondary={msg.content} />
+                //   </ListItem>
+                // )
+            ))
+          }
           {messagesByChat[id]?.map((msg, index) => (
-            <ListItem key={index} alignItems="flex-start">
+            <ListItem
+              key={index}
+              alignItems="flex-start"
+              sx={{
+                justifyContent: "flex-end",
+                textAlign: "right", // Align sender messages to the right
+              }}
+            >
               <ListItemAvatar>
                 <Avatar>{msg.sender[0]}</Avatar>
               </ListItemAvatar>

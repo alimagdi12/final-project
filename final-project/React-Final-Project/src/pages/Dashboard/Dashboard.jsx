@@ -4,6 +4,7 @@ import Sidebar from './Components/Sidebar';
 import Topbar from './Products/Topbar';
 import Content from './Products/Content';
 import OrderList from './Orders/Components/OrderList';
+import Categories from './Categories/Categories';
 
 const Dashboard = () => {
     const [selectedMenuItem, setSelectedMenuItem] = useState('products');
@@ -13,7 +14,7 @@ const Dashboard = () => {
     };
 
     return (
-        <Grid container sx={{ }}>
+        <Grid container sx={{height:'100%' }}>
             <Grid item xs={12} md={3} lg={2}>
                 <Sidebar onMenuItemClick={handleMenuItemClick} />
             </Grid>
@@ -22,6 +23,7 @@ const Dashboard = () => {
                 {/* <Box sx={{ flexGrow: 1, overflow: 'auto', height:'100vh' }}> */}
                     {selectedMenuItem === 'products' && <Content />}
                     {selectedMenuItem === 'orders' && <OrderList />}
+                    {selectedMenuItem === 'categories' && <Categories />}
                 {/* </Box> */}
             </Grid>
         </Grid>
