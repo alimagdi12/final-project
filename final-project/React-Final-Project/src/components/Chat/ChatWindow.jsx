@@ -10,10 +10,14 @@ import {
   IconButton,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import UserContext from "../../contexts/UserContext";
+import ColorContext from "../../contexts/ColorContext";
 
-const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMessage, userData }) => {
+const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMessage }) => {
 
-  console.log(selectedChat);
+  const {userData} = useContext(UserContext)
+  const {color} = useContext(ColorContext)
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -21,17 +25,9 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
   };
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
-
-  useEffect(() => {
     scrollToBottom();
   }, [messagesByChat[id]]);
-
+  
   return (
     <Box
       sx={{
@@ -41,136 +37,127 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
         padding: "16px",
         height: "100vh",
         overflow: "hidden",
+        backgroundColor:'#EFEAE2'
       }}
     >
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: 'flex-end',
-          justifyContent: 'flex-end',
           flexGrow: 1,
           overflowY: "auto",
           marginBottom: "16px",
-          maxHeight: "calc(100vh )",
-          widows: '100%'
+          maxHeight: "calc(100vh - 120px)",
+          padding:'12px'
         }}
       >
         <List sx={{ display: 'flex', flexDirection: 'column', width: '100%', flexWrap: 'wrap' }}>
-          {
-            selectedChat?.messages?.map((msg, index) => (
-
-              msg.sender === userData._id ?
-                (
-                  <ListItem
-                    key={index}
-                    alignItems="flex-end"
-                    sx={{
-                      alignSelf: 'end',
-                      width: '30%',
-                      justifyContent: "flex-end",
-                      textAlign: "right",
-                    }}
-                  >
-                    <ListItemAvatar>
-                      <Avatar />
-                    </ListItemAvatar>
-                    <ListItemText sx={{display:'flex', flexDirection:'column', alignItems:'flex-start'}} primary={msg.sender.firstName} secondary={msg.content} />
-                  </ListItem>
-                )
-                :
-                (
-                  <ListItem
-                    key={index}
-                    alignItems="flex-start"
-                    sx={{
-                      width: '100%',
-                      justifyContent: "flex-start",
-                      textAlign: "left",
-                      alignItems:'center'
-                    }}
-                  >
-                    <ListItemAvatar>
-                      <Avatar />
-                    </ListItemAvatar>
-                    <ListItemText primary={msg.sender.firstName} secondary={msg.content} />
-                  </ListItem>
-                )
-            ))
-          }
-
-{messagesByChat[id]?.map((msg, index) => (
-
-msg.sender === userData._id ?
-  (
-    <ListItem
-    key={index}
-    alignItems="flex-end"
-    sx={{
-      alignSelf: 'end',
-      width: '30%',
-      justifyContent: "flex-end",
-      textAlign: "right",
-    }}
-  >
-    <ListItemAvatar>
-    <Avatar/>
-    </ListItemAvatar>
-    <ListItemText sx={{display:'flex', flexDirection:'column', alignItems:'flex-start'}} primary={userData.firstName} secondary={msg.content} />
-  </ListItem>
-  )
-  :
-  (
-    <ListItem
-    key={index}
-    alignItems="flex-start"
-    sx={{
-      alignSelf: 'start',
-      width: '30%',
-      justifyContent: "flex-start",
-      textAlign: "left",
-    }}
-  >
-    <ListItemAvatar>
-      <Avatar/>
-    </ListItemAvatar>
-    <ListItemText primary={userData.firstName} secondary={msg.content} />
-  </ListItem>
-  )
-))
-}
-
-          {/* {messagesByChat[id]?.map((msg, index) => (
-            
+          {selectedChat?.messages?.map((msg, index) => (
             <ListItem
               key={index}
-              alignItems="flex-start"
               sx={{
-                justifyContent: "flex-end",
-                textAlign: "right", 
+                width: 'fit-content',
+                marginLeft: msg.sender === userData._id ? 'auto' : 'unset',
+                marginRight: msg.sender === userData._id ? 'unset' : 'auto',
+                marginBottom: '8px',
+                position: 'relative',
+                backgroundColor: msg.sender === userData._id ? "#D9FDD3" : "#FFFFFF",
+                padding: '10px',
+                borderRadius: '10px',
+                border: `1px solid ${msg.sender === userData._id ? "#D9FDD3" : "#D9D9D9"}`,
+                display:'flex',
+                alignItems:'center'
               }}
             >
               <ListItemAvatar>
-                <Avatar>{msg.sender[0]}</Avatar>
+              <Avatar src={selectedChat?.participants[1]?._id === msg.sender ? selectedChat?.participants[1]?.imageUrl.images[0] : selectedChat?.participants[0]?.imageUrl.images[0]} />
               </ListItemAvatar>
-              <ListItemText primary={userData.firstName} secondary={msg.content} />
+              <ListItemText
+                primary={msg.sender.firstName}
+                secondary={msg.content}
+                sx={{ textAlign: msg.sender === userData._id ? 'right' : 'left' }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: msg.sender === userData._id ? "#D9FDD3" : "#FFFFFF",
+                  bottom: '-5px',
+                  [msg.sender === userData._id ? 'left' : 'right']: '5px',
+                  transform: msg.sender === userData._id ? 'rotate(45deg)' : 'rotate(-135deg)',
+                }}
+              />
             </ListItem>
-          ))} */}
+          ))}
+          {messagesByChat[id]?.map((msg, index) => (
+            <ListItem
+              key={index}
+              alignItems={msg.sender === userData._id ? "flex-end" : "flex-start"}
+              sx={{
+                width: 'fit-content',
+                marginLeft: msg.sender === userData._id ? 'auto' : 'unset',
+                marginRight: msg.sender === userData._id ? 'unset' : 'auto',
+                marginBottom: '8px',
+                position: 'relative',
+                backgroundColor: msg.sender === userData._id ? "#D9FDD3" : "#FFFFFF",
+                padding: '10px',
+                borderRadius: '10px',
+                border: `1px solid ${msg.sender === userData._id ? "#D9FDD3" : "#D9D9D9"}`,
+                display:'flex',
+                alignItems:'center'
+              }}
+            >
+              <ListItemAvatar>
+              <Avatar src={selectedChat?.participants[1]._id === msg.sender ? selectedChat?.participants[1]?.imageUrl.images[0] : selectedChat?.participants[0]?.imageUrl.images[0]} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={msg.sender === userData._id ? userData.firstName : msg.sender.firstName}
+                secondary={msg.content}
+                sx={{ textAlign: msg.sender === userData._id ? 'right' : 'left' }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: msg.sender === userData._id ? "#D9FDD3" : "#FFFFFF",
+                  bottom: '-5px',
+                  [msg.sender === userData._id ? 'left' : 'right']: '5px',
+                  transform: msg.sender === userData._id ? 'rotate(45deg)' : 'rotate(-135deg)',
+                }}
+              />
+            </ListItem>
+          ))}
           <div ref={messagesEndRef} />
         </List>
       </Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Type a message"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") sendMessage();
-          }}
-        />
-        <IconButton color="primary" onClick={sendMessage}>
+      <TextField
+  fullWidth
+  variant="outlined"
+  placeholder="Type a message"
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyPress={(e) => {
+    if (e.key === "Enter") sendMessage();
+  }}
+  sx={{
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#ccc', 
+      },
+      '&:hover fieldset': {
+        borderColor: '#999', 
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: color, 
+      },
+    },
+  }}
+/>
+
+        <IconButton sx={{color:color}} onClick={sendMessage}>
           <SendIcon />
         </IconButton>
       </Box>

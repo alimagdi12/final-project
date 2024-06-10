@@ -112,7 +112,7 @@ const Chat = () => {
 
 
     return (
-        <Box sx={{ display: 'flex', width: '100%', height: '100vh', position: 'relative', top: '24px' }}>
+        <Box sx={{ display: 'flex', width: '100%', height: '96vh', position: 'relative' }}>
             <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
             <ChatWindow
                 messagesByChat={messagesByChat}
