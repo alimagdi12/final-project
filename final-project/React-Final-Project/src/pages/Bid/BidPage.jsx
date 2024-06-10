@@ -1,53 +1,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CssBaseline, Container, Typography } from '@mui/material';
 import BidCard from './Components/BidCard';
 import SimilarItems from '../../components/SimilarItems/SimilarItems';
-import AuctionContext from '../../contexts/AuctionContext';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from '../../contexts/UserContext';
 import ProductsContext from '../../contexts/ProductsContext';
-
+import { useSocket } from '../../contexts/SocketContext';
 
 const BidPage = () => {
-    
     const [highestBid, setHighestBid] = useState(2500);
-    const [heartCount, setHeartCount] = useState(0);
-    const [auction, setAuction] = useState({})
+    const [auction, setAuction] = useState({});
+    const [bids, setBids] = useState([]);
 
+    const socket = useSocket();
     const { products } = useContext(ProductsContext);
-    console.log(products);
-    const { token } = useContext(UserContext)
-    
-    
-    
-    
-    const fetchHighestBidder = async (id) => {
-        console.log(id);
-        if (id) {
+    const { token } = useContext(UserContext);
+    const { id } = useParams();
 
+    const fetchHighestBidder = async (id) => {
+        if (id) {
             try {
-                const response = await axios.get(`http://127.0.0.1:3000/api/v1/get-heighst-bid/${id._id}`,  {
+                const response = await axios.get(`http://127.0.0.1:3000/api/v1/get-heighst-bid/${id._id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'jwt': localStorage.getItem('token')
                     }
-                })
+                });
 
-                // console.log(response);
                 const data = response.data;
-                console.log(response.data.bid.amount);
-                setHighestBid(response.data.bid.amount)
+                setHighestBid(response.data.bid.amount);
             } catch (error) {
                 console.error('Error fetching bid:', error);
             }
         }
     };
-
-    const { id } = useParams()
-    let hours, seconds, minutes = 0
 
     const fetchBid = async () => {
         try {
@@ -58,23 +47,24 @@ const BidPage = () => {
                 }
             });
 
-            const data = response.data;
-            console.log(data);
+            const auctionData = response.data.auction;
+            setAuction(auctionData);
 
-            setAuction(response.data.auction)
+            const highestBidAmount = auctionData.bidsId.reduce((max, bid) => bid.amount > max ? bid.amount : max, auctionData.initialValue);
+            setHighestBid(highestBidAmount);
+
             setTimeout(() => {
-                fetchHighestBidder(response.data.auction)
+                fetchHighestBidder(auctionData);
             }, 3000);
+
             const now = Date.now();
-
-
-            const expirDate = new Date(response.data.auction.expirationDate)
+            const expirDate = new Date(auctionData.expirationDate);
             const differenceInMs = expirDate - now;
 
             const hours = Math.floor(differenceInMs / (1000 * 60 * 60));
             const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
-
+            return auctionData;
 
         } catch (error) {
             console.error('Error fetching bid:', error);
@@ -82,13 +72,23 @@ const BidPage = () => {
     };
 
     useEffect(() => {
-
-
+        console.log('Socket:', socket);
         fetchBid();
+        if (socket) {
+            console.log('Setting up socket event listener');
+            socket.on('newBid', (bid) => {
+                console.log('New bid received:', bid);
+                setBids((prevBids) => [...prevBids, bid]);
+                setHighestBid(bid.amount); // Update highestBid with the new bid amount
+            });
 
-    }, [id]);
+            return () => {
+                console.log('Cleaning up socket event listener');
+                socket.off('newBid');
+            };
+        }
+    }, [id, socket]);
 
- 
 
     const handleBid = (amount) => {
         setHighestBid((prev) => prev + amount);
@@ -99,8 +99,6 @@ const BidPage = () => {
             <CssBaseline />
             <Container>
                 <BidCard auction={auction} onBid={handleBid} setHighestBid={setHighestBid} highestBid={highestBid} />
-
-
                 <Typography variant="h6" mt={4}>
                     You May Also Like:
                 </Typography>

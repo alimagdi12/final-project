@@ -15,16 +15,6 @@ const jwt = require('jsonwebtoken');
 
 
 
-const MessageRepository = require('./repositories/Messages/Messages.repository');
-const MessageController = require('./controllers/Messages/Messages.controller');
-const messagesRepository = new MessageRepository()
-const mesaagecontroller = new MessageController(messagesRepository)
-
-
-const conversationRepository = require('./repositories/conversation/Conversation.repositiry')
-const conversationController = require('./controllers/conversation/conversation.controller')
-const conversationsRepository = new conversationRepository 
-const conversationsController = new conversationController(conversationsRepository)
 
 // Helper function to get user ID from token
 const getUserIdFromToken = (socket) => {
@@ -48,7 +38,7 @@ const getUserIdFromToken = (socket) => {
 const io = socket(server, {
     cors: {
         origin: "*",
-        methods: ["GET", "POST"]
+    methods: ['GET', 'POST','PUT', 'DELETE']
     }
 });
 
@@ -132,9 +122,18 @@ const PaymentController = require('./controllers/payment/payment.controller');
 // calling wishListRepository and wishListController
 const WishListRepository = require('./repositories/wishlist/wishlist.repository');
 const WishListController = require('./controllers/wishlist/wishlist.controllers');
-// Import chatController
+// calling ChatRepository and ChatController
 const ChatRepository = require('./repositories/chat/chat');
 const ChatController = require('./controllers/chat/chat');
+// calling MessageRepository and MessageListController
+const MessageRepository = require('./repositories/Messages/Messages.repository');
+const MessageController = require('./controllers/Messages/Messages.controller');
+// calling ConversationRepository and ConversationListController
+const ConversationRepository = require('./repositories/conversation/Conversation.repositiry')
+const ConversationController = require('./controllers/conversation/conversation.controller')
+// calling AddressRepository and AddressListController
+const AddressRepository = require('./repositories/address/address.repository')
+const AddressController = require('./controllers/address/address.controllers')
 
 
 
@@ -179,9 +178,22 @@ const paymentController = new PaymentController(paymentRepository);
 // Create instances of CartRepository and CartController
 const wishlistRepository = new WishListRepository();
 const wishlistController = new WishListController(wishlistRepository);
-//Chat
+// Create instances of ChatRepository and ChatController
 const chatRepository = new ChatRepository();
 const chatController = new ChatController(chatRepository);
+// Create instances of MessageRepository and MessageController
+const messagesRepository = new MessageRepository()
+const mesaagecontroller = new MessageController(messagesRepository)
+// Create instances of ConversationRepository and ConversationController
+const conversationsRepository = new ConversationRepository 
+const conversationsController = new ConversationController(conversationsRepository)
+// Create instances of AddressRepository and AddressController
+const addressRepository = new AddressRepository; 
+const addressController = new AddressController(addressRepository)
+
+
+
+
 
 
 // routes of the whole application
@@ -199,7 +211,8 @@ const paymentRoutes = require('./routes/payment/payment.routes');
 const wishListRoutes = require('./routes/wishlist/wishlist.routes');
 const MessagesRouter = require('./routes/Messages/Messages.routes');
 const ConversationRouter = require('./routes/Conversation/Conversation.routes');
-const ConversationRepository = require('./repositories/conversation/Conversation.repositiry');
+const addressRouter = require('./routes/address/address.routes')
+
 
 
 // Middleware to get client's IP address
@@ -209,7 +222,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // executing the routes 
-app.use("/api/v1/auth", [authRoutes(authController),ConversationRouter(conversationsController) ,userRoutes(userController), bidRoutes(bidController), cartRoutes(cartController), paymentRoutes(paymentController), wishListRoutes(wishlistController), MessagesRouter(mesaagecontroller)]);
+app.use("/api/v1/auth", [
+    authRoutes(authController),
+    ConversationRouter(conversationsController),
+    userRoutes(userController),
+    bidRoutes(bidController),
+    cartRoutes(cartController),
+    paymentRoutes(paymentController),
+    wishListRoutes(wishlistController),
+    MessagesRouter(mesaagecontroller),
+    addressRouter(addressController)
+    
+]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
 app.use('/api/v1/admin', [
