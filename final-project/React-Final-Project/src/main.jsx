@@ -12,6 +12,7 @@ import { AuctionProvider } from './contexts/AuctionContext.jsx';
 import { ColorProvider } from './contexts/ColorContext.jsx';
 import LoveProvider from './contexts/LoveContext.jsx';
 import { SocketProvider } from './contexts/SocketContext.jsx';
+import { OrderProvider } from './contexts/OrderContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserProvider>
@@ -23,9 +24,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <CartProvider>
                 <BrowserRouter>
                   <SocketProvider>
+                    <OrderProvider>
                     <React.StrictMode>
                       <App />
                     </React.StrictMode>
+                    </OrderProvider>
                   </SocketProvider>
                 </BrowserRouter>
               </CartProvider>

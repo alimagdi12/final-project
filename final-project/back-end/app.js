@@ -193,8 +193,9 @@ const addressController = new AddressController(addressRepository)
 
 
 
-
-
+// Import and use the order routes
+// const orderRoutes = require('./routes/order/order.routes');
+// app.use("/api/v1/orders");
 
 // routes of the whole application
 const authRoutes = require("./routes/auth/auth.routes");
@@ -211,7 +212,16 @@ const paymentRoutes = require('./routes/payment/payment.routes');
 const wishListRoutes = require('./routes/wishlist/wishlist.routes');
 const MessagesRouter = require('./routes/Messages/Messages.routes');
 const ConversationRouter = require('./routes/Conversation/Conversation.routes');
-const addressRouter = require('./routes/address/address.routes')
+const addressRouter = require('./routes/address/address.routes');
+const OrderController = require('./controllers/orders/orders.controller');
+const OrderRepository = require('./repositories/order/Order.repository');
+const orderRouter = require('./routes/order/order.routes');
+
+
+
+// Create instances of OrderRepository and OrderController
+const orderRepository = new OrderRepository();
+const orderController = new OrderController(orderRepository);
 
 
 
@@ -232,7 +242,7 @@ app.use("/api/v1/auth", [
     wishListRoutes(wishlistController),
     MessagesRouter(mesaagecontroller),
     addressRouter(addressController)
-    
+    , orderRouter(orderController)
 ]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);

@@ -19,7 +19,7 @@ import { CartContext } from "../../contexts/CartContext";
 import ColorContext from "../../contexts/ColorContext";
 
 export default function AllProducts() {
-  const {color}= useContext(ColorContext)
+  const { color } = useContext(ColorContext);
   const [toggle, setToggle] = useState(false);
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
@@ -28,7 +28,7 @@ export default function AllProducts() {
   const [searchLocation, setSearchLocation] = useState(null);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6; 
+  const productsPerPage = 6;
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(
@@ -50,26 +50,26 @@ export default function AllProducts() {
     setCurrentPage(1);
 
     if (event.target.value === "All") {
-      if (!searchLocation  || searchLocation === "All") {
-        console.log('ccccc');
+      if (!searchLocation || searchLocation === "All") {
+        console.log("ccccc");
         setDisplayedProducts(products?.products);
         return;
       } else {
-        console.log('vvvv');
+        console.log("vvvv");
         const dp = products.products.filter(
           (product) => product?.location === searchLocation
         );
         setDisplayedProducts(dp);
         return;
       }
-    } else if (!searchLocation  || searchLocation === "All") {
-      console.log('aaa');
+    } else if (!searchLocation || searchLocation === "All") {
+      console.log("aaa");
       const dp = products.products.filter(
         (product) => product?.categoryId?.title === event.target.value
       );
       setDisplayedProducts(dp);
       return;
-    } else if(searchLocation ) {
+    } else if (searchLocation) {
       console.log(searchLocation);
       const dp = products.products.filter(
         (product) =>
@@ -109,28 +109,35 @@ export default function AllProducts() {
     <>
       <Container
         sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' }, // Flex direction changes based on screen size
-          marginTop: '20px',
-          justifyContent: 'space-between',
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" }, // Flex direction changes based on screen size
+          marginTop: "20px",
+          justifyContent: "space-between",
         }}
       >
         <Box
           sx={{
-            width: { xs: '100%', md: '25%' }, // Adjust width for smaller screens
-            height: '82vh',
+            width: { xs: "100%", md: "25%" }, // Adjust width for smaller screens
+            height: "82vh",
             border: `3px solid ${color}`,
-            borderRadius: '10px',
-            paddingX: '50px',
-            color: 'black',
-            marginBottom: { xs: '20px', md: 0 }, // Add bottom margin for smaller screens
+            borderRadius: "10px",
+            paddingX: "50px",
+            color: "black",
+            marginBottom: { xs: "20px", md: 0 }, // Add bottom margin for smaller screens
           }}
         >
           {/* Categories and City filters */}
-          <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
+          <Box sx={{ width: "100%", margin: "auto", marginTop: 2 }}>
             {/* Categories filter */}
             <FormControl>
-              <FormLabel sx={{color:color, borderBottom:`2px solid ${color}`,width:'100%'}} id="demo-radio-buttons-group-label">
+              <FormLabel
+                sx={{
+                  color: color,
+                  borderBottom: `2px solid ${color}`,
+                  width: "100%",
+                }}
+                id="demo-radio-buttons-group-label"
+              >
                 Categories
               </FormLabel>
               <RadioGroup
@@ -141,34 +148,47 @@ export default function AllProducts() {
               >
                 <FormControlLabel
                   value="All"
-                  control={<Radio sx={{
-                    color: 'black',
-                    '&.Mui-checked': {
-                      color: color,
-                    },
-                  }}/>} 
-                label="All"
+                  control={
+                    <Radio
+                      sx={{
+                        color: "black",
+                        "&.Mui-checked": {
+                          color: color,
+                        },
+                      }}
+                    />
+                  }
+                  label="All"
                 />
                 {categories?.categories?.map((category) => (
                   <FormControlLabel
                     key={category?.title}
                     value={category?.title}
-                    control={<Radio sx={{
-                      color: 'black',
-                      '&.Mui-checked': {
-                        color: color,
-                      },
-                    }}/>} 
+                    control={
+                      <Radio
+                        sx={{
+                          color: "black",
+                          "&.Mui-checked": {
+                            color: color,
+                          },
+                        }}
+                      />
+                    }
                     label={category?.title}
                   />
                 ))}
               </RadioGroup>
             </FormControl>
           </Box>
-          <Box sx={{ width: '100%', margin: 'auto', marginTop: 2 }}>
+          <Box sx={{ width: "100%", margin: "auto", marginTop: 2 }}>
             {/* City filter */}
             <FormControl>
-                    <FormLabel sx={{color:color, borderBottom:`2px solid ${color}`}} id="demo-radio-buttons-group-label">City</FormLabel>
+              <FormLabel
+                sx={{ color: color, borderBottom: `2px solid ${color}` }}
+                id="demo-radio-buttons-group-label"
+              >
+                City
+              </FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue="All"
@@ -177,43 +197,59 @@ export default function AllProducts() {
               >
                 <FormControlLabel
                   value="All"
-                  control={<Radio sx={{
-                    color: 'black',
-                    '&.Mui-checked': {
-                      color: color,
-                    },
-                  }}/>} 
-                label="All"
+                  control={
+                    <Radio
+                      sx={{
+                        color: "black",
+                        "&.Mui-checked": {
+                          color: color,
+                        },
+                      }}
+                    />
+                  }
+                  label="All"
                 />
                 <FormControlLabel
                   value="portsaid"
-                  control={<Radio sx={{
-                    color: 'black',
-                    '&.Mui-checked': {
-                      color: color,
-                    },
-                  }}/>} 
-                label="portsaid"
+                  control={
+                    <Radio
+                      sx={{
+                        color: "black",
+                        "&.Mui-checked": {
+                          color: color,
+                        },
+                      }}
+                    />
+                  }
+                  label="portsaid"
                 />
                 <FormControlLabel
                   value="Ismailia"
-                  control={<Radio sx={{
-                    color: 'black',
-                    '&.Mui-checked': {
-                      color: color,
-                    },
-                  }}/>} 
-                label="Ismailia"
+                  control={
+                    <Radio
+                      sx={{
+                        color: "black",
+                        "&.Mui-checked": {
+                          color: color,
+                        },
+                      }}
+                    />
+                  }
+                  label="Ismailia"
                 />
                 <FormControlLabel
                   value="Alex"
-                  control={<Radio sx={{
-                    color: 'black',
-                    '&.Mui-checked': {
-                      color: color,
-                    },
-                  }}/>} 
-                label="Alex"
+                  control={
+                    <Radio
+                      sx={{
+                        color: "black",
+                        "&.Mui-checked": {
+                          color: color,
+                        },
+                      }}
+                    />
+                  }
+                  label="Alex"
                 />
               </RadioGroup>
             </FormControl>
@@ -222,30 +258,56 @@ export default function AllProducts() {
 
         <Box
           sx={{
-            width: { xs: '100%', md: '70%' }, 
-            display: 'flex',
-            flexDirection: 'column',
+            width: { xs: "100%", md: "70%" },
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {/* Buttons and Product Cards */}
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
+              display: "flex",
+              justifyContent: "space-between",
               marginBottom: 2,
-              marginTop: { xs: 2, md: 0 }
+              marginTop: { xs: 2, md: 0 },
             }}
           >
             {/* Show Products and Show Auction buttons */}
-            <Button variant="contained" onClick={() => setToggle(false)} sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}  >
+            <Button
+              variant="contained"
+              onClick={() => setToggle(false)}
+              sx={{
+                backgroundColor: color,
+                color: "#FFF",
+                "&:hover": {
+                  color: color,
+                  backgroundColor: "white",
+                  outline: `2px solid ${color}`,
+                },
+              }}
+            >
               Show Products
             </Button>
-            <Button variant="contained" onClick={() => setToggle(true)} sx={{ backgroundColor: color ,color:'#FFF', '&:hover':{color:color , backgroundColor:'white', outline:`2px solid ${color}`}}}>
+            <Button
+              variant="contained"
+              onClick={() => setToggle(true)}
+              sx={{
+                backgroundColor: color,
+                color: "#FFF",
+                "&:hover": {
+                  color: color,
+                  backgroundColor: "white",
+                  outline: `2px solid ${color}`,
+                },
+              }}
+            >
               Show Auction
             </Button>
           </Box>
           {/* Product Cards */}
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Box
+            sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+          >
             {/* Product Cards */}
             {toggle
               ? auction?.map((product) => (
@@ -271,18 +333,20 @@ export default function AllProducts() {
           </Box>
         </Box>
       </Container>
-      <Container sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <Container
+        sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+      >
         <Pagination
           count={Math.ceil(displayedProducts?.length / productsPerPage)}
           page={currentPage}
           onChange={handlePageChange}
           sx={{
-            '& .MuiPaginationItem-root': {
-              color: color, 
+            "& .MuiPaginationItem-root": {
+              color: color,
             },
-            '& .Mui-selected': {
-              backgroundColor: color, 
-              color: '#fff', 
+            "& .Mui-selected": {
+              backgroundColor: color,
+              color: "#fff",
             },
           }}
         />
