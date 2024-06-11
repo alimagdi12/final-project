@@ -32,7 +32,7 @@ const Cart = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
-
+useEffect(()=>{getCart()},[])
 
     console.log("Imports are working fine.");
 
@@ -40,12 +40,7 @@ const Cart = () => {
     
         useEffect(() => {
             console.log("Fetching cart data...");
-            getCart().then(() => {
-                console.log("Cart data fetched successfully.");
-                setCartItems(cartItems);
-            }).catch(error => {
-                console.error("Error fetching cart data:", error);
-            });
+           
         }, []);
     
         const handleQuantityChange = (id, quantity) => {

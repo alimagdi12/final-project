@@ -22,7 +22,7 @@ const GradientText = styled(Typography)(({ theme }) => ({
 }));
 
 const OrderList = () =>{
-    const { orders } = useContext(OrderContext);
+    const { allOrders } = useContext(OrderContext);
 return(
     <Grid container sx={{ height:'100%', alignContent:'flex-start', alignItems:'center', display:'flex', padding: '24px', backgroundColor: '#1F1B24', borderRadius: '8px',justifyContent:'space-around'  }}>
         <Grid  spacing={2} sx={{alignContent:'flex-start', alignItems:'center',display:'flex', borderBottom: '2px solid #AC51CC', width:'100%', padding:'0', justifyContent:'space-around' }}>
@@ -34,7 +34,7 @@ return(
             <Grid item ><GradientText variant="h6">Delivery</GradientText></Grid>
             <Grid item ><GradientText variant="h6">Status</GradientText></Grid>
         </Grid>
-        {orders.map((order, index) => (
+        {allOrders.map((order, index) => (
             <OrderRow key={index} order={order} />
         ))}
     </Grid>

@@ -21,7 +21,7 @@ const {token} = useContext(UserContext)
             const response = await axios.get('http://127.0.0.1:3000/api/v1/auth/cart', {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'jwt': token
+                    'jwt': localStorage.getItem('token')
                 }
             });
             setCartItems(response.data.cart);

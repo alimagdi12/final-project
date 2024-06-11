@@ -17,7 +17,7 @@ const OrderCard = ({ order, onCancelClick }) => {
             </Box>
             <CardContent sx={{ padding: '5px', marginTop: '25px' }}>
                 <Typography gutterBottom variant="h5" component="div">
-                    {order.title}
+                    {order.status}
                 </Typography>
                 <Box textAlign={'center'}>
 
