@@ -60,20 +60,26 @@ class AuctionRepository {
         return auction;
     }
 
-    async getHighestBid(data, token) {
+    async  getHighestBid(data, token) {
         const id = data.id;
         const auction = await Auction.findById(id).populate('bidsId categoryId').exec();
-
+    
         if (!auction) throw new Error("Auction not found");
         if (!auction.bidsId || auction.bidsId.length === 0) throw new Error("No bids found for this auction");
-
+    
+        // Populate bidderId for each bid in the bidsId array
+        for (let i = 0; i < auction.bidsId.length; i++) {
+            await auction.bidsId[i].populate('biderId').execPopulate();
+        }
+    
+        // Find the highest bid
         const highestBid = auction.bidsId.reduce((max, current) => {
             return current.amount > max.amount ? current : max;
         }, auction.bidsId[0]);
-
+    
         return highestBid;
     }
-
+    
 
 
 

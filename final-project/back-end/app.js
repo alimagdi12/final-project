@@ -44,13 +44,14 @@ const io = socket(server, {
 
 // Chat history (in-memory for demonstration purposes, use a database in production)
 let chatHistory = [];
+// Existing imports and setup
 
 io.on('connection', async (socket) => {
-    ('A connection started', socket.id);
+    console.log('A connection started', socket.id);
     try {
         const userId = await getUserIdFromToken(socket);
         if (userId) {
-            (`User ${userId} connected with socket ID ${socket.id}`);
+            console.log(`User ${userId} connected with socket ID ${socket.id}`);
         }
     } catch (err) {
         console.error('Error getting user ID from token:', err.message);
@@ -58,20 +59,26 @@ io.on('connection', async (socket) => {
         return;
     }
 
-    // Send chat history to the newly connected client
     socket.emit('chat history', chatHistory);
 
     socket.on('chat message', async (message) => {
-        (message);
+        console.log(message);
         chatHistory.push(message.message);
-        messagesRepository.createMessage(message.sender,message.receiver,message.content)
-  
+        messagesRepository.createMessage(message.sender, message.receiver, message.content);
         
-        io.emit('chat message', message); // Broadcast the message to all connected clients
+        io.emit('chat message', message);
+    });
+
+    socket.on('newBid', async (bidData) => {
+        // Store the new bid in the database (you may already have this functionality)
+        // await bidRepository.createBid(bidData.bidder, bidData.amount, bidData.auctionId);
+        
+        // Emit the new bid to all clients
+        io.emit('newBid', bidData);
     });
 
     socket.on('disconnect', async () => {
-        ('A connection disconnected', socket.id);
+        console.log('A connection disconnected', socket.id);
     });
 });
 
