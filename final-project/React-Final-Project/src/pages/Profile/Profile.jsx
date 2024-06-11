@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import ProfileInfo from '../Profile/ProfileList/ProfileInfo/ProfileInfo';
 import Sidebar from './Components/Sidebar';
-import Orders from '../Profile/ProfileList/Orders/Orders';
+// import Orders from '../Profile/ProfileList/Orders/Orders';
 import { Box, Grid } from '@mui/material';
 import Address from '../Profile/ProfileList/Address/Address';
+import Orders1 from './ProfileList/Orders/OrderDetails';
+import OrderDetails from './ProfileList/Orders/OrderDetails';
 
 
 const drawerWidth = 300;
@@ -65,7 +67,7 @@ export default function Profile() {
                         selectedIndex={selectedIndex}
                     />
                 )}
-                {selectedIndex === 1 && <Orders />}
+                {selectedIndex === 1 && <OrderDetails />}
                 {selectedIndex === 2 && <Address />}
                 {/* {selectedIndex === 3 && <Payment />} */}
             </Grid>
