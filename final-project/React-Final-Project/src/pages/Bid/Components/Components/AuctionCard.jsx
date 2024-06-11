@@ -11,8 +11,12 @@ import { toast } from "react-toastify";
 import ColorContext from "../../../../contexts/ColorContext";
 
 
-export default function AuctionCard({highestBid, hours, minutes, seconds, id , auction,setHighestBid}) {
+export default function AuctionCard({highestBid, highestBidderName,socketBid, hours, minutes, seconds, id , auction,setHighestBid}) {
   const {color} = useContext(ColorContext)
+ 
+
+
+  const [bidderName, setBidderName] = useState("");
   const [progress, setProgress] = useState({
     hours: hours | 0,
     minutes: minutes | 0,
@@ -25,7 +29,13 @@ export default function AuctionCard({highestBid, hours, minutes, seconds, id , a
       seconds: seconds | 0,
     });
   }, [hours]);
-  const [bidderName, setBidderName] = useState("Mohamed Ayman");
+
+
+
+
+
+
+
   const [bidAmount, setBidAmount] = useState("");
   // const [highestBid, setHighestBid] = useState(2500);
   const [confirmBid, setConfirmBid] = useState(false);
@@ -72,13 +82,14 @@ if(token){
       if (response.data && response.data.msg) {
         console.log(response.data.msg);
       } else {
-        setHighestBid(bidAmountNumber);
+       await setHighestBid(bidAmountNumber);
       }
     } catch (err) {
       console.error(err.response ? err.response.data : err.message);
     }
 
     setBidAmount("");
+    socketBid(bidAmountNumber)
     setConfirmBid(false);
   }
   else{
@@ -123,6 +134,7 @@ if(token){
         bidderName={bidderName}
         highestBid={highestBid}
         value={progressValue}
+        highestBidderName={highestBidderName}
         hours={progress.hours}
         minutes={progress.minutes}
         seconds={progress.seconds}
@@ -185,7 +197,7 @@ if(token){
   );
 }
 
-function CircularProgressWithLabel({auction, bidderName,highestBid,value,hours,minutes,seconds}) {
+function CircularProgressWithLabel({auction, highestBidderName,highestBid,value,hours,minutes,seconds}) {
   const {color} = useContext(ColorContext)
   return (
     <Box
@@ -281,7 +293,7 @@ function CircularProgressWithLabel({auction, bidderName,highestBid,value,hours,m
             fontSize: { xs: "20px", md: "28px" },
           }}
         >
-          Highest Bidder
+       {highestBidderName}
         </Typography>
         <Typography
           variant="subtitle1"
