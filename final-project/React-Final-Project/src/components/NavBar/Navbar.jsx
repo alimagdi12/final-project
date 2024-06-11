@@ -285,7 +285,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem key={"1"} onClick={handleCloseUserMenu}>
+                  <MenuItem key={"3"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleDashboardClick} textAlign="center">
                       Dashboard
                     </Typography>

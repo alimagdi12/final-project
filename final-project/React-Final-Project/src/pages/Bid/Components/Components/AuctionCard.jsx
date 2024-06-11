@@ -55,7 +55,6 @@ export default function AuctionCard({highestBid, highestBidderName,socketBid, ho
  }
  else{
  
-    console.log(id);
 if(token){
     const bidAmountNumber = parseInt(bidAmount);
     if (isNaN(bidAmountNumber) || bidAmountNumber <= 0) {
@@ -77,7 +76,7 @@ if(token){
           },
         }
       );
-      console.log(response);
+   
 
       if (response.data && response.data.msg) {
         console.log(response.data.msg);
