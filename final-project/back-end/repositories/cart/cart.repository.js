@@ -9,7 +9,7 @@ class CartRepository {
 
     async getCart(token) {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-        const userId = decodedToken.userId;
+        const userId =  decodedToken.userId;
         const cart = await Cart.find({userId}).populate('productId').exec();
         return cart;
     }
