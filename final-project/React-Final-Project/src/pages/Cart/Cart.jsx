@@ -32,18 +32,16 @@ const Cart = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
-
+useEffect(()=>{getCart()},[])
 
     console.log("Imports are working fine.");
 
         // Inside Cart component
     
-useEffect(() => {
-    if(cartItems){
-        getCart()
-    }
-}, []);
-
+        useEffect(() => {
+            console.log("Fetching cart data...");
+           
+        }, []);
     
         const handleQuantityChange = (id, quantity) => {
             console.log(`Updating quantity for item ${id} to ${quantity}.`);

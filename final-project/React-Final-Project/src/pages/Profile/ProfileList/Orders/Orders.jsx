@@ -9,6 +9,7 @@ import CompletedBidCard from './Components/CompletedBidCard';
 import CompletedOrderCard from './Components/CompletedOrderCard';
 import { useMediaQuery } from '@mui/material';
 import ColorContext from '../../../../contexts/ColorContext';
+import { OrderContext } from '../../../../contexts/OrderContext';
 
 const activeBidsObj = [
     {
@@ -112,6 +113,7 @@ const completedOrders = [
 
 
 function Orders() {
+    const {userOrders} = useContext(OrderContext)
     const { color } = useContext(ColorContext)
     const [activeTab, setActiveTab] = useState('active');
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -123,7 +125,7 @@ function Orders() {
         slidesToScroll: 3,
         vertical: isSmallScreen,
     };
-    
+    console.log(userOrders);
 
     const handleTabToggle = (tab) => {
         setActiveTab(tab);
@@ -198,7 +200,7 @@ function Orders() {
                 </Typography>
                 <Card style={{ width: '100%', overflow: 'hidden' }}>
                     <Slider {...sliderSettings}>
-                        {pendingOrdersObj.map(order => (
+                        {userOrders.map(order => (
                             <Box 
                                 key={order.id} 
                                 sx={{ 

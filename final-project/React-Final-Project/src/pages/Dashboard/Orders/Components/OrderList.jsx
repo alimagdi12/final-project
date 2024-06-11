@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Grid, Typography, Avatar, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import { OrderRow } from './OrderRow';
+import { OrderContext } from '../../../../contexts/OrderContext';
 
 const data = [
     { id: '01256', name: 'Omar Hassan', email: 'saraayman855@gmail.com', payment: 'Transfer', productImg: '../../../../../public/product1.avif', delivery: 'Home Delivery', status: 'Waiting', total: '33.500$', statusColor: 'yellow' },
@@ -20,7 +21,9 @@ const GradientText = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
 }));
 
-const OrderList = () => (
+const OrderList = () =>{
+    const { allOrders } = useContext(OrderContext);
+return(
     <Grid container sx={{ height:'100%', alignContent:'flex-start', alignItems:'center', display:'flex', padding: '24px', backgroundColor: '#1F1B24', borderRadius: '8px',justifyContent:'space-around'  }}>
         <Grid  spacing={2} sx={{alignContent:'flex-start', alignItems:'center',display:'flex', borderBottom: '2px solid #AC51CC', width:'100%', padding:'0', justifyContent:'space-around' }}>
             <Grid item  sx={{display:'flex', justifyContent:'center'}}><GradientText variant="h6">Total</GradientText></Grid>
@@ -31,10 +34,11 @@ const OrderList = () => (
             <Grid item ><GradientText variant="h6">Delivery</GradientText></Grid>
             <Grid item ><GradientText variant="h6">Status</GradientText></Grid>
         </Grid>
-        {data.map((order, index) => (
+        {allOrders.map((order, index) => (
             <OrderRow key={index} order={order} />
         ))}
     </Grid>
-);
+    )
+}
 
 export default OrderList;
