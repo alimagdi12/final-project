@@ -253,7 +253,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               style={{ cursor: 'pointer', width: '40px', height:'40px' , borderRadius:'50%' }}
             />
                     </IconButton>
-                    {/* <IconButton color="inherit">
+                    <IconButton color="inherit">
                       <Badge badgeContent={cartItems?.length || 0} color="secondary">
                         <Link
                           style={{ margin: '0' }}
@@ -263,7 +263,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                           <ShoppingCartIcon />
                         </Link>
                       </Badge>
-                    </IconButton> */}
+                    </IconButton>
                   </>
                 </Tooltip>
 

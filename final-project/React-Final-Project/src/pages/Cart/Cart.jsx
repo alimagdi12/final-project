@@ -38,15 +38,12 @@ const Cart = () => {
 
         // Inside Cart component
     
-        useEffect(() => {
-            console.log("Fetching cart data...");
-            getCart().then(() => {
-                console.log("Cart data fetched successfully.");
-                setCartItems(cartItems);
-            }).catch(error => {
-                console.error("Error fetching cart data:", error);
-            });
-        }, []);
+useEffect(() => {
+    if(cartItems){
+        getCart()
+    }
+}, []);
+
     
         const handleQuantityChange = (id, quantity) => {
             console.log(`Updating quantity for item ${id} to ${quantity}.`);

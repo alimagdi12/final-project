@@ -10,9 +10,9 @@ const LoveProvider = ({ children }) => {
 
 
 
-useEffect(()=>{
-    getFavorite()
-},[])
+    useEffect(() => {
+        getFavorite()
+    }, [])
 
     const getFavorite = async () => {
         try {
@@ -22,9 +22,8 @@ useEffect(()=>{
                     jwt: localStorage.getItem("token"),
                 },
             });
-            // console.log(response);
             setFavorites(response.data.result);
-         setLove(response.data.result.length)
+            setLove(response.data.result.length)
             setSelectedLove(response.data.result.map(product => product._id));
         } catch (error) {
             console.error("Error fetching favorites:", error);
@@ -34,16 +33,16 @@ useEffect(()=>{
     const handleLoveClick = async (product) => {
         try {
             if (selectedLove.includes(product._id)) {
-            //    console.log('hambozo');
-               const response = await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
-                headers: {
-                    "Content-Type": "application/json",
-                    jwt: localStorage.getItem('token')
-                },
-                data: {
-                    productId: product._id
-                }
-            });
+                //    console.log('hambozo');
+                const response = await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        jwt: localStorage.getItem('token')
+                    },
+                    data: {
+                        productId: product._id
+                    }
+                });
                 setSelectedLove(selectedLove.filter(id => id.toString() !== product._id.toString()));
                 setLove(love - 1);
             } else {
