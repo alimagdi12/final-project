@@ -21,7 +21,14 @@ const orderRouter = (orderController) => {
             res.status(401).json({ message: err.message });
         }
     });
-
+    router.get('/all-orders', async (req, res, next) => {
+        try {
+            const orders = await orderController.getAllOrders();
+            res.status(200).json(orders);
+        } catch (err) {
+            res.status(401).json({ message: err.message });
+        }
+    });
     router.get('/user-orders', async (req, res, next) => {
         try {
             const token = req.headers['jwt'];

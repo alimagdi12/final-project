@@ -34,7 +34,10 @@ console.log(cartItems);
         const order = await Order.findById(orderId).populate('items.productId').exec();
         return order;
     }
-
+    async getAllOrders() {
+        const orders = await Order.find({}).populate('userId productId').exec();
+        return orders;
+    }
     async getUserOrders(token) {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;

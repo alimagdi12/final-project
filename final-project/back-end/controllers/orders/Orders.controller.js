@@ -22,7 +22,16 @@ class OrderController {
             return { message: err.message };
         }
     }
-
+    async getAllOrders() {
+        try {
+            const orders = await this.orderRepository.getAllOrders();
+            return { message: 'All orders fetched successfully', orders };
+        } catch (err) {
+            console.error(err);
+            return { message: err.message };
+        }
+    }
+    
     async getUserOrders(token) {
         try {
             const orders = await this.orderRepository.getUserOrders(token);
