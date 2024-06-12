@@ -42,7 +42,7 @@ const {color} = useContext(ColorContext)
     };
 console.log(post);
     return (
-        <div style={{ border: `2px solid ${color}`, borderRadius:'5px', width:'50%', padding: '10px', margin: '20px auto ' , backgroundColor:'#efeae2 ' }}>
+        <div style={{ border: `2px solid ${color}`, borderRadius:'5px', width:'50%', padding: '10px', margin: '20px auto ' , backgroundColor:'#fff ' }}>
             
             {post?.imagesUrl?.images[0] && (
                 <div style={{ backgroundColor:'efeae2'}}>

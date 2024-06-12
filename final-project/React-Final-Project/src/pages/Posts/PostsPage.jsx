@@ -36,7 +36,7 @@ const {PostsData} = useContext(PostsContext)
     };
 
     return (
-        <Box sx={{backgroundColor:'#efeae2' , padding:0}}>
+        <Box sx={{backgroundColor:'#fff' , padding:0}}>
         <Box sx={{width:'99%', margin:'auto', padding:3}}>
            <Box sx={{display:'flex',width:'50%', margin:'auto', alignItems:'center' ,  justifyContent:'space-between'}}>
 
