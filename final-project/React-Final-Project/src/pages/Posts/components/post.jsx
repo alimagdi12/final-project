@@ -1,36 +1,37 @@
-// src/Post.jsx
 import React, { useContext, useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Menu, MenuItem, Typography, Grid, Box } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UserContext from '../../../contexts/UserContext';
 import axios from 'axios';
 import ColorContext from '../../../contexts/ColorContext';
+
 const Post = ({ post }) => {
-    const {userData} = useContext(UserContext)
+    const { userData } = useContext(UserContext);
+    const { color } = useContext(ColorContext);
     const [commentText, setCommentText] = useState("");
-    const [comments, setComments] = useState([]);
     const [open, setOpen] = useState(false);
-const {color} = useContext(ColorContext)
+    const [anchorEl, setAnchorEl] = useState(null);
+    const menuOpen = Boolean(anchorEl);
+
     const handleCommentChange = (e) => {
         setCommentText(e.target.value);
     };
 
-    const handleCommentSubmit = async (e,id) => {
-       console.log(post);
-       
-        const comment = {userId:userData._id , content:commentText}
+    const handleCommentSubmit = async () => {
+        const comment = { userId: userData._id, content: commentText };
 
-       try {
-        const response = await axios.post(`http://127.0.0.1:3000/api/v1/auth//blogs/${post._id}/comments`, comment, {
-            headers: {
-                'Content-Type': 'application/json',
-                'jwt': localStorage.getItem('token')
-            }
-        });
-   console.log(response);
-        
-    } catch (err) {
-        console.error('Error adding product:', err.response ? err.response.data : err);
-    }
+        try {
+            await axios.post(`http://127.0.0.1:3000/api/v1/auth/blogs/${post._id}/comments`, comment, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'jwt': localStorage.getItem('token')
+                }
+            });
+            setCommentText("");
+            setOpen(false);
+        } catch (err) {
+            console.error('Error adding comment:', err.response ? err.response.data : err);
+        }
     };
 
     const handleClickOpen = () => {
@@ -40,43 +41,98 @@ const {color} = useContext(ColorContext)
     const handleClose = () => {
         setOpen(false);
     };
-console.log(post);
+
+    const handleMenuClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleDelete = () => {
+        // Add delete functionality here
+        console.log('Delete post:', post.id);
+        handleMenuClose();
+    };
+
+
     return (
-        <div style={{ border: `2px solid ${color}`, borderRadius:'5px', width:'50%', padding: '10px', margin: '20px auto ' , backgroundColor:'#fff ' }}>
-            
-            {post?.imagesUrl?.images[0] && (
-                <div style={{ backgroundColor:'efeae2'}}>
-                    <img src={post.imagesUrl.images[0]} alt="Post" style={{ maxWidth: '100%', height: 'auto' }} />
-                </div>
-            )}
-            <p>{post?.content}</p>
-            <Button sx={{backgroundColor:color , color:'white'}} onClick={handleClickOpen}>
-                Show Comments
-            </Button>
-            <Dialog open={open} onClose={handleClose} fullWidth>
-                <DialogTitle>Comments</DialogTitle>
-                <DialogContent>
-                    {post?.comments?.map(comment => (
-                        <p key={comment.id}>{comment.content}</p>
-                    ))}
-                    <form  style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <TextField
-                            label="Write a comment..."
-                            value={commentText}
-                            onChange={handleCommentChange}
-                            fullWidth
-                            required
-                        />
-                        <Button  sx={{backgroundColor:color , color:'white'}} onClick={()=>{handleCommentSubmit(post)}}  variant="contained">Comment</Button>
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}  sx={{backgroundColor:color , color:'white'}} >
-                        Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+        <Grid item xs={12} sm={12} md={12} height={"100%"}>
+            <Card sx={{  borderRadius: '5px', marginBottom: '20px', height:'100%' }}>
+                <CardContent sx={{height:'100%'}}>
+                    <Grid container spacing={2} height={"100%"}>
+                        <Grid item xs={12}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <img src="../../../../public/Omar.jpg" alt="User" style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
+                                    <Typography variant="body1">{userData?.name || 'User Name'}</Typography>
+                                </Box>
+                                <IconButton
+                                    aria-label="more"
+                                    aria-controls={menuOpen ? 'long-menu' : undefined}
+                                    aria-haspopup="true"
+                                    onClick={handleMenuClick}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Menu
+                                    id="long-menu"
+                                    anchorEl={anchorEl}
+                                    open={menuOpen}
+                                    onClose={handleMenuClose}
+                                    PaperProps={{
+                                        style: {
+                                            maxHeight: 48 * 4.5,
+                                            width: '20ch',
+                                        },
+                                    }}
+                                >
+                                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                                    <MenuItem onClick={handleMenuClose}>Other Option</MenuItem>
+                                </Menu>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                            {post?.imagesUrl?.images[0] && (
+                                <img src={post.imagesUrl.images[0]} alt="Post" style={{ width: '100%', height: '50vh' }} />
+                            )}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography>{post?.content}</Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button sx={{ backgroundColor: color, color: 'white',"&:hover":{color:color, backgroundColor:'white', outline:`2px solid ${color}`} }} onClick={handleClickOpen}>
+                                Show Comments
+                            </Button>
+                            <Dialog open={open} onClose={handleClose} fullWidth>
+                                <DialogTitle>Comments</DialogTitle>
+                                <DialogContent>
+                                    {post?.comments?.map(comment => (
+                                        <Typography key={comment.id}>{comment.content}</Typography>
+                                    ))}
+                                    <form onSubmit={(e) => { e.preventDefault(); handleCommentSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                        <TextField
+                                            label="Write a comment..."
+                                            value={commentText}
+                                            onChange={handleCommentChange}
+                                            fullWidth
+                                            required
+                                        />
+                                        <Button type="submit" sx={{ backgroundColor: color, color: 'white', "&:hover":{color:color, backgroundColor:'white', outline:`2px solid ${color}`}  }} variant="contained">Comment</Button>
+                                    </form>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose} sx={{ backgroundColor: color, color: 'white',"&:hover":{color:color, backgroundColor:'white', outline:`2px solid ${color}`} }}>
+                                        Close
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </Grid>
+                    </Grid>
+                </CardContent>
+            </Card>
+        </Grid>
     );
 };
 
