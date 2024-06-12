@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
 
-const UserContext = createContext();
+const PostsContext = createContext();
 
-export const UserProvider = ({ children }) => {
+export const PostsProvider = ({ children }) => {
   const [token, setToken] = useState('');
-  const [userData, setUserData] = useState(null);
+  const [PostsData, setPostsData] = useState(null);
   const [error, setError] = useState(null);
-  const fetchUserData = async () => {
+  const fetchPostsData = async () => {
     try {
         const token = localStorage.getItem('token'); // Ensure the token is stored in localStorage
 
@@ -15,22 +15,23 @@ export const UserProvider = ({ children }) => {
             throw new Error('JWT token not found');
         }
 
-        const response = await axios.get('http://localhost:3000/api/v1/auth/get-user', {
+        const response = await axios.get('http://localhost:3000/api/v1/auth/blogs', {
             headers: {
               'Content-Type': 'multipart/form-data',
               'jwt': localStorage.getItem('token') // Use Bearer token format
             }
         });
-        setUserData(response?.data?.result);
+        setPostsData(response.data);
+        console.log(response.data);
       } catch (err) {
-        console.error('Error fetching user data:', err);
+        console.error('Error fetching Posts data:', err);
     }
 };
 
     useEffect(() => {
       setToken(localStorage.getItem('token'))
        
-         fetchUserData();
+         fetchPostsData();
         
     }, []);
 
@@ -40,10 +41,10 @@ export const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ token, setToken, userData, setUserData , fetchUserData }}>
+    <PostsContext.Provider value={{ token, setToken, PostsData, setPostsData , fetchPostsData }}>
       {children}
-    </UserContext.Provider>
+    </PostsContext.Provider>
   );
 };
 
-export default UserContext;
+export default PostsContext;

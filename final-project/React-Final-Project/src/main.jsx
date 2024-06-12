@@ -13,6 +13,7 @@ import { ColorProvider } from './contexts/ColorContext.jsx';
 import LoveProvider from './contexts/LoveContext.jsx';
 import { SocketProvider } from './contexts/SocketContext.jsx';
 import { OrderProvider } from './contexts/OrderContext.jsx';
+import { PostsProvider } from './contexts/PostsContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserProvider>
@@ -22,6 +23,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <ProductsProvider>
             <AuctionProvider>
               <CartProvider>
+                <PostsProvider>
+                  
                 <BrowserRouter>
                   <SocketProvider>
                     <OrderProvider>
@@ -31,6 +34,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     </OrderProvider>
                   </SocketProvider>
                 </BrowserRouter>
+                
+                </PostsProvider>
               </CartProvider>
             </AuctionProvider>
           </ProductsProvider>

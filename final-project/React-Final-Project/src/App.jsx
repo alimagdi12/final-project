@@ -26,6 +26,7 @@ import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
 import FavoritePage from './pages/Favorite/FavoritePage.jsx';
 import Chat from './components/Chat/Chat.jsx';
 import Dashboard from './pages/Dashboard/Dashboard.jsx';
+import PostsPage from './pages/Posts/PostsPage.jsx';
 
 function App() {
   const location = useLocation();
@@ -35,7 +36,9 @@ function App() {
 
   useEffect(() => {
     setIsAuthRoute(location.pathname === '/login');
+    // setIsAuthRoute(location.pathname === '/post');
     setIsChatRoute(location.pathname.startsWith('/chat'));
+    setIsChatRoute(location.pathname.startsWith('/post'));
   }, [location.pathname]);
 
   const theme = createTheme({
@@ -54,9 +57,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
-        {!isAuthRoute && !isChatRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute &&  <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/post" element={<PostsPage />} />
           <Route path="/chat/:id" element={<Chat />} />
           <Route path="/bid/:id" element={<BidPage />} />
           <Route path="/orderDone" element={<OrderDone />} />

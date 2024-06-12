@@ -178,6 +178,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </Link>
             </Box>
 
+            <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
+              <Link to="/post" className="text-decoration-none h5 mx-2">
+                Posts
+              </Link>
+            </Box>
+
             <Box
               onMouseEnter={handlePageHover}
               onMouseLeave={handlePageHoverOut}

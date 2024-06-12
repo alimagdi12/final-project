@@ -224,6 +224,19 @@ const OrderController = require('./controllers/orders/orders.controller');
 const OrderRepository = require('./repositories/order/Order.repository');
 const orderRouter = require('./routes/order/order.routes');
 
+const BlogRepository = require('./repositories/blog/blog.repository');
+const BlogController = require('./controllers/blog/blog.controller');
+const CommentRepository = require('./repositories/comment/comment.repository');
+const CommentController = require('./controllers/comment/comment.controller');
+
+
+const blogRepository = new BlogRepository();
+const blogController = new BlogController(blogRepository);
+const commentRepository = new CommentRepository();
+const commentController = new CommentController(commentRepository);
+
+const blogRoutes = require('./routes/blog/blog.routes');
+const commentRoutes = require('./routes/comment/comment.routes');
 
 
 // Create instances of OrderRepository and OrderController
@@ -249,7 +262,8 @@ app.use("/api/v1/auth", [
     wishListRoutes(wishlistController),
     MessagesRouter(mesaagecontroller),
     addressRouter(addressController)
-    , orderRouter(orderController)
+    , orderRouter(orderController),
+    blogRoutes(blogController)
 ]);
 app.use("/api/v1/products", productsRoutes(productController));
 app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);

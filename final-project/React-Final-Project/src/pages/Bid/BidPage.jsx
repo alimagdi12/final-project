@@ -105,6 +105,7 @@ const BidPage = () => {
   const handleBid = (number) => {
     socket.emit("newBid", { id: id, highestBid: number, highestBidder: (userData?.firstName + ' ' + userData?.lastName) });
     setHighestBid(number);
+    setHighestBidderName(userData?.firstName + ' ' + userData?.lastName)
   };
 
   return (
