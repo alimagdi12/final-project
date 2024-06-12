@@ -96,6 +96,9 @@ const BidPage = () => {
         toast.error('somebody put a higher bid');
       }
     });
+    socket.on("notification", (data) => {
+      toast.info(data.notification);
+    });
 
     return () => {
       socket.disconnect();

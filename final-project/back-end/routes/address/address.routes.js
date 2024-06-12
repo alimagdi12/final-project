@@ -4,8 +4,6 @@ const router = express.Router();
 
 
 const addressRouter = (addressController) => {
-    
-
 
     router.post('/add-address', async (req, res, next) => {
         try {
@@ -41,7 +39,7 @@ const addressRouter = (addressController) => {
         }
     });
 
-    router.put('/edit-address/:id', async (req, res, next) => {
+    router.post('/edit-address/:id', async (req, res, next) => {
         try {
             const token = req.headers['jwt'];
             const addressId = req.params.id;

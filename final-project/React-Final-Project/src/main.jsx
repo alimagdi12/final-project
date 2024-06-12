@@ -13,34 +13,32 @@ import { ColorProvider } from './contexts/ColorContext.jsx';
 import LoveProvider from './contexts/LoveContext.jsx';
 import { SocketProvider } from './contexts/SocketContext.jsx';
 import { OrderProvider } from './contexts/OrderContext.jsx';
-import { PostsProvider } from './contexts/PostsContext.jsx';
+import AddressProvider from './contexts/AddressContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserProvider>
-    <ColorProvider>
-      <LoveProvider>
-        <CategoryProvider>
-          <ProductsProvider>
-            <AuctionProvider>
-              <CartProvider>
-                <PostsProvider>
-                  
-                <BrowserRouter>
-                  <SocketProvider>
-                    <OrderProvider>
-                    <React.StrictMode>
-                      <App />
-                    </React.StrictMode>
-                    </OrderProvider>
-                  </SocketProvider>
-                </BrowserRouter>
-                
-                </PostsProvider>
-              </CartProvider>
-            </AuctionProvider>
-          </ProductsProvider>
-        </CategoryProvider>
-      </LoveProvider>
-    </ColorProvider>
+    <AddressProvider>
+      <ColorProvider>
+        <LoveProvider>
+          <CategoryProvider>
+            <ProductsProvider>
+              <AuctionProvider>
+                <CartProvider>
+                  <BrowserRouter>
+                    <SocketProvider>
+                      <OrderProvider>
+                        <React.StrictMode>
+                          <App />
+                        </React.StrictMode>
+                      </OrderProvider>
+                    </SocketProvider>
+                  </BrowserRouter>
+                </CartProvider>
+              </AuctionProvider>
+            </ProductsProvider>
+          </CategoryProvider>
+        </LoveProvider>
+      </ColorProvider>
+    </AddressProvider>
   </UserProvider>
 );

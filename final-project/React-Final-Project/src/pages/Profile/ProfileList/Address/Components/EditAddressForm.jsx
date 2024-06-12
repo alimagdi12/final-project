@@ -1,10 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Container, Typography, TextField, Button, Paper } from '@mui/material';
 import ColorContext from '../../../../../contexts/ColorContext';
+import { AddressContext } from "../../../../../contexts/AddressContext";
+import UserContext from '../../../../../contexts/UserContext';
 
-const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
-    const {color} = useContext(ColorContext)
+const EditAddressForm = ({ open, handleClose, address }) => {
+    const { color } = useContext(ColorContext);
+    const { editAddress, fetchAddresses } = useContext(AddressContext);
+    const { userData } = useContext(UserContext);
+
     const [formData, setFormData] = useState({
+        userId:address.userId._id,
+        id: address._id,
         name: '',
         street: '',
         city: '',
@@ -13,9 +20,7 @@ const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
     });
 
     useEffect(() => {
-        if (address) {
-            setFormData(address);
-        }
+        fetchAddresses()
     }, [address]);
 
     const handleChange = (e) => {
@@ -26,9 +31,11 @@ const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        handleSaveEdit(formData);
+        await editAddress(address._id, formData);
+        setFormData(formData)
+        console.log(address);
         handleClose();
     };
 
@@ -41,14 +48,14 @@ const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
                     Edit Address
                 </Typography>
                 <form noValidate onSubmit={handleSubmit}>
-                    <TextField
+                <TextField
                         variant="outlined"
                         margin="normal"
                         fullWidth
-                        id="name"
-                        label="Name"
-                        name="name"
-                        value={formData.name}
+                        id="city"
+                        label="City"
+                        name="city"
+                        value={formData.city}
                         onChange={handleChange}
                     />
                     <TextField
@@ -65,34 +72,30 @@ const EditAddressForm = ({ open, handleClose, address, handleSaveEdit }) => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
-                        id="city"
-                        label="City"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        id="zone"
-                        label="Zone"
-                        name="zone"
-                        value={formData.zone}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
                         id="country"
                         label="Country"
                         name="country"
                         value={formData.country}
                         onChange={handleChange}
                     />
-                    <Button sx={{backgroundColor:color , "&:hover":{color:color, backgroundColor:'white', outline:`2px solid ${color}`}}} type="submit" fullWidth variant="contained" color="primary">
-                        Save Address
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        id="zip"
+                        label="ZIP"
+                        name="zip"
+                        value={formData.zip}
+                        onChange={handleChange}
+                    />
+                    <Button
+                        sx={{ backgroundColor: color, "&:hover": { color: color, backgroundColor: 'white', outline: `2px solid ${color}` } }}
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                    >
+                        Save Changes
                     </Button>
                 </form>
             </Paper>

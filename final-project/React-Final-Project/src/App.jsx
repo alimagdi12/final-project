@@ -26,6 +26,8 @@ import CategoryProducts from './pages/ProductCategory/CategoryProducts.jsx';
 import FavoritePage from './pages/Favorite/FavoritePage.jsx';
 import Chat from './components/Chat/Chat.jsx';
 import Dashboard from './pages/Dashboard/Dashboard.jsx';
+import OrderDetails from './pages/Profile/ProfileList/Orders/OrderDetails.jsx';
+import Orders1 from './pages/Profile/ProfileList/Orders/Orders1.jsx';
 import PostsPage from './pages/Posts/PostsPage.jsx';
 
 function App() {
@@ -78,6 +80,8 @@ function App() {
           <Route path="/add-auction" element={<AddAuction />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/favorite" element={<FavoritePage />} />
+          <Route path="/order" element={<Orders1 />} />
+        <Route path="/order/:id" element={<OrderDetails />} />
         </Routes>
         {!isAuthRoute && !isChatRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
