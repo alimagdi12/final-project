@@ -14,6 +14,7 @@ import LoveProvider from './contexts/LoveContext.jsx';
 import { SocketProvider } from './contexts/SocketContext.jsx';
 import { OrderProvider } from './contexts/OrderContext.jsx';
 import AddressProvider from './contexts/AddressContext.jsx';
+import { PostsProvider } from './contexts/PostsContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserProvider>
@@ -27,9 +28,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                   <BrowserRouter>
                     <SocketProvider>
                       <OrderProvider>
+                        <PostsProvider>
                         <React.StrictMode>
                           <App />
                         </React.StrictMode>
+                        </PostsProvider>
                       </OrderProvider>
                     </SocketProvider>
                   </BrowserRouter>
