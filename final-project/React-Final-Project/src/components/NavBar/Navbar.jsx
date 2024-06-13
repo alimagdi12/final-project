@@ -30,7 +30,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const { love, getFavorite } = useContext(LoveContext);
-  const {userData, token, fetchUserData} = useContext(UserContext)
+  const {userData, token, fetchUserData,setToken} = useContext(UserContext)
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems, getCart } = useContext(CartContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -59,14 +59,22 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleLogOutClick = () => {
     localStorage.setItem('token', '');
+    setToken('')
     navigate("/login");
   };
 
   useEffect(() => {
     fetchUserData();
+    console.log(userData);
     getFavorite();
     getCart();
   }, []);
+
+
+
+  useEffect(() => {
+    fetchUserData();
+  }, [token]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

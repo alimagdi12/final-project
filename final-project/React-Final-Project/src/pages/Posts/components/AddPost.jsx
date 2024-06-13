@@ -6,6 +6,7 @@ import axios from 'axios';
 import ColorContext from '../../../contexts/ColorContext';
 import { FaPen } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import PostsContext from '../../../contexts/PostsContext';
 
 const AddPost = () => {
     const { userData } = useContext(UserContext);
@@ -14,6 +15,7 @@ const AddPost = () => {
     const [postContent, setPostContent] = useState('');
     const [postTitle, setPostTitle] = useState('');
     const [imageFiles, setImageFiles] = useState([]);
+    const {fetchPostsData} = useContext(PostsContext)
     const navigate = useNavigate();
 
     const handleClickOpen = () => setOpen(true);
@@ -46,7 +48,7 @@ const AddPost = () => {
                 },
             });
             handleClose();
-            window.location.reload();
+            fetchPostsData()
         } catch (err) {
             console.error('Error adding post:', err.response ? err.response.data : err);
         }

@@ -28,7 +28,7 @@ const initialPostsData = [
 const PostsPage = () => {
     const { color } = useContext(ColorContext);
     const [posts, setPosts] = useState(initialPostsData);
-    const { PostsData } = useContext(PostsContext);
+    const { PostsData ,fetchPostsData} = useContext(PostsContext);
 
     const addPost = (newPost) => {
         newPost.id = posts.length + 1;

@@ -6,17 +6,20 @@ import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 
 import ProductsContext from '../../../contexts/ProductsContext'
 import axios from 'axios';
+import PostsContext from '../../../contexts/PostsContext';
 import ColorContext from '../../../contexts/ColorContext';
 
-const Content = () => {
+const AllPosts = () => {
     // const {token} = useContext(usee)
+    const {PostsData,fetchPostsData} = useContext(PostsContext)
+   console.log(PostsData);
 const {products,fetchProducts} = useContext(ProductsContext)
 const {color} = useContext(ColorContext)
 console.log(products);
     const handleDelete =async (id) => {
         try {
             const response = await axios.delete(
-                `http://127.0.0.1:3000/api/v1/products/delete-product/${id}`,
+                `http://127.0.0.1:3000/api/v1/auth/blogs/${id}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -25,7 +28,7 @@ console.log(products);
                 }
             );
             console.log(response);
-            fetchProducts()
+            fetchPostsData()
         } catch (error) {
             console.error("Error fetching chat history:", error);
         }
@@ -36,12 +39,12 @@ console.log(products);
             <Typography variant="h5" gutterBottom sx={{ color: color }}>
              </Typography>
             <Grid container spacing={2}>
-                {products?.products?.map((product, index) => (
+                {PostsData?.map((product, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card sx={{ backgroundColor: '#fff',padding:'5px' ,border:`1px solid ${color}` }}>
                             <CardMedia
                                 component="img"
-                                height="140"
+                                height="340"
                                 image={product?.imagesUrl?.images[0]}
                                 alt={product.title}
                             />
@@ -68,4 +71,4 @@ console.log(products);
     );
 };
 
-export default Content;
+export default AllPosts;

@@ -5,6 +5,7 @@ import Topbar from './Products/Topbar';
 import Content from './Products/Content';
 import OrderList from './Orders/Components/OrderList';
 import Categories from './Categories/Categories';
+import AllPosts from './Post/AllPosts';
 
 const Dashboard = () => {
     const [selectedMenuItem, setSelectedMenuItem] = useState('products');
@@ -24,6 +25,7 @@ const Dashboard = () => {
                     {selectedMenuItem === 'products' && <Content />}
                     {selectedMenuItem === 'orders' && <OrderList />}
                     {selectedMenuItem === 'categories' && <Categories />}
+                    {selectedMenuItem === 'posts' && <AllPosts />}
                 {/* </Box> */}
             </Grid>
         </Grid>

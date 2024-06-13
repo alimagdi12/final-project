@@ -7,6 +7,7 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState('');
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+  const [image , setImage] = useState('')
   const fetchUserData = async () => {
     try {
         const token = localStorage.getItem('token'); // Ensure the token is stored in localStorage
@@ -22,7 +23,10 @@ export const UserProvider = ({ children }) => {
             }
         });
         setUserData(response?.data?.result);
+        setImage(response?.data?.result.imageUrl?.images[0])
       } catch (err) {
+        setUserData({})
+        setToken('')
         console.error('Error fetching user data:', err);
     }
 };
@@ -32,7 +36,7 @@ export const UserProvider = ({ children }) => {
        
          fetchUserData();
         
-    }, []);
+    }, [localStorage.getItem('token')]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -40,7 +44,7 @@ export const UserProvider = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ token, setToken, userData, setUserData , fetchUserData }}>
+    <UserContext.Provider value={{ token, setToken, userData, setUserData , fetchUserData , image }}>
       {children}
     </UserContext.Provider>
   );

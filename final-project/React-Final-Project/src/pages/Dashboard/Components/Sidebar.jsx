@@ -3,14 +3,24 @@ import { Box, List, ListItem, ListItemText, ListItemIcon, Divider, Typography } 
 import { ShoppingCart, ListAlt, ExitToApp } from '@mui/icons-material';
 import CategoryIcon from '@mui/icons-material/Category';
 import ColorContext from '../../../contexts/ColorContext';
+import PostsContext from '../../../contexts/PostsContext';
 import '@fontsource/cairo/500.css'; // Import Cairo Medium
 import '@fontsource/cairo/700.css'; // Import Cairo Bold
 
+import { useNavigate } from "react-router-dom";
+import UserContext from '../../../contexts/UserContext';
 const Sidebar = ({ onMenuItemClick }) => {
+    const {fetchUserData, userData}= useContext(UserContext)
     const { color, lightColor } = useContext(ColorContext);
     const [selectedItem, setSelectedItem] = useState(null);
-
+   const navigate = useNavigate()
     const handleItemClick = (item) => {
+        if(item === 'logout'){
+            localStorage.setItem('token' , '')
+            navigate('/login')
+            fetchUserData()
+            console.log(userData);
+        }
         setSelectedItem(item);
         onMenuItemClick(item);
     };
@@ -19,13 +29,14 @@ const Sidebar = ({ onMenuItemClick }) => {
         { id: 'categories', text: 'Categories', icon: <CategoryIcon /> },
         { id: 'products', text: 'Products', icon: <ShoppingCart /> },
         { id: 'orders', text: 'Orders', icon: <ListAlt /> },
+        { id: 'posts', text: 'Posts', icon: <CategoryIcon /> },
         { id: 'logout', text: 'Log Out', icon: <ExitToApp /> }
     ];
 
     return (
         <Box
             sx={{
-                height: '100%',
+                height: '100vh',
                 width: { xs: '100%', md: '100%' },
                 background: `radial-gradient(${lightColor}, ${color})`,
                 color: '#fff',

@@ -48,7 +48,7 @@ const GradientButton = styled(Button)({
 
 const Categories = () => {
   const { categories, fetchCategories } = useContext(CategoryContext);
-    const {color} = useContext(ColorContext)
+    const {color , lightColor} = useContext(ColorContext)
   const [dialogOpen, setDialogOpen] = useState(false);
   const [updatedCategory, setUpdatedCategory] = useState({});
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -271,7 +271,7 @@ const Categories = () => {
             position: "fixed",
             top: 139,
             right: 16,
-            background: "linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)",
+            background: `linear-gradient(45deg, ${color} 30%, ${lightColor} 70%)`,
           }}
           onClick={handleAdd}
         >
