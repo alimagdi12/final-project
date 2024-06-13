@@ -41,28 +41,56 @@ class CategoryRepository{
         }
     }
 
-    async addCategory(body) {
+    async addCategory(body, files) {
         try {
-            const folderName = body.title + new Date().toISOString().split('T')[0];
-            // Check if user already exists
-            const existingCategory = await Category.findOne({ title:body.title });
-                if (existingCategory) {
-                    throw new Error('categoty already exists');
+            console.log(files);
+            const folderName = await body.title + new Date().toISOString().split('T')[0];
+            // Check if category already exists
+            const existingCategory = await Category.findOne({ title: body.title });
+            if (existingCategory) {
+                throw new Error('Category already exists');
             }
             
-            const newCategory = await new Category({
+            // Create new category instance
+            const newCategory = new Category({
                 title: body.title,
-                imageUrl:{images:[]},
+                imageUrl: { images: [] },
                 folderName,
             });
+            if (newCategory && files && files.length > 0) {
+                if (!newCategory.imageUrl) {
+                    newCategory.imageUrl = { images: [] };
+                    }
+                    }
+                    else{
+                        
+                        throw new Error('err');
+            }
+            // Upload images and update imageUrl
+            const uploadPromises = files.map(async (file) => {
+                const storageRef = ref(storage, `categories/${newCategory.folderName}/${Date.now()}-${file.originalname}`);
+                const metadata = { contentType: file.mimetype };
+    
+                const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
+    
+                // Get the download URL and push it to the images array
+                const imageUrl = await getDownloadURL(snapshot.ref);
+                newCategory.imageUrl.images.push(imageUrl); // Correctly push to images array
+            });
+    
+            await Promise.all(uploadPromises);
+            console.log(files);
+            
+            // Save new category
             await newCategory.save();
-            return newCategory
-
+            return newCategory;
+    
         } catch (err) {
             console.log(err);
             throw new Error(err);
         }
-    };
+    }
+    
     
     async getCategoryByNameAndAddImage(title, files) {
         try {

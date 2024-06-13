@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, List, ListItem, ListItemText, ListItemIcon, Divider, Typography } from '@mui/material';
-import { Dashboard, ShoppingCart, ListAlt, BarChart, Settings, ExitToApp } from '@mui/icons-material'
+import { ShoppingCart, ListAlt, ExitToApp } from '@mui/icons-material';
 import CategoryIcon from '@mui/icons-material/Category';
-
+import ColorContext from '../../../contexts/ColorContext';
+import '@fontsource/cairo/500.css'; // Import Cairo Medium
+import '@fontsource/cairo/700.css'; // Import Cairo Bold
 
 const Sidebar = ({ onMenuItemClick }) => {
+    const { color, lightColor } = useContext(ColorContext);
     const [selectedItem, setSelectedItem] = useState(null);
 
     const handleItemClick = (item) => {
@@ -12,30 +15,45 @@ const Sidebar = ({ onMenuItemClick }) => {
         onMenuItemClick(item);
     };
 
+    const menuItems = [
+        { id: 'categories', text: 'Categories', icon: <CategoryIcon /> },
+        { id: 'products', text: 'Products', icon: <ShoppingCart /> },
+        { id: 'orders', text: 'Orders', icon: <ListAlt /> },
+        { id: 'logout', text: 'Log Out', icon: <ExitToApp /> }
+    ];
+
     return (
-        <Box sx={{  height: '100%', width: { xs: '100%', md: '100%' }, backgroundColor: '#1F1B24', color: '#fff', display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ padding: '16px', textAlign: 'center', background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)' }}>
-                <Typography variant="h5" component="div" sx={{ color: '#fff' }}>VibeVerse</Typography>
+        <Box
+            sx={{
+                height: '100%',
+                width: { xs: '100%', md: '100%' },
+                background: `radial-gradient(${lightColor}, ${color})`,
+                color: '#fff',
+                display: 'flex',
+                flexDirection: 'column',
+                fontFamily: 'Cairo, sans-serif', // Apply the font family here
+                fontWeight: 500, // Apply medium weight to the entire box
+            }}
+        >
+            <Box sx={{ padding: '16px', textAlign: 'center',background:  `linear-gradient(10deg, ${color} 30%, ${lightColor} 90%)` }}>
+                <Typography variant="h5" component="div" sx={{ paddingBottom:'3px', color: '#fff', fontFamily: 'Cairo, sans-serif', fontWeight: 700 }}>
+                    VibeVerse
+                </Typography>
             </Box>
             <Divider />
             <List>
-                <ListItem button onClick={() => handleItemClick('categories')} selected={selectedItem === 'categories'}>
-                    <ListItemIcon><CategoryIcon style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Categories" sx={{ color: selectedItem === 'categories' ? '#AC51CC' : '#fff' }} />
-                </ListItem>
-                <ListItem button onClick={() => handleItemClick('products')} selected={selectedItem === 'products'}>
-                    <ListItemIcon><ShoppingCart style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Products" sx={{ color: selectedItem === 'products' ? '#AC51CC' : '#fff' }} />
-                </ListItem>
-                <ListItem button onClick={() => handleItemClick('orders')} selected={selectedItem === 'orders'}>
-                    <ListItemIcon><ListAlt style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Orders" sx={{ color: selectedItem === 'orders' ? '#AC51CC' : '#fff' }} />
-                </ListItem>
-
-                <ListItem button onClick={() => handleItemClick('logout')} selected={selectedItem === 'logout'}>
-                    <ListItemIcon><ExitToApp style={{ color: '#AC51CC' }} /></ListItemIcon>
-                    <ListItemText primary="Log Out" sx={{ color: selectedItem === 'logout' ? '#AC51CC' : '#fff' }} />
-                </ListItem>
+                {menuItems.map((item) => (
+                    <ListItem
+                        button
+                        key={item.id}
+                        onClick={() => handleItemClick(item.id)}
+                        selected={selectedItem === item.id}
+                        sx={{ color: '#fff' }}
+                    >
+                        <ListItemIcon sx={{ color: '#fff' }}>{item.icon}</ListItemIcon>
+                        <ListItemText primary={item.text} sx={{ color: '#fff' }} />
+                    </ListItem>
+                ))}
             </List>
         </Box>
     );

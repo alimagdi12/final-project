@@ -7,8 +7,9 @@ class CategoryController{
 
     async addCategory(body,files){
         try {
-            const result = await this.categoryRepository.addCategory(body);
-            const category = await this.categoryRepository.getCategoryByNameAndAddImage(body.title,files)
+            console.log(files);
+            const category = await this.categoryRepository.addCategory(body,files);
+            // const category = await this.categoryRepository.getCategoryByNameAndAddImage(body.title,files)
             return {msg:"category added successfully",category}
         } catch (err) {
             console.error(err);

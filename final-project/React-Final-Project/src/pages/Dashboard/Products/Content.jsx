@@ -6,10 +6,12 @@ import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 
 import ProductsContext from '../../../contexts/ProductsContext'
 import axios from 'axios';
+import ColorContext from '../../../contexts/ColorContext';
 
 const Content = () => {
     // const {token} = useContext(usee)
 const {products,fetchProducts} = useContext(ProductsContext)
+const {color} = useContext(ColorContext)
 console.log(products);
     const handleDelete =async (id) => {
         try {
@@ -30,14 +32,14 @@ console.log(products);
     };
 
     return (
-        <Box sx={{ flexGrow: 1, padding: '16px', backgroundColor: '#333340', color: '#fff' }}>
-            <Typography variant="h5" gutterBottom sx={{ color: '#fff' }}>
+        <Box sx={{ flexGrow: 1, padding: '16px', backgroundColor: '#fff', color: '#fff' }}>
+            <Typography variant="h5" gutterBottom sx={{ color: color }}>
                 Top Selling of The Day
             </Typography>
             <Grid container spacing={2}>
                 {products?.products?.map((product, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Card sx={{ backgroundColor: '#1F1B24', color: '#fff' }}>
+                        <Card sx={{ backgroundColor: '#fff',padding:'5px' ,border:`1px solid ${color}`, color: '#fff' }}>
                             <CardMedia
                                 component="img"
                                 height="140"
@@ -52,7 +54,7 @@ console.log(products);
                                     </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '8px' }}>
-                                    <IconButton onClick={() => handleDelete(product._id)} color="error"><AutoDeleteIcon /></IconButton>
+                                    <IconButton onClick={() => handleDelete(product._id)} sx={{color:color}} ><AutoDeleteIcon /></IconButton>
                                 </Box>
                             </CardContent>
                         </Card>

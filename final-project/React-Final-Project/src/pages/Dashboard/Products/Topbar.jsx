@@ -1,6 +1,8 @@
 import React from 'react';
 import { AppBar, Toolbar, Avatar, Box, Typography, InputBase, alpha, styled } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
+import ColorContext from '../../../contexts/ColorContext';
+import { useContext } from 'react';
 
 // Custom styles for gradient text
 const GradientTypography = styled(Typography)(({ theme }) => ({
@@ -10,16 +12,17 @@ const GradientTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const Topbar = () => {
+    const {color,lightColor} = useContext(ColorContext) 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#1F1B24', boxShadow: 'none' }}>
+        <AppBar position="static" sx={{ background:  `linear-gradient(45deg, ${color} 30%, #fff 350%)`,margin:'auto',width:'90%', borderRadius:' 0 0 20px 20px ',boxShadow: 'none' }}>
             <Toolbar>
                 <Avatar alt="Sara" src="../../../../public/Omar.jpg" sx={{ marginRight: 2 }} />
-                <GradientTypography variant="h6" sx={{ flexGrow: 1 }}>
-                    Hello, <span style={{color:'#AC51CC'}}>Omar</span> 
-                </GradientTypography>
-                <Box sx={{ display: 'flex', alignItems: 'center', borderRadius: '4px', padding: '0 10px', background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)' }}>
-                    <SearchIcon sx={{ color: '#fff' }} />
-                    <InputBase placeholder="Search…" sx={{ color: '#fff', marginLeft: 1 }} />
+                <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    Hello, <span style={{color:'#fff'}}>Omar</span> 
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', borderRadius: '4px', padding: '0 10px', backgroundColor:'#fff' }}>
+                    <SearchIcon sx={{ color: color }} />
+                    <InputBase placeholder="Search…" sx={{ color: color, marginLeft: 1 }} />
                 </Box>
             </Toolbar>
         </AppBar>

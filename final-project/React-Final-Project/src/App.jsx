@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     setIsAuthRoute(location.pathname === '/login');
-    // setIsAuthRoute(location.pathname === '/post');
+    setIsAuthRoute(location.pathname === '/dashboard');
     setIsChatRoute(location.pathname.startsWith('/chat'));
     setIsChatRoute(location.pathname.startsWith('/post'));
   }, [location.pathname]);
@@ -59,6 +59,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
+      
+      
         {!isAuthRoute &&  <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />

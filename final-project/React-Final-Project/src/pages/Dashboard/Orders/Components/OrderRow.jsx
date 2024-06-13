@@ -3,14 +3,12 @@ import { Box, Grid, Typography, Avatar, Button } from "@mui/material";
 import { styled } from "@mui/system";
 
 import { OrderContext } from "../../../../contexts/OrderContext";
-const TotalButton = styled(Button)({
-  background: "linear-gradient(45deg, #FF8E53 30%, #AC51CC 90%)",
-  borderRadius: "20px",
-  color: "#fff",
-  fontWeight: "bold",
-});
+import ColorContext from "../../../../contexts/ColorContext";
 
-export const OrderRow = ({ order, onCancel }) => {
+
+  export const OrderRow = ({ order, onCancel }) => {
+
+    const {color,lightColor} = useContext(ColorContext)
   const { orders } = useContext(OrderContext);
   console.log(orders);
   const handleCancel = () => {
@@ -18,6 +16,12 @@ export const OrderRow = ({ order, onCancel }) => {
     // onCancel(order.id);
   };
 
+  const TotalButton = styled(Button)({
+    background: `linear-gradient(45deg, ${color} 30%, ${lightColor} 90%)`,
+    borderRadius: "20px",
+    color: "#fff",
+    fontWeight: "bold",
+    });
   return (
     <Grid
       container
@@ -26,8 +30,8 @@ export const OrderRow = ({ order, onCancel }) => {
         display: "flex",
         justifyContent: "space-around",
         padding: "16px 0",
-        borderBottom: "2px solid #AC51CC",
-        color: "white",
+        borderBottom: `2px solid ${color}`,
+        color: color,
       }}
     >
       <Grid item xs sx={{ display: "flex", justifyContent: "center" }}>
