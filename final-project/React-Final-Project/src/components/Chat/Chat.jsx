@@ -10,122 +10,147 @@ import { Box } from "@mui/material";
 let socket;
 
 const Chat = () => {
-    const { id } = useParams();
-    const [chats, setChats] = useState([]);
-    const [messagesByChat, setMessagesByChat] = useState({});
-    const { userData, fetchUserData } = useContext(UserContext);
-    const [messages, setMessages] = useState([]);
-    const [chatMessages, setChatMessages] = useState([]);
-    const [input, setInput] = useState("");
-    const [conversation, setConversation] = useState([]);
-    const [selectedChat, setSelectedChat] = useState(null);
-    const senderMessages = {};
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const [chats, setChats] = useState([]);
+  const [messagesByChat, setMessagesByChat] = useState({});
+  const { userData, fetchUserData } = useContext(UserContext);
+  const [messages, setMessages] = useState([]);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [conversation, setConversation] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(null);
+  const senderMessages = {};
+  const navigate = useNavigate();
 
-    // Initialize socket connection
-    useEffect(() => {
-        socket = io("http://localhost:3000", {
-            extraHeaders: {
-                jwt: localStorage.getItem("token"),
-            },
-        });
+  // Initialize socket connection
+  useEffect(() => {
+    socket = io("http://localhost:3000", {
+      extraHeaders: {
+        jwt: localStorage.getItem("token"),
+      },
+    });
 
-        socket.on("connect", () => {
-            console.log("Connected to server");
-        });
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
 
-        socket.on("chat message", (message) => {
-            if ((message.sender === userData?._id && message.receiver === id) || (message.sender === id && message.receiver === userData?._id)) {
-                setMessagesByChat((prevMessagesByChat) => ({
-                    ...prevMessagesByChat,
-                    [id]: [...(prevMessagesByChat[id] || []), message],
-                }));
-            }
-            console.log(message);
-        });
+    socket.on("chat message", (message) => {
+      if (
+        (message.sender === userData?._id && message.receiver === id) ||
+        (message.sender === id && message.receiver === userData?._id)
+      ) {
+        setMessagesByChat((prevMessagesByChat) => ({
+          ...prevMessagesByChat,
+          [id]: [...(prevMessagesByChat[id] || []), message],
+        }));
+        getMessages()
+      }
+      console.log(message);
+    });
 
-        // Cleanup on component unmount
-        return () => {
-            socket.disconnect();
-        };
-    }, [id, userData?._id]);
-    const getMessages = async () => {
-        try {
-            const response = await axios.post(
-                "http://127.0.0.1:3000/api/v1/auth/usersMessages",
-                { sender: userData?._id, receiver: id }
-            );
+    // Cleanup on component unmount
+    return () => {
+      socket.disconnect();
+    };
+  }, [id, userData?._id]);
+  const getMessages = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:3000/api/v1/auth/usersMessages",
+        { sender: userData?._id, receiver: id }
+      );
 
-            response.data.forEach((message) => {
-                if (!senderMessages[message.sender._id]) {
-                    senderMessages[message.sender._id] = []; // Initialize array if not exists
-                }
-                senderMessages[message.sender._id].push(message);
-            });
-
-            const senderArrays = Object.values(senderMessages);
-            setChats(senderArrays);
-            setChatMessages(response.data);
-        } catch (error) {
-            console.error("Error fetching chat history:", error);
+      response.data.forEach((message) => {
+        if (!senderMessages[message.sender._id]) {
+          senderMessages[message.sender._id] = []; // Initialize array if not exists
         }
-    };
+        senderMessages[message.sender._id].push(message);
+      });
 
-    const getConversations = async () => {
-        try {
-            const response = await axios.post(
-                "http://127.0.0.1:3000/api/v1/auth/conversation",
-                { sender: userData?._id }
-            );
-            setConversation(response.data);
-        } catch (error) {
-            console.error("Error fetching chat history:", error);
-        }
-    };
+      const senderArrays = Object.values(senderMessages);
+      setChats(response.data);
+      setChatMessages(response.data);
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
 
-    useEffect(() => {
-        getMessages();
-    }, []);
+  const getConversations = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:3000/api/v1/auth/conversation",
+        { sender: userData?._id }
+      );
+      console.log(response);
+      const x = await response.data;
+      setConversation(x);
+      await getMessages();
 
-    useEffect(() => {
-        fetchUserData();
-        getConversations();
-        getMessages();
-    }, [id, userData?._id]);
+      return x.length;
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
 
-    const sendMessage = () => {
-        const message = { sender: userData?._id, receiver: id, content: input };
-        socket.emit("chat message", message);
-        setInput("");
-        // setMessagesByChat((prevMessagesByChat) => ({
-        //     ...prevMessagesByChat,
-        //     [id]: [...(prevMessagesByChat[id] || []), message],
-        //     }));
-        console.log(messagesByChat, selectedChat[id]);
-    };
+  useEffect(() => {
+    getMessages();
+    getConversations();
+  }, []);
 
-    const handleChatClick = (chat) => {
-        const participantId = userData._id === chat.participants[0]._id ? chat.participants[1]._id : chat.participants[0]._id;
-        navigate(`/chat/${participantId}`);
-        setSelectedChat(chat);
-    };
+  useEffect(() => {
+    fetchUserData();
+    getMessages();
+    getConversations();
+  }, [id, userData?._id]);
 
+  const sendMessage = async () => {
+    const message = { sender: userData?._id, receiver: id, content: input };
+    await socket.emit("chat message", message);
+    console.log("hello");
+    setInput("");
+await getMessages()
+    const x = await getConversations();
 
-    return (
-        <Box sx={{ display: 'flex', width: '100%', height: '96vh', position: 'relative' }}>
-            <Sidebar conversation={conversation} userData={userData} handleChatClick={handleChatClick} />
-            <ChatWindow
-                messagesByChat={messagesByChat}
-                selectedChat={selectedChat}
-                messages={messages}
-                id={id}
-                input={input}
-                setInput={setInput}
-                sendMessage={sendMessage}
-                userData={userData}
-            />
-        </Box>
-    );
+    if (x === 0) {
+      await getConversations();
+    }
+  };
+
+  const handleChatClick = (chat) => {
+    const participantId =
+      userData._id === chat.participants[0]._id
+        ? chat.participants[1]._id
+        : chat.participants[0]._id;
+    navigate(`/chat/${participantId}`);
+    setSelectedChat(chat);
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "96vh",
+        position: "relative",
+      }}
+    >
+      <Sidebar
+        conversation={conversation}
+        userData={userData}
+        handleChatClick={handleChatClick}
+      />
+      <ChatWindow
+        messagesByChat={messagesByChat}
+        selectedChat={selectedChat}
+        messages={messages}
+        id={id}
+        input={input}
+        setInput={setInput}
+        sendMessage={sendMessage}
+        userData={userData}
+      />
+    </Box>
+  );
 };
 
 export default Chat;

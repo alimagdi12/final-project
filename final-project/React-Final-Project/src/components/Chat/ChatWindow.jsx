@@ -139,7 +139,7 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
   placeholder="Type a message"
   value={input}
   onChange={(e) => setInput(e.target.value)}
-  onKeyPress={(e) => {
+  onKeyDown={(e) => {
     if (e.key === "Enter") sendMessage();
   }}
   sx={{

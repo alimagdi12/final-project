@@ -38,6 +38,7 @@ export const AddressProvider = ({ children }) => {
                 },
             });
             setAddresses([...addresses, response.data]);
+            
         } catch (error) {
             console.error("Error adding address:", error);
         }

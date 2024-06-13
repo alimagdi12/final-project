@@ -1,5 +1,7 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import UserContext from './UserContext';
 
 export const LoveContext = createContext();
 
@@ -7,7 +9,7 @@ const LoveProvider = ({ children }) => {
     const [love, setLove] = useState(0);
     const [selectedLove, setSelectedLove] = useState([]);
     const [favorites, setFavorites] = useState([]);
-
+const {userData} = useContext(UserContext)
 
 
     useEffect(() => {
@@ -26,11 +28,17 @@ const LoveProvider = ({ children }) => {
             setLove(response.data.result.length)
             setSelectedLove(response.data.result.map(product => product._id));
         } catch (error) {
+            setFavorites([])
+            setLove([])
+            setSelectedLove([])
             console.error("Error fetching favorites:", error);
         }
     };
 
     const handleLoveClick = async (product) => {
+        const token = localStorage.getItem('token')
+                if(token){
+                    
         try {
             if (selectedLove.includes(product._id)) {
                 //    console.log('hambozo');
@@ -59,6 +67,10 @@ const LoveProvider = ({ children }) => {
         } catch (error) {
             console.error("Error updating favorite:", error);
         }
+    }
+    else{
+toast.error('you must login first')
+    }
     };
 
     useEffect(() => {

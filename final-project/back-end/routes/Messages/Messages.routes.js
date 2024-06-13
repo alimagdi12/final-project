@@ -4,12 +4,10 @@ const router = express.Router();
 const MessagesRouter = (MessageController) => {
   router.post("/messages", async (req, res, next) => {
     try {
-
-      const result = await MessageController.createMessage(req, res);
-    // res.json({ msg:'hello' });
-    } catch (err) {
+      const result = await MessageController.createMessage(req, res);    
+      } catch (err) {
       res.status(400).json({ err: err.message });
-    }
+      } 
   });
 
   router.post("/usersMessages", async (req, res, next) => {

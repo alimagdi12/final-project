@@ -8,10 +8,16 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from 'react';
 import { LoveContext } from '../../../contexts/LoveContext';
+import { useEffect } from 'react';
 
 export default function MainCard({ product }) {
-  const { handleLoveClick, selectedLove } = useContext(LoveContext);
+  const { handleLoveClick, selectedLove, getFavorite } = useContext(LoveContext);
 
+
+
+  useEffect(()=>{
+    getFavorite()
+  },[])
   const productImage = product?.imagesUrl?.images?.[0] || product?.imageUrl?.images?.[0];
   const isLoved = selectedLove.includes(product._id);
 

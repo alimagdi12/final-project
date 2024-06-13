@@ -4,7 +4,7 @@ class ConversationRepository {
     constructor() { }
 
     async getConversationByParticipants(participantId) {
-        return Conversation.find({ participants: { $in: [participantId] } })
+        return await Conversation.find({ participants: { $in: [participantId] } })
           .populate('participants')
           .populate('messages')
           .exec();

@@ -23,6 +23,7 @@ export const PostsProvider = ({ children }) => {
         });
         setPostsData(response.data);
         console.log(response.data);
+        return await response.data
       } catch (err) {
         console.error('Error fetching Posts data:', err);
     }

@@ -15,14 +15,14 @@ const Address = () => {
 
     useEffect(() => {
 
-        fetchAddresses();
+        // fetchAddresses();
     }, []);
 
     const handleOpenAdd = () => setOpenAdd(true);
     const handleCloseAdd = () => setOpenAdd(false);
 
-    const handleOpenEdit = (address) => {
-        setEditingAddress(address);
+    const handleOpenEdit = async(address) => {
+       setEditingAddress(address);
         setOpenEdit(true);
     };
 
@@ -93,7 +93,7 @@ const Address = () => {
                                     <Button variant="contained" color="primary" size="small" onClick={() => handleOpenEdit(address)}>
                                         Edit
                                     </Button>
-                                    <Button variant="text" color="error" size="small" onClick={() => deleteAddress(address._id)}>
+                                    <Button variant="text" color="error" size="small" onClick={async() => {await deleteAddress(address._id); await fetchAddresses()}}>
                                         Remove
                                     </Button>
                                 </CardActions>

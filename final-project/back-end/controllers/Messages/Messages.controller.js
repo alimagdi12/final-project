@@ -1,4 +1,5 @@
 
+const Conversation = require('../../models/Conversation/conversation.model');
 
 
 class MessageController {
@@ -7,32 +8,8 @@ class MessageController {
   }
 
   async createMessage(senderId, receiverId, content) {
-    // Check if a conversation already exists between the sender and receiver
-    let conversation = await Conversation.findOne({
-        participants: { $all: [senderId, receiverId] }
-    });
-
-    if (!conversation) {
-        // If conversation doesn't exist, create a new one
-        conversation = new Conversation({
-            participants: [senderId, receiverId]
-        });
-        await conversation.save();
-    }
-
-    // Create the message and add it to the conversation
-    const message = new Message({ 
-        conversation: conversation._id,
-        sender: senderId, 
-        content 
-    });
-    await message.save();
-
-    // Update the conversation's messages array
-    conversation.messages.push(message._id);
-    await conversation.save();
-
-    return message;
+    const message = await this.MessageRepository.createMessage(senderId, receiverId, content)
+    return message
 }
 
   async getMessagesForUser(req, res) {

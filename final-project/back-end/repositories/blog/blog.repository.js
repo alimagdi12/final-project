@@ -3,22 +3,20 @@ const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 const { storage } = require('../../config/firebase/firebase.config');
 
 class BlogRepository {
-    async createBlog(body,files) {
-        
+    async createBlog(body, files) {
         console.log(files);
         try {
             const { title, content, author } = body;
             const folderName = title + new Date().toISOString().split('T')[0];
-          
+    
             const blog = new Blog({
                 title,
                 imagesUrl: { images: [] },
-                content, 
+                content,
                 author,
                 folderName
             });
-
-            
+    
             const uploadPromises = files.map(async (file) => {
                 const storageRef = ref(storage, `images/${folderName}/${Date.now()}-${file.originalname}`);
                 const metadata = { contentType: file.mimetype };
@@ -26,19 +24,17 @@ class BlogRepository {
                 const imageUrl = await getDownloadURL(snapshot.ref);
                 blog.imagesUrl.images.push(imageUrl);
             });
-
+    
             await Promise.all(uploadPromises);
             await blog.save();
-
-            return blog; // Return the created product
-
+    console.log(blog);
+            return blog; // Return the created blog post
+    
         } catch (err) {
             throw err;
         }
-
-
-
     }
+    
 
     async getBlog(blogId) {
         const blog = await Blog.findById(blogId).populate('author').populate('comments.userId');

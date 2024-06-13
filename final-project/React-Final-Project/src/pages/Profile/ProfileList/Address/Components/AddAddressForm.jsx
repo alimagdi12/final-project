@@ -6,7 +6,7 @@ import UserContext from '../../../../../contexts/UserContext';
 
 const AddAddressForm = ({ open, handleClose }) => {
     const { color } = useContext(ColorContext);
-    const { addAddress } = useContext(AddressContext);
+    const { addAddress , fetchAddresses } = useContext(AddressContext);
     const {userData} = useContext(UserContext)
 
     const [formData, setFormData] = useState({
@@ -29,8 +29,9 @@ const AddAddressForm = ({ open, handleClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await addAddress(formData);
+        await fetchAddresses()
         handleClose();
-    };
+    };  
 
     if (!open) return null;
 

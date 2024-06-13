@@ -7,6 +7,7 @@ class BlogController {
         try {
             console.log(files);
             const blog = await this.blogRepository.createBlog(body , files);
+            console.log(blog);
             return { msg: 'product added successfully', blog };
             // res.status(201).json({ message: 'Blog created successfully', blog });
         } catch (err) {

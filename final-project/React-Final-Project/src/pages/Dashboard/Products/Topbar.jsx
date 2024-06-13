@@ -14,7 +14,7 @@ const GradientTypography = styled(Typography)(({ theme }) => ({
 const Topbar = () => {
     const {color,lightColor} = useContext(ColorContext) 
     return (
-        <AppBar position="static" sx={{ background:  `linear-gradient(45deg, ${color} 30%, #fff 350%)`,margin:'auto',width:'90%', borderRadius:' 0 0 20px 20px ',boxShadow: 'none' }}>
+        <AppBar position="static" sx={{ background:  `linear-gradient(270deg, ${color} 30%,${lightColor} 110%)`,margin:'auto',width:'90%', borderRadius:' 0 0 20px 20px ',boxShadow: 'none' }}>
             <Toolbar>
                 <Avatar alt="Sara" src="../../../../public/Omar.jpg" sx={{ marginRight: 2 }} />
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>

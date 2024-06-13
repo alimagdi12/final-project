@@ -34,6 +34,7 @@ const EditAddressForm = ({ open, handleClose, address }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await editAddress(address._id, formData);
+        await fetchAddresses()
         setFormData(formData)
         console.log(address);
         handleClose();

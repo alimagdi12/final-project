@@ -1,5 +1,5 @@
 // src/AddPost.jsx
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography, IconButton } from '@mui/material';
 import UserContext from '../../../contexts/UserContext';
 import axios from 'axios';
@@ -32,6 +32,10 @@ const AddPost = () => {
         setImageFiles(files);
     };
 
+    useEffect(()=>{
+        fetchPostsData()
+    },[]) 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -41,14 +45,17 @@ const AddPost = () => {
         imageFiles.forEach(file => formData.append('images', file));
 
         try {
-            await axios.post('http://127.0.0.1:3000/api/v1/auth/blogs', formData, {
+           const response = await axios.post('http://127.0.0.1:3000/api/v1/auth/blogs', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'jwt': localStorage.getItem('token'),
                 },
             });
+            console.log(response);
             handleClose();
-            fetchPostsData()
+
+            
+         await   fetchPostsData()
         } catch (err) {
             console.error('Error adding post:', err.response ? err.response.data : err);
         }

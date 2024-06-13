@@ -243,13 +243,14 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </Link>
             </Box>
           )}
-          <IconButton color="inherit">
+
+          {token && (
+            <>
+                      <IconButton color="inherit">
             <Badge badgeContent={love} color="secondary">
               <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
             </Badge>
           </IconButton>
-          {token && (
-            <>
               <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
                 <Link to="/sell" className="text-decoration-none h4 mx-2">
                   <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color } }} variant="contained">

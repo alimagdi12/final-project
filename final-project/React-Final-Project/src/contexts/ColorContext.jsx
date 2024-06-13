@@ -4,7 +4,7 @@ const ColorContext = createContext();
 
 export const ColorProvider = ({ children }) => {
 
-  const [color, setColor] = useState('#5daa60');
+  const [color, setColor] = useState('#09102C');
 
 
   const lightColor = lighten(0.2, color);

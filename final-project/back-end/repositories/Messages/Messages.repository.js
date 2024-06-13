@@ -2,33 +2,27 @@ const Message = require('../../models/Messages/Messages.model');
 const Conversation = require('../../models/Conversation/conversation.model');
 class MessageRepository{
     constructor() { }
-    
-    async createMessage(sender, receiver, content) {
-        // Check if a conversation already exists between the sender and receiver
+    async  createMessage(sender, receiver, content) {
         let conversation = await Conversation.findOne({
             participants: { $all: [sender, receiver] }
         });
-
         if (!conversation) {
-            // If conversation doesn't exist, create a new one
             conversation = new Conversation({
                 participants: [sender, receiver]
             });
             await conversation.save();
         }
-
-        // Create the message and add it to the conversation
-        const message = new Message({ 
-           receiver:receiver,
-            sender: sender, 
-            content :content
+        const message = new Message({
+            receiver: receiver,
+            sender: sender,
+            content: content
         });
         await message.save();
-        // Update the conversation's messages array
         conversation.messages.push(message._id);
         await conversation.save();
-        return message;
+        return conversation;
     }
+    
 
     async getMessagesForUser(sender, receiver) {
         return Message.find({

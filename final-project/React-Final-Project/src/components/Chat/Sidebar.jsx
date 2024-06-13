@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Search as SearchIcon } from '@mui/icons-material';
+import React, { useContext, useEffect, useState } from "react";
+import { Search as SearchIcon } from "@mui/icons-material";
 import {
   Box,
   Typography,
@@ -10,52 +10,78 @@ import {
   ListItemText,
   Avatar,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ColorContext from "../../contexts/ColorContext";
-import userContext from "../../contexts/UserContext"
+import userContext from "../../contexts/UserContext";
 
 const Sidebar = ({ conversation, handleChatClick }) => {
-  const {userData} = useContext(userContext)
-  // console.log(userData.imageUrl.images[0]);
+  const { userData } = useContext(userContext);
   const navigate = useNavigate();
   const { color } = useContext(ColorContext);
   const [selectedChatIndex, setSelectedChatIndex] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (conversation.length) {
+      const x = conversation.findIndex(
+        (conversation) => id === conversation.participants[1]._id
+      );
+      console.log(conversation, x);
+      if (x !== -1) {
+        selectChat(conversation[0], x);
+      }
+    }
+  }, [conversation]);
 
   const selectChat = (chat, index) => {
     handleChatClick(chat);
     setSelectedChatIndex(index);
   };
 
-  // console.log(userData);
-  // console.log(userData._id);
-  // console.log(conversation);
-
   return (
-    <Box sx={{ width: '400px', backgroundColor: color, color: '#fff', paddingLeft:'16px',paddingTop:'16px', height:'100vh' }}>
+    <Box
+      sx={{
+        width: "400px",
+        backgroundColor: color,
+        color: "#fff",
+        paddingLeft: "16px",
+        paddingTop: "16px",
+        height: "100vh",
+      }}
+    >
       <Typography variant="h6" gutterBottom>
         All Chats
       </Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
         <SearchIcon />
-        <InputBase placeholder="Search…" sx={{ marginLeft: '8px', flex: 1, color: '#fff' }} />
+        <InputBase
+          placeholder="Search…"
+          sx={{ marginLeft: "8px", flex: 1, color: "#fff" }}
+        />
       </Box>
-      <List sx={{width:'100%'}}>
+      <List sx={{ width: "100%" }}>
         {conversation.map((chat, index) => (
           <ListItem
             key={index}
             button
             onClick={() => selectChat(chat, index)}
             sx={{
-              backgroundColor: selectedChatIndex === index ? "#ffff" : "transparent",
+              backgroundColor:
+                selectedChatIndex === index ? "#ffff" : "transparent",
               color: selectedChatIndex === index ? "black" : "white",
-              borderRadius:'50px 0 0 50px',
-              "&:hover":{color:'black',backgroundColor:'#EFEAE2'},
-              width:'100%'
+              borderRadius: "50px 0 0 50px",
+              "&:hover": { color: "black", backgroundColor: "#EFEAE2" },
+              width: "100%",
             }}
           >
             <ListItemAvatar>
-              {/* Use the user's photo if available, otherwise use a default Avatar */}
-              <Avatar src={chat.participants[0]._id === userData._id ? chat.participants[1].imageUrl.images[0] : chat.participants[0].imageUrl.images[0]} />
+              <Avatar
+                src={
+                  chat.participants[0]._id === userData._id
+                    ? chat.participants[1].imageUrl.images[0]
+                    : chat.participants[0].imageUrl.images[0]
+                }
+              />
             </ListItemAvatar>
             <ListItemText
               primary={
