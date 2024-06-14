@@ -36,7 +36,32 @@ class AuthController {
             console.error(err);
             return { msg:"user failed to login "};  // Return error message if login fails
         }
-    }   
+    }
+    
+    async forgetPassword(body){
+        try{
+            const email = body.email;
+            const result = await this.authRepositry.forgetPassword(email);  // Call repository
+            return {msg:"password reset successfully",result};  // Return success message
+        }catch(err){
+            console.error(err);
+            return {msg:"password reset failed"};  // Return error message
+        }
+    }
+
+    async resetPassword(token,body){
+        try{
+            const otp = body.otp;
+            const password = body.password;
+            const confirmPassword = body.confirmPassword;
+            const result = await this.authRepositry.resetPassword(token,otp,password,confirmPassword);  // Call repository
+            return {msg:"password reset successfully",result};  // Return success message
+        }catch(err){
+            console.error(err);
+            return {msg:"password reset failed"};  // Return error message
+        }
+
+    }
 }
 
 module.exports = AuthController;  // Export AuthController class

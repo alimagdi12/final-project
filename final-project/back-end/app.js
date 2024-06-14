@@ -16,7 +16,6 @@ const jwt = require('jsonwebtoken');
 
 
 
-// Helper function to get user ID from token
 const getUserIdFromToken = (socket) => {
     return new Promise((resolve, reject) => {
         const token = socket.handshake.headers['jwt'];
@@ -42,9 +41,7 @@ const io = socket(server, {
     }
 });
 
-// Chat history (in-memory for demonstration purposes, use a database in production)
 let chatHistory = [];
-// Existing imports and setup
 
 io.on('connection', async (socket) => {
     console.log('A connection started', socket.id);

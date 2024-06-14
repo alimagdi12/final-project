@@ -3,7 +3,7 @@ const router = express.Router();
 const upload = require('../../utils/multer');  // Import middleware for file uploads
 const { getPublicIpMiddleware } = require("../../middlewares/location");  // Import middleware for getting public IP
 const geoip = require('geoip-lite');  // Import GeoIP library for IP-based geolocation
-const Email = require('../../middlewares/email');  // Import middleware for sending emails
+const Email = require('../../utils/email');  // Import middleware for sending emails
 const validateUser  = require('../../middlewares/userValidator');
 
 const authRouter = (authController) => {
@@ -65,7 +65,25 @@ const authRouter = (authController) => {
         };
     });
 
-    
+
+    router.post('/forget-password', async (req,res,next)=>{
+        try{
+            const user = await authController.forgetPassword(req.body);
+            res.status(200).json({user});
+        }catch(err){
+            res.status(400).json({err:err.message});
+        }
+    })
+
+    router.post('/reset-password/:token',async (req,res,next)=>{
+        try{
+            const user = await authController.resetPassword(req.params.token,req.body);
+            res.status(200).json({user});
+        }catch(err){
+            res.status(400).json({err:err.message});
+        }
+
+    })
 
     return router;
 }

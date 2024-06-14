@@ -102,7 +102,26 @@ const UserSchema = new Schema({
     userSocketId: {
         type: String,
         required: false
+    },
+    resetPasswordToken:{
+        type: String,
+        required: false,
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            expires: '10m' 
+        }
+    },
+    resetPasswordOtp:{
+        type: String,
+        required: false,
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            expires: '10m' 
+        }
     }
+
     
 });
 

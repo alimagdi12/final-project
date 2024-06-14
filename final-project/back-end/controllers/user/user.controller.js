@@ -1,6 +1,6 @@
 const { getPublicIpMiddleware } = require("../../middlewares/location");
 const geoip = require('geoip-lite');
-const Email = require('../../middlewares/email');
+const Email = require('../../utils/email');
 const User = require('../../models/user/user.model');
 const jwt = require("jsonwebtoken");
 const fs = require('fs');

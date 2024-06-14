@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();  // Load environment variables from .env file
-const Email = require('../../middlewares/email');
+const Email = require('../../utils/email');
 const User = require("../../models/user/user.model");
 const UserRole = require('../../models/userRole/userRole.model');
 const { storage } = require('../../config/firebase/firebase.config');
@@ -130,6 +130,64 @@ async login(email, password) {
         }
         return user;
     }
+
+
+    
+    async generateOTP() {
+        let otp = '';
+        for (let i = 0; i < 8; i++) {
+            otp += Math.floor(Math.random() * 10); // Generates a random digit between 0 and 9
+        }
+        return otp;
+    }
+
+
+    async forgetPassword(email){
+        const user = await User.findOne({ email });
+        const token = jwt.sign(
+            {
+                email
+            },
+            process.env.JWT_SECRET,  // Secret key for signing the token
+            { expiresIn: "10m" }       // Token expiration time
+        );
+        const otp = await this.generateOTP();
+        if(!user){
+            return new Error('user not found')
+        }
+        user.resetPasswordToken = token;
+        user.resetPasswordOtp = otp;
+        await user.save();
+        // Send the OTP to the user's email
+        await Email.sendMail({
+            to: email,
+            from: 'shop@node-complete.com',
+            subject: 'Reset Password!',
+            html: `click here to redirect to reset password link 127.0.0.1:3000/api/v1/auth/${token}
+            OTP: ${otp}
+            it will expire in 10 minutes`
+        });
+        return {token, otp};
+    }
+
+
+    async resetPassword(token,otp,password,confirmPassword){
+        const user = await User.findOne({ resetPasswordToken: token , resetPasswordOtp:otp });
+        if (!user) {
+            return 'Invalid token or OTP';
+        };
+        if(password!==confirmPassword){
+            return 'password and confirm password do not match';
+        };
+        user.password = password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordOtp = undefined;
+        await user.save();
+        return user;
+    }
+
+
+
 }
 
 module.exports = AuthRepositry;
