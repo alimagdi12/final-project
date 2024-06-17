@@ -110,6 +110,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleOpenNotificationsMenu = (event) => {
     setAnchorElNotifications(event.currentTarget);
+    
   };
 
   const handleCloseNotificationsMenu = () => {
@@ -237,13 +238,14 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                     className="d-flex flex-wrap"
                     sx={{ zIndex: "999", height: "100%" }}
                   >
-                    {categories?.categories?.map((category) => (
+                    {categories && categories.categories && categories.categories.map((category) => (
                       <Link to={`/products/${category._id}`} key={category._id}>
                         <FlipCard category={category} key={category._id}>
                           {category.title}
                         </FlipCard>
                       </Link>
                     ))}
+
                   </Box>
                 </Box>
               )}
@@ -355,15 +357,16 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         PaperProps={{
           style: {
             width: '50%',
-            maxWidth: 'unset',
+            maxHeight: '80vh', // Limit the height of the menu to 80% of the viewport height
+            overflowY: 'auto'
           },
         }}
       >
-        {notifications.map((notification, index) => (
-          <MenuItem key={index}>
-            {notification}
-          </MenuItem>
-        ))}
+        {notifications?.map((notification, index) => (
+              <MenuItem key={index}>
+                {notification}
+              </MenuItem>
+            ))}
       </Menu>
         </Toolbar>
       </Container>
