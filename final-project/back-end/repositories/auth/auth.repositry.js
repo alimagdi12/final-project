@@ -179,7 +179,8 @@ async login(email, password) {
         if(password!==confirmPassword){
             return 'password and confirm password do not match';
         };
-        user.password = password;
+        const hashedPassword = await bcrypt.hash(password, 12);
+        user.password = hashedPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordOtp = undefined;
         await user.save();

@@ -216,6 +216,15 @@ console.log(file);
         return user.favorites;
     }
 
+    async getNotification(token){
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const email = decodedToken.email;
+        const user = await User.findOne({ email });
+        if (!user) return 'User not found';
+        const notification = user.notification.items;
+        return notification;
+    }
+
 };
 
 

@@ -96,6 +96,17 @@ const userRouter = (userController) => {
         }
     });
 
+
+    router.get('/get-notification',async (req,res,next)=>{
+        try{
+            const token=req.headers['jwt'];
+            const result=await userController.getNotification(token);
+            res.status(200).json(result);
+        }catch(err){
+            res.status(500).json({message:'Failed to get notification',error:err.message});
+        }
+    })
+
     return router;
 }
 

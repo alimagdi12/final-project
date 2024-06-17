@@ -103,6 +103,17 @@ async getUser(token){
             return { msg: 'Failed to fetch favorites', error: error.message };
         }
     }
+
+    async getNotification(token){
+        try {
+            const result = await this.userRepositry.getNotification(token);
+            return { message: 'Notifications fetched successfully', result };
+        } catch (error) {
+            console.log(error);
+            return { msg: 'Failed to fetch notifications', error: error.message };
+        }
+
+    }
     
 }
 

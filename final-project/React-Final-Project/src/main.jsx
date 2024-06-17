@@ -15,7 +15,7 @@ import { SocketProvider } from './contexts/SocketContext.jsx';
 import { OrderProvider } from './contexts/OrderContext.jsx';
 import AddressProvider from './contexts/AddressContext.jsx';
 import { PostsProvider } from './contexts/PostsContext.jsx';
-
+import { NotificationProvider } from './contexts/NotificationContext.jsx'; 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserProvider>
     <AddressProvider>
@@ -30,7 +30,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                       <OrderProvider>
                         <PostsProvider>
                         <React.StrictMode>
-                          <App />
+                          <NotificationProvider>
+                            <App />
+                          </NotificationProvider>
                         </React.StrictMode>
                         </PostsProvider>
                       </OrderProvider>

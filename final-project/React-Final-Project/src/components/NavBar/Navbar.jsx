@@ -24,6 +24,10 @@ import UserContext from "../../contexts/UserContext";
 import { toast } from "react-toastify";
 import { LoveContext } from '../../contexts/LoveContext';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { NotificationContext } from '../../contexts/NotificationContext'; // Import NotificationContext
+
+
 
 const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -33,9 +37,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const {userData, token, fetchUserData,setToken} = useContext(UserContext)
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems, getCart } = useContext(CartContext);
+  const { notifications, fetchNotifications } = useContext(NotificationContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [hoveredPage, setHoveredPage] = useState(null);
+  const [anchorElNotifications, setAnchorElNotifications] = useState(null);
   const navigate = useNavigate();
   const { color } = useContext(ColorContext);
 
@@ -99,6 +105,15 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handlePageHoverOut = () => {
     setHoveredPage(null);
+  };
+
+
+  const handleOpenNotificationsMenu = (event) => {
+    setAnchorElNotifications(event.currentTarget);
+  };
+
+  const handleCloseNotificationsMenu = () => {
+    setAnchorElNotifications(null);
   };
 
   return (
@@ -246,7 +261,16 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
           {token && (
             <>
-                      <IconButton color="inherit">
+            <IconButton
+              color="inherit"
+              onClick={handleOpenNotificationsMenu}
+            >
+              <Badge badgeContent={notifications.length} color="secondary">
+                <NotificationsIcon sx={{ cursor: 'pointer', color: 'white' }} />
+              </Badge>
+            </IconButton>
+
+            <IconButton color="inherit">
             <Badge badgeContent={love} color="secondary">
               <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
             </Badge>
@@ -321,6 +345,26 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </Box>
             </>
           )}
+          
+
+      <Menu
+        id="notifications-menu"
+        anchorEl={anchorElNotifications}
+        open={Boolean(anchorElNotifications)}
+        onClose={handleCloseNotificationsMenu}
+        PaperProps={{
+          style: {
+            width: '50%',
+            maxWidth: 'unset',
+          },
+        }}
+      >
+        {notifications.map((notification, index) => (
+          <MenuItem key={index}>
+            {notification}
+          </MenuItem>
+        ))}
+      </Menu>
         </Toolbar>
       </Container>
     </AppBar>
