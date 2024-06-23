@@ -13,7 +13,7 @@ class OrderRepository {
         }
 
         const totalAmount = cartItems.reduce((acc, item) => acc + item?.productId?.price * item?.quantity, 0);
-console.log(cartItems);
+        console.log(cartItems);
         const order = new Order({
             userId,
             items: cartItems.map(item => ({
@@ -34,15 +34,26 @@ console.log(cartItems);
         const order = await Order.findById(orderId).populate('items.productId').exec();
         return order;
     }
+
     async getAllOrders() {
         const orders = await Order.find({}).populate('userId productId').exec();
         return orders;
     }
+
     async getUserOrders(token) {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
         const orders = await Order.find({ userId }).populate('items.productId').populate('userId').exec();
         return orders;
+    }
+
+    // New method for deleting an order
+    async deleteOrder(orderId) {
+        const order = await Order.findByIdAndDelete(orderId);
+        if (!order) {
+            throw new Error('Order not found');
+        }
+        return order;
     }
 }
 
