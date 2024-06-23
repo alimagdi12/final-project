@@ -54,6 +54,16 @@ class AuctionController {
             return { message: err.message };
         }
     }
+
+    async auctionWinner(body,token){
+        try{
+            const winner = await this.auctionRepository.auctionWinner(body,token);
+            return {message:'Winner fetched successfully',winner};
+        }catch(err){
+            console.error(err);
+            return {message:err.message};
+        }
+    }
 }
 
 module.exports = AuctionController;
