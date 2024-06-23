@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardActions, CardContent, Box, CardMedia } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const AboutCard = ({ img, name, children }) => {
+const AboutCard = ({ img, name, children, src }) => {
 
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -34,6 +35,7 @@ const AboutCard = ({ img, name, children }) => {
           transition: 'transform 0.6s',
         }}
       >
+        <Link to={src}>
         <CardContent>
           <CardMedia
             sx={{
@@ -45,8 +47,10 @@ const AboutCard = ({ img, name, children }) => {
             title={name}
           />
         </CardContent>
+        </Link>
 
         {showOverlay && (
+          <Link to={src}>
           <Box
             sx={{
               position: 'absolute',
@@ -65,6 +69,7 @@ const AboutCard = ({ img, name, children }) => {
           >
             {children}
           </Box>
+          </Link>
         )}
       </Card>
     </div>

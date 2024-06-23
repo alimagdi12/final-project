@@ -6,6 +6,7 @@ import Hero from './components/Hero.jsx';
 import ProductsContext from '../../contexts/ProductsContext.jsx';
 import CategoryContext from '../../contexts/CategoriesContext.jsx';
 import { toast } from 'react-toastify';
+import { GradientCircularProgress } from '../../components/loader/Loader.jsx';
 
 
 function Home() {
@@ -20,13 +21,13 @@ function Home() {
 
     return (
       <Container>
-        <CircularProgress />
+        <GradientCircularProgress />
       </Container>
     );
   }
 
   return (
-    <div className="Home">
+    <div className="Home" style={{marginBottom:'5%'}}>
       <Hero />
       <Container>
         <CardHeader>Categories</CardHeader>

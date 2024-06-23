@@ -79,7 +79,7 @@ class UserRepositry {
         try {
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const email = decodedToken.email;
-            
+
             const user = await User.findOne({ email });
             const folderName = user.firstName + new Date().toISOString().split('T')[0];
             if (!user) {
@@ -88,7 +88,7 @@ class UserRepositry {
 
             if (files && files.length > 0) {
                 const file = files[0];
-console.log(file);
+                console.log(file);
                 // If the user has an existing image, delete it
                 if (user.imageUrl && user.imageUrl.images && user.imageUrl.images.length > 0) {
                     const existingImage = user.imageUrl.images[0];
@@ -102,13 +102,13 @@ console.log(file);
                 const uploadPromises = files.map(async (file) => {
                     const storageRef = ref(storage, `images/${folderName}/${Date.now()}-${file.originalname}`);
                     const metadata = { contentType: file.mimetype };
-    
+
                     // Upload the file buffer directly to Firebase Storage
                     const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
-    
+
                     // Get the download URL and push it to the images array
                     const imageUrl = await getDownloadURL(snapshot.ref);
-                   user.imageUrl.images = []
+                    user.imageUrl.images = []
                     user?.imageUrl?.images?.push(imageUrl);
                 });
 
@@ -182,30 +182,30 @@ console.log(file);
         const email = decodedToken.email;
         const user = await User.findOne({ email });
         const product = await Product.findOne({ _id: productId });
-    
+
         if (!product) {
             throw new Error('No product');
         }
         if (!user) {
             throw new Error('User not found');
         }
-    
+
         console.log('Original Favorites:', user.favorites);
         console.log('Product ID to remove:', productId);
-    
+
         // Convert productId to a string to ensure correct comparison
         const productIdString = productId.toString();
-    
+
         // Ensure all IDs in the favorites array are strings for comparison
-        const updatedFavorites = user.favorites.filter(id => id.toString() !== productIdString);
-    
+        const updatedFavorites = user.favorites.filter(id => id?.toString() !== productIdString);
+
         console.log('Updated Favorites:', updatedFavorites);
-    
+
         user.favorites = updatedFavorites; // Update user's favorites with the filtered array
         await user.save();
         return user.favorites;
     }
-    
+
 
     async getFavorites(token) {
         // const user = await User.findByToken(token);
@@ -216,7 +216,7 @@ console.log(file);
         return user.favorites;
     }
 
-    async getNotification(token){
+    async getNotification(token) {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const email = decodedToken.email;
         const user = await User.findOne({ email });

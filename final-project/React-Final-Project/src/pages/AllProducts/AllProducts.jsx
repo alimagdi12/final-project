@@ -4,6 +4,7 @@ import ProductsContext from "../../contexts/ProductsContext";
 import CategoryContext from "../../contexts/CategoriesContext";
 import AuctionContext from "../../contexts/AuctionContext";
 import axios from "axios";
+import cart2Image from '../../../public/cart8.jpg';
 import {
   Box,
   Container,
@@ -28,17 +29,34 @@ export default function AllProducts() {
   const [searchLocation, setSearchLocation] = useState(null);
   const [searchCategory, setSearchCategory] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [auctionPage, setAuctionPage] = useState(1);
   const productsPerPage = 6;
+  const auctionsPerPage = 6;
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
+
+  const indexOfLastAuction = auctionPage * auctionsPerPage;
+  const indexOfFirstAuction = indexOfLastAuction - auctionsPerPage;
+  const currentAuctions = auction?.slice(
+    indexOfFirstAuction,
+    indexOfLastAuction
+  );
+
+  console.log(currentAuctions);
+
   const { getCart, addToCart } = useContext(CartContext);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
+  };
+
+  const handleAuctionPageChange = (event, value) => {
+    setAuctionPage(value);
   };
 
   useEffect(() => {
@@ -51,11 +69,9 @@ export default function AllProducts() {
 
     if (event.target.value === "All") {
       if (!searchLocation || searchLocation === "All") {
-        console.log("ccccc");
         setDisplayedProducts(products?.products);
         return;
       } else {
-        console.log("vvvv");
         const dp = products.products.filter(
           (product) => product?.location === searchLocation
         );
@@ -63,14 +79,12 @@ export default function AllProducts() {
         return;
       }
     } else if (!searchLocation || searchLocation === "All") {
-      console.log("aaa");
       const dp = products.products.filter(
         (product) => product?.categoryId?.title === event.target.value
       );
       setDisplayedProducts(dp);
       return;
     } else if (searchLocation) {
-      console.log(searchLocation);
       const dp = products.products.filter(
         (product) =>
           product?.categoryId?.title === event.target.value &&
@@ -107,210 +121,216 @@ export default function AllProducts() {
 
   return (
     <>
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" }, // Flex direction changes based on screen size
-          marginTop: "20px",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box
+      <div style={{
+        backgroundImage: `url(${cart2Image})`,
+        paddingTop: '20px',
+        backgroundSize: 'cover', // Ensure the background image covers the container
+        backgroundPosition: 'center'
+      }}>
+
+        <Container
           sx={{
-            width: { xs: "100%", md: "25%" }, // Adjust width for smaller screens
-            height: "82vh",
-            border: `3px solid ${color}`,
-            borderRadius: "10px",
-            paddingX: "50px",
-            color: "black",
-            marginBottom: { xs: "20px", md: 0 }, // Add bottom margin for smaller screens
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" }, // Flex direction changes based on screen size
+            justifyContent: "space-between",
           }}
         >
-          {/* Categories and City filters */}
-          <Box sx={{ width: "100%", margin: "auto", marginTop: 2 }}>
-            {/* Categories filter */}
-            <FormControl>
-              <FormLabel
-                sx={{
-                  color: color,
-                  borderBottom: `2px solid ${color}`,
-                  width: "100%",
-                }}
-                id="demo-radio-buttons-group-label"
-              >
-                Categories
-              </FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="All"
-                name="radio-buttons-group"
-                onChange={filterByCategory}
-              >
-                <FormControlLabel
-                  value="All"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "black",
-                        "&.Mui-checked": {
-                          color: color,
-                        },
-                      }}
-                    />
-                  }
-                  label="All"
-                />
-                {categories?.categories?.map((category) => (
+          <Box
+            sx={{
+              width: { xs: "100%", md: "25%" }, // Adjust width for smaller screens
+              height: "auto",
+              border: `3px solid ${color}`,
+              borderRadius: "10px",
+              paddingX: "50px",
+              color: "white",
+              marginBottom: { xs: "20px", md: 0 }, // Add bottom margin for smaller screens
+            }}
+          >
+            {/* Categories and City filters */}
+            <Box sx={{ width: "100%", margin: "auto", marginTop: 2 }}>
+              {/* Categories filter */}
+              <FormControl>
+                <FormLabel
+                  sx={{
+                    color: 'white',
+                    borderBottom: `2px solid ${color}`,
+                    width: "100%",
+                  }}
+                  id="demo-radio-buttons-group-label"
+                >
+                  Categories
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="All"
+                  name="radio-buttons-group"
+                  onChange={filterByCategory}
+                >
                   <FormControlLabel
-                    key={category?.title}
-                    value={category?.title}
+                    value="All"
                     control={
                       <Radio
                         sx={{
-                          color: "black",
+                          color: 'white',
                           "&.Mui-checked": {
-                            color: color,
+                            color: "white",
                           },
                         }}
                       />
                     }
-                    label={category?.title}
+                    label="All"
                   />
-                ))}
-              </RadioGroup>
-            </FormControl>
+                  {categories?.categories?.map((category) => (
+                    <FormControlLabel
+                      key={category?.title}
+                      value={category?.title}
+                      control={
+                        <Radio
+                          sx={{
+                            color: "white",
+                            "&.Mui-checked": {
+                              color: "white",
+                            },
+                          }}
+                        />
+                      }
+                      label={category?.title}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            </Box>
+            <Box sx={{ width: "100%", margin: "auto", marginTop: 2 }}>
+              {/* City filter */}
+              <FormControl>
+                <FormLabel
+                  sx={{ color: 'white', borderBottom: `2px solid ${color}` }}
+                  id="demo-radio-buttons-group-label"
+                >
+                  City
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="All"
+                  name="radio-buttons-group"
+                  onChange={filterByLocation}
+                >
+                  <FormControlLabel
+                    value="All"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "white",
+                          "&.Mui-checked": {
+                            color: "white",
+                          },
+                        }}
+                      />
+                    }
+                    label="All"
+                  />
+                  <FormControlLabel
+                    value="portsaid"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "white",
+                          "&.Mui-checked": {
+                            color: "white",
+                          },
+                        }}
+                      />
+                    }
+                    label="portsaid"
+                  />
+                  <FormControlLabel
+                    value="Ismailia"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "white",
+                          "&.Mui-checked": {
+                            color: "white",
+                          },
+                        }}
+                      />
+                    }
+                    label="Ismailia"
+                  />
+                  <FormControlLabel
+                    value="Alex"
+                    control={
+                      <Radio
+                        sx={{
+                          color: "white",
+                          "&.Mui-checked": {
+                            color: "white",
+                          },
+                        }}
+                      />
+                    }
+                    label="Alex"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Box>
           </Box>
-          <Box sx={{ width: "100%", margin: "auto", marginTop: 2 }}>
-            {/* City filter */}
-            <FormControl>
-              <FormLabel
-                sx={{ color: color, borderBottom: `2px solid ${color}` }}
-                id="demo-radio-buttons-group-label"
-              >
-                City
-              </FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="All"
-                name="radio-buttons-group"
-                onChange={filterByLocation}
-              >
-                <FormControlLabel
-                  value="All"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "black",
-                        "&.Mui-checked": {
-                          color: color,
-                        },
-                      }}
-                    />
-                  }
-                  label="All"
-                />
-                <FormControlLabel
-                  value="portsaid"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "black",
-                        "&.Mui-checked": {
-                          color: color,
-                        },
-                      }}
-                    />
-                  }
-                  label="portsaid"
-                />
-                <FormControlLabel
-                  value="Ismailia"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "black",
-                        "&.Mui-checked": {
-                          color: color,
-                        },
-                      }}
-                    />
-                  }
-                  label="Ismailia"
-                />
-                <FormControlLabel
-                  value="Alex"
-                  control={
-                    <Radio
-                      sx={{
-                        color: "black",
-                        "&.Mui-checked": {
-                          color: color,
-                        },
-                      }}
-                    />
-                  }
-                  label="Alex"
-                />
-              </RadioGroup>
-            </FormControl>
-          </Box>
-        </Box>
 
-        <Box
-          sx={{
-            width: { xs: "100%", md: "70%" },
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          {/* Buttons and Product Cards */}
           <Box
             sx={{
+              width: { xs: "100%", md: "70%" },
               display: "flex",
-              justifyContent: "space-between",
-              marginBottom: 2,
-              marginTop: { xs: 2, md: 0 },
+              flexDirection: "column",
             }}
           >
-            {/* Show Products and Show Auction buttons */}
-            <Button
-              variant="contained"
-              onClick={() => setToggle(false)}
+            {/* Buttons and Product Cards */}
+            <Box
               sx={{
-                backgroundColor: color,
-                color: "#FFF",
-                "&:hover": {
-                  color: color,
-                  backgroundColor: "white",
-                  outline: `2px solid ${color}`,
-                },
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 2,
+                marginTop: { xs: 2, md: 0 },
               }}
             >
-              Show Products
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => setToggle(true)}
-              sx={{
-                backgroundColor: color,
-                color: "#FFF",
-                "&:hover": {
-                  color: color,
-                  backgroundColor: "white",
-                  outline: `2px solid ${color}`,
-                },
-              }}
-            >
-              Show Auction
-            </Button>
-          </Box>
-          {/* Product Cards */}
-          <Box
-            sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-          >
+              {/* Show Products and Show Auction buttons */}
+              <Button
+                variant="contained"
+                onClick={() => setToggle(false)}
+                sx={{
+                  backgroundColor: color,
+                  color: "#FFF",
+                  "&:hover": {
+                    color: color,
+                    backgroundColor: "white",
+                    outline: `2px solid ${color}`,
+                  },
+                }}
+              >
+                Show Products
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setToggle(true)}
+                sx={{
+                  backgroundColor: color,
+                  color: "#FFF",
+                  "&:hover": {
+                    color: color,
+                    backgroundColor: "white",
+                    outline: `2px solid ${color}`,
+                  },
+                }}
+              >
+                Show Auction
+              </Button>
+            </Box>
             {/* Product Cards */}
-            {toggle
-              ? auction?.map((product) => (
+            <Box
+              sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+            >
+              {/* Product Cards */}
+              {toggle
+                ? currentAuctions?.map((product) => (
                   <ProductCard
                     key={product._id}
                     addToCart={() => {
@@ -320,7 +340,7 @@ export default function AllProducts() {
                     product={product}
                   />
                 ))
-              : currentProducts?.map((product) => (
+                : currentProducts?.map((product) => (
                   <ProductCard
                     key={product._id}
                     addToCart={() => {
@@ -330,27 +350,51 @@ export default function AllProducts() {
                     product={product}
                   />
                 ))}
+            </Box>
           </Box>
-        </Box>
-      </Container>
-      <Container
-        sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
-      >
-        <Pagination
-          count={Math.ceil(displayedProducts?.length / productsPerPage)}
-          page={currentPage}
-          onChange={handlePageChange}
-          sx={{
-            "& .MuiPaginationItem-root": {
-              color: color,
-            },
-            "& .Mui-selected": {
-              backgroundColor: color,
-              color: "#fff",
-            },
-          }}
-        />
-      </Container>
+        </Container>
+        { !toggle && currentProducts &&
+          <Container
+            sx={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: '20px' }}
+          >
+            <Pagination
+              count={Math.ceil(displayedProducts?.length / productsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: '#fff'
+                },
+                "& .Mui-selected": {
+                  backgroundColor: color,
+                  color: "white",
+                },
+              }}
+            />
+          </Container>
+        }
+        { toggle && currentAuctions &&
+          <Container
+            sx={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: '20px' }}
+          >
+            <Pagination
+              count={Math.ceil(auction?.length / auctionsPerPage)}
+              page={auctionPage}
+              onChange={handleAuctionPageChange}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: '#fff'
+                },
+                "& .Mui-selected": {
+                  backgroundColor: color,
+                  color: "white",
+                },
+              }}
+            />
+          </Container>
+        }
+      </div>
+
     </>
   );
 }

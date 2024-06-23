@@ -90,9 +90,9 @@ class ProductRepositry{
             console.log(userEmail.toString());
             const { updatedTitle, updatedQuantity, updatedPrice } = productData;
             const product = await Product.findById(id);
-            if (userEmail.toString() !== 'alimagdi12367@gmail.com' && product.userId.toString() !== userId.toString()) {
-                throw new Error('You are not authorized to edit this product');
-            }
+            // if (userEmail.toString() !== 'alimagdi12367@gmail.com' && product.userId.toString() !== userId.toString()) {
+            //     throw new Error('You are not authorized to edit this product');
+            // }
 
             product.title = updatedTitle;
             product.quantity = updatedQuantity;
@@ -111,9 +111,9 @@ class ProductRepositry{
             const userId = decodedToken.userId;
             const userEmail = decodedToken.email;
             const product = await Product.findById(id);
-            if (userEmail.toString() !== 'alimagdi12367@gmail.com' && product.userId.toString() !== userId.toString()) {
-                throw new Error('You are not authorized to edit this product');
-            }
+            // if (userEmail.toString() !== 'alimagdi12367@gmail.com' && product.userId.toString() !== userId.toString()) {
+            //     throw new Error('You are not authorized to edit this product');
+            // }
             const deletedProduct = await Product.findByIdAndDelete(id);
             return deletedProduct
         } catch (err) {

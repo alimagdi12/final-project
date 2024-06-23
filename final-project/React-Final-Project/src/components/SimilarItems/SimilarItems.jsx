@@ -3,7 +3,6 @@ import { Badge, Box, Card, CardContent, CardMedia, IconButton, Typography, Grid 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const SimilarItems = ({ products }) => {
-    // console.log(products); // Debugging log to check the value of products
     const productList = products?.products?.slice(0, 4);
 
     return (
@@ -16,7 +15,7 @@ const SimilarItems = ({ products }) => {
                                 <CardMedia
                                     component="img"
                                     height="270"
-                                    image={`/public/${product?.folderName}/${product?.imagesUrl?.images[0]}`}
+                                    image={`${product?.imagesUrl?.images[0]}`}
                                     alt={product.title}
                                 />
                                 <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

@@ -9,10 +9,12 @@ import '@fontsource/cairo/700.css'; // Import Cairo Bold
 
 import { useNavigate } from "react-router-dom";
 import UserContext from '../../../contexts/UserContext';
+import { lighten } from 'polished';
 const Sidebar = ({ onMenuItemClick }) => {
     const {fetchUserData, userData}= useContext(UserContext)
     const { color, lightColor } = useContext(ColorContext);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const lightColor1 = lighten(0.5, color)
+    const [selectedItem, setSelectedItem] = useState("products");
    const navigate = useNavigate()
     const handleItemClick = (item) => {
         if(item === 'logout'){
@@ -26,8 +28,8 @@ const Sidebar = ({ onMenuItemClick }) => {
     };
 
     const menuItems = [
-        { id: 'categories', text: 'Categories', icon: <CategoryIcon /> },
         { id: 'products', text: 'Products', icon: <ShoppingCart /> },
+        { id: 'categories', text: 'Categories', icon: <CategoryIcon /> },
         { id: 'orders', text: 'Orders', icon: <ListAlt /> },
         { id: 'posts', text: 'Posts', icon: <CategoryIcon /> },
         { id: 'logout', text: 'Log Out', icon: <ExitToApp /> }
@@ -38,7 +40,7 @@ const Sidebar = ({ onMenuItemClick }) => {
             sx={{
                 height: '100vh',
                 width: { xs: '100%', md: '100%' },
-                background: `radial-gradient(${lightColor}, ${color})`,
+                background: `radial-gradient(${lighten(0.2, color)}, ${color})`,
                 color: '#fff',
                 display: 'flex',
                 flexDirection: 'column',
@@ -59,7 +61,7 @@ const Sidebar = ({ onMenuItemClick }) => {
                         key={item.id}
                         onClick={() => handleItemClick(item.id)}
                         selected={selectedItem === item.id}
-                        sx={{ color: '#fff' }}
+                        sx={{ color: '#fff', backgroundColor: selectedItem === item.id ? lightColor1 : "" }}
                     >
                         <ListItemIcon sx={{ color: '#fff' }}>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} sx={{ color: '#fff' }} />

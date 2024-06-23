@@ -99,7 +99,7 @@ async login(email, password) {
             userId: user._id.toString(),
         },
         process.env.JWT_SECRET,  // Secret key for signing the token
-        { expiresIn: "1h" }       // Token expiration time
+        { expiresIn: "5h" }       // Token expiration time
     );
     
     return token;

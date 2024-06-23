@@ -12,17 +12,17 @@ const authRouter = (authController) => {
     router.post('/signup', async (req, res, next) => {
         try {
             body = req.body;
-            files = req.files;
+            // files = req.files;
             // Wait for the file upload to complete
-            await upload.uploadImage(req, res);
+            // await upload.uploadImage(req, res);
 
             // Call postSignup method in AuthController and capture the return value
-            const signupResult = await authController.postSignup(req.body,req.files);
+            const signupResult = await authController.postSignup(req.body);
 
             // Send the result in the response
             res.status(200).json(signupResult);
         } catch (err) {
-            res.status(400).json({ signupResult, err: err.message });
+            res.status(400).json({ err: err.message });
         }
     });
 

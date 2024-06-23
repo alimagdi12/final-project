@@ -109,12 +109,19 @@ useEffect(()=>{getCart()},[])
                 </Box>
 
                 <Grid container spacing={2}>
+                <Grid item xs={12} md={8}>
+                    {
+                        cartItems.length === 0 && (
+                            <Typography variant="h5" ml={1}>No Items in the cart !!</Typography>
+                        )
+                    }
+                    </Grid>
                     <Grid item xs={12} md={8}>
                         {cartItems?.map(item => (
                             <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '25px', border: `2px solid ${color}` }}>
                                 <Grid container spacing={2} alignItems="center">
-                                    <Grid item xs={12} md={2}>
-                                        <Avatar variant="square" src={`../../public/${item.productId?.folderName}/${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: 'auto', borderRadius: '5px' }} />
+                                    <Grid item xs={12} md={2} height={"100px"}>
+                                        <Avatar variant="square" src={`${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: '100%', borderRadius: '5px' }} />
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -170,7 +177,7 @@ useEffect(()=>{getCart()},[])
                                 </Typography>
                             </Box>
                         </Box>
-                        <Button onClick={() => navigate('/placeOrder')} sx={{ backgroundColor: color, marginBottom: '40px', fontWeight: 'bold', width: '100%', '&:hover': { backgroundColor: '#66BB6A' } }} variant="contained">
+                        <Button onClick={() => navigate('/placeOrder')} sx={{ backgroundColor: color, marginBottom: '40px', fontWeight: 'bold', width: '100%', '&:hover': { backgroundColor: '#09103f'} }} variant="contained">
                             Checkout
                         </Button>
                     </Grid>

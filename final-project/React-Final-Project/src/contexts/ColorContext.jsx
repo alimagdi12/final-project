@@ -9,10 +9,10 @@ export const ColorProvider = ({ children }) => {
 
   const lightColor = lighten(0.2, color);
   
-  const handleItemClick = (item) => {
-      setSelectedItem(item);
-      onMenuItemClick(item);
-  };
+  // const handleItemClick = (item) => {
+  //     setSelectedItem(item);
+  //     onMenuItemClick(item);
+  // };
 
 
   return (

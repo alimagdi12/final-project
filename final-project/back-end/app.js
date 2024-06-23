@@ -257,8 +257,8 @@ app.use("/api/v1/auth", [
     paymentRoutes(paymentController),
     wishListRoutes(wishlistController),
     MessagesRouter(mesaagecontroller),
-    addressRouter(addressController)
-    , orderRouter(orderController),
+    addressRouter(addressController),
+    orderRouter(orderController),
     blogRoutes(blogController)
 ]);
 app.use("/api/v1/products", productsRoutes(productController));

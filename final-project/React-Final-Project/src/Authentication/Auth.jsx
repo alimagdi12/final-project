@@ -11,8 +11,10 @@ import SignIn from "./SignIn";
 import ForgetPassword from "./ForgetPassword";
 import CheckOTP from "./CheckOTP";
 import ResetPassword from "./ResetPassword";
+import { NotificationContext } from "../contexts/NotificationContext";
 
 export default function Auth() {
+  const {fetchNotifications, notifications} = useContext(NotificationContext)
   const { color } = useContext(ColorContext);
   const navigate = useNavigate();
 
@@ -31,6 +33,7 @@ export default function Auth() {
         localStorage.setItem("token", response.data.user.token);
         toast.success('logged successfully');
         navigate('/home');
+        fetchNotifications()
       } else {
         toast.error('log in failed');
         console.error("Token not found in response:", response);
@@ -96,9 +99,11 @@ export default function Auth() {
     }, 300);
   };
 
+
   return (
-    <Box className="container d-flex align-items-center text-center">
-      <Box className={`clipped-element ${currentView === 'register' ? "move-bottom" : ""}`}></Box>
+    <div style={{backgroundColor:color, height:'100vh'}}>
+    <Box sx={{height:'100%'}} >
+      <Box sx={{zIndex:'50'}} className={`clipped-element ${currentView === 'register' ? "move-bottom" : ""}`}></Box>
       {currentView === 'login' && (
         <SignIn 
           fade={fade} 
@@ -136,5 +141,7 @@ export default function Auth() {
         />
       )}
     </Box>
+    </div>
+    
   );
 }

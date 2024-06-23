@@ -36,7 +36,7 @@ const ColorPicker = () => {
           transition: "right 0.5s ease", // Adjusted transition property
           zIndex: 9,
           flexWrap: "wrap",
-          py: "50px" // Shorthand for paddingY
+          py: "170px" // Shorthand for paddingY
         }}
       >
         <Box

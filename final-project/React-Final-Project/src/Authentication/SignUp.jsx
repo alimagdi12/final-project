@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import ColorContext from "../contexts/ColorContext";
 
 export default function SignUp({ fade, handleSignUp, handleToLogin }) {
+  const {color} = useContext(ColorContext)
   const [signUpForm, setSignUpForm] = useState({
     firstName: "",
     lastName: "",
@@ -20,18 +22,59 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
     });
   };
 
+  
+  const textFieldStyle = {
+    width: "100%",
+    marginBottom: "16px",
+    backgroundColor: "rgba(0, 255, 0, 0.1)",
+    "& .MuiInputBase-input": {
+      color: "white", // Text color
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "rgb(150, 187, 124)",
+      color: "rgb(150, 187, 124)",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "rgb(150, 187, 124)",
+      },
+    },
+  };
+
+  const buttonStyle = {
+    backgroundColor: "rgb(150, 187, 124)",
+    "&:hover": {
+      backgroundColor: "rgb(160, 200, 100)",
+    },
+    color: "#fff",
+    padding: "10px 20px",
+    fontSize: "18px",
+    borderRadius: "30px",
+    width: "100%",
+  };
+
+  const linkStyle = {
+    fontWeight: 800,
+    fontSize: 16,
+    cursor: "pointer",
+    textDecoration: "underline",
+    color: "rgb(150, 187, 124)",
+  };
+  
+
   return (
     <Grid
       container
       className={`inputs ${fade ? "fade-out" : "fade-in"}`}
       justifyContent="center"
       alignItems="center"
-      sx={{ width: "75%", margin: "auto" }}
+      sx={{ width: "50%", margin: "auto", height:'100%', color:'white' }}
+      
     >
-      <Typography variant="h5" margin={1}>Vibe Verse</Typography>
-      <Typography variant="h5" margin={1}>Create your account</Typography>
+      <Typography variant="h5" >Vibe Verse</Typography>
+      <Typography variant="h5" >Create your account</Typography>
       <Grid display={'flex'} sx={{ flexWrap:'wrap', justifyContent:'space-between' }} xs={12} md={12}>
-        <Grid item xs={12} md={5} margin={1}>
+        <Grid item xs={12} md={5} >
           <TextField
             sx={textFieldStyle}
             InputLabelProps={{ style: { color: "#79987a" } }}
@@ -41,7 +84,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
             onChange={handleSignUpInputChange}
           />
         </Grid>
-        <Grid item xs={12} md={5} margin={1}>
+        <Grid item xs={12} md={5} >
           <TextField
             sx={textFieldStyle}
             InputLabelProps={{ style: { color: "#79987a" } }}
@@ -52,7 +95,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} margin={1}>
+      <Grid item xs={12} >
         <TextField
           sx={textFieldStyle}
           InputLabelProps={{ style: { color: "#79987a" } }}
@@ -62,18 +105,20 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           onChange={handleSignUpInputChange}
         />
       </Grid>
-      <Grid item xs={12} margin={1}>
+      <Grid item xs={12} >
         <TextField
           sx={textFieldStyle}
           label="Phone Number"
+          InputLabelProps={{ style: { color: "#79987a" } }}
           name="phoneNumber"
           value={signUpForm.phoneNumber}
           onChange={handleSignUpInputChange}
         />
       </Grid>
-      <Grid item xs={12} margin={1}>
+      <Grid item xs={12} >
         <TextField
           sx={textFieldStyle}
+          InputLabelProps={{ style: { color: "#79987a" } }}
           label="Password"
           name="password"
           type="password"
@@ -81,9 +126,10 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           onChange={handleSignUpInputChange}
         />
       </Grid>
-      <Grid item xs={12} margin={1}>
+      <Grid item xs={12} >
         <TextField
           sx={textFieldStyle}
+          InputLabelProps={{ style: { color: "#79987a" } }}
           label="Confirm Password"
           name="confirmPassword"
           type="password"
@@ -91,7 +137,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           onChange={handleSignUpInputChange}
         />
       </Grid>
-      <Grid item xs={12} margin={1}>
+      <Grid item xs={12} >
         <TextField
           sx={textFieldStyle}
           label="Birthday"
@@ -102,7 +148,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           InputLabelProps={{ shrink: true, style: { color: "#79987a" } }}
         />
       </Grid>
-      <Grid item xs={12} margin={1}>
+      <Grid item xs={12} >
         <Button
           variant="contained"
           sx={buttonStyle}
@@ -123,44 +169,6 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           </Typography>
         </Typography>
       </Grid>
-      <Grid item xs={12} md={6} margin={1}>
-        <img src="bro.png" className="regImg" alt="" />
-      </Grid>
     </Grid>
   );
 }
-
-const textFieldStyle = {
-  width: "100%",
-  marginBottom: "16px",
-  backgroundColor: "rgba(0, 255, 0, 0.1)",
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "rgb(150, 187, 124)",
-    color: "rgb(150, 187, 124)",
-  },
-  "& .MuiOutlinedInput-root": {
-    "&.Mui-focused fieldset": {
-      borderColor: "rgb(150, 187, 124)",
-    },
-  },
-};
-
-const buttonStyle = {
-  backgroundColor: "rgb(150, 187, 124)",
-  "&:hover": {
-    backgroundColor: "rgb(160, 200, 100)",
-  },
-  color: "#fff",
-  padding: "10px 20px",
-  fontSize: "18px",
-  borderRadius: "30px",
-  width: "100%",
-};
-
-const linkStyle = {
-  fontWeight: 800,
-  fontSize: 16,
-  cursor: "pointer",
-  textDecoration: "underline",
-  color: "rgb(150, 187, 124)",
-};

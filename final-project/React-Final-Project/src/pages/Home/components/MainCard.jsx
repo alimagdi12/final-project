@@ -18,15 +18,15 @@ export default function MainCard({ product }) {
   useEffect(()=>{
     getFavorite()
   },[])
-  const productImage = product?.imagesUrl?.images?.[0] || product?.imageUrl?.images?.[0];
-  const isLoved = selectedLove.includes(product._id);
+  const productImage = product?.imagesUrl?.images[0] || product?.imageUrl?.images[0];
+  const isLoved = selectedLove?.includes(product._id);
 
   return (
-    <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <Card sx={{ width: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', height:'100%' }}>
       {productImage && (
         <CardMedia
           sx={{ height: 140 }}
-          image={`/public/${product?.folderName?.replace(/\s+/g, '-') + '/' + productImage}`}
+          image={productImage}
           title={product.title}
         />
       )}

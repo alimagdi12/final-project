@@ -121,10 +121,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     <AppBar position="static" sx={{ background: color, zIndex: 9 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            color="gray"
-          />
           <Typography
             variant="h6"
             noWrap
@@ -132,7 +128,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             to="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: { xs: "none", md: "flex", width:'15%' },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -140,7 +136,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               textDecoration: "none",
             }}
           >
-            LOGO
+              <img
+                src="/logo.png"
+                alt="Logo"
+                width="100%"
+                style={{ cursor: "pointer" }}
+              />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -214,6 +215,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               sx={{ my: 2, textAlign: "center", position: "relative" }}
             >
               <Typography
+              sx={{fontWeight:'bold'}}
                 component={Link}
                 className="text-decoration-none h5 mx-2"
               >
@@ -254,7 +256,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           {!token && (
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
               <Link to="/login" className="text-decoration-none h4 mx-2">
-                <Button sx={{ backgroundColor: "#fff", color: color }} variant="contained">
+                <Button sx={{ backgroundColor: "#fff", color: color, "&:hover":{backgroundColor:color, color:'#fff', outline:'3px solid #fff'}  }} variant="contained">
                   Log In
                 </Button>
               </Link>
@@ -267,7 +269,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               color="inherit"
               onClick={handleOpenNotificationsMenu}
             >
-              <Badge badgeContent={notifications.length} color="secondary">
+              <Badge badgeContent={notifications?.length} color="secondary">
                 <NotificationsIcon sx={{ cursor: 'pointer', color: 'white' }} />
               </Badge>
             </IconButton>
@@ -279,7 +281,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
           </IconButton>
               <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
                 <Link to="/sell" className="text-decoration-none h4 mx-2">
-                  <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color } }} variant="contained">
+                  <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color, outline:'2px solid white' } }} variant="contained">
                     List
                   </Button>
                 </Link>

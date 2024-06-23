@@ -33,83 +33,23 @@ const Shape2 = styled(Box)(({ theme }) => ({
   borderRadius: '50%',
 }));
 
-const PaymentCard = ({ cardId, cardName, cardNumber, name, number, card, selectedCard, setSelectedCard, handleCardClick }) => {
-  const [cvv, setCvv] = useState('');
-  const [isEditingCvv, setIsEditingCvv] = useState(false);
-
-  const handleCvvChange = (event) => {
-    setCvv(event.target.value);
-  };
-
-  const handleCardClickWithCvv = (cardId) => {
-    if (isEditingCvv) {
-      setIsEditingCvv(false);
-      return;
-    }
-
-    if (+selectedCard === +cardId) {
-      setSelectedCard(null);
-    } else {
-      setSelectedCard(cardId);
-    }
-  };
+const PaymentCard = ({ handlePaymentClick }) => {
 
   return (
-    <CardContainer onClick={() => handleCardClickWithCvv(cardId)} sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      {+selectedCard === +cardId ? (
-        <TextField
-          id="cvv"
-          label="CVV"
-          variant="outlined"
-          InputLabelProps={{ style: { color: 'black' } }}
-          value={cvv}
-          onChange={handleCvvChange}
-          onFocus={() => setIsEditingCvv(true)}
-          onBlur={() => setIsEditingCvv(false)}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              fontWeight: 'bold',
-              color: 'black',
-              borderColor: '#aea',
-              '&:hover fieldset': {
-                borderColor: '#5DAA60',
-              },
-              '& fieldset': {
-                borderColor: '#aea',
-                backgroundColor: '',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#5DAA60',
-              },
-            },
-            width: '95%',
-          }}
-        />
-      ) : (
+    <CardContainer onClick={handlePaymentClick}  sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <>
-          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '100%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%',alignItems:'center' }}>
             <Shape1 />
             <Shape2 />
             <Typography variant="body2" sx={{ marginBottom: '20px' }}>
-              Name
+              Credit
             </Typography>
-            <Box>
-              <Typography variant="h6">{name}</Typography>
-            </Box>
-            <Typography variant="h6">{cardName}</Typography>
-            <Typography variant="h6">{cardNumber}</Typography>
+            <Typography variant="h6">Pay With Credit</Typography>
             <Box sx={{ position: 'absolute', top: '20px', right: '20px' }}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" width="40" />
             </Box>
-            <Typography variant="body2" sx={{ position: 'absolute', bottom: '20px', left: '20px' }}>
-              CVV : {cvv}
-            </Typography>
-            <Typography variant="body2" sx={{ position: 'absolute', bottom: '20px', right: '20px' }}>
-              09/27
-            </Typography>
           </Box>
         </>
-      )}
     </CardContainer>
   );
 };

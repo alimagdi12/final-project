@@ -5,8 +5,10 @@ import CategoryContext from '../../contexts/CategoriesContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import ColorContext from '../../contexts/ColorContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddAuction() {
+    const navigate = useNavigate()
     const { categories } = useContext(CategoryContext);
     const { color } = useContext(ColorContext);
     //     const { token } = useContext(UserContext);
@@ -64,6 +66,8 @@ export default function AddAuction() {
             console.log(response);
             console.log(formData);
             toast.success('added sucessfully')
+            navigate('/products')
+            window.location.reload();
         } catch (err) {
             console.error(err);
 
@@ -72,8 +76,8 @@ export default function AddAuction() {
     };
 
     return (
-        <Container>
-            <form onSubmit={handleSubmit}>
+        <Container style={{marginBottom:'5%'}}>
+            <form onSubmit={handleSubmit} >
                 <label style={{ display: "flex", justifyContent: 'flex-start', alignItems: 'center' }}>
                     <img
                         src={'../../public/otp_icon_upload.gif'}

@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import UserContext from './UserContext';
+import { GradientCircularProgress } from './../components/loader/Loader';
 
 export const LoveContext = createContext();
 
@@ -9,14 +10,15 @@ const LoveProvider = ({ children }) => {
     const [love, setLove] = useState(0);
     const [selectedLove, setSelectedLove] = useState([]);
     const [favorites, setFavorites] = useState([]);
-const {userData} = useContext(UserContext)
-
+    // const [loading, setLoading] = useState(false); // Add loading state
+    const { userData } = useContext(UserContext);
 
     useEffect(() => {
-        getFavorite()
-    }, [])
+        getFavorite();
+    }, []);
 
     const getFavorite = async () => {
+        // setLoading(true); // Start loading
         try {
             const response = await axios.get("http://localhost:3000/api/v1/auth/favorites", {
                 headers: {
@@ -24,61 +26,59 @@ const {userData} = useContext(UserContext)
                     jwt: localStorage.getItem("token"),
                 },
             });
-            setFavorites(response.data.result);
-            setLove(response.data.result.length)
-            setSelectedLove(response.data.result.map(product => product._id));
+            setFavorites(response?.data?.result);
+            setLove(response?.data?.result?.length);
+            setSelectedLove(response?.data?.result?.map(product => product._id));
         } catch (error) {
-            setFavorites([])
-            setLove([])
-            setSelectedLove([])
+            setFavorites([]);
+            setLove(0);
+            setSelectedLove([]);
             console.error("Error fetching favorites:", error);
+        } finally {
+            // setLoading(false); // Stop loading
         }
     };
 
     const handleLoveClick = async (product) => {
-        const token = localStorage.getItem('token')
-                if(token){
-                    
-        try {
-            if (selectedLove.includes(product._id)) {
-                //    console.log('hambozo');
-                const response = await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
-                    headers: {
-                        "Content-Type": "application/json",
-                        jwt: localStorage.getItem('token')
-                    },
-                    data: {
-                        productId: product._id
-                    }
-                });
-                setSelectedLove(selectedLove.filter(id => id.toString() !== product._id.toString()));
-                setLove(love - 1);
-            } else {
-                await axios.post("http://localhost:3000/api/v1/auth/add-favorite", { productId: product._id }, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        jwt: localStorage.getItem("token"),
-                    },
-                });
-                setSelectedLove([...selectedLove, product._id]);
-                setLove(love + 1);
+        const token = localStorage.getItem('token');
+        if (token) {
+            // setLoading(true); // Start loading
+            try {
+                if (selectedLove.includes(product._id)) {
+                    await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
+                        headers: {
+                            "Content-Type": "application/json",
+                            jwt: token
+                        },
+                        data: {
+                            productId: product._id
+                        }
+                    });
+                    setSelectedLove(selectedLove.filter(id => id.toString() !== product._id.toString()));
+                    setLove(love - 1);
+                } else {
+                    await axios.post("http://localhost:3000/api/v1/auth/add-favorite", { productId: product._id }, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            jwt: token,
+                        },
+                    });
+                    setSelectedLove([...selectedLove, product._id]);
+                    setLove(love + 1);
+                }
+            } catch (error) {
+                console.error("Error updating favorite:", error);
+            } finally {
+                // setLoading(false); // Stop loading
             }
-            // getFavorite(); 
-        } catch (error) {
-            console.error("Error updating favorite:", error);
+        } else {
+            toast.error('You must log in first');
         }
-    }
-    else{
-toast.error('you must login first')
-    }
     };
-
-    useEffect(() => {
-        getFavorite();
-    }, []);
 
     return (
         <LoveContext.Provider value={{ love, setLove, handleLoveClick, selectedLove, favorites, getFavorite }}>
+            {/* {loading && <GradientCircularProgress />} Display loader */}
             {children}
         </LoveContext.Provider>
     );

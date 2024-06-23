@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 import SimilarItems from '../../components/SimilarItems/SimilarItems';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import ProductsContext from '../../contexts/ProductsContext';
 import HoverRating from './Components/HoverRating';
 import ColorContext from '../../contexts/ColorContext';
+import CardHeader from './../Home/components/CardHeader';
+import MainCard from '../Home/components/MainCard'
 
 export default function ProductDetails() {
   const { color } = useContext(ColorContext)
@@ -78,14 +80,14 @@ console.log(product);
             <Grid container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} spacing={2}>
               <Grid item xs={6} sx={{ height: '50%', width: '100%' }}>
                 <img
-                  src={`/public/${product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]}`}
+                  src={`${product?.imagesUrl?.images[0]}`}
                   alt="Photo 1"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </Grid>
               <Grid item xs={6} sx={{ height: '50%' }}>
                 <img
-                  src={`/public/${product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]}`}
+                  src={`${product.productId?.imagesUrl.images[0]}`}
                   alt="Photo 2"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
@@ -94,7 +96,7 @@ console.log(product);
           </Grid>
           <Grid item xs={3} sx={{ height: '100%' }}>
             <img
-              src={`/public/${product?.folderName?.replace(/\s+/g, '-') + '/' + product?.imagesUrl?.images[0]}`}
+              src={`${product.productId?.imagesUrl.images[0]}`}
               alt="Photo 3"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -137,10 +139,19 @@ console.log(product);
 
           </Grid>
         </Grid>
+        <Container>
         <Typography variant="h4" mb={7} mt={15}>
           You May Also Like:
         </Typography>
-        <SimilarItems products={products} />
+        {/* <CardHeader>Products</CardHeader> */}
+        <Grid container spacing={2}>
+          {products.products.slice(0, 4).map((product, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <MainCard product={product} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
       </Box>
 
     </>

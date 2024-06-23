@@ -21,7 +21,7 @@ class PaymentRepository {
                         price_data: {
                             currency: 'usd',
                             product_data: {
-                                name: 'Your Product Name',
+                                name: data.name,
                             },
                             unit_amount: data.totalPrice * 100, // Stripe expects amount in cents
                         },

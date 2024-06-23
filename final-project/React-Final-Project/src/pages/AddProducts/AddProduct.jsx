@@ -91,7 +91,7 @@ export default function AddProduct() {
     };
 
     return (
-        <Container>
+        <Container style={{marginBottom:'5%'}}>
             <form onSubmit={handleSubmit}>
                 <label style={{ display: "flex", justifyContent: 'flex-start', alignItems: 'center' }}>
                     <img
@@ -227,7 +227,6 @@ export default function AddProduct() {
                             </Grid>
                         </Grid>
                     </Grid>
-
                 </Grid>
             </form>
         </Container>

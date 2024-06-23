@@ -37,16 +37,16 @@ function App() {
   const [isChatRoute, setIsChatRoute] = useState(false);
 
   useEffect(() => {
-    setIsAuthRoute(location.pathname === '/login');
-    setIsAuthRoute(location.pathname === '/dashboard');
-    setIsChatRoute(location.pathname.startsWith('/chat'));
-    setIsChatRoute(location.pathname.startsWith('/post'));
+    const authRoutes = ['/login'];
+    const chatRoutes = ['/chat', '/post'];
+    setIsAuthRoute(authRoutes.includes(location.pathname));
+    setIsChatRoute(chatRoutes.some(route => location.pathname.startsWith(route)));
   }, [location.pathname]);
 
   const theme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
-    }
+    },
   });
 
   const toggleDarkMode = () => {
@@ -59,9 +59,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
-      
-      
-        {!isAuthRoute &&  <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/post" element={<PostsPage />} />
@@ -83,9 +81,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/favorite" element={<FavoritePage />} />
           <Route path="/order" element={<Orders1 />} />
-        <Route path="/order/:id" element={<OrderDetails />} />
+          <Route path="/order/:id" element={<OrderDetails />} />
         </Routes>
-        {!isAuthRoute && !isChatRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
     </div>
   );

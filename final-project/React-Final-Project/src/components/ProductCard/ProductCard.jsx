@@ -13,6 +13,7 @@ import ColorContext from '../../contexts/ColorContext';
 import { useContext } from 'react';
 
 export default function ProductCard({ product, addToCart }) {
+  console.log(product);
  
   const navigate = useNavigate();
 const {color}= useContext(ColorContext)
@@ -40,16 +41,23 @@ const {color}= useContext(ColorContext)
         }}
         
       >
+        
         <CardMedia onClick={() => {
           navigateToDetails(product._id);
-        }} sx={{ height: 140 }} image={`/public/${product?.folderName?.replace(/\s+/g, '-') +'/'+product?.imagesUrl?.images[0] }`}
-            />
+        }} sx={{ height: 140, cursor:'pointer'  }} image={product?.imagesUrl?.images[0]}
+        />
 
         {product?.expirationDate && (
+          <>
+                  <CardMedia onClick={() => {
+                    navigateToDetails(product._id);
+                  }} sx={{ height: 140 }} image={product?.imageUrl?.images[0]}
+                  />
           <FaHammer
             sx={{ position: 'absolute', top: '10px', right: '5px' }}
             style={{ position: 'absolute', top: '10px', right: '5px' }}
           />
+          </>
         )}
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1 }}>
@@ -70,7 +78,7 @@ const {color}= useContext(ColorContext)
             <Button sx={{ width: '100%', backgroundColor: color , color:'#fff', "&:hover": {
               backgroundColor: "#fff",
               color: color,
-              outline: "`2px solid ${color}`",
+              outline: `2px solid ${color}`,
             }, }} onClick={addToCart}>
               Add to Cart
             </Button>
@@ -81,7 +89,7 @@ const {color}= useContext(ColorContext)
               sx={{ width: '100%', backgroundColor: color ,color:'#FFF', "&:hover": {
               backgroundColor: "#fff",
               color: color,
-              outline: "`2px solid ${color}`",
+              outline: `2px solid ${color}`,
             }}}
               onClick={() => {
                 navigateToBidDetail(product._id);

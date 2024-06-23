@@ -4,78 +4,70 @@ const Cart = require('../../models/cart/cart.model');
 const jwt = require("jsonwebtoken");
 
 class CartRepository {
-    constructor() { }
-    
+    constructor() {}
 
     async getCart(token) {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-        const userId =  decodedToken.userId;
-        const cart = await Cart.find({userId}).populate('productId').exec();
+        const userId = decodedToken.userId;
+        const cart = await Cart.find({ userId }).populate('productId').exec();
         return cart;
     }
 
     async addToCart(data, token) {
-    const { productId, quantity = 1 } = data;  // Set default quantity to 1 if not provided
-console.log(data);
-    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decodedToken.userId;
+        const { productId, quantity = 1 } = data;  // Set default quantity to 1 if not provided
+        console.log(data);
+        const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decodedToken.userId;
 
-    const user = await User.findById(userId);
-    const product = await Product.findById(productId);
+        const user = await User.findById(userId);
+        const product = await Product.findById(productId);
 
-    if (!user) throw new Error('User not found');
-    if (!product) throw new Error('Product not found');
+        if (!user) throw new Error('User not found');
+        if (!product) throw new Error('Product not found');
 
-    // Check if the cart with the same userId and productId already exists
-    let cart = await Cart.findOne({ userId, productId });
+        // Check if the cart with the same userId and productId already exists
+        let cart = await Cart.findOne({ userId, productId });
 
-    if (cart) {
-        // If cart exists, increase the quantity by 1
-        cart.quantity += 1;
-        await cart.save();
-    } else {
-        // If cart does not exist, create a new cart
-        cart = new Cart({ 
-            userId: user._id.toString(), 
-            productId: product._id.toString(), 
-            quantity  // Use the default quantity if not provided
-        });
-        await cart.save();
+        if (cart) {
+            // If cart exists, increase the quantity by 1
+            cart.quantity += 1;
+            await cart.save();
+        } else {
+            // If cart does not exist, create a new cart
+            cart = new Cart({ 
+                userId: user._id.toString(), 
+                productId: product._id.toString(), 
+                quantity  // Use the default quantity if not provided
+            });
+            await cart.save();
+        }
+
+        return cart;
     }
-
-    return cart;
-}
-
-
 
     async deleteCart(token) {
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
-        const userCarts = await Cart.find({ userId });
-        if (!userCarts || userCarts.length === 0) throw new Error("user or cart not found");
-        
-        const deletedCarts = [];
-        for (const userCart of userCarts) {
-            await userCart.remove();
-            deletedCarts.push(userCart);
-        }
-        
-        return deletedCarts;
-    }
-    
+        const deletedCarts = await Cart.deleteMany({ userId });
 
+        if (deletedCarts.deletedCount === 0) {
+            throw new Error("No carts found for the user");
+        }
+
+        return { message: 'All cart items deleted', count: deletedCarts.deletedCount };
+    }
 
     async removeFromCart(data, token) {
         const { cartId } = data;
         console.log(cartId);
         const cart = await Cart.findById(cartId);
+        if (!cart) throw new Error("Cart item not found");
         await cart.remove();
         return cart;
     }
 
-
     async increaseCartQuantity(data, token) {
-        const { productId, quantity } = data; 
+        const { productId, quantity } = data;
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
 
@@ -91,11 +83,11 @@ console.log(data);
         const { productId, quantity = 1 } = data; // Set default decrease quantity to 1 if not provided
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
-        
+
         // Find the cart item with the given userId and productId
         const cart = await Cart.findOne({ userId, productId });
         if (!cart) throw new Error("Cart item not found");
-        
+
         // Check if the cart quantity is 1 or less, remove the cart item
         if (cart.quantity <= 1) {
             await cart.remove();
@@ -107,8 +99,6 @@ console.log(data);
 
         return cart;
     }
-
-
 }
 
 module.exports = CartRepository;

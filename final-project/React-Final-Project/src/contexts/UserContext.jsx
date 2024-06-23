@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
             }
         });
         setUserData(response?.data?.result);
-        setImage(response?.data?.result.imageUrl?.images[0])
+        setImage(response?.data?.result?.imageUrl?.images[0])
       } catch (err) {
         setUserData({})
         setToken('')

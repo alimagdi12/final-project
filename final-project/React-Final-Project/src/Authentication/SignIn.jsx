@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+/* eslint-disable react/no-unescaped-entities */
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { NotificationContext } from "../contexts/NotificationContext";
 
 export default function SignIn({ fade, handleSignIn, handleToRegister, handleToForget }) {
   const [signInForm, setSignInForm] = useState({
@@ -16,15 +18,62 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
     console.log(signInForm);
   };
 
-  return (
-    <Box className={`inputs ${fade ? "fade-out" : "fade-in"}`} sx={{ width: "100%" }}>
-     
-     <Box sx={{width:'100%'}}>
+  
+const textFieldStyle = {
+  width: "100%",
+  marginBottom: "16px",
+  backgroundColor: "rgba(0, 255, 0, 0.1)",
+  "& .MuiInputBase-input": {
+    color: "white", // Text color
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "rgb(150, 187, 124)",
+    color: "rgb(150, 187, 124)",
+  },
+  "& .MuiOutlinedInput-root": {
+    "&.Mui-focused fieldset": {
+      borderColor: "rgb(150, 187, 124)",
+    },
+  },
+};
 
-      <Typography variant="h5" margin={1}>Vibe Verse</Typography>
-      <Typography variant="h5" margin={1}>Log In to your account</Typography>
-     </Box>
-      <Grid container justifyContent="center" alignItems="center">
+const buttonStyle = {
+  backgroundColor: "rgb(150, 187, 124)",
+  "&:hover": {
+    backgroundColor: "rgb(160, 200, 100)",
+  },
+  color: "#fff",
+  padding: "10px 20px",
+  fontSize: "18px",
+  borderRadius: "30px",
+  width: "100%",
+};
+
+const linkStyle = {
+  fontWeight: 800,
+  fontSize: 16,
+  cursor: "pointer",
+  textDecoration: "underline",
+  color: "rgb(150, 187, 124)",
+};
+
+const {fetchNotifications, notifications} = useContext(NotificationContext)
+
+useEffect(()=>{
+  fetchNotifications()
+},[notifications])
+
+  return (
+    <div style={{  height:'100%', display:'flex', justifyContent:'center',alignItems:'center', alignContent:'center', textAlign:'center', color:'white' }}>
+
+    <Box className={`inputs ${fade ? "fade-out" : "fade-in"}`} sx={{ width: "50%", height:'100%', display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center', alignContent:'center', textAlign:'center', color:'white' }}>
+
+      <Box sx={{ width: '100%' }}>
+
+        <Typography variant="h5" margin={1}>Vibe Verse</Typography>
+        <Typography variant="h5" margin={1}>Log In to your account</Typography>
+      </Box>
+      <Grid container display={'flex'} justifyContent="center" alignItems="center" sx={{}}>
         <Grid item xs={12} margin={1}>
           <TextField
             sx={textFieldStyle}
@@ -57,7 +106,7 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
         </Grid>
         <Grid item xs={12} margin={1}>
           <Typography marginTop={1}>
-            Don't have an account? 
+            Don't have an account?
             <Typography
               marginX={1}
               sx={linkStyle}
@@ -68,49 +117,17 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
           </Typography>
         </Grid>
         <Grid item xs={12} margin={1}>
-          <Typography
+          {/* <Typography
             sx={{ cursor: "pointer", textDecoration: "underline" }}
             onClick={handleToForget}
           >
             Forgot Password?
-          </Typography>
+          </Typography> */}
         </Grid>
       </Grid>
     </Box>
+    </div>
   );
 }
 
-const textFieldStyle = {
-  width: "100%",
-  marginBottom: "16px",
-  backgroundColor: "rgba(0, 255, 0, 0.1)",
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "rgb(150, 187, 124)",
-    color: "rgb(150, 187, 124)",
-  },
-  "& .MuiOutlinedInput-root": {
-    "&.Mui-focused fieldset": {
-      borderColor: "rgb(150, 187, 124)",
-    },
-  },
-};
 
-const buttonStyle = {
-  backgroundColor: "rgb(150, 187, 124)",
-  "&:hover": {
-    backgroundColor: "rgb(160, 200, 100)",
-  },
-  color: "#fff",
-  padding: "10px 20px",
-  fontSize: "18px",
-  borderRadius: "30px",
-  width: "100%",
-};
-
-const linkStyle = {
-  fontWeight: 800,
-  fontSize: 16,
-  cursor: "pointer",
-  textDecoration: "underline",
-  color: "rgb(150, 187, 124)",
-};

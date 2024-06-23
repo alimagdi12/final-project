@@ -10,6 +10,7 @@ function CustomSelect({ label, value, onChange, options ,width,name }) {
         <InputLabel>{label}</InputLabel>
         <Select
         name={name}
+        placeholder={'New'}
           value={value}
           onChange={(event) => handleChange(event)} 
         >

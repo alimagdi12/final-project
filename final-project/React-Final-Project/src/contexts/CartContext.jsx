@@ -7,8 +7,8 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
-   
-const {token} = useContext(UserContext)
+
+    const { token } = useContext(UserContext)
     useEffect(() => {
         if (token) {
             getCart();
@@ -36,34 +36,53 @@ const {token} = useContext(UserContext)
     async function addToCart(productId) {
         const productForm = new FormData();
         productForm.append("productId", productId);
-      
-   if(token){
-       
-      
-        try {
-            const token = localStorage.getItem("token");
-            console.log(token);
-            const response = await axios.post(
-                "http://localhost:3000/api/v1/auth/add-to-cart",
-                productForm,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        jwt: token,
-                    },
-                }
-            );
-            getCart()
-        } catch (err) {
-            console.error(err);
+
+        if (token) {
+
+            try {
+                const token = localStorage.getItem("token");
+                console.log(token);
+                const response = await axios.post(
+                    "http://localhost:3000/api/v1/auth/add-to-cart",
+                    productForm,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            jwt: token,
+                        },
+                    }
+                );
+                getCart()
+            } catch (err) {
+                console.error(err);
+            }
+
+
         }
-    
-    
-   }
-   else{
-    toast.error('you must login first')
-   }
+        else {
+            toast.error('you must login first')
+        }
     }
+
+    const deleteAllCartItems = async () => {
+        if (token) {
+            try {
+                await axios.delete('http://127.0.0.1:3000/api/v1/auth/delete-cart', {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'jwt': localStorage.getItem('token')
+                    }
+                });
+                setCartItems([]);
+                toast.success('Order done successfully');
+            } catch (err) {
+                console.error(err);
+                toast.error('Failed to complete the order');
+            }
+        } else {
+            toast.error('You must log in first');
+        }
+    };
 
     const updateCartItemQuantity = (id, quantity) => {
         setCartItems((prevItems) =>
@@ -76,7 +95,7 @@ const {token} = useContext(UserContext)
     const totalItems = 0
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems, getCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems, getCart, deleteAllCartItems }}>
             {children}
         </CartContext.Provider>
     );

@@ -4,10 +4,12 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UserContext from '../../../contexts/UserContext';
 import axios from 'axios';
 import ColorContext from '../../../contexts/ColorContext';
+import PostsContext from '../../../contexts/PostsContext'
 
 const Post = ({ post }) => {
     const { userData } = useContext(UserContext);
     const { color } = useContext(ColorContext);
+    const { fetchPostsData, deletePost } = useContext(PostsContext)
     const [commentText, setCommentText] = useState("");
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -29,6 +31,7 @@ const Post = ({ post }) => {
             });
             setCommentText("");
             setOpen(false);
+            fetchPostsData()
         } catch (err) {
             console.error('Error adding comment:', err.response ? err.response.data : err);
         }
@@ -50,11 +53,11 @@ const Post = ({ post }) => {
         setAnchorEl(null);
     };
 
-    const handleDelete = () => {
-        // Add delete functionality here
-        console.log('Delete post:', post.id);
-        handleMenuClose();
-    };
+    // const handleDelete = () => {
+    //     // Add delete functionality here
+    //     console.log('Delete post:', post.id);
+    //     handleMenuClose();
+    // };
 
 
     return (
@@ -88,7 +91,7 @@ const Post = ({ post }) => {
                                         },
                                     }}
                                 >
-                                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                                    <MenuItem onClick={()=>deletePost(post._id)}>Delete</MenuItem>
                                     <MenuItem onClick={handleMenuClose}>Other Option</MenuItem>
                                 </Menu>
                             </Box>
@@ -114,7 +117,7 @@ const Post = ({ post }) => {
                                     <form onSubmit={(e) => { e.preventDefault(); handleCommentSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                         <TextField
                                             label="Write a comment..."
-                                            value={commentText}
+                                            value={commentText}   
                                             onChange={handleCommentChange}
                                             fullWidth
                                             required

@@ -112,7 +112,7 @@ const BidPage = () => {
   };
 
   return (
-    <div>
+    <div style={{marginBottom:'5%'}}>
       <CssBaseline />
       <Container>
         <BidCard
@@ -122,12 +122,12 @@ const BidPage = () => {
           highestBid={highestBid}
           highestBidderName={highestBidderName}
         />
-        <Typography variant="h6" mt={4}>
+        {/* <Typography variant="h6" mt={4}>
           You May Also Like:
-        </Typography>
-        <SimilarItems products={products} />
+        </Typography> */}
+        {/* <SimilarItems products={products} /> */}
       </Container>
-      <button onClick={handleBid}></button>
+      {/* <button onClick={handleBid}></button> */}
     </div>
   );
 };
