@@ -64,7 +64,7 @@ const data = [
 ];
 
 const OrderList = () => {
-  const { orders } = useContext(OrderContext);
+  const { orders, userOrders, createOrder, getOrder, getUserOrders, setOrders } = useContext(OrderContext);
   const { color, lightColor } = useContext(ColorContext);
 
   const GradientText = styled(Typography)(({ theme }) => ({
@@ -123,7 +123,7 @@ const OrderList = () => {
           <GradientText variant="h6">Status</GradientText>
         </Grid>
       </Grid>
-      {orders.map((order, index) => (
+      {orders?.orders?.map((order, index) => (
         <OrderRow key={index} order={order} />
       ))}
     </Grid>

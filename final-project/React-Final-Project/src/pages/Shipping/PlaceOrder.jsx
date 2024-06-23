@@ -40,12 +40,15 @@ import { AddressContext } from '../../contexts/AddressContext';
 import UserContext from '../../contexts/UserContext';
 import { PaymentContext } from '../../contexts/PaymentContext';
 import ColorContext from '../../contexts/ColorContext';
+import { OrderContext } from '../../contexts/OrderContext';
 
 const PlaceOrder = () => {
 
     const { addresses, addAddress, fetchAddresses, deleteAddress } = useContext(AddressContext)
     const { userData } = useContext(UserContext)
-    const { cartItems, setCartItems, deleteAllCartItems } = useContext(CartContext)
+    const { cartItems, setCartItems, deleteAllCartItems, totalPrice } = useContext(CartContext)
+    const {orders, userOrders, createOrder, getOrder, getUserOrders} = useContext(OrderContext)
+    console.log(totalPrice);
     const {handlePaymentClick} = useContext(PaymentContext)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
@@ -136,19 +139,31 @@ const PlaceOrder = () => {
     }
 
     const handlePlaceOrder = () => {
-        deleteAllCartItems()
-        navigate('/orderDone')
-    }
+        // Collect necessary order data
+        const items = cartItems.map((item) => ({
+            productId: item.productId._id,
+            quantity: item.quantity,
+        }));
+
+        // Call createOrder function from context
+        createOrder(userData._id, totalPrice, items);
+
+        // Clear cart items
+        deleteAllCartItems();
+
+        // Navigate to order done page
+        navigate('/orderDone');
+    };
 
     if(!addresses){
         return <CircularProgress />
     }
 
-    const totalPrice = cartItems?.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
+    // const totalPrice = cartItems?.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
     const COD = 70;
     const Tax = 50;
-    const total = totalPrice + Tax
-    const totalCash = totalPrice + COD + Tax
+    const total = +totalPrice + Tax
+    const totalCash = +totalPrice + COD + Tax
     return (
         <Container sx={{paddingBottom:'3%'}}>
             <Box mt={4}>

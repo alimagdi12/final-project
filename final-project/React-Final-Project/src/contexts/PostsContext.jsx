@@ -12,9 +12,9 @@ export const PostsProvider = ({ children }) => {
     try {
       const token = localStorage.getItem('token'); // Ensure the token is stored in localStorage
 
-      if (!token) {
-        throw new Error('JWT token not found');
-      }
+      // if (!token) {
+      //   throw new Error('JWT token not found');
+      // }
 
       const response = await axios.get('http://localhost:3000/api/v1/auth/blogs', {
         headers: {

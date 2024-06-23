@@ -31,17 +31,19 @@ export default function Auth() {
         console.log(response);
         setToken(response.data.user.token);
         localStorage.setItem("token", response.data.user.token);
-        toast.success('logged successfully');
+        toast.success('Logged in successfully');
         navigate('/home');
-        fetchNotifications()
+        fetchNotifications();
       } else {
-        toast.error('log in failed');
+        // This block might never be reached because `response` is always truthy when the request is successful
+        toast.error('Log in failed');
         console.error("Token not found in response:", response);
       }
     } catch (error) {
+      toast.error('Log in failed'); // Add this line to ensure the toast is shown
       console.error("Signin failed:", error);
     }
-  };
+  };  
 
   const handleSignUp = async (signUpForm) => {
     try {

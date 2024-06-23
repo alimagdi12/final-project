@@ -1,5 +1,6 @@
-import { Typography, Container, styled, Box } from '@mui/material';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Typography, Container, Box, styled } from '@mui/material';
+import { OrderContext } from '../../contexts/OrderContext';
 
 const useStyles = styled((theme) => ({
     root: {
@@ -8,7 +9,7 @@ const useStyles = styled((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        backgroundImage: `url('background_image_url')`, 
+        backgroundImage: `url('background_image_url')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -19,19 +20,63 @@ const useStyles = styled((theme) => ({
         marginBottom: theme.spacing(2),
     },
     image: {
-        width: '50%', 
+        width: '50%',
     },
 }));
 
 const OrderDone = () => {
+    const { orders, userOrders, createOrder, getOrder, getUserOrders, setOrders} = useContext(OrderContext);
+    console.log(orders );
     const classes = useStyles();
 
+    useEffect(() => {
+        getUserOrders()
+        console.log(orders);
+        // getUserOrders();
+        // userOrders()
+        // getOrder()
+        // setOrders(orders)
+    }, []);
+
     return (
-        <Container className={classes.root} sx={{width:'50%',display:'flex',flexDirection:'column', alignItems:'center', padding:'2%'}}>
-            <Typography sx={{fontSize:'25px', fontWeight:'bold', color:'#2B4F2D'}} width={400} variant="h4" className={classes.content} gutterBottom>
+        <Container className={classes.root} sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <Box>
+            <Typography variant="h4" className={classes.content} gutterBottom>
                 Relax, your order is on the way!
             </Typography>
-            <img src="orderPlaceDone.png" width={400} alt="Order placed" className={classes.image}  />
+            <img src="orderPlaceDone.png" alt="Order placed" className={classes.image} />
+        </Box>
+
+            <Box mt={4} width="100%">
+                {
+                    orders?.orders?.map((order) => (
+                        <Container key={order._id} sx={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '10px' }}>
+                            <Typography variant="h5" gutterBottom>
+                                Order Details
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Order ID: {order._id}
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Total Amount: {order.totalAmount.toFixed(2)} EGP
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Status: {order.status}
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Products:
+                            </Typography>
+                            <ul>
+                                {order.items.map((item) => (
+                                    <li key={item.productId._id}>
+                                        Quantity: {item.quantity}
+                                    </li>
+                                ))}
+                            </ul>
+                        </Container>
+                    ))
+                }
+            </Box>
         </Container>
     );
 };

@@ -26,69 +26,69 @@ import axios from 'axios';
 import ColorContext from '../../contexts/ColorContext';
 
 const Cart = () => {
-    const { cartItems, updateCartItemQuantity, setCartItems, totalItems, getCart } = useContext(CartContext);
-    const {color} = useContext(ColorContext)
+    const { cartItems, updateCartItemQuantity, setCartItems, totalItems, getCart, totalPrice } = useContext(CartContext);
+    const { color } = useContext(ColorContext)
     const safeTotalItems = isNaN(totalItems) ? 0 : totalItems;
 
     const [openDialog, setOpenDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
-useEffect(()=>{getCart()},[])
+    useEffect(() => { getCart() }, [])
 
     console.log("Imports are working fine.");
 
-        // Inside Cart component
-    
-        useEffect(() => {
-            console.log("Fetching cart data...");
-           
-        }, []);
-    
-        const handleQuantityChange = (id, quantity) => {
-            console.log(`Updating quantity for item ${id} to ${quantity}.`);
-            updateCartItemQuantity(id, quantity);
-        };
-    
-        const handleDelete = async (id) => {
-            try {
-                console.log("Deleting item from cart...");
-                const response = await axios.post(
-                    'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
-                    { cartId: id },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json', // Adjust content type as necessary
-                            jwt: localStorage.getItem('token'),
-                        },
-                    }
-                );
-                getCart()
-                if (response.status === 200) {
-                    console.log(`Item ${id} deleted successfully.`);
-                    setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+    // Inside Cart component
+
+    useEffect(() => {
+        console.log("Fetching cart data...");
+
+    }, []);
+
+    const handleQuantityChange = (id, quantity) => {
+        console.log(`Updating quantity for item ${id} to ${quantity}.`);
+        updateCartItemQuantity(id, quantity);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            console.log("Deleting item from cart...");
+            const response = await axios.post(
+                'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
+                { cartId: id },
+                {
+                    headers: {
+                        'Content-Type': 'application/json', // Adjust content type as necessary
+                        jwt: localStorage.getItem('token'),
+                    },
                 }
-            } catch (error) {
-                console.error('Error removing item from cart:', error);
+            );
+            getCart()
+            if (response.status === 200) {
+                console.log(`Item ${id} deleted successfully.`);
+                setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
             }
-        };
-    
-        const confirmDelete = () => {
-            console.log("Confirming item deletion.");
-            handleDelete(deleteItemId);
-            setOpenDialog(false);
-            setDeleteItemId(null);
-        };
-    
-        const handleDialogClose = () => {
-            console.log("Closing dialog.");
-            setOpenDialog(false);
-            setDeleteItemId(null);
-        };
-    
-        console.log("Rendering Cart component.");
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        }
+    };
+
+    const confirmDelete = () => {
+        console.log("Confirming item deletion.");
+        handleDelete(deleteItemId);
+        setOpenDialog(false);
+        setDeleteItemId(null);
+    };
+
+    const handleDialogClose = () => {
+        console.log("Closing dialog.");
+        setOpenDialog(false);
+        setDeleteItemId(null);
+    };
+
+    console.log("Rendering Cart component.");
 
 
     const navigate = useNavigate();
-    const totalPrice = cartItems?.reduce((acc, curr) => (acc + curr.productId?.price)*curr.quantity, 0);
+    // const totalPrice = cartItems?.reduce((acc, curr) => (acc + curr.productId?.price)*curr.quantity, 0);
     const Tax = 50;
     const totalCash = totalPrice + Tax;
 
@@ -109,12 +109,12 @@ useEffect(()=>{getCart()},[])
                 </Box>
 
                 <Grid container spacing={2}>
-                <Grid item xs={12} md={8}>
-                    {
-                        cartItems.length === 0 && (
-                            <Typography variant="h5" ml={1}>No Items in the cart !!</Typography>
-                        )
-                    }
+                    <Grid item xs={12} md={8}>
+                        {
+                            cartItems.length === 0 && (
+                                <Typography variant="h5" ml={1}>No Items in the cart !!</Typography>
+                            )
+                        }
                     </Grid>
                     <Grid item xs={12} md={8}>
                         {cartItems?.map(item => (
@@ -127,7 +127,7 @@ useEffect(()=>{getCart()},[])
                                         <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                                             <Grid item xs={12} md={4}>
                                                 <Typography>Title - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.title}</Typography></Typography>
-                                                <Typography>City - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color}}>{item.productId?.location}</Typography></Typography>
+                                                <Typography>City - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.location}</Typography></Typography>
                                                 {/* <Typography>Size - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.size}</Typography></Typography> */}
                                             </Grid>
                                             <Grid item xs={12} md={4}>
@@ -177,9 +177,14 @@ useEffect(()=>{getCart()},[])
                                 </Typography>
                             </Box>
                         </Box>
-                        <Button onClick={() => navigate('/placeOrder')} sx={{ backgroundColor: color, marginBottom: '40px', fontWeight: 'bold', width: '100%', '&:hover': { backgroundColor: '#09103f'} }} variant="contained">
-                            Checkout
-                        </Button>
+                        {
+                            cartItems.length !== 0 && (
+
+                                <Button onClick={() => navigate('/placeOrder')} sx={{ backgroundColor: color, marginBottom: '40px', fontWeight: 'bold', width: '100%', '&:hover': { backgroundColor: '#09103f' } }} variant="contained">
+                                    Checkout
+                                </Button>
+                            )
+                        }
                     </Grid>
                 </Grid>
 
