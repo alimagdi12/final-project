@@ -24,6 +24,7 @@ export const AddressProvider = ({ children }) => {
                 },
             });
             setAddresses(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error("Error fetching addresses:", error);
         }
@@ -38,6 +39,8 @@ export const AddressProvider = ({ children }) => {
                 },
             });
             setAddresses([...addresses, response.data]);
+            console.log(response.data);
+            fetchAddresses()
             
         } catch (error) {
             console.error("Error adding address:", error);
