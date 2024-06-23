@@ -103,7 +103,7 @@ class AuctionRepository {
         }
     
         const bidders = auction.bidsId.map(bid => bid.biderId.toString());
-        const uniqueBidders = [...new Set(bidders)]; // Remove duplicate bidder IDs
+        const uniqueBidders = [...new Set(bidders)]; 
     
         for (const biderId of uniqueBidders) {
             const bidder = await User.findById(biderId);
