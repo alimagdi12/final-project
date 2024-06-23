@@ -167,7 +167,7 @@ const subcategoryController = new SubcategoryController(subcategoryRepository);
 const userRepository = new UserRepository(io);
 const userController = new UserController(userRepository);
 // Create instances of AuctionRepository and AuctionController
-const auctionRepository = new AuctionRepository();
+const auctionRepository = new AuctionRepository(io);
 const auctionController = new AuctionController(auctionRepository);
 // Create instances of BidRepository and BidController
 const bidRepository = new BidRepository(io);
@@ -196,9 +196,6 @@ const addressController = new AddressController(addressRepository)
 
 
 
-// Import and use the order routes
-// const orderRoutes = require('./routes/order/order.routes');
-// app.use("/api/v1/orders");
 
 // routes of the whole application
 const authRoutes = require("./routes/auth/auth.routes");

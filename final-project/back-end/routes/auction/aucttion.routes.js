@@ -49,14 +49,24 @@ const auctionRouter = (auctionController) => {
     })
 
     router.get('/get-heighst-bid/:id', async (req, res, next) => {
-    try {
-        const token = req.headers['jwt'];
-        const bid = await auctionController.getHeighstBid(req.params, token); 
-        res.status(200).json(bid);
-    } catch (err) {
-        res.status(401).json({ message: err.message });
-    }
-});
+        try {
+            const token = req.headers['jwt'];
+            const bid = await auctionController.getHeighstBid(req.params, token); 
+            res.status(200).json(bid);
+        } catch (err) {
+            res.status(401).json({ message: err.message });
+        }
+    });
+
+    router.post('/auction-winner',async(req,res,next)=>{
+        try{
+            const token=req.headers['jwt'];
+            const auction=await auctionController.auctionWinner(req.body,token);
+            res.status(201).json(auction);
+        }catch(err){
+            res.status(401).json({message:err.message});
+        }
+    })
 
 
     return router;

@@ -1,9 +1,12 @@
 const Auction = require('../../models/auction/auction.model');
 const ProductStatus = require('../../models/productStatus/productStatus.model');
 const jwt = require("jsonwebtoken");
+const User = require('../../models/user/user.model');
 
 class AuctionRepository {
-    constructor() {}
+    constructor(io) {
+        this.io = io
+    }
 
     async addAuction(data,files, token) {
         const { expirationDays , initialValue , title , categoryId, quantity, location , productStatus} = data;
@@ -79,6 +82,44 @@ class AuctionRepository {
     
         return highestBid;
     }
+
+    async auctionWinner(data, token) {
+        const auctionId = data.auctionId;
+        const auction = await Auction.findById(auctionId).populate('bidsId categoryId').exec();
+        console.log(auction);
+        if (!auction) return "Auction not found";
+        if (!auction.bidsId || auction.bidsId.length === 0) return "No bids found for this auction";
+    
+        const highestBid = auction.bidsId.reduce((max, bid) => {
+            return bid.amount > max.amount ? { amount: bid.amount, biderIds: [bid.biderId] } :
+                   bid.amount === max.amount ? { amount: max.amount, biderIds: [...max.biderIds, bid.biderId] } :
+                   max;
+        }, { amount: 0, biderIds: [] });
+    
+        // Notify the auction winner
+        const auctionWinner = await User.findById(highestBid.biderIds[0].toString());
+        if (auctionWinner) {
+            await auctionWinner.addNotification(`You win the auction with the following amount: ${highestBid.amount}`);
+        }
+    
+        const bidders = auction.bidsId.map(bid => bid.biderId.toString());
+        const uniqueBidders = [...new Set(bidders)]; // Remove duplicate bidder IDs
+    
+        for (const biderId of uniqueBidders) {
+            const bidder = await User.findById(biderId);
+            if (bidder) {
+                await bidder.addNotification(`The auction has ended and someone won with the amount: ${highestBid.amount}`);
+            }
+        }
+        await auction.remove();
+    
+        this.io.emit('notification', `The auction has ended and someone won with the amount: ${highestBid.amount}`);
+        this.io.emit('auctionWinner', highestBid);
+    
+        return { highestBid, auctionWinner };
+    }
+    
+    
     
 
 
