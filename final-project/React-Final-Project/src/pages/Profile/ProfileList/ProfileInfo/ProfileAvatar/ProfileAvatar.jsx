@@ -8,6 +8,7 @@ const ProfileAvatar = () => {
   const { color } = useContext(ColorContext);
   const [userForm, setUserForm] = useState(new FormData()); // Use state to track userForm
 const {userData,fetchUserData} = useContext(UserContext)
+console.log(userData);
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     console.log(files);
@@ -63,8 +64,8 @@ useEffect(()=>{
           </label>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>Omar Hassan</Typography>
-          <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>Ismailia, EG</Typography>
+          <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>{userData.firstName} {userData.lastName}</Typography>
+          {/* <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>Ismailia, EG</Typography> */}
         </Grid>
         <Grid item xs={12}>
         
