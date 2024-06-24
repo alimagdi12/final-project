@@ -19,7 +19,7 @@ const Dashboard = () => {
             <Grid item xs={12} md={3} lg={2}>
                 <Sidebar onMenuItemClick={handleMenuItemClick} />
             </Grid>
-            <Grid item xs={12} md={9} lg={10} sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Grid item xs={12} md={7} lg={10} sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Topbar />
                 {/* <Box sx={{ flexGrow: 1, overflow: 'auto', height:'100vh' }}> */}
                     {selectedMenuItem === 'products' && <Content />}

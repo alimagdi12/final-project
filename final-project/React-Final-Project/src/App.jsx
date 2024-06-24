@@ -37,7 +37,7 @@ function App() {
   const [isChatRoute, setIsChatRoute] = useState(false);
 
   useEffect(() => {
-    const authRoutes = ['/login'];
+    const authRoutes = ['/login', '/dashboard'];
     const chatRoutes = ['/chat', '/post'];
     setIsAuthRoute(authRoutes.includes(location.pathname));
     setIsChatRoute(chatRoutes.some(route => location.pathname.startsWith(route)));
@@ -80,8 +80,8 @@ function App() {
           <Route path="/add-auction" element={<AddAuction />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/favorite" element={<FavoritePage />} />
-          <Route path="/order" element={<Orders1 />} />
-          <Route path="/order/:id" element={<OrderDetails />} />
+          {/* <Route path="/order" element={<Orders1 />} /> */}
+          {/* <Route path="/order/:id" element={<OrderDetails />} /> */}
         </Routes>
         {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
