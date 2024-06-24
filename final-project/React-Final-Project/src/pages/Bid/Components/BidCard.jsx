@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box, Container, Grid } from '@mui/material';
 import CircularWithValueLabel from './Components/AuctionCard';
 

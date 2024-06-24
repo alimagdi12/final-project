@@ -41,7 +41,7 @@ const AddAddressForm = ({ open, handleClose }) => {
                 <Typography variant="h5" gutterBottom>
                     Add Address
                 </Typography>
-                <form noValidate onSubmit={handleSubmit}>
+                <form noValidate >
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -88,6 +88,7 @@ const AddAddressForm = ({ open, handleClose }) => {
                         fullWidth
                         variant="contained"
                         color="primary"
+                        onClick={handleSubmit}
                     >
                         Add Address
                     </Button>

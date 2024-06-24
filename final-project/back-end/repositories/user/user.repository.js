@@ -28,33 +28,45 @@ class UserRepositry {
 
 
     async editUser(userData, token) {
+        console.log(userData);
         try {
-            const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // No need for await here
             const email = decodedToken.email;
             const user = await User.findOne({ email });
             if (!user) {
                 throw new Error("User not found.");
             }
-
-            // Check if any fields need to be updated
-            const updated = (
-                (userData.firstName && userData.firstName !== user.firstName ? user.firstName = userData.firstName : false) ||
-                (userData.lastName && userData.lastName !== user.lastName ? user.lastName = userData.lastName : false) ||
-                (userData.birthDay && userData.birthDay !== user.birthDay ? user.birthDay = userData.birthDay : false) ||
-                (userData.phoneNumber && userData.phoneNumber !== user.phoneNumber ? user.phoneNumber = userData.phoneNumber : false)
-            );
-
-            // Save user if there are updates
+    
+            let updated = false;
+    
+            if (userData.firstName && userData.firstName !== user.firstName) {
+                user.firstName = userData.firstName;
+                updated = true;
+            }
+            if (userData.lastName && userData.lastName !== user.lastName) {
+                user.lastName = userData.lastName;
+                updated = true;
+            }
+            if (userData.birthDay && userData.birthDay !== user.birthDay) {
+                user.birthDay = userData.birthDay;
+                updated = true;
+            }
+            if (userData.phoneNumber && userData.phoneNumber !== user.phoneNumber) {
+                user.phoneNumber = userData.phoneNumber;
+                updated = true;
+            }
+    
             if (updated) {
                 await user.save();
             }
-
+    
             return user;
         } catch (err) {
             console.log(err);
-            throw new Error(err);
+            throw new Error(err.message || "An error occurred while updating the user.");
         }
     }
+    
 
     async deleteUser(token) {
         try {
