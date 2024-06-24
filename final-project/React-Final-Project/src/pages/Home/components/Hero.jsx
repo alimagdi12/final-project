@@ -1,9 +1,22 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import { TextField, Typography } from "@mui/material";
+import { TextField, Typography, List, ListItem, ListItemText } from "@mui/material";
+import ProductsContext from "../../../contexts/ProductsContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+  const { products } = React.useContext(ProductsContext);
+  const [query, setQuery] = React.useState("");
+const navigate = useNavigate()
+  const handleSearch = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const filteredProducts = products?.products?.filter(product =>
+    product.title.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
     <>
       <CssBaseline />
@@ -23,7 +36,7 @@ export default function Hero() {
             overflow: "hidden",
           }}
         >
-         <video
+          <video
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -41,7 +54,10 @@ export default function Hero() {
               pointerEvents: "none",
             }}
           >
-            <source src="/public/Falling Stars Motion Background, Twinkling Star Background Video Loop - Free Stock Footage.mp4" type="video/mp4" />
+            <source
+              src="/public/Falling Stars Motion Background, Twinkling Star Background Video Loop - Free Stock Footage.mp4"
+              type="video/mp4"
+            />
           </video>
         </Box>
         <Box
@@ -62,6 +78,9 @@ export default function Hero() {
           </Typography>
           <TextField
             placeholder="Enter your text here"
+            value={query}
+             autoComplete="off"
+            onChange={handleSearch}
             sx={{
               width: { xs: "80%", md: "50%" },
               margin: "auto",
@@ -72,6 +91,33 @@ export default function Hero() {
               },
             }}
           />
+          {query && (
+            <Box
+              sx={{
+                marginTop: "20px",
+                width: { xs: "80%", md: "50%" },
+                margin: "auto",
+                background: "rgba(255, 255, 255, 0.8)",
+                borderRadius: "20px",
+                padding: "10px",
+                textAlign: "left",
+              }}
+            >
+              {filteredProducts.length > 0 ? (
+                <List>
+                  {filteredProducts.map((product) => (
+                    <ListItem key={product.id} onClick={()=>{
+                      navigate(`/product-details/${product._id}`)
+                    }}>
+                      <ListItemText primary={product.title} />
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                <Typography>No products found</Typography>
+              )}
+            </Box>
+          )}
         </Box>
       </Box>
     </>

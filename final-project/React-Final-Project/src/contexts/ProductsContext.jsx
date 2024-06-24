@@ -1,11 +1,13 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import LoaderContext from './LoaderContext';
 
 const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-
+const {setLoader}= useContext(LoaderContext)
   const fetchProducts = async () => {
+  setLoader(true)
     try {
       const response = await fetch('http://localhost:3000/api/v1/products/get-products');
       if (!response.ok) {
@@ -13,12 +15,14 @@ export const ProductsProvider = ({ children }) => {
       }
       const data = await response.json();
       setProducts(data);
+     setLoader(false)
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   };
 
   useEffect(() => {
+    setLoader(true)
     fetchProducts();
   }, []); 
 

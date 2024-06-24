@@ -7,16 +7,20 @@ import ProductsContext from '../../contexts/ProductsContext.jsx';
 import CategoryContext from '../../contexts/CategoriesContext.jsx';
 import { toast } from 'react-toastify';
 import { GradientCircularProgress } from '../../components/loader/Loader.jsx';
+import LoaderContext from '../../contexts/LoaderContext.jsx';
 
 
 function Home() {
+const{setLoader} = useContext(LoaderContext)
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
 
   console.log(products);
 
   const prd = products?.products?.[0];
-
+useEffect(()=>{
+  setLoader(false)
+},[])
   if (!products || !products.products || !categories.categories) {
 
     return (

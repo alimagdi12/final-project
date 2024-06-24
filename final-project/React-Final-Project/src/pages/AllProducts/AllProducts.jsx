@@ -3,6 +3,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContext from "../../contexts/ProductsContext";
 import CategoryContext from "../../contexts/CategoriesContext";
 import AuctionContext from "../../contexts/AuctionContext";
+import Loader from './../../components/loader/Loader.jsx';
 import axios from "axios";
 import cart2Image from '../../../public/cart8.jpg';
 import {
@@ -18,11 +19,12 @@ import {
 } from "@mui/material";
 import { CartContext } from "../../contexts/CartContext";
 import ColorContext from "../../contexts/ColorContext";
+import LoaderContext from "../../contexts/LoaderContext";
 
 export default function AllProducts() {
   const { color } = useContext(ColorContext);
   const [toggle, setToggle] = useState(false);
-  const { products } = useContext(ProductsContext);
+  const { products,fetchProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
   const { auction } = useContext(AuctionContext);
   const [displayedProducts, setDisplayedProducts] = useState([]);
@@ -50,7 +52,7 @@ export default function AllProducts() {
   console.log(currentAuctions);
 
   const { getCart, addToCart } = useContext(CartContext);
-
+const {loader ,setLoader} = useContext(LoaderContext)
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -59,9 +61,12 @@ export default function AllProducts() {
     setAuctionPage(value);
   };
 
+
   useEffect(() => {
+    fetchProducts()
     setDisplayedProducts(products?.products);
-  }, [products]);
+  }, []);
+
 
   function filterByCategory(event) {
     setSearchCategory(event.target.value);
@@ -121,7 +126,7 @@ export default function AllProducts() {
 
   return (
     <>
-      <div style={{
+     <div style={{
         backgroundImage: `url(${cart2Image})`,
         paddingTop: '20px',
         backgroundSize: 'cover', // Ensure the background image covers the container

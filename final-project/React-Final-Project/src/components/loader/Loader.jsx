@@ -55,7 +55,6 @@ function FacebookCircularProgress(props) {
 }
 
 // From https://github.com/mui/material-ui/issues/9496#issuecomment-959408221
-
 export function GradientCircularProgress() {
     return (
         <React.Fragment>
@@ -74,11 +73,26 @@ export function GradientCircularProgress() {
 
 export default function CustomizedProgressBars() {
     return (
-        <Stack spacing={2} sx={{ flexGrow: 1 }}>
-            <FacebookCircularProgress />
-            <GradientCircularProgress />
-            <br />
-            <BorderLinearProgress variant="determinate" value={50} />
-        </Stack>
+        <Box
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent black
+                zIndex: 1300, // high z-index to overlay other elements
+            }}
+        >
+            <Stack spacing={2} sx={{ position:'absolute' , left:'50%' }}>
+                {/* <FacebookCircularProgress /> */}
+                <GradientCircularProgress />
+                <br />
+                {/* <BorderLinearProgress variant="determinate" value={50} /> */}
+            </Stack>
+        </Box>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Login from './Authentication/Auth.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,6 +15,7 @@ import PlaceOrder from './pages/Shipping/PlaceOrder.jsx';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BidPage from './pages/Bid/BidPage.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import Loader from './components/loader/Loader.jsx';
 import OrderDone from './pages/OrderCompleted/OrderDone.jsx';
 import ProductDetails from './pages/ProductDetails/ProductDetails.jsx';
 import List from './pages/ListItems/List.jsx';
@@ -29,13 +30,14 @@ import Dashboard from './pages/Dashboard/Dashboard.jsx';
 import OrderDetails from './pages/Profile/ProfileList/Orders/OrderDetails.jsx';
 import Orders1 from './pages/Profile/ProfileList/Orders/Orders1.jsx';
 import PostsPage from './pages/Posts/PostsPage.jsx';
+import LoaderContext from './contexts/LoaderContext.jsx';
 
 function App() {
   const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
   const [isAuthRoute, setIsAuthRoute] = useState(false);
   const [isChatRoute, setIsChatRoute] = useState(false);
-
+const {loader} = useContext(LoaderContext)
   useEffect(() => {
     const authRoutes = ['/login'];
     const chatRoutes = ['/chat', '/post'];
@@ -59,9 +61,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
+        {loader && <Loader/>} 
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/loader" element={<Loader />} />
           <Route path="/post" element={<PostsPage />} />
           <Route path="/chat/:id" element={<Chat />} />
           <Route path="/bid/:id" element={<BidPage />} />
