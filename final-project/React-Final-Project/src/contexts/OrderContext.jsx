@@ -92,13 +92,13 @@ export const OrderProvider = ({ children }) => {
 
     const updateOrderStatus = async (orderId, status) => {
         try {
-            const response = await axios.patch(`http://127.0.0.1:3000/api/v1/auth/order/${orderId}`, { status }, {
+            const response = await axios.put(`http://127.0.0.1:3000/api/v1/auth/order/${orderId}`, { status }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'jwt': localStorage.getItem('token')
                 }
             });
-            setOrders(orders.map(order => order._id === orderId ? { ...order, status } : order));
+            setOrders(orders.orders.map(order => order._id === orderId ? { ...order, status } : order));
             toast.success('Order status updated successfully');
         } catch (err) {
             console.error(err);

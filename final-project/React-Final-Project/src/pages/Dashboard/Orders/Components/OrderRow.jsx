@@ -1,18 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Box, Grid, Typography, Avatar, Button, Select, MenuItem } from "@mui/material";
+import { Grid, Typography, Avatar, Button, Select, MenuItem } from "@mui/material";
 import { styled } from "@mui/system";
 
 import { OrderContext } from "../../../../contexts/OrderContext";
 import ColorContext from "../../../../contexts/ColorContext";
 
-export const OrderRow = ({ order }) => {
+export const OrderRow = ({ order, imageUrl }) => {
     const { color, lightColor } = useContext(ColorContext);
     const { deleteOrder, updateOrderStatus } = useContext(OrderContext);
-    const [status, setStatus] = useState(order.status || "Pending");
+
+    const [status, setStatus] = useState(order?.status || "Pending");
+    console.log(order);
 
     useEffect(() => {
-        setStatus(order.status || "Pending");
-    }, [order.status]);
+        setStatus(order?.status || "Pending");
+    }, [order?.status]);
 
     const handleStatusChange = async (event) => {
         const newStatus = event.target.value;
@@ -42,43 +44,49 @@ export const OrderRow = ({ order }) => {
                 padding: "16px 0",
                 borderBottom: `2px solid ${color}`,
                 color: color,
+                textAlign: 'center'
             }}
         >
             <Grid item xs sx={{ display: "flex", justifyContent: "center" }}>
-                <TotalButton>{`Total ${order.totalAmount}`}</TotalButton>
+                <TotalButton>{`Total ${order?.totalAmount}`}</TotalButton>
             </Grid>
             <Grid item xs sx={{ display: "flex", justifyContent: "center" }}>
-                <Typography sx={{ width: "60%", fontSize: '5px' }}>{order._id}</Typography>
+                <Typography sx={{ width: "60%", fontSize: '10px' }}>{order?._id}</Typography>
             </Grid>
             <Grid item xs>
-                <Typography>{order.userId.firstName}</Typography>
-                <Typography variant="body2">{order.email}</Typography>
+                <Typography>{order?.userId?.firstName}</Typography>
+                <Typography variant="body2">{order?.email}</Typography>
             </Grid>
-            <Grid item xs sx={{ display: "flex", justifyContent: "center" }}>
+            {/* <Grid item xs sx={{ display: "flex", justifyContent: "center" }}>
                 <Typography>{order.payment}</Typography>
-            </Grid>
-            <Grid item xs>
+            </Grid> */}
+            {/* <Grid item xs>
                 <Avatar
-                    src={order.productImg}
+                    src={imageUrl}
                     alt="product"
                     sx={{ width: 56, height: 56 }}
                 />
-            </Grid>
-            <Grid item xs>
+            </Grid> */}
+            {/* <Grid item xs>
                 <Typography>{order.delivery}</Typography>
-            </Grid>
+            </Grid> */}
             <Grid item xs>
-                <Select
+                {/* <Select
                     value={status}
-                    placeholder="pending"
                     onChange={handleStatusChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Order Status' }}
                 >
-                    <MenuItem value="Pending">Pending</MenuItem>
+                    <MenuItem value="Pending" selected>Pending</MenuItem>
                     <MenuItem value="Accepted">Accepted</MenuItem>
                     <MenuItem value="Canceled">Canceled</MenuItem>
-                </Select>
+                </Select> */}
+
+                <select value={status} onChange={handleStatusChange} name="hall" id="hall">
+                    <option value={"pending"} >Pending</option>
+                    <option value={"Accepted"}>Accepted</option>
+                    <option value={"Canceled"}>Canceled</option>
+                </select>
             </Grid>
         </Grid>
     );

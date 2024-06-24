@@ -213,7 +213,7 @@ const wishListRoutes = require('./routes/wishlist/wishlist.routes');
 const MessagesRouter = require('./routes/Messages/Messages.routes');
 const ConversationRouter = require('./routes/Conversation/Conversation.routes');
 const addressRouter = require('./routes/address/address.routes');
-const OrderController = require('./controllers/orders/orders.controller');
+const OrderController = require('./controllers/orders/Orders.controller');
 const OrderRepository = require('./repositories/order/Order.repository');
 const orderRouter = require('./routes/order/order.routes');
 
