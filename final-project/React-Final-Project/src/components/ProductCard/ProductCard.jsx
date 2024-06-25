@@ -14,7 +14,7 @@ import { useContext } from 'react';
 
 export default function ProductCard({ product, addToCart }) {
   console.log(product);
- 
+  
   const navigate = useNavigate();
 const {color}= useContext(ColorContext)
   const navigateToDetails = (id) => {

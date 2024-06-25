@@ -286,6 +286,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
               width: { xs: "100%", md: "70%" },
               display: "flex",
               flexDirection: "column",
+              alignItems:"center"
             }}
           >
             {/* Buttons and Product Cards */}
@@ -295,6 +296,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
                 justifyContent: "space-between",
                 marginBottom: 2,
                 marginTop: { xs: 2, md: 0 },
+                width:'81%'
               }}
             >
               {/* Show Products and Show Auction buttons */}
