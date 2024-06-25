@@ -31,7 +31,7 @@ import OrderDetails from './pages/Profile/ProfileList/Orders/OrderDetails.jsx';
 import Orders1 from './pages/Profile/ProfileList/Orders/Orders1.jsx';
 import PostsPage from './pages/Posts/PostsPage.jsx';
 import LoaderContext from './contexts/LoaderContext.jsx';
-import ProtectedRoute from './ProtectedRoute.jsx';
+import NotFound from './pages/Not Found/NotFound.jsx';
 
 function App() {
   const location = useLocation();
@@ -85,6 +85,7 @@ const {loader} = useContext(LoaderContext)
           <Route path="/add-auction" element={<AddAuction />} />
           <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
           <Route path="/favorite" element={<FavoritePage />} />
+          <Route path="*" element={<NotFound />} />
           {/* <Route path="/order" element={<Orders1 />} /> */}
           {/* <Route path="/order/:id" element={<OrderDetails />} /> */}
         </Routes>
