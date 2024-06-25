@@ -2,8 +2,8 @@ import React from 'react'
 
 const NotFound = () => {
     return (
-        <div>
-            
+        <div style={{display:'flex', justifyContent:'center', paddingTop:'50px'}}>
+            <img src="../../../public/notfound.svg" alt="" />
         </div>
     )
 }

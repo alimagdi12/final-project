@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Badge, Switch } from "@mui/material";
+import { Badge, Grid, Switch } from "@mui/material";
 import FlipCard from "../FlibCard/FlipCard";
 import CategoryContext from "../../contexts/CategoriesContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,16 +25,14 @@ import { toast } from "react-toastify";
 import { LoveContext } from '../../contexts/LoveContext';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { NotificationContext } from '../../contexts/NotificationContext'; // Import NotificationContext
-
-
+import { NotificationContext } from '../../contexts/NotificationContext';
 
 const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const { love, getFavorite } = useContext(LoveContext);
-  const {userData, token, fetchUserData,setToken} = useContext(UserContext)
+  const { userData, token, fetchUserData, setToken } = useContext(UserContext);
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems, getCart } = useContext(CartContext);
   const { notifications, fetchNotifications } = useContext(NotificationContext);
@@ -76,8 +74,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     getCart();
   }, []);
 
-
-
   useEffect(() => {
     fetchUserData();
   }, [token]);
@@ -107,10 +103,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     setHoveredPage(null);
   };
 
-
   const handleOpenNotificationsMenu = (event) => {
     setAnchorElNotifications(event.currentTarget);
-    
   };
 
   const handleCloseNotificationsMenu = () => {
@@ -128,7 +122,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             to="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex", width:'15%' },
+              display: { xs: "none", md: "flex", width: '15%' },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -136,14 +130,14 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               textDecoration: "none",
             }}
           >
-              <img
-                src="/logo.png"
-                alt="Logo"
-                width="100%"
-                style={{ cursor: "pointer" }}
-              />
+            <img
+              src="/logo.png"
+              alt="Logo"
+              width="100%"
+              style={{ cursor: "pointer" }}
+            />
           </Typography>
-
+  
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -155,7 +149,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             >
               <MenuIcon />
             </IconButton>
-
+  
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -174,16 +168,26 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              <MenuItem  onClick={() => { navigate('/products'); }}>
+                <Typography sx={{fontWeight:'bold'}} textAlign="center">Products</Typography>
+              </MenuItem>
+              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { navigate('/about'); }}>
+                <Typography sx={{fontWeight:'bold'}} textAlign="center">About Us</Typography>
+              </MenuItem>
+              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { navigate('/post'); }}>
+                <Typography sx={{fontWeight:'bold'}} textAlign="center">Posts</Typography>
+              </MenuItem>
+              <MenuItem sx={{fontWeight:'bold'}} onClick={handleCloseNavMenu}>
+                <Typography sx={{fontWeight:'bold'}} textAlign="center">Categories</Typography>
+              </MenuItem>
+              {categories && categories.categories && categories.categories.map((category) => (
+                <MenuItem sx={{fontWeight:'bold'}} key={category._id} onClick={() => { navigate(`/products/${category._id}`); }}>
+                  <Typography  textAlign="center">{category.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-
+          
           <Box
             sx={{
               flexGrow: 1,
@@ -196,49 +200,51 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 Products
               </Link>
             </Box>
-
+  
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
               <Link to="/about" className="text-decoration-none h5 mx-2">
                 About Us
               </Link>
             </Box>
-
+  
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
               <Link to="/post" className="text-decoration-none h5 mx-2">
                 Posts
               </Link>
             </Box>
-
+  
             <Box
               onMouseEnter={handlePageHover}
               onMouseLeave={handlePageHoverOut}
               sx={{ my: 2, textAlign: "center", position: "relative" }}
             >
               <Typography
-              sx={{fontWeight:'bold'}}
+                sx={{ fontWeight: 'bold' }}
                 component={Link}
                 className="text-decoration-none h5 mx-2"
               >
                 Categories
               </Typography>
               {hoveredPage && (
-                <Box
+                <Grid
+                md={12}
                   sx={{
                     position: "absolute",
                     top: "100%",
-                    left: "50%",
-                    width: "1000px",
                     background: "white",
                     boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
                     borderRadius: "5px",
+                    display: 'flex',
                     py: 1,
                     px: 2,
                     zIndex: 3,
+                    justifyContent: 'flex-start',
                   }}
                 >
-                  <Box
+                  <Grid
                     className="d-flex flex-wrap"
-                    sx={{ zIndex: "999", height: "100%" }}
+                    md={6}
+                    sx={{ zIndex: "999", height: "100%", maxWidth: '100%' }}
                   >
                     {categories && categories.categories && categories.categories.map((category) => (
                       <Link to={`/products/${category._id}`} key={category._id}>
@@ -247,54 +253,53 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                         </FlipCard>
                       </Link>
                     ))}
-
-                  </Box>
-                </Box>
+                  </Grid>
+                </Grid>
               )}
             </Box>
           </Box>
           {!token && (
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
               <Link to="/login" className="text-decoration-none h4 mx-2">
-                <Button sx={{ backgroundColor: "#fff", color: color, "&:hover":{backgroundColor:color, color:'#fff', outline:'3px solid #fff'}  }} variant="contained">
+                <Button sx={{ backgroundColor: "#fff", color: color, "&:hover": { backgroundColor: color, color: '#fff', outline: '3px solid #fff' } }} variant="contained">
                   Log In
                 </Button>
               </Link>
             </Box>
           )}
-
+  
           {token && (
             <>
-            <IconButton
-              color="inherit"
-              onClick={handleOpenNotificationsMenu}
-            >
-              <Badge badgeContent={notifications?.length} color="secondary">
-                <NotificationsIcon sx={{ cursor: 'pointer', color: 'white' }} />
-              </Badge>
-            </IconButton>
-
-            <IconButton color="inherit">
-            <Badge badgeContent={love} color="secondary">
-              <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
-            </Badge>
-          </IconButton>
+              <IconButton
+                color="inherit"
+                onClick={handleOpenNotificationsMenu}
+              >
+                <Badge badgeContent={notifications?.length} color="secondary">
+                  <NotificationsIcon sx={{ cursor: 'pointer', color: 'white' }} />
+                </Badge>
+              </IconButton>
+  
+              <IconButton color="inherit">
+                <Badge badgeContent={love} color="secondary">
+                  <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
+                </Badge>
+              </IconButton>
               <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
                 <Link to="/sell" className="text-decoration-none h4 mx-2">
-                  <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color, outline:'2px solid white' } }} variant="contained">
+                  <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color, outline: '2px solid white' } }} variant="contained">
                     List
                   </Button>
                 </Link>
               </Box>
-              <Box sx={{ flexGrow: 0 }}>
+              <Box sx={{ flexGrow: 0 , display: 'flex' }}>
                 <Tooltip title="Open settings">
                   <>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <img
-              src={userData?.imageUrl?.images[0]}
-              alt="User Photo"
-              style={{ cursor: 'pointer', width: '40px', height:'40px' , borderRadius:'50%' }}
-            />
+                      <img
+                        src={userData?.imageUrl?.images[0]}
+                        alt="User Photo"
+                        style={{ cursor: 'pointer', width: '40px', height: '40px', borderRadius: '50%' }}
+                      />
                     </IconButton>
                     <IconButton color="inherit">
                       <Badge badgeContent={cartItems?.length || 0} color="secondary">
@@ -309,9 +314,9 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                     </IconButton>
                   </>
                 </Tooltip>
-
+  
                 <Switch checked={darkMode} onChange={toggleDarkMode} />
-
+  
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
@@ -333,13 +338,13 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                       Dashboard
                     </Typography>
                   </MenuItem>
-
+  
                   <MenuItem key={"1"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleProfileClick} textAlign="center">
                       Profile
                     </Typography>
                   </MenuItem>
-
+  
                   <MenuItem key={"2"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleLogOutClick} textAlign="center">
                       Logout
@@ -349,29 +354,28 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </Box>
             </>
           )}
-          
-
-      <Menu
-        id="notifications-menu"
-        anchorEl={anchorElNotifications}
-        open={Boolean(anchorElNotifications)}
-        onClose={handleCloseNotificationsMenu}
-        PaperProps={{
-          style: {
-            width: '50%',
-            maxHeight: '80vh', // Limit the height of the menu to 80% of the viewport height
-            overflowY: 'auto'
-          },
-        }}
-      >
-        {notifications?.map((notification, index) => (
+  
+          <Menu
+            id="notifications-menu"
+            anchorEl={anchorElNotifications}
+            open={Boolean(anchorElNotifications)}
+            onClose={handleCloseNotificationsMenu}
+            PaperProps={{
+              style: {
+                width: '50%',
+                maxHeight: '80vh',
+                overflowY: 'auto'
+              },
+            }}
+          >
+            {notifications?.map((notification, index) => (
               <MenuItem key={index}>
                 {notification}
               </MenuItem>
             ))}
-      </Menu>
+          </Menu>
         </Toolbar>
       </Container>
     </AppBar>
-  );
+  );  
 }
