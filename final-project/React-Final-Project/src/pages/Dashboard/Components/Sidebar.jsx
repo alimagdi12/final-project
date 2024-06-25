@@ -19,6 +19,7 @@ const Sidebar = ({ onMenuItemClick }) => {
     const handleItemClick = (item) => {
         if(item === 'logout'){
             localStorage.setItem('token' , '')
+            localStorage.setItem('role' , '')
             navigate('/login')
             fetchUserData()
             console.log(userData);

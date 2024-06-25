@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { Typography, Container } from '@mui/material';
+import { Typography, Container, Paper, Avatar, TextField, IconButton } from '@mui/material';
 import SimilarItems from '../../components/SimilarItems/SimilarItems';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -15,15 +15,18 @@ import HoverRating from './Components/HoverRating';
 import ColorContext from '../../contexts/ColorContext';
 import CardHeader from './../Home/components/CardHeader';
 import MainCard from '../Home/components/MainCard'
+import { CartContext } from '../../contexts/CartContext';
 
+import DeleteIcon from '@mui/icons-material/Delete';
 export default function ProductDetails() {
   const { color } = useContext(ColorContext)
   const { products } = useContext(ProductsContext)
   const { id } = useParams()
-
+const {cartItems,deleteCartItem} = useContext(CartContext)
   const [product, setProduct] = useState({})
 
   useEffect(() => {
+console.log(cartItems);
     const fetchBid = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:3000/api/v1/products/get-product/${id}`, {
@@ -87,7 +90,7 @@ console.log(product);
               </Grid>
               <Grid item xs={6} sx={{ height: '50%' }}>
                 <img
-                  src={`${product.productId?.imagesUrl.images[0]}`}
+                  src={`${product?.imagesUrl?.images[1]}`}
                   alt="Photo 2"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
@@ -96,7 +99,7 @@ console.log(product);
           </Grid>
           <Grid item xs={3} sx={{ height: '100%' }}>
             <img
-              src={`${product.productId?.imagesUrl.images[0]}`}
+              src={`${product?.imagesUrl?.images[2]}`}
               alt="Photo 3"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
@@ -131,7 +134,34 @@ console.log(product);
                   open={state[anchor]}
                   onClose={toggleDrawer(anchor, false)}
                 >
-                  {list(anchor)}
+                    {cartItems?.map(item => (
+                            <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '5px',  }}>
+                                <Grid container spacing={2} alignItems="center">
+                                    <Grid item xs={12} md={2} height={"100px"}>
+                                        <Avatar variant="square" src={`${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: '100%', borderRadius: '5px' }} />
+                                    </Grid>
+                                    <Grid item xs={12} md={8}>
+                                        <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                                            <Grid item xs={12} md={12}>
+                                                <Typography>Title - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.title}</Typography></Typography>
+                                             </Grid>
+                                            <Grid item xs={12} md={12}>
+                                                <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.price} EGP</Typography>
+                                            </Grid>
+                                            <Grid item xs={12} md={4}>
+                                               
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={6} md={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start' }}>
+                                        <IconButton sx={{ fontWeight: 'bold', fontSize: '17px', color: color }} color="secondary" onClick={() => { deleteCartItem(item._id) }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        ))}
+                    
                 </Drawer>
               </React.Fragment>
             ))}
@@ -145,7 +175,7 @@ console.log(product);
         </Typography>
         {/* <CardHeader>Products</CardHeader> */}
         <Grid container spacing={2}>
-          {products.products.slice(0, 4).map((product, index) => (
+          {products?.products?.slice(0, 4).map((product, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <MainCard product={product} />
             </Grid>

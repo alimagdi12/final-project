@@ -93,17 +93,17 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
   const textFieldStyle = {
     width: "100%",
     marginBottom: "16px",
-    backgroundColor: "rgba(0, 255, 0, 0.1)",
+    backgroundColor: "white",
     "& .MuiInputBase-input": {
-      color: "white", // Text color
+      color: color, // Text color
     },
     "& .MuiInput-underline:after": {
       borderBottomColor: "rgb(150, 187, 124)",
-      color: "rgb(150, 187, 124)",
+      color: color,
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "rgb(150, 187, 124)",
+        borderColor: color,
       },
     },
   };
@@ -116,9 +116,9 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
   };
 
   const buttonStyle = {
-    backgroundColor: "rgb(150, 187, 124)",
+    backgroundColor: color,
     "&:hover": {
-      backgroundColor: "rgb(160, 200, 100)",
+      backgroundColor: color,
     },
     color: "#fff",
     padding: "10px 20px",
@@ -132,7 +132,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
     fontSize: 16,
     cursor: "pointer",
     textDecoration: "underline",
-    color: "rgb(150, 187, 124)",
+    color: color,
   };
 
   return (
@@ -143,8 +143,8 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
       alignItems="center"
       sx={{ width: "50%", margin: "auto", height: "100%", color: "white" }}
     >
-      <Typography variant="h5">Vibe Verse</Typography>
-      <Typography variant="h5">Create your account</Typography>
+      <Typography variant="h5" color={color}>Vibe Verse</Typography>
+      <Typography variant="h5" color={color}>Create your account</Typography>
       <Grid
         display={"flex"}
         sx={{ flexWrap: "wrap", justifyContent: "space-between" }}
@@ -154,7 +154,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
         <Grid item xs={12} md={5}>
           <TextField
             sx={textFieldStyle}
-            InputLabelProps={{ style: { color: "#79987a" } }}
+            InputLabelProps={{ style: { color:color } }}
             label="First Name"
             name="firstName"
             value={signUpForm.firstName}
@@ -167,7 +167,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
         <Grid item xs={12} md={5}>
           <TextField
             sx={textFieldStyle}
-            InputLabelProps={{ style: { color: "#79987a" } }}
+            InputLabelProps={{ style: { color:color } }}
             label="Last Name"
             name="lastName"
             value={signUpForm.lastName}
@@ -181,7 +181,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
       <Grid item xs={12}>
         <TextField
           sx={textFieldStyle}
-          InputLabelProps={{ style: { color: "#79987a" } }}
+          InputLabelProps={{ style: { color:color } }}
           label="Email"
           name="email"
           value={signUpForm.email}
@@ -195,7 +195,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
         <TextField
           sx={textFieldStyle}
           label="Phone Number"
-          InputLabelProps={{ style: { color: "#79987a" } }}
+          InputLabelProps={{ style: { color:color } }}
           name="phoneNumber"
           value={signUpForm.phoneNumber}
           onChange={handleSignUpInputChange}
@@ -207,7 +207,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
       <Grid item xs={12}>
         <TextField
           sx={textFieldStyle}
-          InputLabelProps={{ style: { color: "#79987a" } }}
+          InputLabelProps={{ style: { color:color } }}
           label="Password"
           name="password"
           type="password"
@@ -221,7 +221,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
       <Grid item xs={12}>
         <TextField
           sx={textFieldStyle}
-          InputLabelProps={{ style: { color: "#79987a" } }}
+          InputLabelProps={{ style: { color:color } }}
           label="Confirm Password"
           name="confirmPassword"
           type="password"
@@ -240,7 +240,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
           type="date"
           value={signUpForm.birthDay}
           onChange={handleSignUpInputChange}
-          InputLabelProps={{ shrink: true, style: { color: "#79987a" } }}
+          InputLabelProps={{ shrink: true, style: { color:color } }}
           onBlur={handleBlur}
           error={!!errors.birthDay}
           helperText={errors.birthDay}
@@ -256,7 +256,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
         </Button>
       </Grid>
       <Grid item xs={12} margin={2}>
-        <Typography sx={{ display: "flex", justifyContent: "center" }} margin={2}>
+        <Typography sx={{ display: "flex", justifyContent: "center", color:color }} margin={2}>
           Have an account?
           <Typography marginX={1} sx={linkStyle} onClick={handleToLogin}>
             Login

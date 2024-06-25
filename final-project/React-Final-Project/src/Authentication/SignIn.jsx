@@ -3,6 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { NotificationContext } from "../contexts/NotificationContext";
+import ColorContext from "../contexts/ColorContext";
 
 export default function SignIn({ fade, handleSignIn, handleToRegister, handleToForget }) {
   const [signInForm, setSignInForm] = useState({
@@ -10,7 +11,7 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
     password: "",
   });
   const [errors, setErrors] = useState({});
-
+const {color,lightColor}=useContext(ColorContext)
   const handleSignInInputChange = (e) => {
     const { name, value } = e.target;
     setSignInForm({
@@ -56,25 +57,26 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
   const textFieldStyle = {
     width: "100%",
     marginBottom: "16px",
-    backgroundColor: "rgba(0, 255, 0, 0.1)",
+    backgroundColor: "white",
+    color:color,
     "& .MuiInputBase-input": {
-      color: "white", // Text color
+      color: color, // Text color
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "rgb(150, 187, 124)",
-      color: "rgb(150, 187, 124)",
+      borderBottomColor: color,
+      color: "white",
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "rgb(150, 187, 124)",
+        borderColor: color,
       },
     },
   };
 
   const buttonStyle = {
-    backgroundColor: "rgb(150, 187, 124)",
+    backgroundColor: color,
     "&:hover": {
-      backgroundColor: "rgb(160, 200, 100)",
+      backgroundColor: lightColor,
     },
     color: "#fff",
     padding: "10px 20px",
@@ -88,7 +90,7 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
     fontSize: 16,
     cursor: "pointer",
     textDecoration: "underline",
-    color: "rgb(150, 187, 124)",
+    color: color,
   };
 
   const { fetchNotifications, notifications } = useContext(NotificationContext);
@@ -101,14 +103,14 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
     <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', textAlign: 'center', color: 'white' }}>
       <Box className={`inputs ${fade ? "fade-out" : "fade-in"}`} sx={{ width: "50%", height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignContent: 'center', textAlign: 'center', color: 'white' }}>
         <Box sx={{ width: '100%' }}>
-          <Typography variant="h5" margin={1}>Vibe Verse</Typography>
-          <Typography variant="h5" margin={1}>Log In to your account</Typography>
+          <Typography variant="h5" margin={1} sx={{color:color}}>Vibe Verse</Typography>
+          <Typography variant="h5" margin={1} sx={{color:color}}>Log In to your account</Typography>
         </Box>
         <Grid container display={'flex'} justifyContent="center" alignItems="center" sx={{}}>
           <Grid item xs={12} margin={1}>
             <TextField
               sx={textFieldStyle}
-              InputLabelProps={{ style: { color: "#79987a" } }}
+              InputLabelProps={{ style: { color: color} }}
               label="Email"
               name="email"
               value={signInForm.email}
@@ -121,7 +123,7 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
           <Grid item xs={12} margin={1}>
             <TextField
               sx={textFieldStyle}
-              InputLabelProps={{ style: { color: "#79987a" } }}
+              InputLabelProps={{ style: { color: color } }}
               label="Password"
               name="password"
               type="password"
@@ -142,7 +144,7 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
             </Button>
           </Grid>
           <Grid item xs={12} margin={1}>
-            <Typography marginTop={1}>
+            <Typography marginTop={1} color={{color:color}}>
               Don't have an account?
               <Typography
                 marginX={1}

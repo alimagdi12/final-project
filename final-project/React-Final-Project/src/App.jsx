@@ -31,6 +31,7 @@ import OrderDetails from './pages/Profile/ProfileList/Orders/OrderDetails.jsx';
 import Orders1 from './pages/Profile/ProfileList/Orders/Orders1.jsx';
 import PostsPage from './pages/Posts/PostsPage.jsx';
 import LoaderContext from './contexts/LoaderContext.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 function App() {
   const location = useLocation();
@@ -61,7 +62,7 @@ const {loader} = useContext(LoaderContext)
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
-        {loader && <Loader/>} 
+        {/* {loader && <Loader/>}  */}
         {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
@@ -82,7 +83,7 @@ const {loader} = useContext(LoaderContext)
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/sell" element={<List />} />
           <Route path="/add-auction" element={<AddAuction />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
           <Route path="/favorite" element={<FavoritePage />} />
           {/* <Route path="/order" element={<Orders1 />} /> */}
           {/* <Route path="/order/:id" element={<OrderDetails />} /> */}

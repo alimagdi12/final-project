@@ -34,6 +34,31 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+
+    const deleteCartItem = async (id) => {
+        try {
+            console.log("Deleting item from cart...");
+            const response = await axios.post(
+                'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
+                { cartId: id },
+                {
+                    headers: {
+                        'Content-Type': 'application/json', // Adjust content type as necessary
+                        jwt: localStorage.getItem('token'),
+                    },
+                }
+            );
+            getCart()
+            if (response.status === 200) {
+                console.log(`Item ${id} deleted successfully.`);
+                setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+            }
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        }
+    };
+
+
     async function addToCart(productId) {
         const productForm = new FormData();
         productForm.append("productId", productId);
@@ -96,7 +121,7 @@ export const CartProvider = ({ children }) => {
     const totalItems = 0
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems, setCartItems, getCart, deleteAllCartItems,totalPrice }}>
+        <CartContext.Provider value={{ cartItems, addToCart, updateCartItemQuantity, totalItems,deleteCartItem, setCartItems, getCart, deleteAllCartItems,totalPrice }}>
             {children}
         </CartContext.Provider>
     );

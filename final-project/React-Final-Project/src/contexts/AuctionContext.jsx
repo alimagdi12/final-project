@@ -26,7 +26,7 @@ export const AuctionProvider = ({ children }) => {
   }, []); 
   
   return (
-    <AuctionContext.Provider value={{ auction, setAuction }}>
+    <AuctionContext.Provider value={{ auction, setAuction,fetchAuction }}>
       {children}
     </AuctionContext.Provider>
   );

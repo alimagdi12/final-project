@@ -127,7 +127,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             component={Link}
             to="/"
             sx={{
-              mr: 2,
+              marginLeft:2,
               display: { xs: "none", md: "flex", width:'15%' },
               fontFamily: "monospace",
               fontWeight: 700,
@@ -137,9 +137,12 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             }}
           >
               <img
+                
                 src="/logo.png"
                 alt="Logo"
-                width="100%"
+                width="60%"
+                
+                height={'50%'}
                 style={{ cursor: "pointer" }}
               />
           </Typography>
@@ -226,8 +229,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   sx={{
                     position: "absolute",
                     top: "100%",
-                    left: "50%",
-                    width: "1000px",
+                   
+                    width: "700px",
                     background: "white",
                     boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.3)",
                     borderRadius: "5px",
