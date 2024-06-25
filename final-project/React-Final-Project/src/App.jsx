@@ -32,9 +32,12 @@ import Orders1 from './pages/Profile/ProfileList/Orders/Orders1.jsx';
 import PostsPage from './pages/Posts/PostsPage.jsx';
 import LoaderContext from './contexts/LoaderContext.jsx';
 import NotFound from './pages/Not Found/NotFound.jsx';
+import ProtectedRoute from "./ProtectedRoute.jsx";
+
 
 function App() {
   const location = useLocation();
+  
   const [darkMode, setDarkMode] = useState(false);
   const [isAuthRoute, setIsAuthRoute] = useState(false);
   const [isChatRoute, setIsChatRoute] = useState(false);

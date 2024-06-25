@@ -133,7 +133,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             <img
               src="/logo.png"
               alt="Logo"
-              width="100%"
+              width="80%"
               style={{ cursor: "pointer" }}
             />
           </Typography>
