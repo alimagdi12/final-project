@@ -26,7 +26,7 @@ export default function AllProducts() {
   const [toggle, setToggle] = useState(false);
   const { products,fetchProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
-  const { auction } = useContext(AuctionContext);
+  const { auction , fetchAuction } = useContext(AuctionContext);
   const [displayedProducts, setDisplayedProducts] = useState([]);
   const [searchLocation, setSearchLocation] = useState(null);
   const [searchCategory, setSearchCategory] = useState([]);
@@ -64,6 +64,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
 
   useEffect(() => {
     fetchProducts()
+    fetchAuction()
     setDisplayedProducts(products?.products);
   }, []);
 
@@ -127,7 +128,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
   return (
     <>
      <div style={{
-        backgroundImage: `url(${cart2Image})`,
+        // backgroundImage: `url(${cart2Image})`,
         paddingTop: '20px',
         backgroundSize: 'cover', // Ensure the background image covers the container
         backgroundPosition: 'center'
@@ -143,11 +144,11 @@ const {loader ,setLoader} = useContext(LoaderContext)
           <Box
             sx={{
               width: { xs: "100%", md: "25%" }, // Adjust width for smaller screens
-              height: "auto",
+              height: "70vh",
               border: `3px solid ${color}`,
               borderRadius: "10px",
               paddingX: "50px",
-              color: "white",
+              color: color,
               marginBottom: { xs: "20px", md: 0 }, // Add bottom margin for smaller screens
             }}
           >
@@ -157,7 +158,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
               <FormControl>
                 <FormLabel
                   sx={{
-                    color: 'white',
+                    color: color,
                     borderBottom: `2px solid ${color}`,
                     width: "100%",
                   }}
@@ -178,7 +179,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
                         sx={{
                           color: 'white',
                           "&.Mui-checked": {
-                            color: "white",
+                            color: color,
                           },
                         }}
                       />
@@ -192,9 +193,9 @@ const {loader ,setLoader} = useContext(LoaderContext)
                       control={
                         <Radio
                           sx={{
-                            color: "white",
+                            color: color,
                             "&.Mui-checked": {
-                              color: "white",
+                              color: color,
                             },
                           }}
                         />
@@ -209,7 +210,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
               {/* City filter */}
               <FormControl>
                 <FormLabel
-                  sx={{ color: 'white', borderBottom: `2px solid ${color}` }}
+                  sx={{ color: color, borderBottom: `2px solid ${color}` }}
                   id="demo-radio-buttons-group-label"
                 >
                   City
@@ -225,9 +226,9 @@ const {loader ,setLoader} = useContext(LoaderContext)
                     control={
                       <Radio
                         sx={{
-                          color: "white",
+                          color: color,
                           "&.Mui-checked": {
-                            color: "white",
+                            color: color,
                           },
                         }}
                       />
@@ -239,9 +240,9 @@ const {loader ,setLoader} = useContext(LoaderContext)
                     control={
                       <Radio
                         sx={{
-                          color: "white",
+                          color: color,
                           "&.Mui-checked": {
-                            color: "white",
+                            color: color,
                           },
                         }}
                       />
@@ -253,9 +254,9 @@ const {loader ,setLoader} = useContext(LoaderContext)
                     control={
                       <Radio
                         sx={{
-                          color: "white",
+                          color: color,
                           "&.Mui-checked": {
-                            color: "white",
+                            color: color,
                           },
                         }}
                       />
@@ -267,9 +268,9 @@ const {loader ,setLoader} = useContext(LoaderContext)
                     control={
                       <Radio
                         sx={{
-                          color: "white",
+                          color: color,
                           "&.Mui-checked": {
-                            color: "white",
+                            color: color,
                           },
                         }}
                       />

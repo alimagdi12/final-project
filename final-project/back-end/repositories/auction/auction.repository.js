@@ -3,6 +3,10 @@ const ProductStatus = require('../../models/productStatus/productStatus.model');
 const jwt = require("jsonwebtoken");
 const User = require('../../models/user/user.model');
 
+const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
+const { storage } = require('../../config/firebase/firebase.config');
+const fs = require('fs');
+const stream = require('stream');
 class AuctionRepository {
     constructor(io) {
         this.io = io
@@ -28,11 +32,20 @@ class AuctionRepository {
             location,
             status:statusId
         });
-        if (files && files.length > 0) {
-            files.forEach(file => {
-                auction.imagesUrl.images.push(file.filename); 
-            });
-            }
+      
+           // Upload images using buffer directly
+           const uploadPromises = files.map(async (file) => {
+            const storageRef = ref(storage, `images/${folderName}/${Date.now()}-${file.originalname}`);
+            const metadata = { contentType: file.mimetype };
+
+            // Upload the file buffer directly to Firebase Storage
+            const snapshot = await uploadBytes(storageRef, file.buffer, metadata);
+
+            // Get the download URL and push it to the images array
+            const imageUrl = await getDownloadURL(snapshot.ref);
+            auction.imagesUrl.images.push(imageUrl);
+           })
+           await Promise.all(uploadPromises);
         await auction.save();
         return auction;
     }

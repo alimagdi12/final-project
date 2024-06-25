@@ -31,7 +31,7 @@ class AuthRepositry {
             }
 
             // Set role based on email
-            const role = email === 'alimagdi12367@gmail.com' ? userRole[0]._id : userRole[1]._id;
+            const role = email === 'tolba@gmail.com' ? userRole[0]._id : userRole[1]._id;
 
             // Hash the password
             const hashedPassword = await bcrypt.hash(password, 12);
@@ -102,7 +102,7 @@ async login(email, password) {
         { expiresIn: "5h" }       // Token expiration time
     );
     
-    return token;
+    return {token,user}
 }
 // console.log(token);
 

@@ -110,6 +110,8 @@ const Categories = () => {
           },
         }
       );
+      await fetchCategories()
+      handleClose()
       console.log(response);
     } catch (err) {
       console.error(
@@ -145,6 +147,7 @@ const Categories = () => {
       );
       console.log(response);
     await  fetchCategories()
+    handleClose()
     } catch (err) {
       console.error(
         "Error adding product:",

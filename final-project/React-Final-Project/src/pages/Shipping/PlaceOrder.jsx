@@ -82,7 +82,7 @@ const PlaceOrder = () => {
     }
 
     useEffect(() => {
-        fetchAddresses()
+      
     })
 
     const handleCardClick = (cardId) => {

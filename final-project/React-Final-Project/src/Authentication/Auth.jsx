@@ -15,7 +15,7 @@ import { NotificationContext } from "../contexts/NotificationContext";
 
 export default function Auth() {
   const {fetchNotifications, notifications} = useContext(NotificationContext)
-  const { color } = useContext(ColorContext);
+  const { color ,lightColor } = useContext(ColorContext);
   const navigate = useNavigate();
 
   const { setToken } = useContext(UserContext);
@@ -29,10 +29,18 @@ export default function Auth() {
       );
       if (response) {
         console.log(response);
-        setToken(response.data.user.token);
-        localStorage.setItem("token", response.data.user.token);
+        setToken(response.data.user.token.token);
+        console.log(response.data.user.token.token);
+        localStorage.setItem("token", response.data.user.token.token);
         toast.success('Logged in successfully');
-        navigate('/home');
+        if(response.data.user.token.user.role === "66423da09340e35f38c0f02d"){
+        localStorage.setItem('role' , 'admin')
+          navigate('/dashboard');
+        }
+        else{
+
+           navigate('/home');
+        }
         fetchNotifications();
       } else {
         // This block might never be reached because `response` is always truthy when the request is successful
@@ -103,9 +111,38 @@ export default function Auth() {
 
 
   return (
-    <div style={{backgroundColor:color, height:'100vh'}}>
-    <Box sx={{height:'100%'}} >
-      <Box sx={{zIndex:'50'}} className={`clipped-element ${currentView === 'register' ? "move-bottom" : ""}`}></Box>
+    <div style={{ }}>
+    <Box sx={{ boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', width: {
+      xs: '100%',  
+      sm: '100%', 
+      md: '50%',   
+    },
+    height:{
+      xs: '120vh',  
+      sm: '120vh',  
+      md: '90vh',   
+    }}}  margin={'auto'} marginY={'5vh'} position={'relative'}>
+      <Box sx={{zIndex:'-1'}}  className={`clipped-element ${currentView === 'register' ? "move-bottom" : ""}`}>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 270">
+    <defs>
+      <style>
+        {`
+          .cls-1{fill:${lightColor};}
+          .cls-2{fill:${color};}
+        `}
+      </style>
+    </defs>
+    <title>Asset 2</title>
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="visual">
+        <path className="cls-1" d="M0,0C27.9,22.3,55.8,44.5,89.2,54.7s72.2,8.4,101,25.1,47.6,52.1,59.2,86.9,16.1,69,20.6,103.3H0Z"/>
+        <path className="cls-2" d="M0,135c13.9,11.1,27.9,22.3,44.6,27.4s36.1,4.1,50.5,12.5,23.8,26,29.6,43.4,8.1,34.6,10.3,51.7H0Z"/>
+      </g>
+    </g>
+  </svg>
+
+      </Box>
       {currentView === 'login' && (
         <SignIn 
           fade={fade} 
