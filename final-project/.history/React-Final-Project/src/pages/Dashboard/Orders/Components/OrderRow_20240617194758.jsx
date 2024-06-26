@@ -10,7 +10,7 @@ import ColorContext from "../../../../contexts/ColorContext";
 
     const {color,lightColor} = useContext(ColorContext)
   const { orders } = useContext(OrderContext);
-  console.log(orders);
+  (orders);
   const handleCancel = () => {
     // Call the onCancel function with the order id
     // onCancel(order.id);

@@ -13,7 +13,7 @@ import ColorContext from '../../contexts/ColorContext';
 import { useContext } from 'react';
 
 export default function ProductCard({ product, addToCart }) {
-  console.log(product);
+  (product);
  
   const navigate = useNavigate();
 const {color}= useContext(ColorContext)

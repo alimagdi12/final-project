@@ -45,7 +45,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleProfileClick = () => {
     if (token !== "" || token) {
-      console.log(token);
+      (token);
       navigate("/profile");
     } else {
       toast.error("You must login first");
@@ -54,7 +54,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleDashboardClick = () => {
     if (token !== "" || token) {
-      console.log(token);
+      (token);
       navigate("/dashboard");
     } else {
       toast.error("You Are Not Admin ");
@@ -69,7 +69,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   useEffect(() => {
     fetchUserData();
-    console.log(userData);
+    (userData);
     getFavorite();
     getCart();
   }, []);
@@ -84,7 +84,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-    console.log(event.currentTarget);
+    (event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -133,8 +133,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             <img
               src="/logo.png"
               alt="Logo"
-              width="80%"
-              style={{ cursor: "pointer" }}
+             
+              style={{ cursor: "pointer", width:'70%' }}
             />
           </Typography>
   
@@ -244,7 +244,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   <Grid
                     className="d-flex flex-wrap"
                     md={6}
-                    sx={{ zIndex: "999", height: "100%", maxWidth: '100%' }}
+                    sx={{ zIndex: "999", height: "100%", width: '680px' }}
                   >
                     {categories && categories.categories && categories.categories.map((category) => (
                       <Link to={`/products/${category._id}`} key={category._id}>

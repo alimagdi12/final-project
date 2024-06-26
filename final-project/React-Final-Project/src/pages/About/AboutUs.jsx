@@ -8,6 +8,7 @@ import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PaidIcon from '@mui/icons-material/Paid';
 import { colors } from '../../Util/utilities';
+import "./About.css"
 
 export default function AboutUs() {
   const members = [
@@ -34,17 +35,46 @@ export default function AboutUs() {
               flexWrap: 'wrap',
               justifyContent: 'center',
             }}>
-              {
-                members.map((member) => {
-                  return (
-                    <AboutCard key={member.name} img={member.img} name={member.name} src={member.src}>{member.name}</AboutCard>
-                  )
-                })
-              }
+            
             </Grid>
           </Grid>
         </Box>
       </Box>
+
+
+      <div class="container w-75 m-auto" style={{width:'75% '}}>
+    <div>
+      <div class="content">
+        <h2>Omar Hassan</h2>
+        <span>Full-Stack Developer</span>
+      </div>
+    </div>
+    <div>
+      <div class="content">
+        <h2>Omar Gaber</h2>
+        <span>Full-Stack Developer</span>
+      </div>
+    </div>
+    <div>
+      <div class="content">
+        <h2>Ali Magdi</h2>
+        <span>Full-Stack Developer</span>
+      </div>
+    </div>
+    <div>
+      <div class="content">
+        <h2>Mohamed Ayman</h2>
+        <span>UI & UX Designer</span>
+      </div>
+    </div>
+    <div>
+      <div class="content">
+        <h2>Sara Ayman</h2>
+        <span>UI & UX Designer</span>
+      </div>
+    </div>
+  </div>
+
 
       {/* Last section */}
       <container>
@@ -81,6 +111,7 @@ export default function AboutUs() {
           </Grid>
         </Grid>
       </container>
+    
     </Container>
   );
 }

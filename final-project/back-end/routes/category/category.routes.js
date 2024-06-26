@@ -7,7 +7,7 @@ const categoryRouter = (categoryController) => {
 
     router.post('/add-category', async (req, res, next) => {
         try {
-            console.log(req.files);
+            (req.files);
             await upload.uploadImage(req, res);
             const category = await categoryController.addCategory(req.body, req.files);
             res.status(200).json(category)

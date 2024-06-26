@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Menu, MenuItem, Typography, Grid, Box } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UserContext from '../../../contexts/UserContext';
@@ -18,6 +18,11 @@ const Post = ({ post }) => {
     const handleCommentChange = (e) => {
         setCommentText(e.target.value);
     };
+
+    
+useEffect(()=>{
+    (post);
+},[])
 
     const handleCommentSubmit = async () => {
         const comment = { userId: userData._id, content: commentText };
@@ -55,7 +60,7 @@ const Post = ({ post }) => {
 
     // const handleDelete = () => {
     //     // Add delete functionality here
-    //     console.log('Delete post:', post.id);
+    //     ('Delete post:', post.id);
     //     handleMenuClose();
     // };
 
@@ -71,7 +76,12 @@ const Post = ({ post }) => {
                                     <img src="../../../../public/Omar.jpg" alt="User" style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
                                     <Typography variant="body1">{userData?.name || 'User Name'}</Typography>
                                 </Box>
-                                <IconButton
+                             
+                                
+                                   
+                                    {userData?._id == post?.author?._id && ( 
+                                        <>
+                                           <IconButton
                                     aria-label="more"
                                     aria-controls={menuOpen ? 'long-menu' : undefined}
                                     aria-haspopup="true"
@@ -79,21 +89,25 @@ const Post = ({ post }) => {
                                 >
                                     <MoreVertIcon />
                                 </IconButton>
-                                <Menu
-                                    id="long-menu"
-                                    anchorEl={anchorEl}
-                                    open={menuOpen}
-                                    onClose={handleMenuClose}
-                                    PaperProps={{
-                                        style: {
-                                            maxHeight: 48 * 4.5,
-                                            width: '20ch',
-                                        },
-                                    }}
-                                >
-                                    <MenuItem onClick={()=>deletePost(post._id)}>Delete</MenuItem>
-                                    <MenuItem onClick={handleMenuClose}>Other Option</MenuItem>
+                                        <Menu
+                                        id="long-menu"
+                                        anchorEl={anchorEl}
+                                        open={menuOpen}
+                                        onClose={handleMenuClose}
+                                        PaperProps={{
+                                            style: {
+                                                maxHeight: 48 * 4.5,
+                                                width: '20ch',
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem onClick={()=>deletePost(post._id)}>Delete</MenuItem>
+                                        
                                 </Menu>
+                                        </>
+                                        )}
+                                
+                                
                             </Box>
                         </Grid>
                         <Grid item xs={12}>

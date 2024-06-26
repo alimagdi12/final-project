@@ -15,7 +15,7 @@ export default function SignIn({ fade, handleSignIn, handleToRegister, handleToF
       ...signInForm,
       [name]: value,
     });
-    console.log(signInForm);
+    (signInForm);
   };
 
   

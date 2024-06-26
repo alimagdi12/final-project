@@ -60,7 +60,7 @@ const Address = () => {
                             <Typography component="span">Add Address</Typography>
                         </Button>
                     </Grid>
-                    {addresses?.map((address) => (
+                    {addresses && addresses?.map((address) => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={address.id} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Card sx={{ width: '100%', border: '1px solid #5DAA60', borderRadius: '10px' }}>
                                 <CardContent>

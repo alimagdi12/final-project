@@ -15,16 +15,16 @@
         const socket = io('http://localhost:3000'); 
 
         socket.on('connect', () => {
-            console.log('Connected to server');
+            ('Connected to server');
         });
 
         socket.on('newBid', (data) => {
-            console.log('New bid amount:', data.amount);
+            ('New bid amount:', data.amount);
             // Update the UI to display the new bid amount
             document.getElementById('auction-updates').innerText = `New bid amount: $${data.amount}`;
         });
          socket.on('newUser', (data) => {
-    console.log('New user is:', data.user);
+    ('New user is:', data.user);
     // Update the UI to display the new user
     document.getElementById('auction-updates').innerText = `New user is: ${data.user}`;
 });

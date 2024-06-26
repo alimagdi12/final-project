@@ -28,7 +28,7 @@ class UserRepositry {
 
 
     async editUser(userData, token) {
-        console.log(userData);
+        (userData);
         try {
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // No need for await here
             const email = decodedToken.email;
@@ -62,7 +62,7 @@ class UserRepositry {
     
             return user;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err.message || "An error occurred while updating the user.");
         }
     }
@@ -81,13 +81,13 @@ class UserRepositry {
 
             return user;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
 
     async updateUserImage(token, files) {
-        console.log(files);
+        (files);
         try {
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const email = decodedToken.email;
@@ -100,7 +100,7 @@ class UserRepositry {
 
             if (files && files.length > 0) {
                 const file = files[0];
-                console.log(file);
+                (file);
                 // If the user has an existing image, delete it
                 if (user.imageUrl && user.imageUrl.images && user.imageUrl.images.length > 0) {
                     const existingImage = user.imageUrl.images[0];
@@ -131,7 +131,7 @@ class UserRepositry {
                 return { success: false, message: 'No image provided' };
             }
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -145,11 +145,11 @@ class UserRepositry {
             }
             user.userSocketId = socketId;
             await user.save();
-            console.log('socketid saved successfully')
+            ('socketid saved successfully')
             this.io.emit('newUser', { user })
             return user;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -164,7 +164,7 @@ class UserRepositry {
             await user.save();
             return user;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -175,7 +175,7 @@ class UserRepositry {
         const email = decodedToken.email;
         const user = await User.findOne({ email });
         const product = await Product.findOne({ _id: productId })
-        console.log(product);
+        (product);
 
         if (!product) {
             throw new Error('no product')
@@ -202,8 +202,8 @@ class UserRepositry {
             throw new Error('User not found');
         }
 
-        console.log('Original Favorites:', user.favorites);
-        console.log('Product ID to remove:', productId);
+        ('Original Favorites:', user.favorites);
+        ('Product ID to remove:', productId);
 
         // Convert productId to a string to ensure correct comparison
         const productIdString = productId.toString();
@@ -211,7 +211,7 @@ class UserRepositry {
         // Ensure all IDs in the favorites array are strings for comparison
         const updatedFavorites = user.favorites.filter(id => id?.toString() !== productIdString);
 
-        console.log('Updated Favorites:', updatedFavorites);
+        ('Updated Favorites:', updatedFavorites);
 
         user.favorites = updatedFavorites; // Update user's favorites with the filtered array
         await user.save();

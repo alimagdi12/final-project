@@ -15,7 +15,7 @@ class CartRepository {
 
     async addToCart(data, token) {
         const { productId, quantity = 1 } = data;  // Set default quantity to 1 if not provided
-        console.log(data);
+        (data);
         const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
         const userId = decodedToken.userId;
 
@@ -59,7 +59,7 @@ class CartRepository {
 
     async removeFromCart(data, token) {
         const { cartId } = data;
-        console.log(cartId);
+        (cartId);
         const cart = await Cart.findById(cartId);
         if (!cart) throw new Error("Cart item not found");
         await cart.remove();

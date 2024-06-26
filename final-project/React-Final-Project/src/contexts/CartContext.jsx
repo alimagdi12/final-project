@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
                 }
             });
             setCartItems(response.data.cart);
-            console.log(cartItems);
+            (cartItems);
 
         } catch (err) {
             console.error(err);
@@ -37,7 +37,7 @@ export const CartProvider = ({ children }) => {
 
     const deleteCartItem = async (id) => {
         try {
-            console.log("Deleting item from cart...");
+            ("Deleting item from cart...");
             const response = await axios.post(
                 'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
                 { cartId: id },
@@ -50,7 +50,7 @@ export const CartProvider = ({ children }) => {
             );
             getCart()
             if (response.status === 200) {
-                console.log(`Item ${id} deleted successfully.`);
+                (`Item ${id} deleted successfully.`);
                 setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
             }
         } catch (error) {
@@ -67,7 +67,7 @@ export const CartProvider = ({ children }) => {
 
             try {
                 const token = localStorage.getItem("token");
-                console.log(token);
+                (token);
                 const response = await axios.post(
                     "http://localhost:3000/api/v1/auth/add-to-cart",
                     productForm,

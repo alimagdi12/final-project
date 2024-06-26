@@ -46,7 +46,7 @@ export const OrderProvider = ({ children }) => {
     };
 
     const createOrder = async (userId, items, totalAmount) => {
-        console.log( items);
+        ( items);
         try {
 
             const items = cartItems.map(item => ({

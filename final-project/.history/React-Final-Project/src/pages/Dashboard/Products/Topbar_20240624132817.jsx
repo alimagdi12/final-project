@@ -19,7 +19,7 @@ const Topbar = () => {
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
-        console.log(event.target.value);
+        (event.target.value);
         // Implement search logic here, e.g., filter users from a list based on the search term
         // You might fetch data from an API or filter a list in the state/context
     };

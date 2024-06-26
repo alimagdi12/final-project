@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
                 }
             });
             setCartItems(response.data.cart);
-            console.log(cartItems);
+            (cartItems);
 
         } catch (err) {
             console.error(err);
@@ -41,7 +41,7 @@ export const CartProvider = ({ children }) => {
 
             try {
                 const token = localStorage.getItem("token");
-                console.log(token);
+                (token);
                 const response = await axios.post(
                     "http://localhost:3000/api/v1/auth/add-to-cart",
                     productForm,

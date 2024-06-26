@@ -80,7 +80,7 @@ export const OrderProvider = ({ children }) => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(orders.orders);
+            (orders.orders);
             setOrders(orders.orders.filter(order => order._id !== orderId));
             getOrder();
             toast.success('Order deleted successfully');

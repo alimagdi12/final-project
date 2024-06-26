@@ -17,13 +17,13 @@ const Topbar = () => {
     const { color, lightColor } = useContext(ColorContext);
     const { userData } = useContext(UserContext);
     const {orders} = useContext(OrderContext)
-    console.log(orders);
+    (orders);
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearchChange = (event) => {
         const value = event.target.value
         setSearchTerm(value);
-        console.log(event.target.value);
+        (event.target.value);
         
         // Implement search logic here, e.g., filter users from a list based on the search term
         // You might fetch data from an API or filter a list in the state/context

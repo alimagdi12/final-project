@@ -8,10 +8,10 @@ const ProfileAvatar = () => {
   const { color } = useContext(ColorContext);
   const [userForm, setUserForm] = useState(new FormData()); // Use state to track userForm
 const {userData,fetchUserData} = useContext(UserContext)
-console.log(userData);
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    console.log(files);
+    (files);
 
     const updatedForm = new FormData(); // Create a new FormData object
     files.forEach((image) => {
@@ -21,7 +21,7 @@ console.log(userData);
   };
 
 useEffect(()=>{
-    console.log(userData);
+    (userData);
 },[])
 
   const handleImage = async () => {
@@ -36,7 +36,7 @@ useEffect(()=>{
           },
         }
       );
-      console.log(response);
+      (response);
       fetchUserData()
     } catch (err) {
       console.error('Error adding photo:', err.response ? err.response.data : err);
@@ -64,7 +64,7 @@ useEffect(()=>{
           </label>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>{userData.firstName} {userData.lastName}</Typography>
+          <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>{userData?.firstName} {userData?.lastName}</Typography>
           {/* <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>Ismailia, EG</Typography> */}
         </Grid>
         <Grid item xs={12}>

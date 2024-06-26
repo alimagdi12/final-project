@@ -13,7 +13,7 @@ class OrderRepository {
         }
 
         const totalAmount = cartItems.reduce((acc, item) => acc + item?.productId?.price * item?.quantity, 0);
-        console.log(cartItems);
+        (cartItems);
         const order = new Order({
             userId,
             items: cartItems.map(item => ({

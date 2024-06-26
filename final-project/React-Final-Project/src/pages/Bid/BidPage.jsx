@@ -86,7 +86,7 @@ const BidPage = () => {
     });
 
     socket.on("connect", () => {
-      console.log("Connected to server");
+      ("Connected to server");
     });
 
     socket.on("newBid", (message) => {

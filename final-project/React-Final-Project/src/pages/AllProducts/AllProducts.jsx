@@ -5,7 +5,7 @@ import CategoryContext from "../../contexts/CategoriesContext";
 import AuctionContext from "../../contexts/AuctionContext";
 import Loader from './../../components/loader/Loader.jsx';
 import axios from "axios";
-import cart2Image from '../../../public/cart8.jpg';
+import cart2Image from '../../../public/8038874_25098.jpg';
 import {
   Box,
   Container,
@@ -22,7 +22,7 @@ import ColorContext from "../../contexts/ColorContext";
 import LoaderContext from "../../contexts/LoaderContext";
 
 export default function AllProducts() {
-  const { color } = useContext(ColorContext);
+  const { color , lightColor} = useContext(ColorContext);
   const [toggle, setToggle] = useState(false);
   const { products,fetchProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
@@ -49,7 +49,7 @@ export default function AllProducts() {
     indexOfLastAuction
   );
 
-  console.log(currentAuctions);
+  (currentAuctions);
 
   const { getCart, addToCart } = useContext(CartContext);
 const {loader ,setLoader} = useContext(LoaderContext)
@@ -68,6 +68,11 @@ const {loader ,setLoader} = useContext(LoaderContext)
     setDisplayedProducts(products?.products);
   }, []);
 
+
+  
+  useEffect(() => {
+    setDisplayedProducts(products?.products);
+  }, [products]);
 
   function filterByCategory(event) {
     setSearchCategory(event.target.value);
@@ -128,7 +133,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
   return (
     <>
      <div style={{
-        // backgroundImage: `url(${cart2Image})`,
+         backgroundImage: `url(${cart2Image})`,
         paddingTop: '20px',
         backgroundSize: 'cover', // Ensure the background image covers the container
         backgroundPosition: 'center'
@@ -144,7 +149,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
           <Box
             sx={{
               width: { xs: "100%", md: "25%" }, // Adjust width for smaller screens
-              height: "70vh",
+              height:{ xs:'100%', md:"70vh"},
               border: `3px solid ${color}`,
               borderRadius: "10px",
               paddingX: "50px",
@@ -293,9 +298,12 @@ const {loader ,setLoader} = useContext(LoaderContext)
             <Box
               sx={{
                 display: "flex",
+                width:'80%',
+
                 justifyContent: "space-between",
                 marginBottom: 2,
                 marginTop: { xs: 2, md: 0 },
+              marginX:'auto'
               }}
             >
               {/* Show Products and Show Auction buttons */}
@@ -359,6 +367,8 @@ const {loader ,setLoader} = useContext(LoaderContext)
             </Box>
           </Box>
         </Container>
+       
+       
         { !toggle && currentProducts &&
           <Container
             sx={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: '20px' }}
@@ -369,11 +379,11 @@ const {loader ,setLoader} = useContext(LoaderContext)
               onChange={handlePageChange}
               sx={{
                 "& .MuiPaginationItem-root": {
-                  color: '#fff'
+                  color: color
                 },
                 "& .Mui-selected": {
-                  backgroundColor: color,
-                  color: "white",
+                  backgroundColor: lightColor,
+                  color:'#fff',
                 },
               }}
             />
@@ -389,11 +399,11 @@ const {loader ,setLoader} = useContext(LoaderContext)
               onChange={handleAuctionPageChange}
               sx={{
                 "& .MuiPaginationItem-root": {
-                  color: '#fff'
+                  color: color
                 },
                 "& .Mui-selected": {
                   backgroundColor: color,
-                  color: "white",
+                  color: color,
                 },
               }}
             />

@@ -13,10 +13,10 @@ export const OrderRow = ({ order }) => {
     const {orders, deleteOrder, updateOrderStatus } = useContext(OrderContext);
     const {cartItems} = useContext(CartContext)
     const {products} = useContext(ProductsContext)
-    console.log(orders);
-    console.log(cartItems);
-    console.log(products);
-    console.log(products?.products[0]?.imagesUrl?.images[0]);
+    (orders);
+    (cartItems);
+    (products);
+    (products?.products[0]?.imagesUrl?.images[0]);
     const [status, setStatus] = useState(order.status || "Pending");
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export const OrderRow = ({ order }) => {
         return product.imagesUrl.images[0]
     })
 
-    console.log(images);
+    (images);
 
     return (
         <Grid

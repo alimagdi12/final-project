@@ -46,21 +46,21 @@ export const OrderProvider = ({ children }) => {
     };
 
     const createOrder = async (userId, items, totalAmount) => {
-        // console.log( items);
+        // ( items);
         try {
 
             const items1 = cartItems.map(item => ({
                 productId: item.productId,
                 quantity: item.quantity
             }));
-            // console.log(items1);
+            // (items1);
             const payload = {
                 userId: userData._id,
                 items:items1,
                 totalAmount: totalPrice
             };
 
-            console.log(payload);
+            (payload);
 
             const response = await axios.post('http://127.0.0.1:3000/api/v1/auth/create-order', payload, {
                 headers: {

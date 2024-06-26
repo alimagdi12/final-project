@@ -36,7 +36,7 @@ const EditAddressForm = ({ open, handleClose, address }) => {
         await editAddress(address._id, formData);
         await fetchAddresses()
         setFormData(formData)
-        console.log(address);
+        (address);
         handleClose();
     };
 

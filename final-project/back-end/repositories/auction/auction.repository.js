@@ -20,7 +20,7 @@ class AuctionRepository {
         const folderName = title + new Date().toISOString().split('T')[0];
         const getStatus = await ProductStatus.findOne({ status: productStatus });
         const statusId = getStatus._id;
-        console.log(data);
+        (data);
         const auction = new Auction({ 
             expirationDate, 
             userId,
@@ -71,7 +71,7 @@ class AuctionRepository {
     async getAuctionById(data, token) {
         const id = data.id;
         const auction = await Auction.findById(id).populate('productId bidsId categoryId').exec();
-        console.log(auction);
+        (auction);
         if (!auction) throw new Error("Auction not found");
         return auction;
     }
@@ -99,7 +99,7 @@ class AuctionRepository {
     async auctionWinner(data, token) {
         const auctionId = data.auctionId;
         const auction = await Auction.findById(auctionId).populate('bidsId categoryId').exec();
-        console.log(auction);
+        (auction);
         if (!auction) return "Auction not found";
         if (!auction.bidsId || auction.bidsId.length === 0) return "No bids found for this auction";
     

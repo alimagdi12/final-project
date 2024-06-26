@@ -33,7 +33,7 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
       setToken(localStorage.getItem('token'))
-      fetchUserData();
+      
         
     }, [localStorage.getItem('token')]);
 

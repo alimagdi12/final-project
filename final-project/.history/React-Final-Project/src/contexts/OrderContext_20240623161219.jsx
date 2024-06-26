@@ -46,14 +46,14 @@ export const OrderProvider = ({ children }) => {
     };
 
     const createOrder = async (userId, items, totalAmount) => {
-        // console.log( items);
+        // ( items);
         try {
 
             const items = cartItems.map(item => ({
                 productId: item.productId,
                 quantity: item.quantity
             }));
-            console.log(items);
+            (items);
             const payload = {
                 userId: userData._id,
                 items:items,

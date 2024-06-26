@@ -11,7 +11,7 @@ export const OrderProvider = ({ children }) => {
     const [userOrders, setUserOrders] = useState([]);
     const { token, userData } = useContext(UserContext);
     const { cartItems, totalPrice } = useContext(CartContext);
-    console.log(orders);
+    (orders);
 
     useEffect(() => {
         getOrder();
@@ -81,7 +81,7 @@ export const OrderProvider = ({ children }) => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(orders.orders);
+            (orders.orders);
             setOrders(orders.orders.filter(order => order._id !== orderId));
             getOrder();
             toast.success('Order deleted successfully');

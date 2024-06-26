@@ -29,12 +29,12 @@ const ProfileInfo1 = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log('handleChange triggered:', name, value);
+        ('handleChange triggered:', name, value);
         setUpdatedProfile((prevProfile) => ({
             ...prevProfile,
             [name]: value,
         }));
-        console.log('Updated Profile:', updatedProfile);
+        ('Updated Profile:', updatedProfile);
     };
 
 
@@ -54,8 +54,8 @@ const ProfileInfo1 = () => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(response);
-            console.log(updatedProfile);
+            (response);
+            (updatedProfile);
         } catch (err) {
             console.error(err);
         }

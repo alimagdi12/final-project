@@ -55,8 +55,6 @@ export default function CategoryProducts() {
       );
       setDisplayedProducts(dp);
     setCurrentPage(1);
-    console.log();
-    console.log(dp);
   }
 
 

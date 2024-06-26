@@ -22,13 +22,13 @@ const Sidebar = ({ conversation, handleChatClick }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(selectChat);
-    console.log(id);
+    (selectChat);
+    (id);
     if (conversation.length) {
       const x = conversation.findIndex(
         (conversation) => id === conversation.participants[1]._id
       );
-      console.log(conversation, x);
+      (conversation, x);
       if (x !== -1) {
         selectChat(conversation[x], x);
       }

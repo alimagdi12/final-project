@@ -59,7 +59,7 @@ export default function AuctionCard({ highestBid, highestBidderName, socketBid, 
           );
 
           if (response.data && response.data.msg) {
-            console.log(response.data.msg);
+            (response.data.msg);
           } else {
             setHighestBid(bidAmountNumber);
             setBidderName("Your Name"); // Update this with actual bidder's name logic

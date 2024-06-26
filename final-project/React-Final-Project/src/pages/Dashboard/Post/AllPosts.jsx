@@ -12,10 +12,10 @@ import ColorContext from '../../../contexts/ColorContext';
 const AllPosts = () => {
     // const {token} = useContext(usee)
     const {PostsData,fetchPostsData} = useContext(PostsContext)
-   console.log(PostsData);
+   (PostsData);
 const {products,fetchProducts} = useContext(ProductsContext)
 const {color} = useContext(ColorContext)
-console.log(products);
+(products);
     const handleDelete =async (id) => {
         try {
             const response = await axios.delete(
@@ -27,7 +27,7 @@ console.log(products);
                     },
                 }
             );
-            console.log(response);
+            (response);
             fetchPostsData()
         } catch (error) {
             console.error("Error fetching chat history:", error);

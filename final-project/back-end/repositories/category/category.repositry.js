@@ -9,7 +9,7 @@ class CategoryRepository{
 
     async editCategory( body, files) {
         const id = body.id
-        console.log(body);
+        (body);
         try {
             const category = await Category.findById(id);
             if (!category) {
@@ -31,19 +31,19 @@ class CategoryRepository{
                     category.imageUrl.images.push(imageUrl);})
 
                     await Promise.all(uploadPromises);
-                    console.log(files);
+                    (files);
                     }
             await category.save();
             return category;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
 
     async addCategory(body, files) {
         try {
-            console.log(files);
+            (files);
             const folderName = await body.title + new Date().toISOString().split('T')[0];
             // Check if category already exists
             const existingCategory = await Category.findOne({ title: body.title });
@@ -79,14 +79,14 @@ class CategoryRepository{
             });
     
             await Promise.all(uploadPromises);
-            console.log(files);
+            (files);
             
             // Save new category
             await newCategory.save();
             return newCategory;
     
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -119,7 +119,7 @@ class CategoryRepository{
             return category;
 
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -129,7 +129,7 @@ class CategoryRepository{
             const categories = await Category.find();
             return categories;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -139,7 +139,7 @@ class CategoryRepository{
             const category = await Category.findByIdAndDelete(id);
             return category;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }

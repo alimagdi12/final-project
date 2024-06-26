@@ -30,8 +30,8 @@ const Footer = () => {
               <img
                 src="/logo.png"
                 alt="Logo"
-                width="100%"
-                style={{ cursor: "pointer" }}
+                // width="100%"
+                style={{ cursor: "pointer" , width:"70%", height:'50%'}}
               />
             </Link>
           </Grid>

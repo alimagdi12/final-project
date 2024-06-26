@@ -9,12 +9,12 @@ class AuthController {
     // Function to handle user signup
     async postSignup(body, files) {
         try {
-            console.log(body);
+            (body);
             const result = await this.authRepositry.signup(body);  // Call repository to signup user
 
             const user = await this.authRepositry.findUserByEmailAndAddImage(body.email, files);  // Add image to user profile
 
-            console.log("user added successfully");
+            ("user added successfully");
             
             return { msg: "user added successfully", user};  // Return success message and user data
 
