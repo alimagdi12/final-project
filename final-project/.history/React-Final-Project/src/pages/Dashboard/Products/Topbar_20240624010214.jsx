@@ -17,7 +17,7 @@ const Topbar = () => {
     const {color,lightColor} = useContext(ColorContext) 
     const {userData} = useContext(UserContext)
     const {cartItems} = useContext(CartContext)
-    console.log(userData);
+    (userData);
     return (
         <AppBar position="static" sx={{ background:  `linear-gradient(270deg, ${color} 30%,${lightColor} 110%)`,margin:'auto',width:'90%', borderRadius:' 0 0 20px 20px ',boxShadow: 'none' }}>
             <Toolbar>

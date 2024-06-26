@@ -22,7 +22,7 @@ const Sidebar = ({ onMenuItemClick }) => {
             localStorage.setItem('role' , '')
             navigate('/login')
             fetchUserData()
-            console.log(userData);
+            (userData);
         }
         setSelectedItem(item);
         onMenuItemClick(item);

@@ -46,7 +46,7 @@ export const OrderProvider = ({ children }) => {
     };
 
     const createOrder = async (userId, items, totalAmount) => {
-        console.log(userId, items, totalAmount
+        (userId, items, totalAmount
         );
         try {
 

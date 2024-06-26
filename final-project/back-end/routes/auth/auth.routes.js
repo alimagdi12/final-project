@@ -37,8 +37,8 @@ const authRouter = (authController) => {
 
             // Call getPublicIpMiddleware to get the public IP and location data
             getPublicIpMiddleware(req, res, lang, async () => {
-                console.log("Public IP:", req.publicIp);
-                console.log("Location:", req.location);
+                ("Public IP:", req.publicIp);
+                ("Location:", req.location);
 
                 // Get location data based on the public IP and language
                 const locationData = req.location && req.location.ll ? geoip.lookup(req.publicIp, lang) : null;

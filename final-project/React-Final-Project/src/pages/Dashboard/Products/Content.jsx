@@ -12,7 +12,7 @@ const Content = () => {
     // const {token} = useContext(usee)
 const {products,fetchProducts} = useContext(ProductsContext)
 const {color} = useContext(ColorContext)
-console.log(products);
+(products);
     const handleDelete =async (id) => {
         try {
             const response = await axios.delete(
@@ -24,7 +24,7 @@ console.log(products);
                     },
                 }
             );
-            console.log(response);
+            (response);
             fetchProducts()
         } catch (error) {
             console.error("Error fetching chat history:", error);

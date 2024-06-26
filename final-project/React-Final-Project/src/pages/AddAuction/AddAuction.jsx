@@ -57,15 +57,15 @@ export default function AddAuction() {
             productForm.append('images', image);
         });
         try {
-            console.log(FormData.images);
+            (FormData.images);
             const response = await axios.post('http://127.0.0.1:3000/api/v1/add-auction', productForm, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(response);
-            console.log(formData);
+            (response);
+            (formData);
             toast.success('added sucessfully')
             navigate('/products')
             // window.location.reload();

@@ -15,8 +15,8 @@ export default function AddProduct() {
     const catgs = categories?.categories?.map(({ _id, title }) => ({ value: _id, label: title })) || [];
 
     useEffect(() => {
-        console.log('Categories:', categories);
-        console.log('Token:', token);
+        ('Categories:', categories);
+        ('Token:', token);
     }, [categories, token]);
 
     const [formData, setFormData] = useState({
@@ -70,7 +70,7 @@ export default function AddProduct() {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(response);
+            (response);
             setFormData({
                 title: '',
                 name: '',

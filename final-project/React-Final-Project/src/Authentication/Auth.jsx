@@ -21,16 +21,16 @@ export default function Auth() {
   const { setToken } = useContext(UserContext);
 
   const handleSignIn = async (signInForm) => {
-    console.log(signInForm);
+    (signInForm);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/login",
         signInForm
       );
       if (response) {
-        console.log(response);
+        (response);
         setToken(response.data.user.token.token);
-        console.log(response.data.user.token.token);
+        (response.data.user.token.token);
         localStorage.setItem("token", response.data.user.token.token);
         toast.success('Logged in successfully');
         if(response.data.user.token.user.role === "66423da09340e35f38c0f02d"){

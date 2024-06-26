@@ -16,7 +16,7 @@ const Topbar = () => {
     const { color, lightColor } = useContext(ColorContext);
     const { userData } = useContext(UserContext);
     const { orders } = useContext(OrderContext);
-    console.log(orders);
+    (orders);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredOrders, setFilteredOrders] = useState([]);
 

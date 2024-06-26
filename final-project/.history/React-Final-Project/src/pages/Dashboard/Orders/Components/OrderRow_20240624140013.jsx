@@ -10,7 +10,7 @@ export const OrderRow = ({ order, imageUrl }) => {
     const { deleteOrder, updateOrderStatus } = useContext(OrderContext);
 
     const [status, setStatus] = useState(order?.status || "Pending");
-    console.log(order);
+    (order);
 
     useEffect(() => {
         setStatus(order?.status || "Pending");

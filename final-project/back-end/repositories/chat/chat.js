@@ -15,8 +15,8 @@ class ChatRepository {
     //     };
 
     //     this.messageRepo.createMessage(userId,userId,message)
-    // console.log('hambozo');
-    // console.log(chatMessage);
+    // ('hambozo');
+    // (chatMessage);
     //     this.messages.push(chatMessage);
     //     return chatMessage;
     }

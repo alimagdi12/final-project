@@ -26,7 +26,7 @@ const {token} = useContext(UserContext)
                 }
             });
             setOrders(response.data.orders);
-            // console.log(Orders);
+            // (Orders);
 
         } catch (err) {
             console.error(err);
@@ -42,11 +42,11 @@ const {token} = useContext(UserContext)
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(response.data);
+            (response.data);
             
             setUserOrders(response.data.orders);
        
-            // console.log(Orders);
+            // (Orders);
 
         } catch (err) {
             console.error(err);

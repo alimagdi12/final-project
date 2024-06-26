@@ -34,7 +34,7 @@ exports.uploadImage = (req, res, next) => {
           }
 
           // Files uploaded successfully, return the URLs
-          console.log("Files uploaded successfully");
+          ("Files uploaded successfully");
           resolve(fileUrls);
         } catch (uploadError) {
           reject(uploadError);

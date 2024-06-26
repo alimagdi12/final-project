@@ -80,7 +80,7 @@ export const OrderProvider = ({ children }) => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(orders.orders);
+            (orders.orders);
             setOrders(orders.orders.filter(order => order._id !== orderId));
             getOrder();
             toast.success('Order deleted successfully');
@@ -108,7 +108,7 @@ export const OrderProvider = ({ children }) => {
     
             if (response.ok) {
                 // Update the order status in the local state or context if needed
-                console.log('Order status updated', updatedOrder);
+                ('Order status updated', updatedOrder);
             } else {
                 console.error('Failed to update order status', updatedOrder);
             }

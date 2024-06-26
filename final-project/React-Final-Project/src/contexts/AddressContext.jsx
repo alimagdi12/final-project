@@ -24,7 +24,7 @@ export const AddressProvider = ({ children }) => {
                 },
             });
             setAddresses(response.data);
-            console.log(response.data);
+            (response.data);
         } catch (error) {
             console.error("Error fetching addresses:", error);
         }
@@ -39,7 +39,7 @@ export const AddressProvider = ({ children }) => {
                 },
             });
             setAddresses([...addresses, response.data]);
-            console.log(response.data);
+            (response.data);
             fetchAddresses()
             
         } catch (error) {
@@ -69,7 +69,7 @@ export const AddressProvider = ({ children }) => {
                     "jwt":localStorage.getItem('token')
                 },
             });
-            console.log(id);
+            (id);
             setAddresses(addresses.map(address => address.id === id ? response.data : address));
         } catch (error) {
             console.error("Error editing address:", error);

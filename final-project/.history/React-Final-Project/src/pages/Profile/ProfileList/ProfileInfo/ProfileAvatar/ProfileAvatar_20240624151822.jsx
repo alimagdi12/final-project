@@ -10,7 +10,7 @@ const ProfileAvatar = () => {
 const {userData,fetchUserData} = useContext(UserContext)
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    console.log(files);
+    (files);
 
     const updatedForm = new FormData(); // Create a new FormData object
     files.forEach((image) => {
@@ -20,7 +20,7 @@ const {userData,fetchUserData} = useContext(UserContext)
   };
 
 useEffect(()=>{
-    console.log(userData);
+    (userData);
 },[])
 
   const handleImage = async () => {
@@ -35,7 +35,7 @@ useEffect(()=>{
           },
         }
       );
-      console.log(response);
+      (response);
       fetchUserData()
     } catch (err) {
       console.error('Error adding photo:', err.response ? err.response.data : err);

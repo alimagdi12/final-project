@@ -72,7 +72,7 @@ export default function AddProduct() {
                     'jwt': localStorage.getItem('token'),
                 },
             });
-            console.log(response);
+            (response);
             setFormData({
                 title: '',
                 name: '',

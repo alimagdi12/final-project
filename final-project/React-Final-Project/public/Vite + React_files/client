@@ -524,7 +524,7 @@ function setupWebSocket(protocol, hostAndPath, onCloseWithoutOpen) {
         }
         notifyListeners('vite:ws:disconnect', { webSocket: socket });
         if (hasDocument) {
-            console.log(`[vite] server connection lost. polling for restart...`);
+            (`[vite] server connection lost. polling for restart...`);
             await waitForSuccessfulPing(protocol, hostAndPath);
             location.reload();
         }

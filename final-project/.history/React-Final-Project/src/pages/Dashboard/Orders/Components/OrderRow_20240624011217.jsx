@@ -11,8 +11,8 @@ export const OrderRow = ({ order }) => {
     const { color, lightColor } = useContext(ColorContext);
     const {orders, deleteOrder, updateOrderStatus } = useContext(OrderContext);
     const {cartItems} = useContext(CartContext)
-    console.log(orders);
-    console.log(cartItems);
+    (orders);
+    (cartItems);
     const [status, setStatus] = useState(order.status || "Pending");
 
     useEffect(() => {

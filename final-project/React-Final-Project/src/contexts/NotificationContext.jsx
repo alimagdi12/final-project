@@ -20,7 +20,7 @@ const fetchNotifications = async () => {
       }
   
       const data = await response.json();
-      console.log('this is notification',data.result);
+      ('this is notification',data.result);
       setNotifications(data.result);
     } catch (error) {
       console.error(error);

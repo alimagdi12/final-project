@@ -19,7 +19,7 @@ const Topbar = () => {
     const {userData} = useContext(UserContext)
     const {cartItems} = useContext(CartContext)
     const {orders} = useContext(OrderContext)
-    console.log(cartItems);
+    (cartItems);
     return (
         <AppBar position="static" sx={{ background:  `linear-gradient(270deg, ${color} 30%,${lightColor} 110%)`,margin:'auto',width:'90%', borderRadius:' 0 0 20px 20px ',boxShadow: 'none' }}>
             <Toolbar>

@@ -9,15 +9,15 @@ export default function List() {
     const navigate = useNavigate()
   return (
     <Container sx={{marginBottom:'3%'}}>
-      <Grid container spacing={3} marginY={3} justifyContent="center" >
-        <Grid item xs={12} md={6} onClick={()=>{navigate('/add-product')}} sx={{cursor:'pointer'}}>
+      <Grid container spacing={3} marginY={3} justifyContent="center">
+        <Grid item xs={12} md={6} onClick={()=>{navigate('/add-product')}}>
           <Card sx={{ paddingY: 13, textAlign: 'center', border:`2px solid ${color}` }}>
             <FaDollarSign size={59} color="#000" />
             <Typography variant="h4">Sell an Item</Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6} onClick={()=>{navigate('/add-auction')}} >
-          <Card sx={{ paddingY: 13, textAlign: 'center' , border:`2px solid ${color}`, cursor:'pointer'}} >
+        <Grid item xs={12} md={6} onClick={()=>{navigate('/add-auction')}}>
+          <Card sx={{ paddingY: 13, textAlign: 'center' , border:`2px solid ${color}`}}>
           <GiHammerBreak size={59} color="#000" />
             <Typography variant="h4">Start an Auction</Typography>
           </Card>

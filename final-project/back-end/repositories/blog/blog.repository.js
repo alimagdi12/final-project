@@ -4,7 +4,7 @@ const { storage } = require('../../config/firebase/firebase.config');
 
 class BlogRepository {
     async createBlog(body, files) {
-        console.log(files);
+        (files);
         try {
             const { title, content, author } = body;
             const folderName = title + new Date().toISOString().split('T')[0];
@@ -27,7 +27,7 @@ class BlogRepository {
     
             await Promise.all(uploadPromises);
             await blog.save();
-    console.log(blog);
+    (blog);
             return blog; // Return the created blog post
     
         } catch (err) {

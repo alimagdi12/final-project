@@ -26,16 +26,11 @@ const useStyles = styled((theme) => ({
 
 const OrderDone = () => {
     const { orders, userOrders, createOrder, getOrder, getUserOrders, setOrders} = useContext(OrderContext);
-    console.log(orders );
+
     const classes = useStyles();
 
     useEffect(() => {
         getUserOrders()
-        console.log(orders);
-        // getUserOrders();
-        // userOrders()
-        // getOrder()
-        // setOrders(orders)
     }, []);
 
     return (

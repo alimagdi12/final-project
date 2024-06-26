@@ -44,11 +44,11 @@ const io = socket(server, {
 let chatHistory = [];
 
 io.on('connection', async (socket) => {
-    console.log('A connection started', socket.id);
+    ('A connection started', socket.id);
     try {
         const userId = await getUserIdFromToken(socket);
         if (userId) {
-            console.log(`User ${userId} connected with socket ID ${socket.id}`);
+            (`User ${userId} connected with socket ID ${socket.id}`);
         }
     } catch (err) {
         console.error('Error getting user ID from token:', err.message);
@@ -59,7 +59,7 @@ io.on('connection', async (socket) => {
     socket.emit('chat history', chatHistory);
 
     socket.on('chat message', async (message) => {
-        console.log(message);
+        (message);
         chatHistory.push(message.message);
         await messagesRepository.createMessage(message.sender, message.receiver, message.content);
         io.emit('chat message', message);
@@ -74,7 +74,7 @@ io.on('connection', async (socket) => {
     });
 
     socket.on('disconnect', async () => {
-        console.log('A connection disconnected', socket.id);
+        ('A connection disconnected', socket.id);
     });
 });
 

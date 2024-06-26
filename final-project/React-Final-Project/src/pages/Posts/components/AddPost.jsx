@@ -51,7 +51,7 @@ const AddPost = () => {
                     'jwt': localStorage.getItem('token'),
                 },
             });
-            console.log(response);
+            (response);
             handleClose();
 
             

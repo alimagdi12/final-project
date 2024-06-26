@@ -87,7 +87,7 @@ class ProductRepositry{
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const userId = decodedToken.userId;
             const userEmail = decodedToken.email;
-            console.log(userEmail.toString());
+            (userEmail.toString());
             const { updatedTitle, updatedQuantity, updatedPrice } = productData;
             const product = await Product.findById(id);
             // if (userEmail.toString() !== 'alimagdi12367@gmail.com' && product.userId.toString() !== userId.toString()) {

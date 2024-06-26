@@ -24,7 +24,7 @@ class BidController {
 }
     async getBid(body) {
         try {
-            console.log(body);
+            (body);
             const bid = await this.bidRepository.getBid(body);
             return {message:'bid fetched successfully',bid}
         } catch (err) {

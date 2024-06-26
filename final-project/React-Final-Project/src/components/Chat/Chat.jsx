@@ -31,7 +31,7 @@ const Chat = () => {
     });
 
     socket.on("connect", () => {
-      console.log("Connected to server");
+      ("Connected to server");
     });
 
     socket.on("chat message", (message) => {
@@ -45,7 +45,7 @@ const Chat = () => {
         }));
         getMessages()
       }
-      console.log(message);
+      (message);
     });
 
     // Cleanup on component unmount
@@ -81,7 +81,7 @@ const Chat = () => {
         "http://127.0.0.1:3000/api/v1/auth/conversation",
         { sender: userData?._id }
       );
-      console.log(response);
+      (response);
       const x = await response.data;
       setConversation(x);
       await getMessages();
@@ -106,7 +106,7 @@ const Chat = () => {
   const sendMessage = async () => {
     const message = { sender: userData?._id, receiver: id, content: input };
     await socket.emit("chat message", message);
-    console.log("hello");
+    ("hello");
     setInput("");
 await getMessages()
     const x = await getConversations();

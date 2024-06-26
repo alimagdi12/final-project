@@ -15,7 +15,7 @@ export default function AddProduct() {
     const catgs = categories?.categories?.map(({ _id, title }) => ({ value: _id, label: title })) || [];
 
     useEffect(() => {
-        console.log('Categories:', categories);import React, { useContext, useState } from 'react';
+        ('Categories:', categories);import React, { useContext, useState } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -89,7 +89,7 @@ export default function AddProduct() {
                     'jwt': localStorage.getItem('token'),
                 },
             });
-            console.log(response);
+            (response);
             setFormData({
                 title: '',
                 name: '',
@@ -232,7 +232,7 @@ export default function AddProduct() {
     );
 }
 
-        console.log('Token:', token);
+        ('Token:', token);
     }, [categories, token]);
 
     const [formData, setFormData] = useState({
@@ -286,7 +286,7 @@ export default function AddProduct() {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(response);
+            (response);
             setFormData({
                 title: '',
                 name: '',

@@ -23,7 +23,7 @@ export const PostsProvider = ({ children }) => {
         }
       });
       setPostsData(response.data);
-      console.log(response.data);
+      (response.data);
       return await response.data;
     } catch (err) {
       console.error('Error fetching Posts data:', err);
@@ -49,7 +49,7 @@ export const PostsProvider = ({ children }) => {
       // Remove the deleted post from the state
       setPostsData((prevPosts) => prevPosts.filter(post => post.id !== postId));
       fetchPostsData()
-      console.log(`Post ${postId} deleted successfully`);
+      (`Post ${postId} deleted successfully`);
     } catch (err) {
       console.error('Error deleting post:', err);
       setError(err.message);

@@ -16,7 +16,7 @@ class UserController {
             const result = await this.userRepositry.editUser(body, token);
             return { message: 'user edited successfully', result };
         } catch (error) {
-            console.log(error);
+            (error);
             return { msg: 'failed to edit user', error: error.message };
         }
     }
@@ -26,7 +26,7 @@ class UserController {
             const result = await this.userRepositry.deleteUser(token);
             return { message: 'user deleted successfully', result };
         } catch (err) {
-            console.log(err);
+            (err);
             return { msg: err.message };
         }
     }
@@ -35,7 +35,7 @@ class UserController {
 
 async getUser(token){
     try {
-        // console.log(token);
+        // (token);
         const result = await this.userRepositry.getUser(token);
         return { message: 'user fetched successfully', result } ;
     } catch (err) {
@@ -59,7 +59,7 @@ async getUser(token){
             const user = await this.userRepositry.updateSocketId(userId, socketId);
             return user;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -69,7 +69,7 @@ async getUser(token){
             const user = await this.userRepositry.removeSocketId(socketId);
             return user;
         } catch (err) {
-            console.log(err);
+            (err);
             throw new Error(err);
         }
     }
@@ -79,7 +79,7 @@ async getUser(token){
             const result = await this.userRepositry.addFavorite(token, productId);
             return { message: 'Favorite added successfully', result };
         } catch (error) {
-            console.log(error);
+            (error);
             return { msg: 'Failed to add favorite', error: error.message };
         }
     }
@@ -89,7 +89,7 @@ async getUser(token){
             const result = await this.userRepositry.removeFavorite(token, productId);
             return { message: 'Favorite removed successfully', result };
         } catch (error) {
-            console.log(error);
+            (error);
             return { msg: 'Failed to remove favorite', error: error.message };
         }
     }
@@ -99,7 +99,7 @@ async getUser(token){
             const result = await this.userRepositry.getFavorites(token);
             return { message: 'Favorites fetched successfully', result };
         } catch (error) {
-            console.log(error);
+            (error);
             return { msg: 'Failed to fetch favorites', error: error.message };
         }
     }
@@ -109,7 +109,7 @@ async getUser(token){
             const result = await this.userRepositry.getNotification(token);
             return { message: 'Notifications fetched successfully', result };
         } catch (error) {
-            console.log(error);
+            (error);
             return { msg: 'Failed to fetch notifications', error: error.message };
         }
 

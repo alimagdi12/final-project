@@ -31,7 +31,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import PaymentIcon from '@mui/icons-material/Payment';
 import HomeIcon from '@mui/icons-material/Home';
-import { CartContext } from '../../contexts/CartContext';
+// import { CartContext } from '../../contexts/CartContext';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PaymentCard from './Components/PaymentCard';
 import { Check, CheckBox } from '@mui/icons-material';
@@ -41,6 +41,7 @@ import UserContext from '../../contexts/UserContext';
 import { PaymentContext } from '../../contexts/PaymentContext';
 import ColorContext from '../../contexts/ColorContext';
 import { OrderContext } from '../../contexts/OrderContext';
+import { CartContext } from '../../contexts/CartContext';
 
 const PlaceOrder = () => {
 
@@ -48,7 +49,6 @@ const PlaceOrder = () => {
     const { userData } = useContext(UserContext)
     const { cartItems, setCartItems, deleteAllCartItems, totalPrice } = useContext(CartContext)
     const {orders, userOrders, createOrder, getOrder, getUserOrders} = useContext(OrderContext)
-    console.log(totalPrice);
     const {handlePaymentClick} = useContext(PaymentContext)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);

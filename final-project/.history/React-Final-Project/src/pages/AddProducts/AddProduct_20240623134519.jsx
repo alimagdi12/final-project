@@ -115,7 +115,7 @@ export default function AddProduct() {
                         'jwt': localStorage.getItem('token'),
                     },
                 });
-                console.log(response);
+                (response);
                 setFormData(initialFormData);
                 navigate('/products');
                 window.location.reload();

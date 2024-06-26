@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardActions, CardContent, Button, Typography, Box, CardMedia } from '@mui/material';
 
 const FlipCard = ({children , category}) => {
-  console.log(category);
+  (category);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 

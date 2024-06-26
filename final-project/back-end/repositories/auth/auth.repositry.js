@@ -13,7 +13,7 @@ class AuthRepositry {
     // Function to sign up a new user
     async signup(userData) {
         try {
-            // console.log(userData);
+            // (userData);
             const { firstName, lastName, birthDay, email, phoneNumber, password, confirmPassword } = userData;
 
             // Check if passwords are provided and match
@@ -104,7 +104,7 @@ async login(email, password) {
     
     return {token,user}
 }
-// console.log(token);
+// (token);
 
     // Function to find a user by email and add an image
     async findUserByEmailAndAddImage(email, files) {

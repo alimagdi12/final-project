@@ -10,7 +10,7 @@ const OrderList = () => {
   const { orders } = useContext(OrderContext);
   const { color, lightColor } = useContext(ColorContext);
   const { products } = useContext(ProductsContext);
-  console.log(products);
+  (products);
 
   const GradientText = styled(Typography)(({ theme }) => ({
     background: `linear-gradient(45deg, ${color} 30%, ${lightColor} 70%)`,

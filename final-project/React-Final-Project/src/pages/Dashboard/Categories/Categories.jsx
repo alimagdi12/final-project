@@ -57,7 +57,7 @@ const Categories = () => {
 
   const handleDelete = async (id) => {
     // const updatedCategories = categories.filter(category => category.id !== id);
-    console.log(id);
+    (id);
     try {
       const response = await axios.delete(
         `http://127.0.0.1:3000/api/v1/admin//delete-category/${id}`,
@@ -68,7 +68,7 @@ const Categories = () => {
           },
         }
       );
-      console.log(response);
+      (response);
       fetchCategories();
     } catch (err) {
       console.error(
@@ -84,7 +84,7 @@ const Categories = () => {
   };
 
   const handleClose = () => {
-    // console.log(updatedCategory);
+    // (updatedCategory);
     setDialogOpen(false);
     setIsAdding(false)
     // setUpdatedCategory(null);
@@ -94,7 +94,7 @@ const Categories = () => {
 
   const handleUpdate = async (id) => {
     setIsAdding(false)
-    console.log(newCategoryImage);
+    (newCategoryImage);
     const updateForm = new FormData();
     updateForm.append("id", updatedCategory._id);
     updateForm.append("title", newCategoryName);
@@ -112,7 +112,7 @@ const Categories = () => {
       );
       await fetchCategories()
       handleClose()
-      console.log(response);
+      (response);
     } catch (err) {
       console.error(
         "Error adding product:",
@@ -133,7 +133,7 @@ const Categories = () => {
     addForm.append("title", newCategoryName);
     addForm.append("images", newCategoryImage);
 
-    console.log(addForm);
+    (addForm);
     try {
       const response = await axios.post(
         "http://127.0.0.1:3000/api/v1/admin/add-category",
@@ -145,7 +145,7 @@ const Categories = () => {
           },
         }
       );
-      console.log(response);
+      (response);
     await  fetchCategories()
     handleClose()
     } catch (err) {

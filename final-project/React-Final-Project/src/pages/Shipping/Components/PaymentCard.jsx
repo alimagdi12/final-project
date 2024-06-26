@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import UserContext from '../../../contexts/UserContext';
+import { CartContext } from '../../../contexts/CartContext';
 
 const CardContainer = styled(Box)(({ theme }) => ({
   width: '300px',
@@ -35,8 +37,15 @@ const Shape2 = styled(Box)(({ theme }) => ({
 
 const PaymentCard = ({ handlePaymentClick }) => {
 
+  const {userData} = useContext(UserContext)
+  const {totalPrice, cartItems} = useContext(CartContext)
+  useEffect(()=>{
+    console.log(totalPrice);
+  })
+  console.log(totalPrice);
+
   return (
-    <CardContainer onClick={handlePaymentClick}  sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <CardContainer onClick={()=>{handlePaymentClick(userData.firstName , totalPrice)}}  sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <>
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%',alignItems:'center' }}>
             <Shape1 />

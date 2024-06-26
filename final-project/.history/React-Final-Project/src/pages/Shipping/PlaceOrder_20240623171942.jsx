@@ -48,7 +48,7 @@ const PlaceOrder = () => {
     const { userData } = useContext(UserContext)
     const { cartItems, setCartItems, deleteAllCartItems, totalPrice } = useContext(CartContext)
     const {orders, userOrders, createOrder, getOrder, getUserOrders} = useContext(OrderContext)
-    console.log(totalPrice);
+    (totalPrice);
     const {handlePaymentClick} = useContext(PaymentContext)
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);

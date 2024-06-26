@@ -34,23 +34,23 @@ const Cart = () => {
     const [deleteItemId, setDeleteItemId] = useState(null);
     useEffect(() => { getCart() }, [])
 
-    console.log("Imports are working fine.");
+    ("Imports are working fine.");
 
     // Inside Cart component
 
     useEffect(() => {
-        console.log("Fetching cart data...");
+        ("Fetching cart data...");
 
     }, []);
 
     const handleQuantityChange = (id, quantity) => {
-        console.log(`Updating quantity for item ${id} to ${quantity}.`);
+        (`Updating quantity for item ${id} to ${quantity}.`);
         updateCartItemQuantity(id, quantity);
     };
 
     const handleDelete = async (id) => {
         try {
-            console.log("Deleting item from cart...");
+            ("Deleting item from cart...");
             const response = await axios.post(
                 'http://127.0.0.1:3000/api/v1/auth/remove-from-cart',
                 { cartId: id },
@@ -63,7 +63,7 @@ const Cart = () => {
             );
             getCart()
             if (response.status === 200) {
-                console.log(`Item ${id} deleted successfully.`);
+                (`Item ${id} deleted successfully.`);
                 setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
             }
         } catch (error) {
@@ -72,19 +72,19 @@ const Cart = () => {
     };
 
     const confirmDelete = () => {
-        console.log("Confirming item deletion.");
+        ("Confirming item deletion.");
         handleDelete(deleteItemId);
         setOpenDialog(false);
         setDeleteItemId(null);
     };
 
     const handleDialogClose = () => {
-        console.log("Closing dialog.");
+        ("Closing dialog.");
         setOpenDialog(false);
         setDeleteItemId(null);
     };
 
-    console.log("Rendering Cart component.");
+    ("Rendering Cart component.");
 
 
     const navigate = useNavigate();
