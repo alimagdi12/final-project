@@ -12,12 +12,13 @@ const ProfileInfo1 = () => {
     const { color } = useContext(ColorContext)
     const {userData,fetchUserData} = useContext(UserContext)
     const [updatedProfile, setUpdatedProfile] = useState({
-        email: userData?.result?.email || '',
-        firstName: userData?.result?.firstName || '',
-        lastName: userData?.result?.lastName || '',
-        phoneNumber: userData?.result?.phoneNumber || '',
-        birthDay: userData?.result?.birthDay || '',
+        email: userData?.email || '',
+        firstName: userData?.firstName || '',
+        lastName: userData?.lastName || '',
+        phoneNumber: userData?.phoneNumber || '',
+        birthDay: userData?.birthDay || '',
     });
+    console.log(userData);
     const [openPopup, setOpenPopup] = useState(false);
     const handleOpen = () => {
         setOpenPopup(true);
@@ -26,6 +27,8 @@ const ProfileInfo1 = () => {
     useEffect(()=>{
         fetchUserData()
     })
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,8 +57,7 @@ const ProfileInfo1 = () => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            (response);
-            (updatedProfile);
+ 
         } catch (err) {
             console.error(err);
         }

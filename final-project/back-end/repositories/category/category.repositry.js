@@ -9,7 +9,6 @@ class CategoryRepository{
 
     async editCategory( body, files) {
         const id = body.id
-        (body);
         try {
             const category = await Category.findById(id);
             if (!category) {

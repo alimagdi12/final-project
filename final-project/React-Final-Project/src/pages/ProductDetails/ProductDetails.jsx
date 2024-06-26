@@ -16,6 +16,8 @@ import { CartContext } from '../../contexts/CartContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import "./ProductDetails.modules.css";
 
+const placeholderImage = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'; // Define the path to your placeholder image
+console.log(placeholderImage);
 export default function ProductDetails() {
   const { color } = useContext(ColorContext);
   const { products } = useContext(ProductsContext);
@@ -56,6 +58,8 @@ export default function ProductDetails() {
     setState({ ...state, [anchor]: open });
   };
 
+  const getImage = (images, index) => images && images[index] ? images[index] : placeholderImage;
+
   return (
     <>
       <Box sx={{ width: '75%', margin: '50px auto' }}>
@@ -63,30 +67,30 @@ export default function ProductDetails() {
           <Grid item xs={12} md={7} className="carousel-container">
             <Box className="carousel__thumbnails" style={{ overflow: 'hidden' }}>
               <li>
-                <label htmlFor="slide-1"><img src={`${product?.imagesUrl?.images[0]}`} alt="" /></label>
+                <label htmlFor="slide-1"><img src={getImage(product?.imagesUrl?.images, 0)} alt="Product Image 1" /></label>
               </li>
               <li>
-                <label htmlFor="slide-2"><img src={`${product?.imagesUrl?.images[1]}`} alt="" /></label>
+                <label htmlFor="slide-2"><img src={getImage(product?.imagesUrl?.images, 1)} alt="Product Image 2" /></label>
               </li>
               <li>
-                <label htmlFor="slide-3"><img src={`${product?.imagesUrl?.images[2]}`} alt="" /></label>
+                <label htmlFor="slide-3"><img src={getImage(product?.imagesUrl?.images, 2)} alt="Product Image 3" /></label>
               </li>
             </Box>
-            <div className="carousel" style={{  }}>
+            <div className="carousel">
               <input type="radio" name="slides" defaultChecked id="slide-1" />
               <input type="radio" name="slides" id="slide-2" />
               <input type="radio" name="slides" id="slide-3" />
-              <Box className="carousel__slides" sx={{height:'45vh'}}>
+              <Box className="carousel__slides" sx={{ height: '45vh' }}>
                 <li className="carousel__slide">
                   <figure>
-                    <img src={`${product?.imagesUrl?.images[0]}`} alt="" />
+                    <img src={getImage(product?.imagesUrl?.images, 0)} alt="Product Image 1" />
                   </figure>
                 </li>
                 <li className="carousel__slide">
                   <figure>
                     <img 
-                      src={`${product?.imagesUrl?.images[1]}`} 
-                      alt="" 
+                      src={getImage(product?.imagesUrl?.images, 1)} 
+                      alt="Product Image 2" 
                       style={{ 
                         width: '100%',  
                         height: 'auto', 
@@ -98,7 +102,7 @@ export default function ProductDetails() {
                 </li>
                 <li className="carousel__slide">
                   <figure>
-                    <img src={`${product?.imagesUrl?.images[2]}`} alt="" />
+                    <img src={getImage(product?.imagesUrl?.images, 2)} alt="Product Image 3" />
                   </figure>
                 </li>
               </Box>
@@ -127,7 +131,7 @@ export default function ProductDetails() {
                 <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '5px' }}>
                   <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} md={2} height="100px">
-                      <Avatar variant="square" src={`${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: '100%', borderRadius: '5px' }} />
+                      <Avatar variant="square" src={getImage(item.productId?.imagesUrl.images, 0)} sx={{ width: '100%', height: '100%', borderRadius: '5px' }} />
                     </Grid>
                     <Grid item xs={12} md={8}>
                       <Typography>Title - <Typography component="span" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.title}</Typography></Typography>
