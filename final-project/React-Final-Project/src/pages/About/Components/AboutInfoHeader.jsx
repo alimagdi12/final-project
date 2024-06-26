@@ -18,12 +18,12 @@ const AboutInfoHeader = () => {
                         title="green iguana"
                     />
                 </Grid>
-                <Grid item xs={12} md={6} container justifyContent="center" sx={{}}>
+                <Grid item xs={12} md={6} container justifyContent="center" sx={{width:'100%'}}>
                     <Grid item xs={12} md={12} sx={{display:'flex', justifyContent:'flex-start'}}>
-                        <Box sx={{display:'flex'}}>
-                            <Box>
-                                <Typography sx={{fontWeight:'800', fontSize:'28px'}}>Get to know us better</Typography>
-                                <Typography>Welcome to our company! We are dedicated to providing top-notch services and products to our valued customers. Our commitment to excellence has been the cornerstone of our business since its inception.</Typography>
+                        <Box sx={{display:'flex', width:'100%'}}>
+                            <Box sx={{width:'100%'}}>
+                                <Typography sx={{fontWeight:'800', fontSize:'28px', maxWidth:'100%', textAlign:'left'}}>Get to know us better</Typography>
+                                <Typography sx={{ maxWidth:'100%', textAlign:'left'}}>Welcome to our company! We are dedicated to providing top-notch services and products to our valued customers. Our commitment to excellence has been the cornerstone of our business since its inception.</Typography>
                             </Box>
                         </Box>
                     </Grid>

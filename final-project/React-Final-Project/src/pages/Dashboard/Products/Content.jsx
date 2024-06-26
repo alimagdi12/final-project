@@ -12,7 +12,6 @@ const Content = () => {
     // const {token} = useContext(usee)
 const {products,fetchProducts} = useContext(ProductsContext)
 const {color} = useContext(ColorContext)
-(products);
     const handleDelete =async (id) => {
         try {
             const response = await axios.delete(
@@ -32,7 +31,7 @@ const {color} = useContext(ColorContext)
     };
 
     return (
-        <Box sx={{ flexGrow: 1, padding: '16px', backgroundColor: '#fff', color: '#fff' }}>
+        <Box sx={{ flexGrow: 1, padding: '16px', backgroundColor: '#fff', color: '#fff', height:'50%' }}>
             <Typography variant="h5" gutterBottom sx={{ color: color }}>
              </Typography>
             <Grid container spacing={2}>
@@ -44,6 +43,7 @@ const {color} = useContext(ColorContext)
                                 height="140"
                                 image={product?.imagesUrl?.images[0]}
                                 alt={product.title}
+                                sx={{height:'250px'}}
                             />
                             <CardContent>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -84,8 +84,8 @@ export default function AboutUs() {
             <Grid item xs={12} md={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
               <Box sx={{ display: 'flex' }}>
                 <Box>
-                  <Typography sx={{ fontWeight: '800', fontSize: '28px' }}>Our Working Progress</Typography>
-                  <Typography sx={{ color: colors.gray }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
+                  <Typography sx={{fontWeight:'800', fontSize:'28px', maxWidth:'100%', textAlign:'left'}}>Our Working Progress</Typography>
+                  <Typography sx={{ color: colors.gray, maxWidth:'100%', textAlign:'left' }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
                 </Box>
               </Box>
             </Grid>

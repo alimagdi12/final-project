@@ -11,6 +11,11 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleUpdateAndClose = () => {
+        handleProfileUpdate();
+        handleClose()
+    };
     
 const {color} =useContext(ColorContext)
 
@@ -106,7 +111,7 @@ const {color} =useContext(ColorContext)
                 </Grid>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleProfileUpdate} color="primary">
+                <Button onClick={handleUpdateAndClose} color="primary">
                     OK
                 </Button>
             </DialogActions>

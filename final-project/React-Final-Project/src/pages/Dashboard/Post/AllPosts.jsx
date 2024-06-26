@@ -12,10 +12,8 @@ import ColorContext from '../../../contexts/ColorContext';
 const AllPosts = () => {
     // const {token} = useContext(usee)
     const {PostsData,fetchPostsData} = useContext(PostsContext)
-   (PostsData);
 const {products,fetchProducts} = useContext(ProductsContext)
 const {color} = useContext(ColorContext)
-(products);
     const handleDelete =async (id) => {
         try {
             const response = await axios.delete(
@@ -47,6 +45,7 @@ const {color} = useContext(ColorContext)
                                 height="340"
                                 image={product?.imagesUrl?.images[0]}
                                 alt={product.title}
+                                sx={{height:'250px'}}
                             />
                             <CardContent>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

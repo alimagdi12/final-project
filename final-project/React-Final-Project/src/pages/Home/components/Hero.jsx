@@ -22,7 +22,7 @@ const navigate = useNavigate()
       <CssBaseline />
       <Box
         className="d-flex justify-content-center align-items-center m-auto"
-        sx={{ height: "88vh", width: "100%" }}
+        sx={{ height: "92vh", width: "100%" }}
       >
         <Box />
         <Box
