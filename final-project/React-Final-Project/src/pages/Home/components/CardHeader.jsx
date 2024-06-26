@@ -7,7 +7,6 @@ export default function CardHeader({children}) {
         <Typography variant='h5'>
             {children}
         </Typography>
-        <Button size="small">see More</Button>
     </Box>
   )
 }
