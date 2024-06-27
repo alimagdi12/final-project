@@ -114,16 +114,16 @@ useEffect(()=>{
 
 
   return (
-    <div style={{ }}>
+    <>
     <Box sx={{ boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', width: {
       xs: '100%',  
       sm: '100%', 
       md: '50%',   
     },
     height:{
-      xs: '120vh',  
-      sm: '120vh',  
-      md: '90vh',   
+      xs: 'auto',  
+      sm: 'auto',  
+      md: 'auto',   
     }}}  margin={'auto'} marginY={'5vh'} position={'relative'}>
       <Box sx={{zIndex:'-1'}}  className={`clipped-element ${currentView === 'register' ? "move-bottom" : ""}`}>
 
@@ -183,7 +183,7 @@ useEffect(()=>{
         />
       )}
     </Box>
-    </div>
+    </>
     
   );
 }

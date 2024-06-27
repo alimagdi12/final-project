@@ -91,14 +91,13 @@ setLoader(false)
 
 
       {/* Last section */}
-      <Container>
-        <Grid  alignItems="center" sx={{marginTop:'8%'}}>
-
-          <Grid item xs={12} md={6} container justifyContent="center" sx={{}}>
-            <Grid item xs={12} md={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-              <Box sx={{ display: 'flex' }}>
+      {/* <Container> */}
+        <Grid   sx={{marginTop:'8%', display:'flex',justifyContent:'space-between'}}>
+          <Grid item xs={12} md={6} container sx={{}}>
+            <Grid item xs={12} md={12} sx={{ }}>
+              <Box sx={{  }}>
                 <Box>
-                  <Typography sx={{ fontWeight: '800', fontSize: '28px' }}>Our Working Progress</Typography>
+                  <Typography sx={{ fontWeight: '800', fontSize: '28px', justifyContent:'flex-start', textAlign:'center', width:'100%' }}>Our Working Progress</Typography>
                   <Typography sx={{ color: colors.gray }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
                 </Box>
               </Box>
@@ -116,16 +115,17 @@ setLoader(false)
               </Grid>
             </Grid>
           </Grid>
+
           <Grid item xs={12} md={6}>
-            <CardMedia
-              sx={{ height: 320 }}
-              image="/public/team2.jpg"
+            <img
+              style={{ height: 320 }}
+              src='/public/team2.jpg'
               title="green iguana"
             />
           </Grid>
         </Grid>
       </Container>
     
-    </Container>
+    // </Container>
   );
 }

@@ -391,8 +391,8 @@ export default function AllProducts() {
                   color: color
                 },
                 "& .Mui-selected": {
-                  backgroundColor: lightColor,
-                  color:'#fff',
+                  backgroundColor: "white",
+                  color:color,
                 },
               }}
             />
@@ -411,7 +411,7 @@ export default function AllProducts() {
                   color: color
                 },
                 "& .Mui-selected": {
-                  backgroundColor: color,
+                  backgroundColor: "white",
                   color: color,
                 },
               }}
