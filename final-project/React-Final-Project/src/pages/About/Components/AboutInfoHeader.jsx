@@ -30,7 +30,7 @@ const AboutInfoHeader = () => {
 
                     <Grid item xs={12} md={12} sx={{ display: 'flex',marginTop:'10px' }}>
                         <Grid item xs={12} md={8} sx={{}}>
-                            <ServiceBox title={'Money Guarantee'} text={'We stand behind our products with a full money-back guarantee. '}>
+                            <ServiceBox title={'Money Guarante'} text={'We stand behind our products with a full money-back guarantee. '}>
                                 <PaidIcon sx={{ width: '65%' }} />
                             </ServiceBox>
                         </Grid>
