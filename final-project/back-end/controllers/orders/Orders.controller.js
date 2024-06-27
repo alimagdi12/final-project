@@ -13,6 +13,16 @@ class OrderController {
         }
     }
 
+    async updateOrder(orderId , data){
+        try {
+            const order = await this.orderRepository.updateOrder(orderId, data);
+            return { message: 'Order updated successfully', order };
+        } catch (err) {
+            console.error(err);
+            return { message: err.message };
+        }
+    }
+
     async getOrder(orderId) {
         try {
             const order = await this.orderRepository.getOrder(orderId);

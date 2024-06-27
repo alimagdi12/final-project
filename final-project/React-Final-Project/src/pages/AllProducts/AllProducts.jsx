@@ -71,9 +71,15 @@ const {loader ,setLoader} = useContext(LoaderContext)
 
   
   useEffect(() => {
+    if(products.products){
+      setLoader(false)
+    }
     setDisplayedProducts(products?.products);
   }, [products]);
 
+
+
+  
   function filterByCategory(event) {
     setSearchCategory(event.target.value);
     setCurrentPage(1);
@@ -132,6 +138,8 @@ const {loader ,setLoader} = useContext(LoaderContext)
 
   return (
     <>
+
+    
      <div style={{
          backgroundImage: `url(${cart2Image})`,
         paddingTop: '20px',

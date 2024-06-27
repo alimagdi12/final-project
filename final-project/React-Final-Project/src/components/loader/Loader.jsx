@@ -6,7 +6,7 @@ import CircularProgress, {
     circularProgressClasses,
 } from '@mui/material/CircularProgress';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-
+import "./Loader.css"
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     borderRadius: 5,
@@ -88,10 +88,8 @@ export default function CustomizedProgressBars() {
             }}
         >
             <Stack spacing={2} sx={{ position:'absolute' , left:'50%' }}>
-                {/* <FacebookCircularProgress /> */}
-                <GradientCircularProgress />
-                <br />
-                {/* <BorderLinearProgress variant="determinate" value={50} /> */}
+               
+            <span class="loader"></span>
             </Stack>
         </Box>
     );

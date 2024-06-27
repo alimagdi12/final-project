@@ -15,7 +15,7 @@ const {setLoader}= useContext(LoaderContext)
       }
       const data = await response.json();
       setProducts(data);
-     setLoader(false)
+    //  setLoader(false)
     } catch (error) {
       console.error('Error fetching categories:', error);
     }

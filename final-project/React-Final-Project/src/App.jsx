@@ -33,11 +33,12 @@ import PostsPage from './pages/Posts/PostsPage.jsx';
 import LoaderContext from './contexts/LoaderContext.jsx';
 import NotFound from './pages/Not Found/NotFound.jsx';
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import ProductsContext from './contexts/ProductsContext.jsx';
 
 
 function App() {
   const location = useLocation();
-  
+  const{products}= useContext(ProductsContext)
   const [darkMode, setDarkMode] = useState(false);
   const [isAuthRoute, setIsAuthRoute] = useState(false);
   const [isChatRoute, setIsChatRoute] = useState(false);
@@ -65,8 +66,8 @@ const {loader} = useContext(LoaderContext)
       <ThemeProvider theme={theme}>
         <ColorPicker />
         <CssBaseline />
-        {/* {loader && <Loader/>}  */}
-        {!isAuthRoute && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {loader && <Loader/>} 
+        {!isAuthRoute && products.products && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/loader" element={<Loader />} />
@@ -92,7 +93,7 @@ const {loader} = useContext(LoaderContext)
           {/* <Route path="/order" element={<Orders1 />} /> */}
           {/* <Route path="/order/:id" element={<OrderDetails />} /> */}
         </Routes>
-        {!isAuthRoute && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && products.products && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
     </div>
   );

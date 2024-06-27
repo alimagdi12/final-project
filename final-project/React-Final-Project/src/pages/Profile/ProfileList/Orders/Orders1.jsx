@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Grid, Avatar, Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { OrderContext } from '../../../../contexts/OrderContext';
 
 
 const Orders1 = () => {
-    const {orders} = useContext(OrderContext)
+    const {userOrders , getUserOrders} = useContext(OrderContext)
+    useEffect(()=>{
+        getUserOrders()
+        console.log(userOrders);
+    },[])
     return (
         <Box sx={{ padding: 4, borderRadius: 2}}>
             <Grid container spacing={2}>
-                {orders.orders.map((order) => (
+                {userOrders?.orders?.map((order) => (
                     <Grid key={order._id} item xs={12} md={4} sx={{ textAlign: 'center' }}>
                         <Box sx={{ padding: 2, border: '1px solid #E0E0E0', borderRadius: 2 , boxShadow:'2px 5px 2px 2px rgba(0, 0, 255, .2) ' }}>
                             <Typography variant="h6" sx={{fontWeight:'bold'}}>Order Id</Typography>

@@ -1,15 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Post from './components/post';
 import AddPost from './components/AddPost';
 import PostsContext from '../../contexts/PostsContext';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import ColorContext from '../../contexts/ColorContext';
+import LoaderContext from '../../contexts/LoaderContext';
 
 
 const PostsPage = () => {
     const { color } = useContext(ColorContext);
     const [posts, setPosts] = useState([]);
     const { PostsData ,fetchPostsData} = useContext(PostsContext);
+    const {loader ,setLoader} = useContext(LoaderContext)
+ 
+    useEffect(()=>{
+        if(PostsData){
+            setLoader(false)
+        }
+    },[PostsData])
 
     const addPost = (newPost) => {
         newPost.id = posts.length + 1;

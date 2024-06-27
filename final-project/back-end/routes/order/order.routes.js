@@ -22,6 +22,18 @@ const orderRouter = (orderController) => {
         }
     });
 
+
+    router.patch('/order/:id', async (req, res, next) => {
+        try {
+            const orderId = req.params.id;
+            const order = await orderController.updateOrder(orderId , req.body);
+            res.status(200).json(order);
+        } catch (err) {
+            res.status(401).json({ message: err.message });
+        }
+    });
+
+
     router.get('/all-orders', async (req, res, next) => {
         try {
             const orders = await orderController.getAllOrders();

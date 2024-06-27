@@ -10,6 +10,7 @@ import bgImage from "../../../public/8038874_25098.jpg";
 import "./Home.css";
 import ProductsContext from "../../contexts/ProductsContext.jsx";
 import CategoryContext from "../../contexts/CategoriesContext.jsx";
+import Loader from '../../components/loader/Loader.jsx';
 
 const datas = {
   strawberry:
@@ -23,24 +24,28 @@ const datas = {
 };
 
 const Home = () => {
-  const { setLoader } = useContext(LoaderContext);
+  const {loader, setLoader } = useContext(LoaderContext);
   const { products } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
 
   useEffect(() => {
-    setLoader(false);
-  }, []);
+    if(products.products  || categories.categories){
+      setLoader(false)
+    }
+  }, [products]);
 
   if (!products || !products.products || !categories.categories) {
     return (
       <Container>
-        <GradientCircularProgress />
+        {/* <GradientCircularProgress /> */}
       </Container>
     );
   }
 
   return (
-    <>
+
+<>{loader&& 
+<Loader></Loader>}
       <Hero />
       <div
         

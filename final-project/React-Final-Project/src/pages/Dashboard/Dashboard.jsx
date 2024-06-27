@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import Sidebar from './Components/Sidebar';
 import Topbar from './Products/Topbar';
@@ -6,10 +6,14 @@ import Content from './Products/Content';
 import OrderList from './Orders/Components/OrderList';
 import Categories from './Categories/Categories';
 import AllPosts from './Post/AllPosts';
+import LoaderContext from '../../contexts/LoaderContext';
 
 const Dashboard = () => {
+    const {setLoader}= useContext(LoaderContext)
     const [selectedMenuItem, setSelectedMenuItem] = useState('products');
-
+useEffect(()=>{
+setLoader(false)
+},[])
     const handleMenuItemClick = (menuItem) => {
         setSelectedMenuItem(menuItem);
     };

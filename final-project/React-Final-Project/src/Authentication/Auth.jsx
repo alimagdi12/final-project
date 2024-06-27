@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Auth.css";
 import { Box, Button, Typography } from "@mui/material";
 import UserContext from "../contexts/UserContext";
@@ -12,14 +12,17 @@ import ForgetPassword from "./ForgetPassword";
 import CheckOTP from "./CheckOTP";
 import ResetPassword from "./ResetPassword";
 import { NotificationContext } from "../contexts/NotificationContext";
+import LoaderContext from "../contexts/LoaderContext";
 
 export default function Auth() {
   const {fetchNotifications, notifications} = useContext(NotificationContext)
   const { color ,lightColor } = useContext(ColorContext);
   const navigate = useNavigate();
-
+const {setLoader} = useContext(LoaderContext)
   const { setToken } = useContext(UserContext);
-
+useEffect(()=>{
+  setLoader(false)
+},[])
   const handleSignIn = async (signInForm) => {
     (signInForm);
     try {

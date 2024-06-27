@@ -53,7 +53,7 @@ body {
   background: url("/public/Sara.jpg") no-repeat 50% / cover;
 }
 
-.container .content {
+.container .content1 {
   font-size: 1.5rem;
   color: #fff;
   display: flex;
@@ -70,7 +70,7 @@ body {
   visibility: hidden;
 }
 
-.container .content span {
+.container .content1 span {
   display: block;
   margin-top: 5px;
   font-size: 1.2rem;
@@ -82,7 +82,7 @@ body {
   transform: translateY(-30px);
 }
 
-.container > div:hover .content {
+.container > div:hover .content1 {
   opacity: 1;
   transform: translateY(0%);
   visibility: visible;

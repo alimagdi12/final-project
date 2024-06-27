@@ -47,6 +47,12 @@ class OrderRepository {
         return orders;
     }
 
+
+    async updateOrder(orderId,data){
+        const order= await Order.findByIdAndUpdate(orderId, data)
+        return order
+    }
+
     // New method for deleting an order
     async deleteOrder(orderId) {
         const order = await Order.findByIdAndDelete(orderId);

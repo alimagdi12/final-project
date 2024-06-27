@@ -16,7 +16,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Badge, Grid, Switch } from "@mui/material";
 import FlipCard from "../FlibCard/FlipCard";
 import CategoryContext from "../../contexts/CategoriesContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartContext } from "../../contexts/CartContext";
 import ColorContext from "../../contexts/ColorContext";
@@ -26,11 +26,15 @@ import { LoveContext } from '../../contexts/LoveContext';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { NotificationContext } from '../../contexts/NotificationContext';
+import LoaderContext from "../../contexts/LoaderContext";
 
 const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
+  const location = useLocation()
+  const currentPath = location.pathname
+  const{id} =useParams()
   const { love, getFavorite } = useContext(LoveContext);
   const { userData, token, fetchUserData, setToken } = useContext(UserContext);
   const { categories } = useContext(CategoryContext);
@@ -42,10 +46,11 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
   const navigate = useNavigate();
   const { color } = useContext(ColorContext);
-
+  const{setLoader} = useContext(LoaderContext)
   const handleProfileClick = () => {
     if (token !== "" || token) {
       (token);
+      setLoader(true)
       navigate("/profile");
     } else {
       toast.error("You must login first");
@@ -55,6 +60,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const handleDashboardClick = () => {
     if (token !== "" || token) {
       (token);
+      setLoader(true)
       navigate("/dashboard");
     } else {
       toast.error("You Are Not Admin ");
@@ -110,6 +116,16 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const handleCloseNotificationsMenu = () => {
     setAnchorElNotifications(null);
   };
+
+
+  const handleNavigate = (keyword) => {
+if(currentPath !== keyword){
+  console.log(currentPath);
+  setLoader(true)
+}
+    // navigate(`/${keyword}`)
+  };
+
 
   return (
     <AppBar position="static" sx={{ background: color, zIndex: 9 }}>
@@ -168,13 +184,13 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem  onClick={() => { navigate('/products'); }}>
+              <MenuItem  onClick={() => { handleNavigate('/products'); }}>
                 <Typography sx={{fontWeight:'bold'}} textAlign="center">Products</Typography>
               </MenuItem>
-              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { navigate('/about'); }}>
+              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { handleNavigate('/about'); }}>
                 <Typography sx={{fontWeight:'bold'}} textAlign="center">About Us</Typography>
               </MenuItem>
-              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { navigate('/post'); }}>
+              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { handleNavigate('/post'); }}>
                 <Typography sx={{fontWeight:'bold'}} textAlign="center">Posts</Typography>
               </MenuItem>
               <MenuItem sx={{fontWeight:'bold'}} onClick={handleCloseNavMenu}>
@@ -196,19 +212,19 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
             }}
           >
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
-              <Link to="/products" className="text-decoration-none h5 mx-2">
+              <Link to="/products" onClick={()=>{handleNavigate('/products')}} className="text-decoration-none h5 mx-2">
                 Products
               </Link>
             </Box>
   
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
-              <Link to="/about" className="text-decoration-none h5 mx-2">
+              <Link to="/about" onClick={()=>{handleNavigate('/about')}} className="text-decoration-none h5 mx-2">
                 About Us
               </Link>
             </Box>
   
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
-              <Link to="/post" className="text-decoration-none h5 mx-2">
+              <Link onClick={()=>{handleNavigate('/post')}} to="/post" className="text-decoration-none h5 mx-2">
                 Posts
               </Link>
             </Box>

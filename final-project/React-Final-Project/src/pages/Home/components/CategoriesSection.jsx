@@ -12,7 +12,7 @@ const CategoriesSection = () => {
   }
 
   return (
-    <Container sx={{ width: '100%' }}>
+    <Container sx={{ width: '100%' , backgroundColor:'transparent' }}>
       <CardHeader>Categories</CardHeader>
       <Grid container spacing={2} md={12}>
         <Box sx={{ marginTop: '5px', display: 'flex' }}>

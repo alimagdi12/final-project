@@ -45,7 +45,7 @@ const {color} = useContext(ColorContext)
                                 height="340"
                                 image={product?.imagesUrl?.images[0]}
                                 alt={product.title}
-                                sx={{height:'250px'}}
+                                sx={{height:'250px'}}a
                             />
                             <CardContent>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>

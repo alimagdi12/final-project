@@ -1,5 +1,5 @@
 import { Box, CardMedia, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import ServiceBox from './Components/ServiceBox';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import AboutCard from './Components/AboutCard';
@@ -9,8 +9,13 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import PaidIcon from '@mui/icons-material/Paid';
 import { colors } from '../../Util/utilities';
 import "./About.css"
+import Loader from '../../components/loader/Loader.jsx';
+import LoaderContext from '../../contexts/LoaderContext.jsx';
+
+
 
 export default function AboutUs() {
+ const {loader,setLoader} = useContext(LoaderContext)
   const members = [
     { img: '/public/Omar.jpg', src:'https://www.linkedin.com/in/omar-hassan97/', name: 'Omar Hassan' },
     { img: '/public/omar1.jpg', src:'https://www.linkedin.com/in/omar-gaber-tolba/', name: 'Omar Tolba' },
@@ -18,8 +23,17 @@ export default function AboutUs() {
     { img: '/public/Mohamed Ayman.jpg', src:'https://www.linkedin.com/in/mohamed-aymanuiux/', name: 'Mohamed Ayman' },
     { img: '/public/Sara.jpg', src:'https://www.linkedin.com/in/sara-ayman-64a46720a/', name: 'Sara' }
   ]
+
+  useEffect(()=>{
+setLoader(false)
+  },[])
   return (
     <Container style={{marginBottom:'5%'}}>
+{/*     
+    
+{loader&& 
+<Loader></Loader>}
+     */}
       {/* First section */}
       <AboutInfoHeader />
 
@@ -44,31 +58,31 @@ export default function AboutUs() {
 
       <div class="container w-75 m-auto" style={{width:'75% '}}>
     <div>
-      <div class="content">
+      <div class="content1">
         <h2>Omar Hassan</h2>
         <span>Full-Stack Developer</span>
       </div>
     </div>
     <div>
-      <div class="content">
+      <div class="content1">
         <h2>Omar Gaber</h2>
         <span>Full-Stack Developer</span>
       </div>
     </div>
     <div>
-      <div class="content">
+      <div class="content1">
         <h2>Ali Magdi</h2>
         <span>Full-Stack Developer</span>
       </div>
     </div>
     <div>
-      <div class="content">
+      <div class="content1">
         <h2>Mohamed Ayman</h2>
         <span>UI & UX Designer</span>
       </div>
     </div>
     <div>
-      <div class="content">
+      <div class="content1">
         <h2>Sara Ayman</h2>
         <span>UI & UX Designer</span>
       </div>
@@ -84,8 +98,8 @@ export default function AboutUs() {
             <Grid item xs={12} md={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
               <Box sx={{ display: 'flex' }}>
                 <Box>
-                  <Typography sx={{fontWeight:'800', fontSize:'28px', maxWidth:'100%', textAlign:'left'}}>Our Working Progress</Typography>
-                  <Typography sx={{ color: colors.gray, maxWidth:'100%', textAlign:'left' }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
+                  <Typography sx={{ fontWeight: '800', fontSize: '28px' }}>Our Working Progress</Typography>
+                  <Typography sx={{ color: colors.gray }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
                 </Box>
               </Box>
             </Grid>

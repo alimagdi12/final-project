@@ -19,12 +19,7 @@ export const OrderRow = ({ order, imageUrl }) => {
     const handleStatusChange = async (event) => {
         const newStatus = event.target.value;
         setStatus(newStatus);
-
-        if (newStatus === "Canceled") {
-            await deleteOrder(order._id);
-        } else {
-            await updateOrderStatus(order._id, newStatus);
-        }
+await updateOrderStatus(order._id, newStatus);
     };
 
     const TotalButton = styled(Button)({
@@ -84,8 +79,8 @@ export const OrderRow = ({ order, imageUrl }) => {
 
                 <select value={status} onChange={handleStatusChange} name="hall" id="hall">
                     <option value={"pending"} >Pending</option>
-                    <option value={"Accepted"}>Accepted</option>
-                    <option value={"Canceled"}>Canceled</option>
+                    <option value={"success"}>Accepted</option>
+                    <option value={"cancelled"}>Canceled</option>
                 </select>
             </Grid>
         </Grid>
