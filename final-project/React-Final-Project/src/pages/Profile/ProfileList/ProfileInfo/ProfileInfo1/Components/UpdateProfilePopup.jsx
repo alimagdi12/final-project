@@ -20,9 +20,9 @@ const UpdateProfilePopup = ({ handleChange, open, setOpen, handleProfileUpdate, 
 const {color} =useContext(ColorContext)
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} >
             <DialogTitle sx={{color:color}}>Update Your Profile</DialogTitle>
-            <DialogContent>
+            <DialogContent sx={{padding:'20px'}}>
                 {/* Section 1 */}
                 <Grid container spacing={2} marginBottom={5}>
                     <Grid item xs={12} sm={4}>

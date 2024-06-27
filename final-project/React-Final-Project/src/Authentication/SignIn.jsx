@@ -143,8 +143,8 @@ const {color,lightColor}=useContext(ColorContext)
               Login
             </Button>
           </Grid>
-          <Grid item xs={12} margin={1}>
-            <Typography marginTop={1} color={{color:color}}>
+          <Grid item xs={12} margin={1} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Typography marginTop={1} color={{color:color}} sx={{display:'flex', justifyContent:'center', flexDirection:'column', alignItems:'center'}}>
               Don't have an account?
               <Typography
                 marginX={1}
