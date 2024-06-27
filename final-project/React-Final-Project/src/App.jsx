@@ -75,6 +75,7 @@ const {loader} = useContext(LoaderContext)
           <Route path="/loader" element={<Loader />} />
           <Route path="/post" element={<PostsPage />} />
           <Route path="/chat/:id" element={<Chat />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/bid/:id" element={<BidPage />} />
           <Route path="/orderDone" element={<OrderDone />} />
           <Route path="/" element={<Home />} />

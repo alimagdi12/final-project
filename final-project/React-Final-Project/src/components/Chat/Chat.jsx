@@ -6,6 +6,7 @@ import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
+import LoaderContext from "../../contexts/LoaderContext";
 
 let socket;
 
@@ -20,6 +21,7 @@ const Chat = () => {
   const [conversation, setConversation] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const senderMessages = {};
+  const {setLoader} = useContext(LoaderContext)
   const navigate = useNavigate();
 
   // Initialize socket connection
@@ -56,6 +58,11 @@ const Chat = () => {
       socket.disconnect();
     };
   }, [id, userData?._id]);
+  
+  useEffect(()=>{
+    setLoader(false)
+  },[])
+  
   const getMessages = async () => {
     try {
       const response = await axios.post(
@@ -142,7 +149,9 @@ await getMessages()
         userData={userData}
         handleChatClick={handleChatClick}
       />
-      <ChatWindow
+
+
+{id && <ChatWindow
         messagesByChat={messagesByChat}
         selectedChat={selectedChat}
         messages={messages}
@@ -151,7 +160,8 @@ await getMessages()
         setInput={setInput}
         sendMessage={sendMessage}
         userData={userData}
-      />
+      /> }
+      
     </Box>
   );
 };

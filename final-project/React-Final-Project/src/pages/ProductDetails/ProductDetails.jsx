@@ -15,15 +15,16 @@ import MainCard from '../Home/components/MainCard';
 import { CartContext } from '../../contexts/CartContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import "./ProductDetails.modules.css";
+import LoaderContext from '../../contexts/LoaderContext';
 
 const placeholderImage = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'; // Define the path to your placeholder image
 export default function ProductDetails() {
   const { color } = useContext(ColorContext);
   const { products } = useContext(ProductsContext);
   const { id } = useParams();
-  const { cartItems, deleteCartItem } = useContext(CartContext);
+  const { cartItems, deleteCartItem,addToCart,getCart } = useContext(CartContext);
   const [product, setProduct] = useState({});
-
+  const {setLoader} = useContext(LoaderContext)
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -41,7 +42,10 @@ export default function ProductDetails() {
 
     fetchProduct();
   }, [id]);
+useEffect(()=>{
+  setLoader(false)
 
+},[])
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -49,7 +53,11 @@ export default function ProductDetails() {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open,id) => async(event) => {
+    if(open){
+await addToCart(id)
+await getCart()
+    }
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -124,8 +132,12 @@ export default function ProductDetails() {
             <Link to={`/chat/${product?.userId?._id}`}>
               <Button variant="contained" sx={{ marginRight: '5px', backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Chat With Seller</Button>
             </Link>
-            <Button variant="contained" onClick={toggleDrawer('right', true)} sx={{ backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Add</Button>
+            <Button variant="contained" onClick={toggleDrawer('right', true , product._id)}  sx={{ backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Add</Button>
             <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
+              
+            {cartItems.length === 0 && 
+        <Typography width={300}>Cart is empty!</Typography>
+      }
               {cartItems?.map(item => (
                 <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '5px' }}>
                   <Grid container spacing={2} alignItems="center">

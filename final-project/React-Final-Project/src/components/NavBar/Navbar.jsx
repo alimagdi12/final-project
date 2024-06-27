@@ -27,6 +27,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { NotificationContext } from '../../contexts/NotificationContext';
 import LoaderContext from "../../contexts/LoaderContext";
+import { FaComments } from 'react-icons/fa';
 
 const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -302,6 +303,17 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
                 </Badge>
               </IconButton>
+            
+              <IconButton color="inherit">
+                <Badge badgeContent={love} color="secondary">
+                  <Link to={'/chat'}>  <FaComments size={25} color="#FFF" /></Link>
+                </Badge>
+              </IconButton>
+
+
+
+
+
               <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
                 <Link to="/sell" className="text-decoration-none h4 mx-2">
                   <Button sx={{ backgroundColor: "white", color: color, '&:hover': { color: 'white', backgroundColor: color, outline: '2px solid white' } }} variant="contained">
