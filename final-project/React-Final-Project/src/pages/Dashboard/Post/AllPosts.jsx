@@ -6,20 +6,12 @@ import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 
 import ProductsContext from '../../../contexts/ProductsContext'
 import axios from 'axios';
-// import PostsContext from '../../../contexts/PostsContext';
 import ColorContext from '../../../contexts/ColorContext';
 import PostsContext from '../../../contexts/PostsContext';
 
 const AllPosts = () => {
-    // const {token} = useContext(usee)
-
-    // const {PostsData,fetchPostsData} = useContext(PostsContext)
     const {PostsData, fetchPostsData} = useContext(PostsContext)
 const {products,fetchProducts} = useContext(ProductsContext)
-console.log(PostsData);
-useEffect(()=>{
-    console.log(PostsData);
-},[])
 const {color} = useContext(ColorContext)
     const handleDelete =async (id) => {
         try {
@@ -34,7 +26,7 @@ const {color} = useContext(ColorContext)
             );
             (response);
             fetchPostsData()
-            // console.log(PostsData);
+          
         } catch (error) {
             console.error("Error fetching Posts history:", error);
         }

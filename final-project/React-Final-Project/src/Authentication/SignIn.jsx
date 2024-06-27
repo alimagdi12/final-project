@@ -100,7 +100,7 @@ const {color,lightColor}=useContext(ColorContext)
   }, [fetchNotifications, notifications]);
 
   return (
-    <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', textAlign: 'center', color: 'white' }}>
+    <Box sx={{ height: {xs:'100%',md:'90vh'}, display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', textAlign: 'center', color: 'white' }}>
       <Box className={`inputs ${fade ? "fade-out" : "fade-in"}`} sx={{ width: "50%", height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', alignContent: 'center', textAlign: 'center', color: 'white' }}>
         <Box sx={{ width: '100%' }}>
           <Typography variant="h5" margin={1} sx={{color:color}}>Vibe Verse</Typography>
@@ -165,6 +165,6 @@ const {color,lightColor}=useContext(ColorContext)
           </Grid>
         </Grid>
       </Box>
-    </div>
+    </Box>
   );
 }

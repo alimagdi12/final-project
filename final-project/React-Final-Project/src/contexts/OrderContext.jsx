@@ -98,8 +98,8 @@ export const OrderProvider = ({ children }) => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-            console.log(response);
-         await   setOrders(orders?.orders?.map(order => order._id === orderId ? { ...order, status } : order));
+       
+            await   setOrders(orders?.orders?.map(order => order._id === orderId ? { ...order, status } : order));
             toast.success('Order status updated successfully');
         } catch (err) {
             console.error(err);

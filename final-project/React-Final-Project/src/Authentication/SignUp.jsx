@@ -84,7 +84,7 @@ export default function SignUp({ fade, handleSignUp, handleToLogin }) {
         className={`inputs ${fade ? "fade-out" : "fade-in"}`}
         justifyContent="center"
         alignItems="center"
-        sx={{ width: "50%", margin: "auto", height: "100%", color: "white" }}
+        sx={{ width: "50%", margin: "auto", height: {xs:'100%',md:'90vh'}, color: "white" }}
       >
         <Typography variant="h5" color={color}>Vibe Verse</Typography>
         <Typography variant="h5" color={color}>Create your account</Typography>

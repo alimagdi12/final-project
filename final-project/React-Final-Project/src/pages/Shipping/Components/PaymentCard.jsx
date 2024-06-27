@@ -39,11 +39,7 @@ const PaymentCard = ({ handlePaymentClick }) => {
 
   const {userData} = useContext(UserContext)
   const {totalPrice, cartItems} = useContext(CartContext)
-  useEffect(()=>{
-    console.log(totalPrice);
-  })
-  console.log(totalPrice);
-
+ 
   return (
     <CardContainer onClick={()=>{handlePaymentClick(userData.firstName , totalPrice)}}  sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <>

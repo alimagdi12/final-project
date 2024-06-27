@@ -34,6 +34,7 @@ import LoaderContext from './contexts/LoaderContext.jsx';
 import NotFound from './pages/Not Found/NotFound.jsx';
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import ProductsContext from './contexts/ProductsContext.jsx';
+import Categories1 from './pages/Categories/Categories1.jsx';
 
 
 function App() {
@@ -70,9 +71,11 @@ const {loader} = useContext(LoaderContext)
         {!isAuthRoute && products.products && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/categories" element={<Categories1 />} />
           <Route path="/loader" element={<Loader />} />
           <Route path="/post" element={<PostsPage />} />
           <Route path="/chat/:id" element={<Chat />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/bid/:id" element={<BidPage />} />
           <Route path="/orderDone" element={<OrderDone />} />
           <Route path="/" element={<Home />} />

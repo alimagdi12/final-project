@@ -69,9 +69,7 @@ export default function AddProduct() {
 `;
 
   useEffect(() => {
-    console.log('Categories:', categories);
-    console.log('Token:', token);
-  }, [categories, token]);
+    }, [categories, token]);
 
   useEffect(() => {
     setLoader(false);
@@ -128,7 +126,6 @@ export default function AddProduct() {
           'jwt': localStorage.getItem('token')
         }
       });
-      console.log(response);
       setFormData({
         title: '',
         name: '',

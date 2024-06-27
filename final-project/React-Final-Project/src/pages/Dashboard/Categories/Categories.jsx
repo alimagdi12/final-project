@@ -45,8 +45,7 @@ const Categories = () => {
   const [newCategoryImage, setNewCategoryImage] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
-  console.log(categories);
-
+ 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:3000/api/v1/admin/delete-category/${id}`, {

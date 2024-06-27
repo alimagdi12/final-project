@@ -28,7 +28,7 @@ import LoaderContext from '../../contexts/LoaderContext';
 
 const Cart = () => {
     const {setLoader} = useContext(LoaderContext)
-    const { cartItems, updateCartItemQuantity, setCartItems, totalItems, getCart, totalPrice } = useContext(CartContext);
+    const { cartItems, updateCartItemQuantity, setCartItems, totalItems, getCart, totalPrice ,addToCart } = useContext(CartContext);
     const { color } = useContext(ColorContext)
     const safeTotalItems = isNaN(totalItems) ? 0 : totalItems;
 
@@ -36,9 +36,6 @@ const Cart = () => {
     const [deleteItemId, setDeleteItemId] = useState(null);
     useEffect(() => { getCart(); setLoader(false)  }, [])
 
-    // ("Imports are working fine.");
-
-    // Inside Cart component
 
     useEffect(() => {
         ("Fetching cart data...");
