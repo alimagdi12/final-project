@@ -45,6 +45,9 @@ const Chat = () => {
         }));
         getMessages()
       }
+      else{
+        getConversations()
+      }
       (message);
     });
 
