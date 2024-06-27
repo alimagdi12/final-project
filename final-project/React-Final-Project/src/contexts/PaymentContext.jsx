@@ -16,8 +16,7 @@ const PaymentProvider = ({ children }) => {
         try {
             const data = { name: Pname, totalPrice: price };
     
-            console.log('Sending request with data:', data);
-    
+          
             const response = await axios.post(
                 "http://localhost:3000/api/v1/auth/payment",
                 data,

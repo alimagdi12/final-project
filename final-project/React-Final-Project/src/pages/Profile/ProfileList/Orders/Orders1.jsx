@@ -8,7 +8,6 @@ const Orders1 = () => {
     const {userOrders , getUserOrders} = useContext(OrderContext)
     useEffect(()=>{
         getUserOrders()
-        console.log(userOrders);
     },[])
     return (
         <Box sx={{ padding: 4, borderRadius: 2}}>

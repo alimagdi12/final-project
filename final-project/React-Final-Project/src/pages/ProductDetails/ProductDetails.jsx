@@ -17,7 +17,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import "./ProductDetails.modules.css";
 
 const placeholderImage = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'; // Define the path to your placeholder image
-console.log(placeholderImage);
 export default function ProductDetails() {
   const { color } = useContext(ColorContext);
   const { products } = useContext(ProductsContext);

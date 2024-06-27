@@ -121,7 +121,6 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
   const handleNavigate = (keyword) => {
     if (currentPath !== keyword) {
-      console.log(currentPath);
       setLoader(true)
     }
     // navigate(`/${keyword}`)
