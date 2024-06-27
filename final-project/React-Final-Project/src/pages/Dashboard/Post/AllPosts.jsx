@@ -1,18 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, {  useContext, useEffect, useState } from 'react';
 import { Box, Typography, Grid, Card, CardContent, CardMedia, IconButton, Fab } from '@mui/material';
-import { Edit, Delete, Add as AddIcon } from '@mui/icons-material';
+import { Edit, Delete, Add as AddIcon, PostAdd } from '@mui/icons-material';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 
 import ProductsContext from '../../../contexts/ProductsContext'
 import axios from 'axios';
-import PostsContext from '../../../contexts/PostsContext';
+// import PostsContext from '../../../contexts/PostsContext';
 import ColorContext from '../../../contexts/ColorContext';
+import PostsContext from '../../../contexts/PostsContext';
 
 const AllPosts = () => {
     // const {token} = useContext(usee)
+<<<<<<< HEAD
+    // const {PostsData,fetchPostsData} = useContext(PostsContext)
+    const {PostsData, fetchPostsData} = useContext(PostsContext)
+=======
     const {PostsData,fetchPostsData} = useContext(PostsContext)
+>>>>>>> 0c2f19c573ab530befe2e6a8a01ba038d4401a65
 const {products,fetchProducts} = useContext(ProductsContext)
+console.log(PostsData);
+useEffect(()=>{
+    console.log(PostsData);
+},[])
 const {color} = useContext(ColorContext)
     const handleDelete =async (id) => {
         try {
@@ -27,8 +37,9 @@ const {color} = useContext(ColorContext)
             );
             (response);
             fetchPostsData()
+            // console.log(PostsData);
         } catch (error) {
-            console.error("Error fetching chat history:", error);
+            console.error("Error fetching Posts history:", error);
         }
     };
 
@@ -43,7 +54,7 @@ const {color} = useContext(ColorContext)
                             <CardMedia
                                 component="img"
                                 height="340"
-                                image={product?.imagesUrl?.images[0]}
+                                image={product?.author?.imageUrl?.images[0]}
                                 alt={product.title}
                                 sx={{height:'250px'}}a
                             />

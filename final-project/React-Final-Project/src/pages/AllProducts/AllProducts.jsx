@@ -24,9 +24,9 @@ import LoaderContext from "../../contexts/LoaderContext";
 export default function AllProducts() {
   const { color , lightColor} = useContext(ColorContext);
   const [toggle, setToggle] = useState(false);
-  const { products,fetchProducts } = useContext(ProductsContext);
+  const { products, fetchProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
-  const { auction , fetchAuction } = useContext(AuctionContext);
+  const { auction, fetchAuction } = useContext(AuctionContext);
   const [displayedProducts, setDisplayedProducts] = useState([]);
   const [searchLocation, setSearchLocation] = useState(null);
   const [searchCategory, setSearchCategory] = useState([]);
@@ -52,7 +52,7 @@ export default function AllProducts() {
   (currentAuctions);
 
   const { getCart, addToCart } = useContext(CartContext);
-const {loader ,setLoader} = useContext(LoaderContext)
+  const { loader, setLoader } = useContext(LoaderContext)
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -190,7 +190,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
                     control={
                       <Radio
                         sx={{
-                          color: 'white',
+                          color: color,
                           "&.Mui-checked": {
                             color: color,
                           },
@@ -300,6 +300,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
               width: { xs: "100%", md: "70%" },
               display: "flex",
               flexDirection: "column",
+              alignItems: "center"
             }}
           >
             {/* Buttons and Product Cards */}
@@ -397,7 +398,7 @@ const {loader ,setLoader} = useContext(LoaderContext)
             />
           </Container>
         }
-        { toggle && currentAuctions &&
+        {toggle && currentAuctions &&
           <Container
             sx={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: '20px' }}
           >
@@ -418,7 +419,6 @@ const {loader ,setLoader} = useContext(LoaderContext)
           </Container>
         }
       </div>
-
     </>
   );
 }

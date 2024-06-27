@@ -138,7 +138,7 @@ if(currentPath !== keyword){
             to="/"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex", width: '15%' },
+              display: { xs: "none", md: "flex", width: '10%' },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
