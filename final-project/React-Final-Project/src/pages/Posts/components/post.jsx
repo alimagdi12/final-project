@@ -128,7 +128,7 @@ const Post = ({ post }) => {
                                 <DialogTitle>Comments</DialogTitle>
                                 <DialogContent>
                                     {post?.comments?.map(comment => (
-                                        <Typography key={comment.id}>{comment.content}</Typography>
+                                        <Typography key={comment._id}>{comment.content}</Typography>
                                     ))}
                                     <form onSubmit={(e) => { e.preventDefault(); handleCommentSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                         <TextField

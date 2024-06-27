@@ -8,7 +8,6 @@ export const PostsProvider = ({ children }) => {
   const [PostsData, setPostsData] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log(PostsData);
 
   const fetchPostsData = async () => {
     try {

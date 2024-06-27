@@ -89,7 +89,7 @@ export default function CustomizedProgressBars() {
         >
             <Stack spacing={2} sx={{ position:'absolute' , left:'50%' }}>
                
-            <span class="loader"></span>
+            <span className="loader"></span>
             </Stack>
         </Box>
     );

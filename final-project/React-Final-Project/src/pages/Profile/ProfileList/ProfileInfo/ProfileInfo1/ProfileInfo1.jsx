@@ -7,40 +7,58 @@ import UserContext from '../../../../../contexts/UserContext';
 import UpdateProfilePopup from './Components/UpdateProfilePopup';
 import axios from 'axios';
 import ColorContext from '../../../../../contexts/ColorContext';
+import LoaderContext from '../../../../../contexts/LoaderContext';
 
 const ProfileInfo1 = () => {
-    const { color } = useContext(ColorContext)
-    const {userData,fetchUserData} = useContext(UserContext)
+    const { setLoader } = useContext(LoaderContext);
+    const { color } = useContext(ColorContext);
+    const { userData, fetchUserData } = useContext(UserContext);
     const [updatedProfile, setUpdatedProfile] = useState({
-        email: userData?.email || '',
-        firstName: userData?.firstName || '',
-        lastName: userData?.lastName || '',
-        phoneNumber: userData?.phoneNumber || '',
-        birthDay: userData?.birthDay || '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        birthDay: '',
     });
-    console.log(userData);
     const [openPopup, setOpenPopup] = useState(false);
+
     const handleOpen = () => {
         setOpenPopup(true);
-    }
+    };
 
-    useEffect(()=>{
-        fetchUserData()
-    })
+   
+   useEffect(()=>{
+    setLoader(false);
+   
+   },[])
+   
+    useEffect(() => {
+        const loadData = async () => {
+           
+            await fetchUserData();
+        };
+        loadData();
+    }, [fetchUserData, setLoader]);
 
-
+    useEffect(() => {
+        if (userData) {
+            setUpdatedProfile({
+                email: userData.email || '',
+                firstName: userData.firstName || '',
+                lastName: userData.lastName || '',
+                phoneNumber: userData.phoneNumber || '',
+                birthDay: userData.birthDay || '',
+            });
+        }
+    }, [userData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        ('handleChange triggered:', name, value);
         setUpdatedProfile((prevProfile) => ({
             ...prevProfile,
             [name]: value,
         }));
-        ('Updated Profile:', updatedProfile);
     };
-
-
 
     const handleProfileUpdate = async () => {
         const userForm = new FormData();
@@ -51,21 +69,16 @@ const ProfileInfo1 = () => {
         userForm.append('email', updatedProfile.email);
 
         try {
-            const response = await axios.put('http://127.0.0.1:3000/api/v1/auth/edit-user', userForm, {
+            await axios.put('http://127.0.0.1:3000/api/v1/auth/edit-user', userForm, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'jwt': localStorage.getItem('token')
-                }
+                    'jwt': localStorage.getItem('token'),
+                },
             });
- 
         } catch (err) {
             console.error(err);
         }
     };
-
-
-
-
 
     return (
         <Box component="main" sx={{ marginTop: '30px' }}>
@@ -88,8 +101,10 @@ const ProfileInfo1 = () => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             id="email"
+                            name="email"
                             label="Email"
-                            value={userData?.email}
+                            value={updatedProfile.email}
+                            onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -101,9 +116,10 @@ const ProfileInfo1 = () => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             id="firstName"
+                            name="firstName"
                             label="First Name"
-                            placeholder='Omar'
-                            value={userData?.firstName}
+                            value={updatedProfile.firstName}
+                            onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -115,9 +131,10 @@ const ProfileInfo1 = () => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             id="lastName"
+                            name="lastName"
                             label="Last Name"
-                            value={userData?.lastName}
-                            placeholder='Hassan'
+                            value={updatedProfile.lastName}
+                            onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -133,9 +150,10 @@ const ProfileInfo1 = () => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             id="phoneNumber"
+                            name="phoneNumber"
                             label="Phone Number"
-                            placeholder='+201066035716'
-                            value={userData?.phoneNumber}
+                            value={updatedProfile.phoneNumber}
+                            onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{
@@ -147,9 +165,10 @@ const ProfileInfo1 = () => {
                     <Grid item xs={12} sm={8}>
                         <TextField
                             id="birthday"
+                            name="birthDay"
                             label="Birthday"
-                            placeholder='06|22|1997'
-                            value={userData?.birthDay}
+                            value={updatedProfile.birthDay}
+                            onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
                             sx={{

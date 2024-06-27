@@ -43,7 +43,7 @@ setLoader(false)
           Our Team
         </Typography>
         <Box marginY={3}>
-          <Grid spacing={2} sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
+          <Grid  sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
             <Grid item xs={6} sm={4} md={3} sx={{
               display: 'flex',
               flexWrap: 'wrap',
@@ -56,33 +56,33 @@ setLoader(false)
       </Box>
 
 
-      <div class="container w-75 m-auto" style={{width:'75% '}}>
+      <div className="container w-75 m-auto" style={{width:'75% '}}>
     <div>
-      <div class="content1">
+      <div className="content1">
         <h2>Omar Hassan</h2>
         <span>Full-Stack Developer</span>
       </div>
     </div>
     <div>
-      <div class="content1">
+      <div className="content1">
         <h2>Omar Gaber</h2>
         <span>Full-Stack Developer</span>
       </div>
     </div>
     <div>
-      <div class="content1">
+      <div className="content1">
         <h2>Ali Magdi</h2>
         <span>Full-Stack Developer</span>
       </div>
     </div>
     <div>
-      <div class="content1">
+      <div className="content1">
         <h2>Mohamed Ayman</h2>
         <span>UI & UX Designer</span>
       </div>
     </div>
     <div>
-      <div class="content1">
+      <div className="content1">
         <h2>Sara Ayman</h2>
         <span>UI & UX Designer</span>
       </div>
@@ -91,8 +91,8 @@ setLoader(false)
 
 
       {/* Last section */}
-      <container>
-        <Grid container spacing={2} alignItems="center" sx={{marginTop:'8%'}}>
+      <Container>
+        <Grid  alignItems="center" sx={{marginTop:'8%'}}>
 
           <Grid item xs={12} md={6} container justifyContent="center" sx={{}}>
             <Grid item xs={12} md={12} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
@@ -124,7 +124,7 @@ setLoader(false)
             />
           </Grid>
         </Grid>
-      </container>
+      </Container>
     
     </Container>
   );

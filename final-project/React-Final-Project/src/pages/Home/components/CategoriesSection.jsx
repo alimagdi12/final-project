@@ -14,9 +14,9 @@ const CategoriesSection = () => {
   return (
     <Container sx={{ width: '100%' , backgroundColor:'transparent' }}>
       <CardHeader>Categories</CardHeader>
-      <Grid container spacing={2} md={12}>
+      <Grid container item spacing={2} md={12}>
         <Box sx={{ marginTop: '5px', display: 'flex' }}>
-          <Grid spacing={2} sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
+          <Grid  sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
             <Grid item xs={6} sm={4} md={12} sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.categories.slice(0, 4).map((category, index) => (
                 <Grid item xs={12} sm={6} md={3} key={index}>

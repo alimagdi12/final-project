@@ -243,7 +243,7 @@ if(currentPath !== keyword){
               </Typography>
               {hoveredPage && (
                 <Grid
-                md={12}
+               
                   sx={{
                     position: "absolute",
                     top: "100%",
@@ -259,7 +259,7 @@ if(currentPath !== keyword){
                 >
                   <Grid
                     className="d-flex flex-wrap"
-                    md={6}
+                 
                     sx={{ zIndex: "999", height: "100%", width: '680px' }}
                   >
                     {categories && categories.categories && categories.categories.map((category) => (

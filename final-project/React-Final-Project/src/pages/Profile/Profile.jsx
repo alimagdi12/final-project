@@ -6,7 +6,6 @@ import { Box, Grid } from '@mui/material';
 import Address from '../Profile/ProfileList/Address/Address';
 import Orders1 from '../Profile/ProfileList/Orders/Orders1';
 
-
 const drawerWidth = 300;
 
 export default function Profile() {
@@ -46,9 +45,8 @@ export default function Profile() {
         setSelectedIndex(index);
     };
 
-
     return (
-        <Grid container xs={12} md={12}  sm={12}>
+        <Grid container>
             {/* Sidebar */}
             <Grid item xs={12} md={3}>
                 <Sidebar drawerWidth={drawerWidth} handleListItemClick={handleListItemClick} selectedIndex={selectedIndex} />
@@ -64,6 +62,7 @@ export default function Profile() {
                         handleConfirm={handleConfirm}
                         userData={userData}
                         selectedIndex={selectedIndex}
+                        open={open}  // Add the open prop to the ProfileInfo component
                     />
                 )}
                 {selectedIndex === 1 && <Orders1 />}

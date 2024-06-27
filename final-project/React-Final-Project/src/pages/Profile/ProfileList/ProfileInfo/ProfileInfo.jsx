@@ -2,7 +2,7 @@ import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTit
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import ProfileInfo1 from "./ProfileInfo1/ProfileInfo1";
 
-function ProfileInfo({ handleOpen, handleClose, handleChange, handleConfirm, userData, open, selectedIndex }) {
+function ProfileInfo({ handleOpen, handleClose, handleChange, handleConfirm,  userData = { firstName: '', email: '',lastName:'' , birthDay:'',phoneNumber:'' }, open, selectedIndex }) {
     return (
         <>
             <Stack component="main" sx={{ marginTop: '5%' }}>

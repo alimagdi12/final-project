@@ -209,7 +209,7 @@ export default function AddProduct() {
               sx={{ mt: 1 }}
             />
           </Grid>
-          <Grid sx={{ display: 'flex', paddingTop: '16px', '@media(max-width:600px)':{
+          <Grid item sx={{ display: 'flex', paddingTop: '16px', '@media(max-width:600px)':{
             flexDirection: 'column',
           } }} xs={12} sm={12}>
             <Grid item xs={12} sm={6} sx={{ paddingLeft: '16px' }}>
@@ -228,7 +228,7 @@ export default function AddProduct() {
             <Grid sx={{ display: 'flex', flexDirection: 'column', width: '50%' , '@media(max-width:600px)':{
               width: '100%',
             }}}>
-              <Grid xs={12} md={12} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              <Grid item xs={12} md={12} sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 <Grid item xs={12} sm={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                   <Typography variant="h6">Status</Typography>
                   <CustomSelect

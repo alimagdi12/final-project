@@ -1,4 +1,4 @@
-import { Box, CardMedia, Grid, Typography } from '@mui/material'
+import { Box, CardMedia, Container, Grid, Typography } from '@mui/material'
 import React from 'react'
 import ServiceBox from './ServiceBox'
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
@@ -9,7 +9,7 @@ import { colors } from '../../../Util/utilities';
 const AboutInfoHeader = () => {
 
     return (
-        <container>
+        <Container>
             <Grid container spacing={2} alignItems="center" sx={{marginTop:'2%'}}>
                 <Grid item xs={12} md={6}>
                     <CardMedia
@@ -54,7 +54,7 @@ const AboutInfoHeader = () => {
                     </Grid>
                 </Grid>
             </Grid>
-        </container>
+        </Container>
     )
 }
 

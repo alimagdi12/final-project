@@ -44,7 +44,7 @@ const PostsPage = () => {
                 </Box>
                 <Grid container spacing={3} sx={{ width: '80%', marginTop: 2 }}>
                     {PostsData?.map(post => (
-                        <Grid item xs={12} sm={6} md={4} key={post.id}>
+                        <Grid  item xs={12} sm={6} md={4} key={post._id}>
                             <Post post={post} />
                         </Grid>
                     ))}
