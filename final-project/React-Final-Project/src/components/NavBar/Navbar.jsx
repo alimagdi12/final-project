@@ -34,7 +34,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const location = useLocation()
   const currentPath = location.pathname
-  const{id} =useParams()
+  const { id } = useParams()
   const { love, getFavorite } = useContext(LoveContext);
   const { userData, token, fetchUserData, setToken } = useContext(UserContext);
   const { categories } = useContext(CategoryContext);
@@ -46,7 +46,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
   const navigate = useNavigate();
   const { color } = useContext(ColorContext);
-  const{setLoader} = useContext(LoaderContext)
+  const { setLoader } = useContext(LoaderContext)
   const handleProfileClick = () => {
     if (token !== "" || token) {
       (token);
@@ -94,6 +94,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   };
 
   const handleCloseNavMenu = () => {
+    handleNavigate('/categories'); 
     setAnchorElNav(null);
   };
 
@@ -119,10 +120,10 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
 
 
   const handleNavigate = (keyword) => {
-if(currentPath !== keyword){
-  console.log(currentPath);
-  setLoader(true)
-}
+    if (currentPath !== keyword) {
+      console.log(currentPath);
+      setLoader(true)
+    }
     // navigate(`/${keyword}`)
   };
 
@@ -149,11 +150,11 @@ if(currentPath !== keyword){
             <img
               src="/logo.png"
               alt="Logo"
-             
-              style={{ cursor: "pointer", width:'70%' }}
+
+              style={{ cursor: "pointer", width: '70%' }}
             />
           </Typography>
-  
+
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -165,7 +166,7 @@ if(currentPath !== keyword){
             >
               <MenuIcon />
             </IconButton>
-  
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -184,26 +185,26 @@ if(currentPath !== keyword){
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem  onClick={() => { handleNavigate('/products'); }}>
-                <Typography sx={{fontWeight:'bold'}} textAlign="center">Products</Typography>
+              <MenuItem onClick={() => { handleNavigate('/products'); }}>
+                <Typography sx={{ fontWeight: 'bold' }} textAlign="center">Products</Typography>
               </MenuItem>
-              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { handleNavigate('/about'); }}>
-                <Typography sx={{fontWeight:'bold'}} textAlign="center">About Us</Typography>
+              <MenuItem sx={{ fontWeight: 'bold' }} onClick={() => { handleNavigate('/about'); }}>
+                <Typography sx={{ fontWeight: 'bold' }} textAlign="center">About Us</Typography>
               </MenuItem>
-              <MenuItem sx={{fontWeight:'bold'}} onClick={() => { handleNavigate('/post'); }}>
-                <Typography sx={{fontWeight:'bold'}} textAlign="center">Posts</Typography>
+              <MenuItem sx={{ fontWeight: 'bold' }} onClick={() => { handleNavigate('/post'); }}>
+                <Typography sx={{ fontWeight: 'bold' }} textAlign="center">Posts</Typography>
               </MenuItem>
-              <MenuItem sx={{fontWeight:'bold'}} onClick={handleCloseNavMenu}>
-                <Typography sx={{fontWeight:'bold'}} textAlign="center">Categories</Typography>
+              <MenuItem sx={{ fontWeight: 'bold' }} onClick={handleCloseNavMenu}>
+                <Link to={'/categories'}><Typography sx={{ fontWeight: 'bold' }} textAlign="center">Categories</Typography></Link>
               </MenuItem>
               {categories && categories.categories && categories.categories.map((category) => (
-                <MenuItem sx={{fontWeight:'bold'}} key={category._id} onClick={() => { navigate(`/products/${category._id}`); }}>
-                  <Typography  textAlign="center">{category.title}</Typography>
+                <MenuItem sx={{ fontWeight: 'bold' }} key={category._id} onClick={() => { navigate(`/products/${category._id}`); }}>
+                  <Typography textAlign="center">{category.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          
+
           <Box
             sx={{
               flexGrow: 1,
@@ -212,38 +213,40 @@ if(currentPath !== keyword){
             }}
           >
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
-              <Link to="/products" onClick={()=>{handleNavigate('/products')}} className="text-decoration-none h5 mx-2">
+              <Link to="/products" onClick={() => { handleNavigate('/products') }} className="text-decoration-none h5 mx-2">
                 Products
               </Link>
             </Box>
-  
+
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
-              <Link to="/about" onClick={()=>{handleNavigate('/about')}} className="text-decoration-none h5 mx-2">
+              <Link to="/about" onClick={() => { handleNavigate('/about') }} className="text-decoration-none h5 mx-2">
                 About Us
               </Link>
             </Box>
-  
+
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
-              <Link onClick={()=>{handleNavigate('/post')}} to="/post" className="text-decoration-none h5 mx-2">
+              <Link onClick={() => { handleNavigate('/post') }} to="/post" className="text-decoration-none h5 mx-2">
                 Posts
               </Link>
             </Box>
-  
+
             <Box
               onMouseEnter={handlePageHover}
               onMouseLeave={handlePageHoverOut}
               sx={{ my: 2, textAlign: "center", position: "relative" }}
             >
               <Typography
-                sx={{ fontWeight: 'bold' }}
+                sx={{ fontWeight: 'bold', color:"white", textDecoration:'none' }}
                 component={Link}
                 className="text-decoration-none h5 mx-2"
               >
+                <Link to={"/categories"} style={{ fontWeight: 'bold', color:"white", textDecoration:'none' }}>
                 Categories
+                </Link>
               </Typography>
               {hoveredPage && (
                 <Grid
-               
+
                   sx={{
                     position: "absolute",
                     top: "100%",
@@ -259,7 +262,7 @@ if(currentPath !== keyword){
                 >
                   <Grid
                     className="d-flex flex-wrap"
-                 
+
                     sx={{ zIndex: "999", height: "100%", width: '680px' }}
                   >
                     {categories && categories.categories && categories.categories.map((category) => (
@@ -283,7 +286,7 @@ if(currentPath !== keyword){
               </Link>
             </Box>
           )}
-  
+
           {token && (
             <>
               <IconButton
@@ -294,7 +297,7 @@ if(currentPath !== keyword){
                   <NotificationsIcon sx={{ cursor: 'pointer', color: 'white' }} />
                 </Badge>
               </IconButton>
-  
+
               <IconButton color="inherit">
                 <Badge badgeContent={love} color="secondary">
                   <Link to={'/favorite'}> <FavoriteIcon sx={{ cursor: 'pointer', color: 'white' }} /></Link>
@@ -307,7 +310,7 @@ if(currentPath !== keyword){
                   </Button>
                 </Link>
               </Box>
-              <Box sx={{ flexGrow: 0 , display: 'flex' }}>
+              <Box sx={{ flexGrow: 0, display: 'flex' }}>
                 <Tooltip title="Open settings">
                   <>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -330,9 +333,9 @@ if(currentPath !== keyword){
                     </IconButton>
                   </>
                 </Tooltip>
-  
+
                 <Switch checked={darkMode} onChange={toggleDarkMode} />
-  
+
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
@@ -354,13 +357,13 @@ if(currentPath !== keyword){
                       Dashboard
                     </Typography>
                   </MenuItem>
-  
+
                   <MenuItem key={"1"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleProfileClick} textAlign="center">
                       Profile
                     </Typography>
                   </MenuItem>
-  
+
                   <MenuItem key={"2"} onClick={handleCloseUserMenu}>
                     <Typography onClick={handleLogOutClick} textAlign="center">
                       Logout
@@ -370,7 +373,7 @@ if(currentPath !== keyword){
               </Box>
             </>
           )}
-  
+
           <Menu
             id="notifications-menu"
             anchorEl={anchorElNotifications}
@@ -393,5 +396,5 @@ if(currentPath !== keyword){
         </Toolbar>
       </Container>
     </AppBar>
-  );  
+  );
 }
