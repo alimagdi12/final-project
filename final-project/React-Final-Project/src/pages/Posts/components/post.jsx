@@ -77,8 +77,6 @@ const Post = ({ post }) => {
                                     <Typography sx={{width:'100%'}} variant="body1">{post?.author.firstName || 'User Name'} {post?.author.lastName}</Typography>
                                 </Box>
 
-
-
                                 {userData?._id == post?.author?._id && (
                                     <>
                                         <IconButton

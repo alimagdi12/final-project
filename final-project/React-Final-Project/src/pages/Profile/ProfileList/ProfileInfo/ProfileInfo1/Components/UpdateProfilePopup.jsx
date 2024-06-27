@@ -21,10 +21,10 @@ const {color} =useContext(ColorContext)
 
     return (
         <Dialog open={open} onClose={handleClose} >
-            <DialogTitle sx={{color:color}}>Update Your Profile</DialogTitle>
-            <DialogContent sx={{padding:'20px'}}>
+            <DialogTitle sx={{color:color, padding:'20px'}}>Update Your Profile</DialogTitle>
+            <DialogContent>
                 {/* Section 1 */}
-                <Grid container spacing={2} marginBottom={5}>
+                <Grid container spacing={2} marginBottom={5} sx={{paddingTop:'10px'}}>
                     <Grid item xs={12} sm={4}>
                         <TextField
                             id="email"
@@ -75,7 +75,7 @@ const {color} =useContext(ColorContext)
                 </Grid>
 
                 {/* Section 2 */}
-                <Grid container spacing={2} marginBottom={5}>
+                <Grid container spacing={2} marginBottom={5} >
                     <Grid item xs={12} sm={4}>
                         <TextField
                             id="phoneNumber"
