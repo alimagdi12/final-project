@@ -93,11 +93,11 @@ setLoader(false)
       {/* Last section */}
       {/* <Container> */}
         <Grid   sx={{marginTop:'8%', display:'flex',justifyContent:'space-between'}}>
-          <Grid item xs={12} md={6} container sx={{}}>
+          <Grid item xs={12} md={12} container sx={{}}>
             <Grid item xs={12} md={12} sx={{ }}>
               <Box sx={{  }}>
                 <Box>
-                  <Typography sx={{ fontWeight: '800', fontSize: '28px', justifyContent:'flex-start', textAlign:'center', width:'100%' }}>Our Working Progress</Typography>
+                  <Typography sx={{ fontWeight: '800', fontSize: '28px', justifyContent:'flex-start', textAlign:'left', width:'100%' }}>Our Working Progress</Typography>
                   <Typography sx={{ color: colors.gray }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
                 </Box>
               </Box>

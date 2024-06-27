@@ -59,7 +59,7 @@ const {color}= useContext(ColorContext)
           />
           </>
         )}
-        <CardContent sx={{ flex: '1 0 auto' }}>
+        <CardContent sx={{ flex: '1 0 auto',display:"flex", flexDirection:'column', alignItems:'flex-start' }}>
           <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1 }}>
             {product?.title}
           </Typography>

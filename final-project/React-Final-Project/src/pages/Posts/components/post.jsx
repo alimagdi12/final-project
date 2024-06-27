@@ -73,10 +73,8 @@ const Post = ({ post }) => {
                         <Grid item xs={12}>
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    {post?.author.imagesUrl?.images[0] && (
                                         <img src={post?.author.imageUrl?.images[0]} alt="Post" style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
-                                    )}
-                                    <Typography variant="body1">{userData?.name || 'User Name'}</Typography>
+                                    <Typography sx={{width:'100%'}} variant="body1">{post?.author.firstName || 'User Name'} {post?.author.lastName}</Typography>
                                 </Box>
 
 
@@ -117,7 +115,7 @@ const Post = ({ post }) => {
                                 <img src={post.imagesUrl.images[0]} alt="Post" style={{ width: '100%', height: '50vh' }} />
                             )}
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{textAlign:'left', display:'flex', justifyContent:'flex-start'}}>
                             <Typography>{post?.content}</Typography>
                         </Grid>
                         <Grid item xs={12}>
