@@ -64,7 +64,7 @@ export const OrderProvider = ({ children }) => {
                     'jwt': localStorage.getItem('token')
                 }
             });
-
+            getUserOrders()
             getOrder(); // Refresh orders after creating a new one
             toast.success('Order created successfully');
         } catch (err) {

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Typography, Container, Box, styled } from '@mui/material';
 import { OrderContext } from '../../contexts/OrderContext';
+import LoaderContext from '../../contexts/LoaderContext';
 
 const useStyles = styled((theme) => ({
     root: {
@@ -28,9 +29,10 @@ const OrderDone = () => {
     const { orders, userOrders, createOrder, getOrder, getUserOrders, setOrders} = useContext(OrderContext);
 
     const classes = useStyles();
-
+const {setLoader}= useContext(LoaderContext)
     useEffect(() => {
         getUserOrders()
+        setLoader(false)
     }, []);
 
     return (
@@ -44,7 +46,7 @@ const OrderDone = () => {
 
             <Box mt={4} width="100%">
                 {
-                    orders?.orders?.map((order) => (
+                    userOrders?.orders?.map((order) => (
                         <Container key={order._id} sx={{ border: '1px solid #ccc', borderRadius: '5px', padding: '10px', marginBottom: '10px' }}>
                             <Typography variant="h5" gutterBottom>
                                 Order Details

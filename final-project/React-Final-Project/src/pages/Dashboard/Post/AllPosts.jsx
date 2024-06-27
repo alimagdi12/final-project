@@ -12,12 +12,9 @@ import PostsContext from '../../../contexts/PostsContext';
 
 const AllPosts = () => {
     // const {token} = useContext(usee)
-<<<<<<< HEAD
+
     // const {PostsData,fetchPostsData} = useContext(PostsContext)
     const {PostsData, fetchPostsData} = useContext(PostsContext)
-=======
-    const {PostsData,fetchPostsData} = useContext(PostsContext)
->>>>>>> 0c2f19c573ab530befe2e6a8a01ba038d4401a65
 const {products,fetchProducts} = useContext(ProductsContext)
 console.log(PostsData);
 useEffect(()=>{

@@ -42,10 +42,13 @@ import { PaymentContext } from '../../contexts/PaymentContext';
 import ColorContext from '../../contexts/ColorContext';
 import { OrderContext } from '../../contexts/OrderContext';
 import { CartContext } from '../../contexts/CartContext';
+import LoaderContext from '../../contexts/LoaderContext';
 
 const PlaceOrder = () => {
-
-    const { addresses, addAddress, fetchAddresses, deleteAddress } = useContext(AddressContext)
+const{setLoader} = useContext(LoaderContext)
+    
+const [allAddresses,setAllAddresses] =useState([])
+const { addresses, addAddress, fetchAddresses, deleteAddress } = useContext(AddressContext)
     const { userData } = useContext(UserContext)
     const { cartItems, setCartItems, deleteAllCartItems, totalPrice } = useContext(CartContext)
     const {orders, userOrders, createOrder, getOrder, getUserOrders} = useContext(OrderContext)
@@ -82,8 +85,9 @@ const PlaceOrder = () => {
     }
 
     useEffect(() => {
-      
-    })
+      setAllAddresses(addresses)
+      setLoader(false)
+    },[addresses])
 
     const handleCardClick = (cardId) => {
         if (+selectedCard === +cardId) {
@@ -189,7 +193,7 @@ const PlaceOrder = () => {
                     <HomeIcon /> Shipping Address
                 </Typography>
                 <Grid container spacing={2}>
-                    {addresses?.map(address => (
+                    {allAddresses?.map(address => (
                         <Grid item xs={12} sm={6} md={4} key={address.id}>
                             <Card
                                 sx={{

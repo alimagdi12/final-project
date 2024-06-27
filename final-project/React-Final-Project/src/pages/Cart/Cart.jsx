@@ -24,15 +24,17 @@ import UserContext from '../../contexts/UserContext';
 import { CartContext } from '../../contexts/CartContext';
 import axios from 'axios';
 import ColorContext from '../../contexts/ColorContext';
+import LoaderContext from '../../contexts/LoaderContext';
 
 const Cart = () => {
+    const {setLoader} = useContext(LoaderContext)
     const { cartItems, updateCartItemQuantity, setCartItems, totalItems, getCart, totalPrice } = useContext(CartContext);
     const { color } = useContext(ColorContext)
     const safeTotalItems = isNaN(totalItems) ? 0 : totalItems;
 
     const [openDialog, setOpenDialog] = useState(false);
     const [deleteItemId, setDeleteItemId] = useState(null);
-    useEffect(() => { getCart() }, [])
+    useEffect(() => { getCart(); setLoader(false)  }, [])
 
     // ("Imports are working fine.");
 
@@ -41,7 +43,7 @@ const Cart = () => {
     useEffect(() => {
         ("Fetching cart data...");
 
-    }, []);
+    }, [cartItems]);
 
     const handleQuantityChange = (id, quantity) => {
         (`Updating quantity for item ${id} to ${quantity}.`);
