@@ -22,23 +22,24 @@ const AboutCard = ({ img, name, children, src }) => {
       onMouseLeave={handleCardFlip}
       style={{
         perspective: '1000px',
-        margin: '10px',
         zIndex: '3'
       }}
     >
       <Card
         sx={{
           zIndex: '3',
-          width: '300px',
+          // width: '300px',
           height: '400px',
           transformStyle: 'preserve-3d',
           transition: 'transform 0.6s',
+          backgroundColor:'#fff'
         }}
       >
         <Link to={src}>
         <CardContent>
           <CardMedia
             sx={{
+              width:'250px',
               height: 370,
               zIndex: '3',
               opacity: showOverlay ? 0.3 : 1,
