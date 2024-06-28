@@ -13,7 +13,7 @@ import ColorContext from '../../contexts/ColorContext';
 import { useContext } from 'react';
 
 export default function ProductCard({ product, addToCart }) {
-  (product);
+  console.log(product);
  
   const navigate = useNavigate();
 const {color}= useContext(ColorContext)
@@ -51,7 +51,7 @@ const {color}= useContext(ColorContext)
           <>
                   <CardMedia onClick={() => {
                     navigateToDetails(product._id);
-                  }} sx={{ height: 140 }} image={product?.imageUrl?.images[0]}
+                  }} sx={{ height: 140 }} image={product?.imagesUrl?.images[0]}
                   />
           <FaHammer
             sx={{ position: 'absolute', top: '10px', right: '5px' }}
