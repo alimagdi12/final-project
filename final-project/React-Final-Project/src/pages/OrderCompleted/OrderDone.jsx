@@ -64,9 +64,9 @@ const {setLoader}= useContext(LoaderContext)
                                 Products:
                             </Typography>
                             <ul>
-                                {order.items.map((item) => (
-                                    <li key={item.productId._id}>
-                                        Quantity: {item.quantity}
+                                {order?.items?.map((item) => (
+                                    <li key={item?.productId?._id}>
+                                        Quantity: {item?.quantity}
                                     </li>
                                 ))}
                             </ul>

@@ -46,7 +46,7 @@ function App() {
 const {loader} = useContext(LoaderContext)
   useEffect(() => {
     const authRoutes = ['/login', '/dashboard'];
-    const chatRoutes = ['/chat', '/post'];
+    const chatRoutes = ['/chat'];
     setIsAuthRoute(authRoutes.includes(location.pathname));
     setIsChatRoute(chatRoutes.some(route => location.pathname.startsWith(route)));
   }, [location.pathname]);
@@ -68,7 +68,7 @@ const {loader} = useContext(LoaderContext)
         <ColorPicker />
         <CssBaseline />
         {loader && <Loader/>} 
-        {!isAuthRoute && products.products && <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && products.products && !isChatRoute&& <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/categories" element={<Categories1 />} />
@@ -96,7 +96,7 @@ const {loader} = useContext(LoaderContext)
           {/* <Route path="/order" element={<Orders1 />} /> */}
           {/* <Route path="/order/:id" element={<OrderDetails />} /> */}
         </Routes>
-        {!isAuthRoute && products.products && <Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
+        {!isAuthRoute && products.products && !isChatRoute&&<Footer toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
       </ThemeProvider>
     </div>
   );

@@ -119,9 +119,9 @@ await getCart()
           <Grid item xs={12} md={5}>
             <Typography variant='h4' sx={{ marginBottom: '10px' }}>{product?.title}</Typography>
             <Box sx={{ display: 'flex', my: 2 }}>
-              <HoverRating />
+              {/* <HoverRating /> */}
             </Box>
-            <Typography margin={1}>Publisher: {product?.userId?.firstName} {product?.userId?.lastName}</Typography>
+            <Typography margin={1} sx={{textAlign:'left'}}>Publisher: {product?.userId?.firstName} {product?.userId?.lastName}</Typography>
             <ul>
               <li>Status: {product.status?.status}</li>
               <li>Category: {product.categoryId?.title}</li>

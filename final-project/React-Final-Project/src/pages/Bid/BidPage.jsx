@@ -10,6 +10,7 @@ import { useSocket } from "../../contexts/SocketContext";
 import io from "socket.io-client";
 import { toast } from "react-toastify";
 import LoaderContext from "../../contexts/LoaderContext";
+import { NotificationContext } from "../../contexts/NotificationContext";
 
 let socket;
 
@@ -24,10 +25,12 @@ const BidPage = () => {
   const { token } = useContext(UserContext);
   const { id } = useParams();
   const {loader, setLoader} = useContext(LoaderContext)
+  const {notifications, fetchNotifications} = useContext(NotificationContext)
 
   useEffect(()=>{
-    if(auction)
-    setLoader(false)
+    if(auction){
+      setLoader(false)
+    }
   },[])
 
   const fetchHighestBidder = async (id) => {
@@ -72,6 +75,7 @@ const BidPage = () => {
         auctionData.initialValue
       );
       setHighestBid(highestBidAmount);
+      fetchNotifications()
 
       setTimeout(() => {
         fetchHighestBidder(auctionData);
@@ -100,6 +104,7 @@ const BidPage = () => {
       if (message.id == id) {
         setHighestBid(message.highestBid);
         setHighestBidderName(message.highestBidder);
+    fetchNotifications()
         toast.error('somebody put a higher bid');
       }
     });
@@ -116,7 +121,12 @@ const BidPage = () => {
     socket.emit("newBid", { id: id, highestBid: number, highestBidder: (userData?.firstName + ' ' + userData?.lastName) });
     setHighestBid(number);
     setHighestBidderName(userData?.firstName + ' ' + userData?.lastName)
+    fetchNotifications()
   };
+
+  useEffect(()=>{
+    fetchNotifications()
+  },[notifications])
 
   return (
     <div style={{marginBottom:'5%'}}>
