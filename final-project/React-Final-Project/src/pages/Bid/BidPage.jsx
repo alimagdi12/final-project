@@ -9,6 +9,7 @@ import ProductsContext from "../../contexts/ProductsContext";
 import { useSocket } from "../../contexts/SocketContext";
 import io from "socket.io-client";
 import { toast } from "react-toastify";
+import LoaderContext from "../../contexts/LoaderContext";
 
 let socket;
 
@@ -22,6 +23,12 @@ const BidPage = () => {
   const { products } = useContext(ProductsContext);
   const { token } = useContext(UserContext);
   const { id } = useParams();
+  const {loader, setLoader} = useContext(LoaderContext)
+
+  useEffect(()=>{
+    if(auction)
+    setLoader(false)
+  },[])
 
   const fetchHighestBidder = async (id) => {
     if (id) {

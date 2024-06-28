@@ -13,14 +13,14 @@ import CategoryContext from "../../contexts/CategoriesContext.jsx";
 import Loader from '../../components/loader/Loader.jsx';
 
 const datas = {
-  strawberry:
-    "The garden strawberry (or simply strawberry /ˈstrɔːbᵊri/; Fragaria × ananassa) is a widely grown hybrid species of the genus Fragaria (collectively known as the strawberries)",
-  banana:
-    "A banana is an edible fruit, botanically a berry, produced by several kinds of large herbaceous flowering plants in the genus Musa.",
-  apple:
-    "The apple tree (Malus domestica) is a deciduous tree in the rose family best known for its sweet, pomaceous fruit, the apple. It is cultivated worldwide as a fruit tree, and is the most widely grown species in the genus Malus.",
-  orange:
-    "The orange (specifically, the sweet orange) is the fruit of the citrus species Citrus × sinensis in the family Rutaceae.",
+  Shipping:
+    " 📦 Efficient and reliable shipping services ensure that customers receive their products on time. This includes multiple shipping options like standard, express, and overnight delivery.",
+  Customer_Support:
+    " 📞 Responsive and helpful customer support services provide assistance to customers via various channels like phone, email, and live chat. This includes handling inquiries.",
+    Payment_Processing:
+    " 💳 Secure and seamless payment processing services handle transactions for various payment methods including credit/debit cards, digital wallets, and bank transfers.",
+    Product_Management:
+    " 🛍️ Comprehensive product management services involve managing product listings, inventory, and pricing.",
 };
 
 const Home = () => {
@@ -84,7 +84,7 @@ const Home = () => {
                       id={"radio_" + index}
                       name="basic_carousel"
                       value={index}
-                      defaultChecked={index === "strawberry"}
+                      defaultChecked={index === "Shipping"}
                     />
                     <label
                       htmlFor={"radio_" + index}

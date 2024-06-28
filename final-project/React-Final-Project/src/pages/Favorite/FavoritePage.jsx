@@ -22,7 +22,7 @@ const FavoritePage = () => {
                             <Card>
                                 <CardMedia
                                     component="img"
-                                    height="270"
+                                    sx={{height:'250px'}}
                                     image={`${product.imagesUrl.images[0]}`}
                                     alt={product.title}
                                 />
