@@ -18,9 +18,7 @@ import { Box } from '@mui/material';
 
 export default function ProductCard({ product, addToCart }) {
   const { handleLoveClick, selectedLove, getFavorite, favorites } = useContext(LoveContext);
-  console.log(product);
-  console.log(selectedLove);
-  console.log(favorites);
+
 
   const navigate = useNavigate();
   const { color } = useContext(ColorContext)

@@ -172,7 +172,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         }
       );
 
-      console.log("Delete Notification Response:", response.data);
+      // console.log("Delete Notification Response:", response.data);
 
       setShowDone((prevShowDone) => {
         const updatedShowDone = [...prevShowDone];
