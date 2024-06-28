@@ -83,6 +83,16 @@ app.get('/api/chat-history', (req, res) => {
     res.json(chatHistory);
 });
 
+app.get('/checkout-success', async(req, res) => {
+  const token =req.query.token;
+//     const token = body.token
+// console.log(token);
+console.log(token);
+     const x = await orderRepository.createOrder(token)
+    // console.log(x);
+     res.redirect('http://localhost:5173/profile/orders');
+    //  res.send('Checkout success!');
+});
 
 app.use(cors({
     origin: '*',

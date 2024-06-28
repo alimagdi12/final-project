@@ -41,7 +41,7 @@ const PaymentCard = ({ handlePaymentClick }) => {
   const {totalPrice, cartItems} = useContext(CartContext)
  
   return (
-    <CardContainer onClick={()=>{handlePaymentClick(userData.firstName , totalPrice)}}  sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <CardContainer onClick={()=>{handlePaymentClick(userData._id , totalPrice)}}  sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <>
           <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%',alignItems:'center' }}>
             {/* <Shape1 /> */}

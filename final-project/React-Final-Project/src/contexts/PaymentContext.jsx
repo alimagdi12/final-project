@@ -1,11 +1,12 @@
 import React, { createContext, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { CartContext } from './CartContext';
 
 export const PaymentContext = createContext();
 
 const PaymentProvider = ({ children }) => {
-
+const {cartItems}= useContext(CartContext)
     const handlePaymentClick = async (Pname, price) => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -14,7 +15,7 @@ const PaymentProvider = ({ children }) => {
         }
     
         try {
-            const data = { name: Pname, totalPrice: price };
+            const data = { name: Pname, totalPrice: price,cartItems,token:token };
     
           
             const response = await axios.post(

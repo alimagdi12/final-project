@@ -24,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ConversationProvider>
       
     <LoaderProvider>
+                  <CartProvider>
     <PaymentProvider>
       <AddressProvider>
         <ColorProvider>
@@ -31,7 +32,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <CategoryProvider>
               <ProductsProvider>
                 <AuctionProvider>
-                  <CartProvider>
                     <BrowserRouter>
                       <SocketProvider>
                         <OrderProvider>
@@ -45,7 +45,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                         </OrderProvider>
                       </SocketProvider>
                     </BrowserRouter>
-                  </CartProvider>
                 </AuctionProvider>
               </ProductsProvider>
             </CategoryProvider>
@@ -53,6 +52,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </ColorProvider>
       </AddressProvider>
     </PaymentProvider>
+                  </CartProvider>
     </LoaderProvider>
 
     </ConversationProvider>

@@ -79,6 +79,7 @@ export const CartProvider = ({ children }) => {
                     }
                 );
                 getCart()
+toast.success('product added successfully')
             } catch (err) {
                 console.error(err);
             }

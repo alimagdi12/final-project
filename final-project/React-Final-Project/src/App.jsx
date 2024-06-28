@@ -71,6 +71,7 @@ const {loader} = useContext(LoaderContext)
         {!isAuthRoute && products.products && !isChatRoute&& <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}
         <Routes>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/categories" element={<Categories1 />} />
           <Route path="/loader" element={<Loader />} />
           <Route path="/post" element={<PostsPage />} />

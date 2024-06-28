@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileInfo from '../Profile/ProfileList/ProfileInfo/ProfileInfo';
 import Sidebar from './Components/Sidebar';
 // import Orders from '../Profile/ProfileList/Orders/Orders';
@@ -6,10 +6,11 @@ import { Box, Grid } from '@mui/material';
 import Address from '../Profile/ProfileList/Address/Address';
 import Orders1 from '../Profile/ProfileList/Orders/Orders1';
 
+import { useNavigate, useParams } from "react-router-dom";
 const drawerWidth = 300;
 
 export default function Profile() {
-
+const {id} = useParams()
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [open, setOpen] = useState(false);
     const [userData, setUserData] = useState({
@@ -17,7 +18,11 @@ export default function Profile() {
         email: '',
         gender: 'male'
     });
-
+useEffect(()=>{
+    if(id === 'orders'){
+        setSelectedIndex(1)
+    }
+},[])
     const handleOpen = () => {
         setOpen(true);
     };
