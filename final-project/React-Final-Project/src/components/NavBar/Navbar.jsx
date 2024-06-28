@@ -51,10 +51,10 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const [hoveredPage, setHoveredPage] = useState(null);
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
   const [notificationCount, setNotificationCount] = useState(
-    notifications.length
+    notifications?.length
   );
   const [showDone, setShowDone] = useState(
-    Array(notifications.length).fill(false)
+    Array(notifications?.length).fill(false)
   );
 
   const navigate = useNavigate();

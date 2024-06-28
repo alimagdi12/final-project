@@ -40,11 +40,12 @@ const LoveProvider = ({ children }) => {
     };
 
     const handleLoveClick = async (product) => {
+        console.log(product);
         const token = localStorage.getItem('token');
         if (token) {
             // setLoading(true); // Start loading
             try {
-                if (selectedLove.includes(product._id)) {
+                if (selectedLove?.includes(product._id)) {
                     await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
                         headers: {
                             "Content-Type": "application/json",
@@ -56,15 +57,18 @@ const LoveProvider = ({ children }) => {
                     });
                     setSelectedLove(selectedLove.filter(id => id.toString() !== product._id.toString()));
                     setLove(love - 1);
+                    // await getFavorite()
                 } else {
-                    await axios.post("http://localhost:3000/api/v1/auth/add-favorite", { productId: product._id }, {
+                    const response = await axios.post("http://localhost:3000/api/v1/auth/add-favorite", { productId: product._id }, {
                         headers: {
                             "Content-Type": "application/json",
                             jwt: token,
                         },
                     });
+                    console.log(response);
                     setSelectedLove([...selectedLove, product._id]);
                     setLove(love + 1);
+                    // await getFavorite()
                 }
             } catch (error) {
                 console.error("Error updating favorite:", error);

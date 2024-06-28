@@ -2,12 +2,16 @@
 import React, { useContext, useEffect } from 'react';
 import { LoveContext } from '../../contexts/LoveContext';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import LoaderContext from '../../contexts/LoaderContext';
 
 const FavoritePage = () => {
     const { favorites, getFavorite } = useContext(LoveContext);
+    const { loader, setLoader } = useContext(LoaderContext);
 
     useEffect(() => {
         getFavorite();
+        if(favorites)
+        setLoader(false)
     }, []);
 
     return (
