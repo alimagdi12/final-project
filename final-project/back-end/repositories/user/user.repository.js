@@ -178,7 +178,7 @@ class UserRepositry {
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
     const email = decodedToken.email;
     const user = await User.findOne({ email });
-    const product = await Product.findOne({ _id: productId })(product);
+    const product = await Product.findOne({ _id: productId });
 
     if (!product) {
       throw new Error("no product");
