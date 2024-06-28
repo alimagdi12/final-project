@@ -45,8 +45,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const { userData, token, fetchUserData, setToken } = useContext(UserContext);
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems, getCart } = useContext(CartContext);
-  const { notifications, fetchNotifications } = useContext(NotificationContext);
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const { notifications = [], fetchNotifications } = useContext(NotificationContext);
+    const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [hoveredPage, setHoveredPage] = useState(null);
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
