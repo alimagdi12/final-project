@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import LoaderContext from "../../contexts/LoaderContext";
 
 let socket;
@@ -21,8 +21,10 @@ const Chat = () => {
   const [conversation, setConversation] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const senderMessages = {};
-  const {setLoader} = useContext(LoaderContext)
+  const { setLoader } = useContext(LoaderContext);
   const navigate = useNavigate();
+
+  const isSmallScreen = useMediaQuery(theme => theme.breakpoints.down("sm"));
 
   // Initialize socket connection
   useEffect(() => {
@@ -33,7 +35,7 @@ const Chat = () => {
     });
 
     socket.on("connect", () => {
-      ("Connected to server");
+      console.log("Connected to server");
     });
 
     socket.on("chat message", (message) => {
@@ -45,12 +47,11 @@ const Chat = () => {
           ...prevMessagesByChat,
           message,
         }));
-        getMessages()
+        getMessages();
+      } else {
+        getConversations();
       }
-      else{
-        getConversations()
-      }
-      (message);
+      console.log(message);
     });
 
     // Cleanup on component unmount
@@ -58,11 +59,11 @@ const Chat = () => {
       socket.disconnect();
     };
   }, [id, userData?._id]);
-  
-  useEffect(()=>{
-    setLoader(false)
-  },[])
-  
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
+
   const getMessages = async () => {
     try {
       const response = await axios.post(
@@ -91,7 +92,7 @@ const Chat = () => {
         "http://127.0.0.1:3000/api/v1/auth/conversation",
         { sender: userData?._id }
       );
-      (response);
+      console.log(response);
       const x = await response.data;
       setConversation(x);
       await getMessages();
@@ -116,9 +117,9 @@ const Chat = () => {
   const sendMessage = async () => {
     const message = { sender: userData?._id, receiver: id, content: input };
     await socket.emit("chat message", message);
-    ("hello");
+    console.log("hello");
     setInput("");
-await getMessages()
+    await getMessages();
     const x = await getConversations();
 
     if (x === 0) {
@@ -139,6 +140,7 @@ await getMessages()
     <Box
       sx={{
         display: "flex",
+        flexDirection: isSmallScreen ? "column" : "row",
         width: "100%",
         height: "96vh",
         position: "relative",
@@ -150,17 +152,18 @@ await getMessages()
         handleChatClick={handleChatClick}
       />
 
-{id && <ChatWindow
-        messagesByChat={messagesByChat}
-        selectedChat={selectedChat}
-        messages={messages}
-        id={id}
-        input={input}
-        setInput={setInput}
-        sendMessage={sendMessage}
-        userData={userData}
-      /> }
-      
+      {id && (
+        <ChatWindow
+          messagesByChat={messagesByChat}
+          selectedChat={selectedChat}
+          messages={messages}
+          id={id}
+          input={input}
+          setInput={setInput}
+          sendMessage={sendMessage}
+          userData={userData}
+        />
+      )}
     </Box>
   );
 };

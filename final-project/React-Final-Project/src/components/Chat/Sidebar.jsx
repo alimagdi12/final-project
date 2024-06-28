@@ -9,6 +9,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Avatar,
+  useMediaQuery,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import ColorContext from "../../contexts/ColorContext";
@@ -21,19 +22,18 @@ const Sidebar = ({ conversation, handleChatClick }) => {
   const [selectedChatIndex, setSelectedChatIndex] = useState(null);
   const { id } = useParams();
 
+  const isSmallScreen = useMediaQuery(theme => theme.breakpoints.down("sm"));
+
   useEffect(() => {
-    (selectChat);
-    (id);
     if (conversation.length) {
       const x = conversation.findIndex(
         (conversation) => id === conversation.participants[1]._id
       );
-      (conversation, x);
       if (x !== -1) {
         selectChat(conversation[x], x);
       }
     }
-  }, [conversation]);
+  }, [conversation, id]);
 
   const selectChat = (chat, index) => {
     handleChatClick(chat);
@@ -43,12 +43,12 @@ const Sidebar = ({ conversation, handleChatClick }) => {
   return (
     <Box
       sx={{
-        width: "400px",
+        width: isSmallScreen ? "100vw" : "400px",
         backgroundColor: color,
         color: "#fff",
-        paddingLeft: "16px",
-        paddingTop: "16px",
-        height: "100vh",
+        padding: isSmallScreen ? "8px" : "16px",
+        height: {s:'100%' , md:"100vh"},
+        boxSizing: "border-box",
       }}
     >
       <Typography variant="h6" gutterBottom>
@@ -71,7 +71,7 @@ const Sidebar = ({ conversation, handleChatClick }) => {
               backgroundColor:
                 selectedChatIndex === index ? "#ffff" : "transparent",
               color: selectedChatIndex === index ? "black" : "white",
-              borderRadius: "50px 0 0 50px",
+              borderRadius: isSmallScreen ? "0" : "50px 0 0 50px",
               "&:hover": { color: "black", backgroundColor: "#EFEAE2" },
               width: "100%",
             }}

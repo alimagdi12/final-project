@@ -16,13 +16,13 @@ import LoaderContext from '../../contexts/LoaderContext.jsx';
 
 export default function AboutUs() {
  const {loader,setLoader} = useContext(LoaderContext)
-  // const members = [
-  //   { img: '/public/Omar.jpg', src:'https://www.linkedin.com/in/omar-hassan97/', name: 'Omar Hassan' },
-  //   { img: '/public/omar1.jpg', src:'https://www.linkedin.com/in/omar-gaber-tolba/', name: 'Omar Tolba' },
-  //   { img: '/public/Ali.jpg', src:'https://www.linkedin.com/in/ali-magdi-46a364193/', name: 'Ali' },
-  //   { img: '/public/Mohamed Ayman.jpg', src:'https://www.linkedin.com/in/mohamed-aymanuiux/', name: 'Mohamed Ayman' },
-  //   { img: '/public/Sara.jpg', src:'https://www.linkedin.com/in/sara-ayman-64a46720a/', name: 'Sara' }
-  // ]
+  const members = [
+    { img: '/public/Omar.jpg', src:'https://www.linkedin.com/in/omar-hassan97/', name: 'Omar Hassan' },
+    { img: '/public/omar1.jpg', src:'https://www.linkedin.com/in/omar-gaber-tolba/', name: 'Omar Tolba' },
+    { img: '/public/Ali.jpg', src:'https://www.linkedin.com/in/ali-magdi-46a364193/', name: 'Ali' },
+    { img: '/public/Mohamed Ayman.jpg', src:'https://www.linkedin.com/in/mohamed-aymanuiux/', name: 'Mohamed Ayman' },
+    { img: '/public/Sara.jpg', src:'https://www.linkedin.com/in/sara-ayman-64a46720a/', name: 'Sara' }
+  ]
 
   useEffect(()=>{
 setLoader(false)
@@ -56,7 +56,29 @@ setLoader(false)
       </Box>
 
 
-      <div className="container w-75 m-auto" style={{width:'75% '}}>
+
+      <Box sx={{marginTop:'8%' , display:{xs:'block' , xl:'none' }}}>
+       
+        <Box marginY={3}>
+          <Grid spacing={2} sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
+            <Grid item xs={6} sm={4} md={3} sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}>
+              {
+                members.map((member) => {
+                  return (
+                    <AboutCard key={member.name} img={member.img} name={member.name}>{member.name}</AboutCard>
+                  )
+                })
+              }
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+
+      <Box className="container w-75 m-auto" sx={{width:'75%' ,display:{xs:'none' , xl:'flex' } }}>
     <div>
       <div className="content1">
         <h2>Omar Hassan</h2>
@@ -87,7 +109,7 @@ setLoader(false)
         <span>UI & UX Designer</span>
       </div>
     </div>
-  </div>
+  </Box>
 
 
       {/* Last section */}
