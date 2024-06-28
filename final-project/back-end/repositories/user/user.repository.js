@@ -240,6 +240,28 @@ class UserRepositry {
     const notification = user.notification.items;
     return notification;
   }
+
+  async deleteNotification(token, index) {
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+    const email = decodedToken.email;
+    const user = await User.findOne({ email });
+    if (!user) return "User not found";
+    const notification = user.notification.items;
+    notification.splice(index, 1);
+    user.notification.items = notification;
+    await user.save();
+    return notification;
+  }
+
+  async clearNotifications(token) {
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+    const email = decodedToken.email;
+    const user = await User.findOne({ email });
+    if (!user) return "User not found";
+    user.notification.items = [];
+    await user.save();
+    return user.notification.items;
+  }
 }
 
 module.exports = UserRepositry;
