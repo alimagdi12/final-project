@@ -24,7 +24,7 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4} md={12}>
+        <Grid item container spacing={4} md={12}>
           <Grid item xs={12} sm={3}>
             <Link to={"/"}>
               <img

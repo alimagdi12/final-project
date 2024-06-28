@@ -47,8 +47,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const { userData, token, fetchUserData, setToken } = useContext(UserContext);
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems, getCart } = useContext(CartContext);
-  const { notifications, fetchNotifications } = useContext(NotificationContext);
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const { notifications = [], fetchNotifications } = useContext(NotificationContext);
+    const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [hoveredPage, setHoveredPage] = useState(null);
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
@@ -139,7 +139,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     if (currentPath !== keyword) {
       setLoader(true);
     }
-    // navigate(/${keyword})
+    // navigate(`/${keyword}`)
   };
 
   const notificationOnClick = (auctionId) => {
@@ -172,7 +172,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         }
       );
 
-      // console.log("Delete Notification Response:", response.data);
+      console.log("Delete Notification Response:", response.data);
 
       setShowDone((prevShowDone) => {
         const updatedShowDone = [...prevShowDone];
@@ -301,19 +301,16 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   </Typography>
                 </Link>
               </MenuItem>
-              {categories &&
-                categories.categories &&
-                categories.categories.map((category) => (
-                  <MenuItem
-                    sx={{ fontWeight: "bold" }}
-                    key={category._id}
-                    onClick={() => {
-                      navigate(`/products/${category._id}`);
-                    }}
-                  >
-                    <Typography textAlign="center">{category.title}</Typography>
-                  </MenuItem>
-                ))}
+            {categories &&
+  categories.categories &&
+  categories.categories.map((category) => (
+    <Link to={`/products/${category._id}`} key={category._id} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <FlipCard category={category}>
+        {category.title}
+      </FlipCard>
+    </Link>
+  ))}
+
             </Menu>
           </Box>
 
@@ -371,7 +368,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   color: "white",
                   textDecoration: "none",
                 }}
-                component={Link}
+                // component={Link}
+                onClick={()=>{handleNavigate('/categories')}}
                 className="text-decoration-none h5 mx-2"
               >
                 <Link
@@ -421,6 +419,23 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               )}
             </Box>
           </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {!token && (
             <Box sx={{ my: 2, textAlign: "center", position: "relative" }}>
               <Link to="/login" className="text-decoration-none h4 mx-2">
@@ -520,7 +535,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   </>
                 </Tooltip>
 
-                {/* <Switch checked={darkMode} onChange={toggleDarkMode} /> */}
+                <Switch checked={darkMode} onChange={toggleDarkMode} />
 
                 <Menu
                   sx={{ mt: "45px" }}
