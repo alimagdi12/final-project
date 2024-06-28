@@ -47,8 +47,8 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
   const { userData, token, fetchUserData, setToken } = useContext(UserContext);
   const { categories } = useContext(CategoryContext);
   const { totalItems, cartItems, getCart } = useContext(CartContext);
-  const { notifications = [], fetchNotifications } = useContext(NotificationContext);
-    const [anchorElNav, setAnchorElNav] = useState(null);
+  const { notifications, fetchNotifications } = useContext(NotificationContext);
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [hoveredPage, setHoveredPage] = useState(null);
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
@@ -139,7 +139,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     if (currentPath !== keyword) {
       setLoader(true);
     }
-    // navigate(`/${keyword}`)
+    // navigate(/${keyword})
   };
 
   const notificationOnClick = (auctionId) => {
@@ -520,7 +520,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   </>
                 </Tooltip>
 
-                <Switch checked={darkMode} onChange={toggleDarkMode} />
+                {/* <Switch checked={darkMode} onChange={toggleDarkMode} /> */}
 
                 <Menu
                   sx={{ mt: "45px" }}

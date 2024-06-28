@@ -9,6 +9,7 @@ import axios from "axios";
 import UserContext from "../../../../contexts/UserContext";
 import { toast } from "react-toastify";
 import ColorContext from "../../../../contexts/ColorContext";
+import { NotificationContext } from "../../../../contexts/NotificationContext";
 
 export default function AuctionCard({ highestBid, highestBidderName, socketBid, hours, minutes, seconds, id, auction, setHighestBid }) {
   const { color } = useContext(ColorContext);
@@ -18,6 +19,11 @@ export default function AuctionCard({ highestBid, highestBidderName, socketBid, 
   const [bidAmount, setBidAmount] = useState("");
   const [confirmBid, setConfirmBid] = useState(false);
   const { token } = useContext(UserContext);
+  const {notifications, fetchNotifications} = useContext(NotificationContext)
+
+  useEffect(()=>{
+    fetchNotifications()
+  },[notifications])
 
   useEffect(() => {
     if (seconds < 0 || minutes < 0 || hours < 0) {
@@ -71,6 +77,7 @@ export default function AuctionCard({ highestBid, highestBidderName, socketBid, 
         setBidAmount("");
         socketBid(bidAmountNumber);
         setConfirmBid(false);
+        fetchNotifications()
       } else {
         toast.error('You must login first');
       }

@@ -1,14 +1,13 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import { TextField, Typography, List, ListItem, ListItemText } from "@mui/material";
+import { CssBaseline, Box, TextField, Typography, List, ListItem, ListItemText } from "@mui/material";
 import ProductsContext from "../../../contexts/ProductsContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
   const { products } = React.useContext(ProductsContext);
   const [query, setQuery] = React.useState("");
-const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleSearch = (event) => {
     setQuery(event.target.value);
   };
@@ -22,9 +21,7 @@ const navigate = useNavigate()
       <CssBaseline />
       <Box
         className="d-flex justify-content-center align-items-center m-auto"
-
         sx={{ height: "92vh", width: "100%" }}
-
       >
         <Box />
         <Box
@@ -65,7 +62,7 @@ const navigate = useNavigate()
         <Box
           sx={{
             position: "relative",
-            top: "30%",
+            top: { xs: "20%", md: "30%" },
             height: "100%",
             width: "100%",
             zIndex: 1,
@@ -81,7 +78,7 @@ const navigate = useNavigate()
           <TextField
             placeholder="Enter your text here"
             value={query}
-             autoComplete="off"
+            autoComplete="off"
             onChange={handleSearch}
             sx={{
               width: { xs: "80%", md: "50%" },
@@ -108,9 +105,7 @@ const navigate = useNavigate()
               {filteredProducts.length > 0 ? (
                 <List>
                   {filteredProducts.map((product) => (
-                    <ListItem key={product.id} onClick={()=>{
-                      navigate(`/product-details/${product._id}`)
-                    }}>
+                    <ListItem key={product.id} onClick={() => navigate(`/product-details/${product._id}`)}>
                       <ListItemText primary={product.title} />
                     </ListItem>
                   ))}

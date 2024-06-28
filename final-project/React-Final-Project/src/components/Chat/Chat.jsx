@@ -43,7 +43,7 @@ const Chat = () => {
       ) {
         setMessagesByChat((prevMessagesByChat) => ({
           ...prevMessagesByChat,
-          [id]: [...(prevMessagesByChat[id] || []), message],
+          message,
         }));
         getMessages()
       }

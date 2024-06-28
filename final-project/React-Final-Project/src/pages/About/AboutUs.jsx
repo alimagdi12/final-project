@@ -16,13 +16,13 @@ import LoaderContext from '../../contexts/LoaderContext.jsx';
 
 export default function AboutUs() {
  const {loader,setLoader} = useContext(LoaderContext)
-  const members = [
-    { img: '/public/Omar.jpg', src:'https://www.linkedin.com/in/omar-hassan97/', name: 'Omar Hassan' },
-    { img: '/public/omar1.jpg', src:'https://www.linkedin.com/in/omar-gaber-tolba/', name: 'Omar Tolba' },
-    { img: '/public/Ali.jpg', src:'https://www.linkedin.com/in/ali-magdi-46a364193/', name: 'Ali' },
-    { img: '/public/Mohamed Ayman.jpg', src:'https://www.linkedin.com/in/mohamed-aymanuiux/', name: 'Mohamed Ayman' },
-    { img: '/public/Sara.jpg', src:'https://www.linkedin.com/in/sara-ayman-64a46720a/', name: 'Sara' }
-  ]
+  // const members = [
+  //   { img: '/public/Omar.jpg', src:'https://www.linkedin.com/in/omar-hassan97/', name: 'Omar Hassan' },
+  //   { img: '/public/omar1.jpg', src:'https://www.linkedin.com/in/omar-gaber-tolba/', name: 'Omar Tolba' },
+  //   { img: '/public/Ali.jpg', src:'https://www.linkedin.com/in/ali-magdi-46a364193/', name: 'Ali' },
+  //   { img: '/public/Mohamed Ayman.jpg', src:'https://www.linkedin.com/in/mohamed-aymanuiux/', name: 'Mohamed Ayman' },
+  //   { img: '/public/Sara.jpg', src:'https://www.linkedin.com/in/sara-ayman-64a46720a/', name: 'Sara' }
+  // ]
 
   useEffect(()=>{
 setLoader(false)

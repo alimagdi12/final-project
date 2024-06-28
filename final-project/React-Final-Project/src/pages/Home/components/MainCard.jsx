@@ -42,10 +42,10 @@ export default function MainCard({ product }) {
             }
           </div>
         </CardActions>
-        <Typography gutterBottom variant="h5" component="div">{product?.title}</Typography>
-        <Typography variant="body2" color="text.secondary">{product?.location}</Typography>
-        <Typography variant="body2" color="text.secondary">{product?.categoryId?.title}</Typography>
-        <Typography variant="body2" color="text.secondary">{product?.addingDate}</Typography>
+        <Typography sx={{textAlign:'left'}} gutterBottom variant="h5" component="div">{product?.title}</Typography>
+        <Typography sx={{textAlign:'left'}} variant="body2" color="text.secondary">{product?.location}</Typography>
+        <Typography sx={{textAlign:'left'}} variant="body2" color="text.secondary">{product?.categoryId?.title}</Typography>
+        <Typography sx={{textAlign:'left'}} variant="body2" color="text.secondary">{product?.addingDate}</Typography>
       </CardContent>
     </Card>
   );
