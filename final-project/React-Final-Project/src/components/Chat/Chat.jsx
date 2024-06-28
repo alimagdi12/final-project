@@ -150,7 +150,6 @@ await getMessages()
         handleChatClick={handleChatClick}
       />
 
-
 {id && <ChatWindow
         messagesByChat={messagesByChat}
         selectedChat={selectedChat}

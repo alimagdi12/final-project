@@ -11,12 +11,19 @@ import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import ColorContext from '../../contexts/ColorContext';
 import { useContext } from 'react';
+import { LoveContext } from '../../contexts/LoveContext';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Box } from '@mui/material';
 
 export default function ProductCard({ product, addToCart }) {
-  (product);
- 
+  const { handleLoveClick, selectedLove, getFavorite, favorites } = useContext(LoveContext);
+  console.log(product);
+  console.log(selectedLove);
+  console.log(favorites);
+
   const navigate = useNavigate();
-const {color}= useContext(ColorContext)
+  const { color } = useContext(ColorContext)
   const navigateToDetails = (id) => {
     if (!product.expirationDate) {
       navigate(`/product-details/${id}`);
@@ -27,8 +34,14 @@ const {color}= useContext(ColorContext)
     navigate(`/bid/${id}`);
   };
 
+  React.useEffect(() => {
+    getFavorite()
+  }, [])
+
+  const isLoved = selectedLove?.includes(product._id);
+
   return (
-    <Grid item xs={12} sm={4} md={4} lg={3} sx={{display:'flex'}}>
+    <Grid item xs={12} sm={4} md={4} lg={3} sx={{ display: 'flex' }}>
       <Card
         sx={{
           width: '100%',
@@ -39,31 +52,49 @@ const {color}= useContext(ColorContext)
           display: 'flex',
           flexDirection: 'column',
         }}
-        
+
       >
-        
+
         <CardMedia onClick={() => {
           navigateToDetails(product._id);
-        }} sx={{ height: 140, cursor:'pointer'  }} image={product?.imagesUrl?.images[0]}
+        }} sx={{ height: '250px', cursor: 'pointer' }} image={product?.imagesUrl?.images[0]}
         />
 
         {product?.expirationDate && (
           <>
-                  <CardMedia onClick={() => {
-                    navigateToDetails(product._id);
-                  }} sx={{ height: 140 }} image={product?.imageUrl?.images[0]}
-                  />
-          <FaHammer
-            sx={{ position: 'absolute', top: '10px', right: '5px' }}
-            style={{ position: 'absolute', top: '10px', right: '5px' }}
-          />
+            <CardMedia onClick={() => {
+              navigateToDetails(product._id);
+            }} height={'250px'} image={product?.imagesUrl?.images[0]}
+            />
+            <FaHammer
+              sx={{ position: 'absolute', top: '10px', right: '5px' }}
+              style={{ position: 'absolute', top: '10px', right: '5px' }}
+            />
           </>
         )}
-        <CardContent sx={{ flex: '1 0 auto',display:"flex", flexDirection:'column', alignItems:'flex-start' }}>
-          <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1 }}>
-            {product?.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1 }}>
+
+        <CardContent sx={{ flex: '1 0 auto', display: "flex", flexDirection: 'column', alignItems: 'flex-start', width: '100%', height:'50%' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1,maxWidth:'100%' }}>
+              {product?.title}
+            </Typography>
+
+            {
+              !product?.expirationDate && (
+                <>
+                  <div onClick={() => handleLoveClick(product)} style={{ cursor: 'pointer' }}>
+                    {
+                      product.price && (
+                        isLoved ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />
+                      )
+                    }
+                  </div>
+                </>
+              )
+            }
+          </Box>
+
+          <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1,maxWidth:'100%' }}>
             {product?.categoryId?.title}
           </Typography>
           <Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 1 }}>
@@ -75,22 +106,28 @@ const {color}= useContext(ColorContext)
         </CardContent>
         <CardActions>
           {!product?.expirationDate && (
-            <Button sx={{ width: '100%', backgroundColor: color , color:'#fff', "&:hover": {
-              backgroundColor: "#fff",
-              color: color,
-              outline: `2px solid ${color}`,
-            }, }} onClick={addToCart}>
-              Add to Cart
-            </Button>
+            <>
+              <Button sx={{
+                width: '100%', backgroundColor: color, color: '#fff', "&:hover": {
+                  backgroundColor: "#fff",
+                  color: color,
+                  outline: `2px solid ${color}`,
+                },
+              }} onClick={addToCart}>
+                Add to Cart
+              </Button>
+            </>
           )}
 
           {product?.expirationDate && (
             <Button
-              sx={{ width: '100%', backgroundColor: color ,color:'#FFF', "&:hover": {
-              backgroundColor: "#fff",
-              color: color,
-              outline: `2px solid ${color}`,
-            }}}
+              sx={{
+                width: '100%', backgroundColor: color, color: '#FFF', "&:hover": {
+                  backgroundColor: "#fff",
+                  color: color,
+                  outline: `2px solid ${color}`,
+                }
+              }}
               onClick={() => {
                 navigateToBidDetail(product._id);
               }}

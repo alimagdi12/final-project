@@ -7,7 +7,7 @@ export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 const {setLoader}= useContext(LoaderContext)
   const fetchProducts = async () => {
-  setLoader(true)
+  // setLoader(true)
     try {
       const response = await fetch('http://localhost:3000/api/v1/products/get-products');
       if (!response.ok) {
@@ -22,7 +22,7 @@ const {setLoader}= useContext(LoaderContext)
   };
 
   useEffect(() => {
-    setLoader(true)
+    // setLoader(true)
     fetchProducts();
   }, []); 
 

@@ -2,12 +2,16 @@
 import React, { useContext, useEffect } from 'react';
 import { LoveContext } from '../../contexts/LoveContext';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import LoaderContext from '../../contexts/LoaderContext';
 
 const FavoritePage = () => {
     const { favorites, getFavorite } = useContext(LoveContext);
+    const { loader, setLoader } = useContext(LoaderContext);
 
     useEffect(() => {
         getFavorite();
+        if(favorites)
+        setLoader(false)
     }, []);
 
     return (
@@ -22,7 +26,7 @@ const FavoritePage = () => {
                             <Card>
                                 <CardMedia
                                     component="img"
-                                    height="270"
+                                    sx={{height:'250px'}}
                                     image={`${product.imagesUrl.images[0]}`}
                                     alt={product.title}
                                 />
