@@ -520,7 +520,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   </>
                 </Tooltip>
 
-                <Switch checked={darkMode} onChange={toggleDarkMode} />
+                {/* <Switch checked={darkMode} onChange={toggleDarkMode} /> */}
 
                 <Menu
                   sx={{ mt: "45px" }}
