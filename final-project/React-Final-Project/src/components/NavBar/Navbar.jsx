@@ -33,6 +33,7 @@ import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import axios from "axios";
+import { ConversationContext } from "../../contexts/ConversationsContext";
 
 const pages = ["Products", "Categories", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -40,6 +41,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export default function Navbar({ darkMode, toggleDarkMode }) {
   const location = useLocation();
   const currentPath = location.pathname;
+ const{Conversations} = useContext(ConversationContext)
   const { id } = useParams();
   const { love, getFavorite } = useContext(LoveContext);
   const { userData, token, fetchUserData, setToken } = useContext(UserContext);
@@ -91,6 +93,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     userData;
     getFavorite();
     getCart();
+    console.log(Conversations);
   }, []);
 
   useEffect(() => {
@@ -459,7 +462,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
               </IconButton>
 
               <IconButton color="inherit">
-                <Badge badgeContent={love} color="secondary">
+                <Badge badgeContent={Conversations?.length} color="secondary">
                   <Link to={"/chat"}>
                     {" "}
                     <FaComments size={25} color="#FFF" />

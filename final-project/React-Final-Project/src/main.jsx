@@ -18,8 +18,11 @@ import { PostsProvider } from "./contexts/PostsContext.jsx";
 import { NotificationProvider } from "./contexts/NotificationContext.jsx";
 import PaymentProvider from "./contexts/PaymentContext.jsx";
 import { LoaderProvider } from "./contexts/LoaderContext.jsx";
+import ConversationProvider from "./contexts/ConversationsContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <UserProvider>
+    <ConversationProvider>
+      
     <LoaderProvider>
     <PaymentProvider>
       <AddressProvider>
@@ -51,5 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </AddressProvider>
     </PaymentProvider>
     </LoaderProvider>
+
+    </ConversationProvider>
   </UserProvider>
 );
