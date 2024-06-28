@@ -9,7 +9,7 @@ export const AddressProvider = ({ children }) => {
     const [addresses, setAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(null);
 
-    const API_URL = 'http://localhost:3000/api/v1/auth';
+    const API_URL = 'https://portsaidrentals.onrender.com/api/v1/auth';
 
     useEffect(() => {
         fetchAddresses();

@@ -47,7 +47,7 @@ const Sidebar = ({ conversation, handleChatClick }) => {
         backgroundColor: color,
         color: "#fff",
         padding: isSmallScreen ? "8px" : "16px",
-        height: {s:'100%' , md:"100vh"},
+        height: {xs:'100%' , md:"100vh"},
         boxSizing: "border-box",
       }}
     >

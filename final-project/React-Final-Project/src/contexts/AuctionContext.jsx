@@ -10,7 +10,7 @@ export const AuctionProvider = ({ children }) => {
   
   const fetchAuction = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/get-auctions');
+      const response = await fetch('https://portsaidrentals.onrender.com/api/v1/get-auctions');
       if (!response.ok) {
         throw new Error('Failed to fetch Auction');
       }

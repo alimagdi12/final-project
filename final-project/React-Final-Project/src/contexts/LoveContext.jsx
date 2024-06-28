@@ -20,7 +20,7 @@ const LoveProvider = ({ children }) => {
     const getFavorite = async () => {
         // setLoading(true); // Start loading
         try {
-            const response = await axios.get("http://localhost:3000/api/v1/auth/favorites", {
+            const response = await axios.get("https://portsaidrentals.onrender.com/api/v1/auth/favorites", {
                 headers: {
                     "Content-Type": "application/json",
                     jwt: localStorage.getItem("token"),
@@ -46,7 +46,7 @@ const LoveProvider = ({ children }) => {
             // setLoading(true); // Start loading
             try {
                 if (selectedLove?.includes(product._id)) {
-                    await axios.delete("http://localhost:3000/api/v1/auth/remove-favorite", {
+                    await axios.delete("https://portsaidrentals.onrender.com/api/v1/auth/remove-favorite", {
                         headers: {
                             "Content-Type": "application/json",
                             jwt: token
@@ -59,7 +59,7 @@ const LoveProvider = ({ children }) => {
                     setLove(love - 1);
                     // await getFavorite()
                 } else {
-                    const response = await axios.post("http://localhost:3000/api/v1/auth/add-favorite", { productId: product._id }, {
+                    const response = await axios.post("https://portsaidrentals.onrender.com/api/v1/auth/add-favorite", { productId: product._id }, {
                         headers: {
                             "Content-Type": "application/json",
                             jwt: token,

@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
         //     throw new Error('JWT token not found');
         // }
 
-        const response = await axios.get('http://localhost:3000/api/v1/auth/get-user', {
+        const response = await axios.get('https://portsaidrentals.onrender.com/api/v1/auth/get-user', {
             headers: {
               'Content-Type': 'multipart/form-data',
               'jwt': localStorage.getItem('token') // Use Bearer token format

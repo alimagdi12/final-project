@@ -7,7 +7,7 @@ export const CategoryProvider = ({ children }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/admin/categories');
+      const response = await fetch('https://portsaidrentals.onrender.com/api/v1/admin/categories');
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }
