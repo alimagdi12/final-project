@@ -82,7 +82,7 @@ export default function AddProduct() {
     productStatus: '',
     categoryId: '',
     price: '',
-    folderName: '',
+    productDetails: '',
     userId: '6643d585dd8c6b0c1065f2b5',
   });
 
@@ -108,9 +108,9 @@ export default function AddProduct() {
           if (value && isNaN(value)) tempErrors.quantity = "Quantity must be a number.";
           if (value && value <= 0) tempErrors.quantity = "Quantity must be greater than 0.";
           break;
-        case 'folderName':
-          tempErrors.folderName = value ? "" : "This field is required.";
-          if (value && value.length < 3) tempErrors.folderName = "Folder name must be at least 3 characters long.";
+        case 'productDetails':
+          tempErrors.productDetails = value ? "" : "This field is required.";
+          if (value && value.length < 3) tempErrors.productDetails = "Folder name must be at least 3 characters long.";
           break;
         case 'location':
           tempErrors.location = value ? "" : "This field is required.";
@@ -194,7 +194,7 @@ export default function AddProduct() {
       productForm.append('location', formData.location);
       productForm.append('price', formData.price);
       productForm.append('productStatus', formData.productStatus);
-      productForm.append('folderName', formData.folderName);
+      productForm.append('productDetails', formData.productDetails);
       productForm.append('userId', formData.userId);
       formData.images.forEach((image) => {
         productForm.append('images', image);
@@ -216,7 +216,7 @@ export default function AddProduct() {
           productStatus: '',
           categoryId: '',
           price: '',
-          folderName: '',
+          productDetails: '',
           userId: '6643d585dd8c6b0c1065f2b5',
         });
         navigate('/products');
@@ -288,15 +288,15 @@ export default function AddProduct() {
           <Grid item xs={12} sm={6}>
             <Typography variant="h6">Folder Name</Typography>
             <TextField
-              name="folderName"
-              value={formData.folderName}
+              name="productDetails"
+              value={formData.productDetails}
               onChange={handleChange}
               onBlur={handleBlur}
               fullWidth
               variant="outlined"
               sx={{ mt: 1 }}
-              error={touched.folderName && !!errors.folderName}
-              helperText={touched.folderName && errors.folderName}
+              error={touched.productDetails && !!errors.productDetails}
+              helperText={touched.productDetails && errors.productDetails}
             />
           </Grid>
           <Grid item sx={{ display: 'flex', paddingTop: '16px', '@media(max-width:600px)':{

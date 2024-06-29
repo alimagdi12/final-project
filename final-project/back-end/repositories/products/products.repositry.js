@@ -16,7 +16,7 @@ class ProductRepositry{
 
     async addProduct(productData, token, files) {
         try {
-            const { title, categoryId, quantity, location, price, productStatus } = productData;
+            const { title, categoryId, quantity, location, price, productStatus,productDetails } = productData;
             const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             const email = decodedToken.email;
             const user = await User.findOne({ email });
@@ -33,7 +33,8 @@ class ProductRepositry{
                 location,
                 price,
                 folderName,
-                status: statusId
+                status: statusId,
+                productDetails
             });
 
             // Upload images using buffer directly

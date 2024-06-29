@@ -107,9 +107,10 @@ const ProductSchema = new Schema({
             true,
             'You must enter a product location'
         ]
+    },
+    productDetails:{
+        type: String
     }
-
-
 })
 
 

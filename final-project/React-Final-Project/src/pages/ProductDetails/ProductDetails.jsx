@@ -35,6 +35,7 @@ export default function ProductDetails() {
           },
         });
         setProduct(response.data.product);
+        console.log(response.data.product);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -70,8 +71,8 @@ await getCart()
   return (
     <>
       <Box sx={{ width: '75%', margin: '50px auto' }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={7} className="carousel-container">
+        <Grid container spacing={5}>
+          <Grid item xs={12} md={5} className="carousel-container">
             <Box className="carousel__thumbnails" style={{ overflow: 'hidden' }}>
               <li>
                 <label htmlFor="slide-1"><img src={getImage(product?.imagesUrl?.images, 0)} alt="Product Image 1" /></label>
@@ -128,6 +129,7 @@ await getCart()
               <li>Location: {product.location}</li>
               <li>Price: {product.price}$</li>
               <li>Quantity: {product.quantity}</li>
+              <li>details: {product?.productDetails}</li>
             </ul>
             <Link to={`/chat/${product?.userId?._id}`}>
               <Button variant="contained" sx={{ marginRight: '5px', backgroundColor: color, '&:hover': { color: 'black', backgroundColor: '#FAAF00' } }}>Chat With Seller</Button>
