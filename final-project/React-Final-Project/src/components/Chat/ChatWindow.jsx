@@ -36,7 +36,7 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
         flexDirection: "column",
         padding: "16px",
         height: {xs:'50vh' , sm:"100vh"},
-        overflow: "hidden",
+        overflow: "scroll",
         backgroundColor:'#EFEAE2'
         
       }}
