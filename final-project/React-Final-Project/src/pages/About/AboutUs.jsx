@@ -121,8 +121,8 @@ setLoader(false)
             <Grid item xs={12} md={12} sx={{ }}>
               <Box sx={{  }}>
                 <Box sx={{width:'100%'}}>
-                  <Typography sx={{ fontWeight: '800', fontSize: '28px', justifyContent:'flex-start', textAlign:'left', width:'100%' }}>Our Working Progress</Typography>
-                  <Typography sx={{ color: colors.gray , textAlign:{xs:'center' , md:'left' , width:'100%'} }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
+                  <Typography variant='h6' sx={{ fontWeight: '800', fontSize: '28px', justifyContent:'flex-start', textAlign:'left', width:'100%' }}>Our Working Progress</Typography>
+                  <Typography variant='h' sx={{ color: colors.gray , textAlign:{xs:'center' , md:'left' , width:'100%'} }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
                 </Box>
               </Box>
             </Grid>
