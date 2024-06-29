@@ -15,10 +15,11 @@ import { LoveContext } from '../../contexts/LoveContext';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Box } from '@mui/material';
+import { CartContext } from '../../contexts/CartContext';
 
 export default function ProductCard({ product, addToCart }) {
   const { handleLoveClick, selectedLove, getFavorite, favorites } = useContext(LoveContext);
-
+const {cartItems} = useContext(CartContext)
 
   const navigate = useNavigate();
   const { color } = useContext(ColorContext)
@@ -103,7 +104,7 @@ export default function ProductCard({ product, addToCart }) {
           </Typography>
         </CardContent>
         <CardActions>
-          {!product?.expirationDate && (
+          {!product?.expirationDate &&  cartItems.filter(cartItem => cartItem.productId._id === product._id).length!== 0&&  (
             <>
               <Button sx={{
                 width: '100%', backgroundColor: color, color: '#fff', "&:hover": {
@@ -112,7 +113,22 @@ export default function ProductCard({ product, addToCart }) {
                   outline: `2px solid ${color}`,
                 },
               }} onClick={addToCart}>
-                Add to Cart
+                delete
+              </Button>
+            </>
+          )}
+
+
+{!product?.expirationDate &&  cartItems.filter(cartItem => cartItem.productId._id === product._id).length === 0&&  (
+            <>
+              <Button sx={{
+                width: '100%', backgroundColor: color, color: '#fff', "&:hover": {
+                  backgroundColor: "#fff",
+                  color: color,
+                  outline: `2px solid ${color}`,
+                },
+              }} onClick={addToCart}>
+                Add To Cart
               </Button>
             </>
           )}

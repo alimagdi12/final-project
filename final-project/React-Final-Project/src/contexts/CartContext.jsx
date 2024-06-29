@@ -48,6 +48,7 @@ export const CartProvider = ({ children }) => {
                     },
                 }
             );
+            console.log(response);
             getCart()
             if (response.status === 200) {
                 (`Item ${id} deleted successfully.`);
@@ -62,6 +63,28 @@ export const CartProvider = ({ children }) => {
     async function addToCart(productId) {
         const productForm = new FormData();
         productForm.append("productId", productId);
+        
+            const itemExists =  cartItems.filter(cartItem => cartItem.productId._id === productId);
+
+            if (itemExists.length ==0) {
+              console.log(itemExists);
+              console.log(cartItems);
+            //  await addToCart(product._id);
+             await  getCart();
+             toast.success('Added successfully');
+            } else {
+                console.log(itemExists);
+              await  deleteCartItem(itemExists[0]._id);
+                await  getCart();
+              toast.error('Deleted from cart');
+                return;
+            }
+          
+          
+
+
+
+
 
         if (token) {
 
@@ -79,7 +102,7 @@ export const CartProvider = ({ children }) => {
                     }
                 );
                 getCart()
-toast.success('product added successfully')
+// toast.success('product added successfully')
             } catch (err) {
                 console.error(err);
             }

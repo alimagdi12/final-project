@@ -3,9 +3,9 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import ProductsContext from "../../contexts/ProductsContext";
 import CategoryContext from "../../contexts/CategoriesContext";
 import AuctionContext from "../../contexts/AuctionContext";
-import Loader from './../../components/loader/Loader.jsx';
+import Loader from "./../../components/loader/Loader.jsx";
 import axios from "axios";
-import cart2Image from '../../../public/8038874_25098.jpg';
+import cart2Image from "../../../public/8038874_25098.jpg";
 import {
   Box,
   Container,
@@ -22,7 +22,7 @@ import ColorContext from "../../contexts/ColorContext";
 import LoaderContext from "../../contexts/LoaderContext";
 
 export default function AllProducts() {
-  const { color , lightColor} = useContext(ColorContext);
+  const { color, lightColor } = useContext(ColorContext);
   const [toggle, setToggle] = useState(false);
   const { products, fetchProducts } = useContext(ProductsContext);
   const { categories } = useContext(CategoryContext);
@@ -34,52 +34,41 @@ export default function AllProducts() {
   const [auctionPage, setAuctionPage] = useState(1);
   const productsPerPage = 6;
   const auctionsPerPage = 6;
-
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = displayedProducts?.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
   const indexOfLastAuction = auctionPage * auctionsPerPage;
   const indexOfFirstAuction = indexOfLastAuction - auctionsPerPage;
   const currentAuctions = auction?.slice(
     indexOfFirstAuction,
     indexOfLastAuction
   );
-
-  (currentAuctions);
-
+  
+  const { addes, setAdded } = useState([]);
   const { getCart, addToCart } = useContext(CartContext);
-  const { loader, setLoader } = useContext(LoaderContext)
+  const { loader, setLoader } = useContext(LoaderContext);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
-
   const handleAuctionPageChange = (event, value) => {
     setAuctionPage(value);
   };
-
-
   useEffect(() => {
-    fetchProducts()
-    fetchAuction()
+    fetchProducts();
+    fetchAuction();
     setDisplayedProducts(products?.products);
   }, []);
 
-
-  
   useEffect(() => {
-    if(products.products){
-      setLoader(false)
+    if (products.products) {
+      setLoader(false);
     }
     setDisplayedProducts(products?.products);
   }, [products]);
 
-
-
-  
   function filterByCategory(event) {
     setSearchCategory(event.target.value);
     setCurrentPage(1);
@@ -138,15 +127,14 @@ export default function AllProducts() {
 
   return (
     <>
-
-    
-     <div style={{
-         backgroundImage: `url(${cart2Image})`,
-        paddingTop: '20px',
-        backgroundSize: 'cover', // Ensure the background image covers the container
-        backgroundPosition: 'center'
-      }}>
-
+      <div
+        style={{
+          backgroundImage: `url(${cart2Image})`,
+          paddingTop: "20px",
+          backgroundSize: "cover", // Ensure the background image covers the container
+          backgroundPosition: "center",
+        }}
+      >
         <Container
           sx={{
             display: "flex",
@@ -157,13 +145,13 @@ export default function AllProducts() {
           <Box
             sx={{
               width: { xs: "100%", md: "25%" }, // Adjust width for smaller screens
-              height:{ xs:'100%', md:"70vh"},
+              height: { xs: "100%", md: "70vh" },
               border: `3px solid ${color}`,
               borderRadius: "10px",
               paddingX: "50px",
               color: color,
               marginBottom: { xs: "20px", md: 0 }, // Add bottom margin for smaller screens
-              overflow:'scroll'
+              overflow: "scroll",
             }}
           >
             {/* Categories and City filters */}
@@ -301,19 +289,19 @@ export default function AllProducts() {
               width: { xs: "100%", md: "70%" },
               display: "flex",
               flexDirection: "column",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             {/* Buttons and Product Cards */}
             <Box
               sx={{
                 display: "flex",
-                width:'80%',
+                width: "80%",
 
                 justifyContent: "space-between",
                 marginBottom: 2,
                 marginTop: { xs: 2, md: 0 },
-              marginX:'auto'
+                marginX: "auto",
               }}
             >
               {/* Show Products and Show Auction buttons */}
@@ -350,38 +338,46 @@ export default function AllProducts() {
             </Box>
             {/* Product Cards */}
             <Box
-              sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
             >
               {/* Product Cards */}
               {toggle
                 ? currentAuctions?.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    addToCart={() => {
-                      addToCart(product._id);
-                      getCart();
-                    }}
-                    product={product}
-                  />
-                ))
+                    <ProductCard
+                      key={product._id}
+                      addToCart={() => {
+                        addToCart(product._id);
+                        getCart();
+                      }}
+                      product={product}
+                    />
+                  ))
                 : currentProducts?.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    addToCart={() => {
-                      addToCart(product._id);
-                      getCart();
-                    }}
-                    product={product}
-                  />
-                ))}
+                    <ProductCard
+                      key={product._id}
+                      addToCart={() => {
+                        addToCart(product._id);
+                        getCart();
+                      }}
+                      product={product}
+                    />
+                  ))}
             </Box>
           </Box>
         </Container>
-       
-       
-        { !toggle && currentProducts &&
+
+        {!toggle && currentProducts && (
           <Container
-            sx={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: '20px' }}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+            }}
           >
             <Pagination
               count={Math.ceil(displayedProducts?.length / productsPerPage)}
@@ -389,27 +385,7 @@ export default function AllProducts() {
               onChange={handlePageChange}
               sx={{
                 "& .MuiPaginationItem-root": {
-                  color: color
-                },
-                "& .Mui-selected": {
-                  backgroundColor: "white",
-                  color:color,
-                },
-              }}
-            />
-          </Container>
-        }
-        {toggle && currentAuctions &&
-          <Container
-            sx={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: '20px' }}
-          >
-            <Pagination
-              count={Math.ceil(auction?.length / auctionsPerPage)}
-              page={auctionPage}
-              onChange={handleAuctionPageChange}
-              sx={{
-                "& .MuiPaginationItem-root": {
-                  color: color
+                  color: color,
                 },
                 "& .Mui-selected": {
                   backgroundColor: "white",
@@ -418,7 +394,32 @@ export default function AllProducts() {
               }}
             />
           </Container>
-        }
+        )}
+        {toggle && currentAuctions && (
+          <Container
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+            }}
+          >
+            <Pagination
+              count={Math.ceil(auction?.length / auctionsPerPage)}
+              page={auctionPage}
+              onChange={handleAuctionPageChange}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  color: color,
+                },
+                "& .Mui-selected": {
+                  backgroundColor: "white",
+                  color: color,
+                },
+              }}
+            />
+          </Container>
+        )}
       </div>
     </>
   );
