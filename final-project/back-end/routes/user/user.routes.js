@@ -138,6 +138,17 @@ const userRouter = (userController) => {
     }
   });
 
+
+  router.post('/footer-newsteller',async(req,res,next)=>{
+    try{
+      const result = await userController.footerNewsTeller(req.body);
+      res.status(200).json(result)
+    }catch(err){
+      res.status(401)
+      .json({messsage:"failed to send message",error:err.message})
+    }
+  })
+
   return router;
 };
 

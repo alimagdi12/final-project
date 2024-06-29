@@ -130,6 +130,16 @@ class UserController {
       return { msg: "Failed to clear notifications", error: error.message };
     }
   }
+
+  async footerNewsTeller(body){
+    try{
+      const result = await this.userRepositry.footerNewsTeller(body);
+      return { message: "message sent successfully", result };
+
+    }catch(err){
+      return {msg: "Failed to send notification", error: err.message}
+    }
+  }
 }
 
 module.exports = UserController;

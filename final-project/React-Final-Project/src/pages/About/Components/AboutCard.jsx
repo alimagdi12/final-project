@@ -22,7 +22,8 @@ const AboutCard = ({ img, name, children, src }) => {
       onMouseLeave={handleCardFlip}
       style={{
         perspective: '1000px',
-        zIndex: '3'
+        zIndex: '3',
+        paddingTop:'10px'
       }}
     >
       <Card

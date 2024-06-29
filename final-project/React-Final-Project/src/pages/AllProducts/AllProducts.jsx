@@ -163,6 +163,7 @@ export default function AllProducts() {
               paddingX: "50px",
               color: color,
               marginBottom: { xs: "20px", md: 0 }, // Add bottom margin for smaller screens
+              overflow:'scroll'
             }}
           >
             {/* Categories and City filters */}

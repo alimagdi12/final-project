@@ -26,15 +26,12 @@ const ProfileInfo1 = () => {
         setOpenPopup(true);
     };
 
-   
-   useEffect(()=>{
-    setLoader(false);
-   
-   },[])
-   
+    useEffect(() => {
+        setLoader(false);
+    }, []);
+
     useEffect(() => {
         const loadData = async () => {
-           
             await fetchUserData();
         };
         loadData();
@@ -47,7 +44,7 @@ const ProfileInfo1 = () => {
                 firstName: userData.firstName || '',
                 lastName: userData.lastName || '',
                 phoneNumber: userData.phoneNumber || '',
-                birthDay: userData.birthDay || '',
+                birthDay: formatDate(userData.birthDay) || '',
             });
         }
     }, [userData]);
@@ -80,6 +77,15 @@ const ProfileInfo1 = () => {
         }
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        }).format(date).split('/').join('/');
+    };
+
     return (
         <Box component="main" sx={{ marginTop: '30px' }}>
             <Box bgcolor={'#F4F4F4'} sx={{ boxShadow: '2', padding: '20px' }}>
@@ -107,6 +113,7 @@ const ProfileInfo1 = () => {
                             onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
+                            disabled={true}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -122,6 +129,7 @@ const ProfileInfo1 = () => {
                             onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
+                            disabled={true}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -137,6 +145,7 @@ const ProfileInfo1 = () => {
                             onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
+                            disabled={true}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -156,6 +165,7 @@ const ProfileInfo1 = () => {
                             onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
+                            disabled={true}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",
@@ -171,6 +181,7 @@ const ProfileInfo1 = () => {
                             onChange={handleChange}
                             variant="outlined"
                             InputLabelProps={{ style: { color: color } }}
+                            disabled={true}
                             sx={{
                                 width: "100%",
                                 textAlign: "center",

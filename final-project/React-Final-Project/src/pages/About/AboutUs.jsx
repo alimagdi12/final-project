@@ -67,6 +67,7 @@ setLoader(false)
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
+              paddingTop:'-50px'
             }}>
               {
                 members.map((member) => {

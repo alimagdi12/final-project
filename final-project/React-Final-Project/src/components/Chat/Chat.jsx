@@ -7,6 +7,7 @@ import UserContext from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, useMediaQuery } from "@mui/material";
 import LoaderContext from "../../contexts/LoaderContext";
+import { toast } from "react-toastify";
 
 let socket;
 
@@ -118,6 +119,11 @@ await  getConversations();
   }, [id, userData?._id]);
 
   const sendMessage = async () => {
+    if(userData?._id ===id){
+      console.log('hambozo');
+      toast.error('you can not send a message to yourself')
+      return
+    }
     const message = { sender: userData?._id, receiver: id, content: input };
    await socket.emit("chat message", message);
     setInput("");

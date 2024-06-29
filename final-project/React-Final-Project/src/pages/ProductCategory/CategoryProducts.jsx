@@ -103,7 +103,7 @@ export default function CategoryProducts() {
                     />
                 ))}
 
-                {displayedProducts.length === 0 && <>
+                {displayedProducts?.length === 0 && <>
                 <Typography variant="h3" paddingY={14}>
                 sorry, no items founded to this Category</Typography>
                 </>}
@@ -123,6 +123,7 @@ export default function CategoryProducts() {
               backgroundColor: color, // Change this to your desired color for selected item
               color: '#fff', // Optional: Set text color for selected item
             },
+            paddingBottom:'20px'
           }}
           />
       </Container>

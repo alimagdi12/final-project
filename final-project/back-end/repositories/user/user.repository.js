@@ -8,6 +8,7 @@ const fs = require("fs");
 const Product = require("../../models/products/product.model");
 const { storage } = require("../../config/firebase/firebase.config");
 const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
+
 class UserRepositry {
   constructor(io) {
     this.io = io;
@@ -261,6 +262,18 @@ class UserRepositry {
     user.notification.items = [];
     await user.save();
     return user.notification.items;
+  }
+
+  async footerNewsTeller(data){
+    const email = data.email;
+    await Email.sendMail({
+      to: email,
+      from: 'shop@node-complete.com',
+      subject: 'Signup succeeded!',
+      html: '<h1>subscribed successfully</h1>'
+    });
+    return email;
+    
   }
 }
 
