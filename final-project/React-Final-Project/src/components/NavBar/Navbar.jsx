@@ -139,7 +139,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     if (currentPath !== keyword) {
       setLoader(true);
     }
-    // navigate(`/${keyword}`)
+     navigate(`${keyword}`)
   };
 
   const notificationOnClick = (auctionId) => {
@@ -266,7 +266,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
                   handleNavigate("/products");
                 }}
               >
-                <Typography sx={{ fontWeight: "bold" }} textAlign="center">
+                <Typography sx={{ fontWeight: "bold" }} textAlign="center" >
                   Products
                 </Typography>
               </MenuItem>
