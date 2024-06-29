@@ -38,7 +38,7 @@ const ProfileInfo1 = () => {
             await fetchUserData();
         };
         loadData();
-    }, [fetchUserData, setLoader]);
+    }, []);
 
     useEffect(() => {
         if (userData) {

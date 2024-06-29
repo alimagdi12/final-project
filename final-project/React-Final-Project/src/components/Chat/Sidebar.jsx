@@ -14,7 +14,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import ColorContext from "../../contexts/ColorContext";
 import userContext from "../../contexts/UserContext";
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const Sidebar = ({ conversation, handleChatClick }) => {
   const { userData } = useContext(userContext);
   const navigate = useNavigate();
@@ -47,21 +47,17 @@ const Sidebar = ({ conversation, handleChatClick }) => {
         backgroundColor: color,
         color: "#fff",
         padding: isSmallScreen ? "8px" : "16px",
-        height: {xs:'100%' , md:"100vh"},
+        height: {xs:'50vh' , sm:"100vh"},
         boxSizing: "border-box",
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom > 
+      <ArrowBackIcon sx={{marginX:'10px' , "&:hover" :{cursor:'pointer'}}} onClick={()=>{navigate('/')}}/>
+      
         All Chats
       </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
-        <SearchIcon />
-        <InputBase
-          placeholder="Search…"
-          sx={{ marginLeft: "8px", flex: 1, color: "#fff" }}
-        />
-      </Box>
-      <List sx={{ width: "100%" }}>
+   
+      <List sx={{ width: "100%" ,height: {xs:'100%' , md:"100vh"}}}>
         {conversation.map((chat, index) => (
           <ListItem
             key={index}

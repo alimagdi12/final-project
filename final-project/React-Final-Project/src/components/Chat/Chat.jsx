@@ -142,7 +142,7 @@ const Chat = () => {
         display: "flex",
         flexDirection: isSmallScreen ? "column" : "row",
         width: "100%",
-        height: "96vh",
+         height: "100vh",
         position: "relative",
       }}
     >

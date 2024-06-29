@@ -7,7 +7,7 @@ export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 const {setLoader}= useContext(LoaderContext)
   const fetchProducts = async () => {
-  // setLoader(true)
+   setLoader(true)
     try {
       const response = await fetch('https://portsaidrentals.onrender.com/api/v1/products/get-products');
       if (!response.ok) {
@@ -15,9 +15,10 @@ const {setLoader}= useContext(LoaderContext)
       }
       const data = await response.json();
       setProducts(data);
-    //  setLoader(false)
+     setLoader(false)
     } catch (error) {
       console.error('Error fetching categories:', error);
+      setLoader(false)
     }
   };
 

@@ -35,9 +35,10 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
         display: "flex",
         flexDirection: "column",
         padding: "16px",
-        height: "100vh",
+        height: {xs:'50vh' , sm:"100vh"},
         overflow: "hidden",
         backgroundColor:'#EFEAE2'
+        
       }}
     >
       <Box
@@ -45,9 +46,9 @@ const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMes
           display: "flex",
           flexDirection: "column",
           flexGrow: 1,
-          overflowY: "auto",
+          // overflowY: "auto",
           marginBottom: "16px",
-          maxHeight: "calc(100vh - 120px)",
+          // maxHeight: "calc(100vh - 120px)",
           padding:'12px'
         }}
       >

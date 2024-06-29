@@ -20,10 +20,10 @@ import PaymentProvider from "./contexts/PaymentContext.jsx";
 import { LoaderProvider } from "./contexts/LoaderContext.jsx";
 import ConversationProvider from "./contexts/ConversationsContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
+    <LoaderProvider>
   <UserProvider>
     <ConversationProvider>
       
-    <LoaderProvider>
                   <CartProvider>
     <PaymentProvider>
       <AddressProvider>
@@ -53,8 +53,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </AddressProvider>
     </PaymentProvider>
                   </CartProvider>
-    </LoaderProvider>
 
     </ConversationProvider>
   </UserProvider>
+    </LoaderProvider>
 );

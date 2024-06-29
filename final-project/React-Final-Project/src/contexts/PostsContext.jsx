@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import LoaderContext from './LoaderContext';
 
 export const PostsContext = createContext();
-
 export const PostsProvider = ({ children }) => {
+  const{setLoader} = useContext(LoaderContext)
   const [token, setToken] = useState('');
   const [PostsData, setPostsData] = useState(null);
   const [error, setError] = useState(null);
 
-
   const fetchPostsData = async () => {
+    setLoader(true)
     try {
       const token = localStorage.getItem('token'); // Ensure the token is stored in localStorage
 
@@ -25,10 +26,12 @@ export const PostsProvider = ({ children }) => {
       });
       setPostsData(response.data);
       (response.data);
+      setLoader(false)
       return await response.data;
     } catch (err) {
       console.error('Error fetching Posts data:', err);
       setError(err.message);
+      setLoader(false)
     }
   };
 

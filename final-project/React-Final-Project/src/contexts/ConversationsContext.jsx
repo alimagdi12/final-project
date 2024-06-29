@@ -12,7 +12,7 @@ export const ConversationProvider = ({ children }) => {
 
     useEffect(() => {
         fetchConversations();
-    }, [userData]);
+    }, []);
 
     const fetchConversations = async () => {
        console.log(userData);

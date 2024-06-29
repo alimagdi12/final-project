@@ -1,14 +1,17 @@
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import LoaderContext from './LoaderContext';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const {setLoader} = useContext(LoaderContext)
   const [token, setToken] = useState('');
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const [image , setImage] = useState('')
   const fetchUserData = async () => {
+setLoader(true)
     try {
         const token = localStorage.getItem('token'); // Ensure the token is stored in localStorage
 
@@ -24,10 +27,12 @@ export const UserProvider = ({ children }) => {
         });
         setUserData(response?.data?.result);
         setImage(response?.data?.result?.imageUrl?.images[0])
+        setLoader(false)
       } catch (err) {
         setUserData({})
         setToken('')
         console.error('Error fetching user data:', err);
+        setLoader(false)
     }
 };
 

@@ -320,13 +320,13 @@ export default function AllProducts() {
                 variant="contained"
                 onClick={() => setToggle(false)}
                 sx={{
-                  backgroundColor: color,
-                  color: "#FFF",
-                  "&:hover": {
-                    color: color,
-                    backgroundColor: "white",
-                    outline: `2px solid ${color}`,
-                  },
+                  backgroundColor: toggle ? "white" : color,
+                  color: toggle ? color : "#FFF",
+                  // "&:hover": {
+                  //   color: !toggle ? "white" : color,
+                  //   backgroundColor: toggle ? color : "white",
+                  //   outline: `2px solid ${color}`,
+                  // },
                 }}
               >
                 Show Products
@@ -335,13 +335,13 @@ export default function AllProducts() {
                 variant="contained"
                 onClick={() => setToggle(true)}
                 sx={{
-                  backgroundColor: color,
-                  color: "#FFF",
-                  "&:hover": {
-                    color: color,
-                    backgroundColor: "white",
-                    outline: `2px solid ${color}`,
-                  },
+                  backgroundColor: !toggle ? "white" : color,
+                  color: !toggle ? color : "#FFF",
+                  // "&:hover": {
+                  //   color: toggle ? "white" : color,
+                  //   backgroundColor: toggle ? color : "white",
+                  //   outline: `2px solid ${color}`,
+                  // },
                 }}
               >
                 Show Auction
