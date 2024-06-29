@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
+import cart2Image from '../../../public/8038874_25098.jpg';
 import { useContext, useEffect, useState } from 'react';
 import {
     Container,
@@ -92,7 +94,9 @@ const Cart = () => {
     const totalCash = totalPrice + Tax;
 
     return (
-        <Container sx={{ marginTop: '3%' }}>
+        <Box sx={{backgroundImage:`url(${cart2Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+
+        <Container sx={{ paddingTop: '3%' }}>
             <Box sx={{ color: color }}>
                 <Box display="flex" alignItems="center" mb={2} justifyContent={'space-between'} borderBottom={`2px solid ${color}`}>
                     <Box sx={{ display: 'flex' }}>
@@ -205,6 +209,7 @@ const Cart = () => {
                 </Dialog>
             </Box>
         </Container>
+                        </Box>
     );
 };
 

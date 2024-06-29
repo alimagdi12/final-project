@@ -9,6 +9,7 @@ import ColorContext from '../../contexts/ColorContext';
 import styled from 'styled-components';
 import LoaderContext from '../../contexts/LoaderContext';
 import "./AddProduct.css";
+import { toast } from 'react-toastify';
 
 export default function AddProduct() {
   const { color, lightColor } = useContext(ColorContext);
@@ -223,7 +224,11 @@ export default function AddProduct() {
         window.location.reload();
       } catch (err) {
         console.error('Error adding product:', err.response ? err.response.data : err);
+        toast.error('failed to add product')
       }
+    }
+    else{
+      toast.error('failed to add product')
     }
   };
 

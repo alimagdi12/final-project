@@ -17,6 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import "./ProductDetails.modules.css";
 import LoaderContext from '../../contexts/LoaderContext';
 
+import cart2Image from '../../../public/8038874_25098.jpg';
 const placeholderImage = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'; // Define the path to your placeholder image
 export default function ProductDetails() {
   const { color } = useContext(ColorContext);
@@ -70,7 +71,9 @@ await getCart()
 
   return (
     <>
-      <Box sx={{ width: '75%', margin: '50px auto' }}>
+    <Box sx={{backgroundImage:`url(${cart2Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+
+      <Box sx={{ width: '75%', padding: '50px' , marginX:'auto' }}>
         <Grid container spacing={5}>
           <Grid item xs={12} md={5} className="carousel-container">
             <Box className="carousel__thumbnails" style={{ overflow: 'hidden' }}>
@@ -105,7 +108,7 @@ await getCart()
                         objectFit: 'contain', 
                         maxHeight: '100%' 
                       }} 
-                    />
+                      />
                   </figure>
                 </li>
                 <li className="carousel__slide">
@@ -141,7 +144,7 @@ await getCart()
         <Typography width={300}>Cart is empty!</Typography>
       }
               {cartItems?.map(item => (
-                <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '5px' }}>
+                <Paper key={item.productId?._id} sx={{ p: 2, marginBottom: '0px' }}>
                   <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} md={2} height="100px">
                       <Avatar variant="square" src={getImage(item.productId?.imagesUrl.images, 0)} sx={{ width: '100%', height: '100%', borderRadius: '5px' }} />
@@ -174,6 +177,7 @@ await getCart()
           </Grid>
         </Container>
       </Box>
+            </Box>
     </>
   );
 }

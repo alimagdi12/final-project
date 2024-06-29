@@ -11,7 +11,7 @@ import { colors } from '../../Util/utilities';
 import "./About.css"
 import Loader from '../../components/loader/Loader.jsx';
 import LoaderContext from '../../contexts/LoaderContext.jsx';
-
+import cart2Image from '../../../public/8038874_25098.jpg';
 
 
 export default function AboutUs() {
@@ -28,21 +28,23 @@ export default function AboutUs() {
 setLoader(false)
   },[])
   return (
-    <Container style={{marginBottom:'5%'}}>
+    <Box sx={{backgroundImage:`url(${cart2Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+
+    <Container style={{paddingTop:'5%'}}>
 {/*     
     
-{loader&& 
-<Loader></Loader>}
-     */}
+    {loader&& 
+    <Loader></Loader>}
+    */}
       {/* First section */}
       <AboutInfoHeader />
 
       {/* Team section */}
-      <Box sx={{marginTop:'8%'}}>
-        <Typography variant="h3" marginTop={3} textAlign="center">
+      <Box sx={{paddingTop:'8%'}}>
+        <Typography variant="h3" paddingTop={3} textAlign="center">
           Our Team
         </Typography>
-        <Box marginY={3}>
+        <Box paddingY={3}>
           <Grid  sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
             <Grid item xs={6} sm={4} md={3} sx={{
               display: 'flex',
@@ -57,9 +59,9 @@ setLoader(false)
 
 
 
-      <Box sx={{marginTop:'8%' , display:{xs:'block' , xl:'none' }}}>
+      <Box sx={{paddingTop:'8%' , display:{xs:'block' , xl:'none' }}}>
        
-        <Box marginY={3}>
+        <Box paddingY={3}>
           <Grid spacing={2} sx={{ display: 'flex', flexWrap: 'wrap' }} justifyContent="center">
             <Grid item xs={6} sm={4} md={3} sx={{
               display: 'flex',
@@ -114,7 +116,7 @@ setLoader(false)
 
       {/* Last section */}
       {/* <Container> */}
-        <Grid   sx={{marginTop:'8%', display:'flex',justifyContent:'space-between'}}>
+        <Grid   sx={{paddingTop:'8%', display:'flex',justifyContent:'space-between'}}>
           <Grid item xs={12} md={12} container sx={{}}>
             <Grid item xs={12} md={12} sx={{ }}>
               <Box sx={{  }}>
@@ -140,7 +142,7 @@ setLoader(false)
 
           <Grid item xs={12} md={6}>
             <img
-              style={{ height: 320 }}
+              style={{ height: 320 , paddingBottom:'5%'}}
               src='/public/team2.jpg'
               title="green iguana"
             />
@@ -148,6 +150,7 @@ setLoader(false)
         </Grid>
       </Container>
     
+      </Box>
     // </Container>
   );
 }

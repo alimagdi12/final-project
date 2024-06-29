@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ColorContext from '../../contexts/ColorContext';
 import LoaderContext from '../../contexts/LoaderContext';
 import CategoryContext from '../../contexts/CategoriesContext';
-
+import cart2Image from '../../../public/8038874_25098.jpg';
 export default function Categories1() {
     const [flipped, setFlipped] = useState({});
     const navigate = useNavigate();
@@ -27,7 +27,9 @@ export default function Categories1() {
     };
 
     return (
-        <Box sx={{ maxWidth: '1200px', margin: '0 auto', padding: '16px' }}>
+        <Box sx={{backgroundImage:`url(${cart2Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+
+        <Box sx={{ maxWidth: '1200px', margin: '0 auto', padding: '16px'  }}>
             <Typography variant="h4" component="h1" gutterBottom>
                 Categories
             </Typography>
@@ -72,5 +74,6 @@ export default function Categories1() {
                 ))}
             </Grid>
         </Box>
+                </Box>
     );
 }

@@ -10,7 +10,7 @@ const AboutInfoHeader = () => {
 
     return (
         <Container>
-            <Grid container spacing={2} alignItems="center" sx={{marginTop:'2%'}}>
+            <Grid container spacing={2} alignItems="center" >
                 <Grid item xs={12} md={6}>
                     <CardMedia
                         sx={{ height: 320 }}
