@@ -40,13 +40,13 @@ const Slider = () => {
 
       <div className="cards">
         <label className="card" htmlFor="item-1" id="song-1">
-          <img src="../../../../public/slider4.jpg" alt="song" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/final-project-c4738.appspot.com/o/slider3.jfif?alt=media&token=eccd7b86-aa86-4dd7-bd4c-fb5e3d8d9b46" alt="song" />
         </label>
         <label className="card" htmlFor="item-2" id="song-2">
-          <img src="../../../../public/slider1.webp" alt="song" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/final-project-c4738.appspot.com/o/slider6.jpg?alt=media&token=67712173-084a-4e35-b001-3c5a52769e8d" alt="song" />
         </label>
         <label className="card" htmlFor="item-3" id="song-3">
-          <img src="../../../../public/slider6.jpg" alt="song" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/final-project-c4738.appspot.com/o/slider3.jfif?alt=media&token=eccd7b86-aa86-4dd7-bd4c-fb5e3d8d9b46" alt="song" />
         </label>
       </div>
     </div>

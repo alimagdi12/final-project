@@ -100,16 +100,17 @@ const BidPage = () => {
       ("Connected to server");
     });
 
-    socket.on("newBid", (message) => {
+    socket.on("newBid",async (message) => {
       if (message.id == id) {
         setHighestBid(message.highestBid);
         setHighestBidderName(message.highestBidder);
-    fetchNotifications()
         toast.error('somebody put a higher bid');
+        await fetchNotifications()
       }
     });
-    socket.on("notification", (data) => {
+    socket.on("notification", async(data) => {
       toast.info(data.notification);
+      await fetchNotifications()
     });
 
     return () => {

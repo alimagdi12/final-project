@@ -291,15 +291,15 @@ const { addresses, addAddress, fetchAddresses, deleteAddress } = useContext(Addr
                         </Typography>
                     </Typography>
                     {cartItems?.map(item => (
-                        <Grid key={item.productId._id} container spacing={2} alignItems="center" sx={{ display: 'flex', alignItems: 'flex-start', height: 'auto' }}>
+                        <Grid key={item?.productId?._id} container spacing={2} alignItems="center" sx={{ display: 'flex', alignItems: 'flex-start', height: 'auto' }}>
                             <Grid item xs={12} md={4} sx={{ width: '100%', height: '280px' }}>
                                 <Avatar variant="square" src={`${item.productId?.imagesUrl.images[0]}`} sx={{ width: '100%', height: '80%', borderRadius: '7px' }} />
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.productId.title}</Typography>
-                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item.productId.price} EGP</Typography>
-                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Quantity:{item.quantity}</Typography>
-                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Total:{item.productId.price * item.quantity}</Typography>
+                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item?.productId?.title}</Typography>
+                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>{item?.productId?.price} EGP</Typography>
+                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Quantity:{item?.quantity}</Typography>
+                                <Typography variant="h6" sx={{ marginBottom: { xs: '5px', md: '10px' }, fontWeight: 'bold' }}>Total:{item?.productId?.price * item.quantity}</Typography>
                             </Grid>
                         </Grid>
                     ))}

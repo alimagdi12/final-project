@@ -12,7 +12,7 @@ class PayementController {
             const result = await this.payementRepository.payment({ ...data, req: data.req }, token);
            
             return { msg: 'payment added successfully', result };
-            res.redirect('/about');
+            // res.redirect('/about');
         } catch (err) {
             console.error(err);
             return { msg: "failed to get payment", err: err.message };
