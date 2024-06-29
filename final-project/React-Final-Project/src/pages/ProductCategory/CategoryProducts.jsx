@@ -5,6 +5,7 @@ import ProductsContext from "../../contexts/ProductsContext";
 import CategoryContext from "../../contexts/CategoriesContext";
 import AuctionContext from "../../contexts/AuctionContext";
 import axios from "axios";
+import cart2Image from '../../../public/8038874_25098.jpg';
 import {
   Box,
   Container,
@@ -15,6 +16,7 @@ import {
   Radio,
   Pagination,
   Button,
+  Typography,
 } from "@mui/material";
 import { CartContext } from "../../contexts/CartContext";
 import { useParams } from "react-router-dom";
@@ -60,11 +62,13 @@ export default function CategoryProducts() {
 
   return (
     <>
+    <Box sx={{backgroundImage:`url(${cart2Image})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+
       <Container
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' }, // Flex direction changes based on screen size
-          marginTop: '20px',
+          paddingTop: '20px',
           justifyContent: 'space-between',
         }}
       >
@@ -74,32 +78,34 @@ export default function CategoryProducts() {
             display: 'flex',
             flexDirection: 'column',
           }}
-        >
-          {/* Buttons and Product Cards */}
-          {/* Product Cards */}
+          >
           <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {/* Product Cards */}
             {toggle
               ? auction?.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    addToCart={() => {
-                      addToCart(product._id);
-                      getCart();
-                    }}
+                <ProductCard
+                key={product._id}
+                addToCart={() => {
+                  addToCart(product._id);
+                  getCart();
+                }}
                     product={product}
                   />
                 ))
               : currentProducts?.map((product) => (
-                  <ProductCard
+                <ProductCard
                     key={product._id}
                     addToCart={() => {
                       addToCart(product._id);
                       getCart();
                     }}
                     product={product}
-                  />
+                    />
                 ))}
+
+                {!currentProducts && <>
+                <Typography variant="h3" paddingY={14}>
+                sorry, no tems founded to this Category</Typography>
+                </>}
           </Box>
         </Box>
       </Container>
@@ -117,8 +123,9 @@ export default function CategoryProducts() {
               color: '#fff', // Optional: Set text color for selected item
             },
           }}
-        />
+          />
       </Container>
+          </Box>
     </>
   );
 }

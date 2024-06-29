@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { LoveContext } from '../../contexts/LoveContext';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import LoaderContext from '../../contexts/LoaderContext';
-
+import cart2Image from '../../../public/8038874_25098.jpg';
 const FavoritePage = () => {
     const { favorites, getFavorite } = useContext(LoveContext);
     const { loader, setLoader } = useContext(LoaderContext);
@@ -15,7 +15,8 @@ const FavoritePage = () => {
     }, []);
 
     return (
-        <div style={{marginBottom:'5%', margin:'5%'}}>
+
+        <div style={{paddingBottom:'5%', padding:'5%' ,backgroundImage:`url(${cart2Image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <Typography variant="h4" gutterBottom>
                 Welcome To Your Wishlist
             </Typography>
@@ -37,8 +38,9 @@ const FavoritePage = () => {
                         </Grid>
                     ))
                 ) : (
-                    <Typography variant="h6" color="textSecondary">
-                        No favorite items found.
+                    <Typography variant="h6" sx={{padding:3}} color="textSecondary">
+                        No favorite items found. <br/>
+                        Careful what you wish for !
                     </Typography>
                 )}
             </Grid>
