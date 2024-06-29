@@ -29,8 +29,7 @@ const {cartItems}= useContext(CartContext)
                 }
             );
     
-            console.log('Response:', response);
-    
+          
             if (response.data && response.data.result) {
                 // Redirecting to the Stripe checkout URL
                 window.location.href = response.data.result;

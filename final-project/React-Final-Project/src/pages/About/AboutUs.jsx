@@ -116,13 +116,13 @@ setLoader(false)
 
       {/* Last section */}
       {/* <Container> */}
-        <Grid   sx={{paddingTop:'8%', display:'flex',justifyContent:'space-between'}}>
+        <Grid   sx={{paddingTop:'8%', display:{xs:'block' ,md:'flex'},justifyContent:'space-between'}}>
           <Grid item xs={12} md={12} container sx={{}}>
             <Grid item xs={12} md={12} sx={{ }}>
               <Box sx={{  }}>
-                <Box>
+                <Box sx={{width:'100%'}}>
                   <Typography sx={{ fontWeight: '800', fontSize: '28px', justifyContent:'flex-start', textAlign:'left', width:'100%' }}>Our Working Progress</Typography>
-                  <Typography sx={{ color: colors.gray }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
+                  <Typography sx={{ color: colors.gray , textAlign:{xs:'center' , md:'left' , width:'100%'} }}>At our company, we continuously strive to improve and innovate. Our goal is to exceed customer expectations through high-quality products and exceptional service..</Typography>
                 </Box>
               </Box>
             </Grid>
@@ -142,7 +142,7 @@ setLoader(false)
 
           <Grid item xs={12} md={6}>
             <img
-              style={{ height: 320 , paddingBottom:'5%'}}
+              style={{ height: 320 , paddingBottom:'2%'}}
               src='/public/team2.jpg'
               title="green iguana"
             />

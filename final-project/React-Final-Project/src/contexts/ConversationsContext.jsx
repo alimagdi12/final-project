@@ -15,15 +15,13 @@ export const ConversationProvider = ({ children }) => {
     }, []);
 
     const fetchConversations = async () => {
-       console.log(userData);
-    try {
+          try {
       const response = await axios.post(
         "http://127.0.0.1:3000/api/v1/auth/conversation",
         { sender: userData?._id }
       );
       const x = await response.data;
       setConversations(x);
-      console.log(x);
       return x.length;
     } catch (error) {
       console.error("Error fetching chat history:", error);

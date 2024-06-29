@@ -40,7 +40,6 @@ const LoveProvider = ({ children }) => {
     };
 
     const handleLoveClick = async (product) => {
-        console.log(product);
         const token = localStorage.getItem('token');
         if (token) {
             // setLoading(true); // Start loading
@@ -65,7 +64,6 @@ const LoveProvider = ({ children }) => {
                             jwt: token,
                         },
                     });
-                    console.log(response);
                     setSelectedLove([...selectedLove, product._id]);
                     setLove(love + 1);
                     // await getFavorite()

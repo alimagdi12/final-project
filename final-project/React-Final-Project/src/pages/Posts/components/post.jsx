@@ -22,7 +22,6 @@ const Post = ({ post }) => {
 
 
     useEffect(() => {
-        console.log(post);
     }, [])
 
     const handleCommentSubmit = async () => {
@@ -53,7 +52,6 @@ const fetchPostComments=async (post)=>{
                 'jwt': localStorage.getItem('token')
             }
         });
-        console.log(response);
         setComments(response.data)
     } catch (err) {
         console.error('Error adding comment:', err.response ? err.response.data : err);

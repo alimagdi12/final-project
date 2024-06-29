@@ -93,7 +93,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
     userData;
     getFavorite();
     getCart();
-    console.log(Conversations);
+   
   }, []);
 
   useEffect(() => {
@@ -172,8 +172,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         }
       );
 
-      console.log("Delete Notification Response:", response.data);
-
+     
       setShowDone((prevShowDone) => {
         const updatedShowDone = [...prevShowDone];
         updatedShowDone[index] = true;
