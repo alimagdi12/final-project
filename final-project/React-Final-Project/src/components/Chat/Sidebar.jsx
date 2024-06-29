@@ -27,7 +27,15 @@ const Sidebar = ({ conversation, handleChatClick }) => {
   useEffect(() => {
     if (conversation.length) {
       const x = conversation.findIndex(
-        (conversation) => id === conversation.participants[1]._id
+        (conversation) => {
+          if(conversation.participants[1]._id === userData._id){
+
+            return id === conversation.participants[0]._id}
+          
+          else{
+            
+            return id === conversation.participants[1]._id}
+          }
       );
       if (x !== -1) {
         selectChat(conversation[x], x);

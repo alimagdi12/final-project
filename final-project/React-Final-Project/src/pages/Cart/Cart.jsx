@@ -41,7 +41,7 @@ const Cart = () => {
 
     useEffect(() => {
         ("Fetching cart data...");
-
+console.log(cartItems);
     }, [cartItems]);
 
     const handleQuantityChange = (id, quantity) => {
@@ -128,22 +128,28 @@ const Cart = () => {
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                            <Grid item xs={12} md={4}>
+                                            <Grid item xs={12} md={3}>
                                                 <Typography>Title - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.title}</Typography></Typography>
+                                                {/* <Typography>Size - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.size}</Typography></Typography> */}
+                                            </Grid>
+                                            <Grid item xs={12} md={3}>
                                                 <Typography>City - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.location}</Typography></Typography>
                                                 {/* <Typography>Size - <Typography variant="p" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.size}</Typography></Typography> */}
                                             </Grid>
-                                            <Grid item xs={12} md={4}>
+                                          
+                                            <Grid item xs={12} md={3}>
                                                 <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}>{item.productId?.price} EGP</Typography>
                                             </Grid>
-                                            <Grid item xs={12} md={4}>
-                                                <TextField
+                                            <Grid item xs={12} md={3}>
+                                                <Typography
                                                     type="number"
-                                                    value={item.quantity}
-                                                    onChange={(e) => handleQuantityChange(item.productId?._id, parseInt(e.target.value, 10))}
+                                                    variant='h6'
                                                     inputProps={{ min: 1 }}
+                                                    sx={{ fontWeight: 'bold', fontSize: '17px', color: color }}
                                                     fullWidth
-                                                />
+                                                >quantity:
+                                                <Typography>{item.quantity}</Typography>
+                                                </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>

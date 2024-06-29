@@ -59,7 +59,7 @@ io.on('connection', async (socket) => {
     socket.emit('chat history', chatHistory);
 
     socket.on('chat message', async (message) => {
-        (message);
+        
         chatHistory.push(message.message);
         await messagesRepository.createMessage(message.sender, message.receiver, message.content);
         io.emit('chat message', message);
@@ -78,20 +78,15 @@ io.on('connection', async (socket) => {
     });
 });
 
-// API endpoint to fetch chat history
 app.get('/api/chat-history', (req, res) => {
     res.json(chatHistory);
 });
 
 app.get('/checkout-success', async(req, res) => {
   const token =req.query.token;
-//     const token = body.token
-// console.log(token);
 console.log(token);
      const x = await orderRepository.createOrder(token)
-    // console.log(x);
      res.redirect('http://localhost:5173/profile/orders');
-    //  res.send('Checkout success!');
 });
 
 app.use(cors({
@@ -99,25 +94,18 @@ app.use(cors({
     methods: ['GET', 'POST','PUT', 'DELETE' ,'PATCH']
 }));
 
-// calling AuthRespositry and AuthController
 const AuthRespositry = require('./repositories/auth/auth.repositry');
 const AuthController = require('./controllers/auth/auth.controller');
-// calling ProductRepositry and ProductController
 const ProductRepositry = require('./repositories/products/products.repositry');
 const ProductController = require('./controllers/products/products.controller');
-// calling ProductStatusRepositry and ProductStatusController
 const ProductStatusRepositry = require('./repositories/productStatus/productStatus.repositry');
 const ProductStatusController = require('./controllers/productStatus/productStatus.controller');
-// calling userRoleRepository and UserRoleController
 const UserRoleRepository = require('./repositories/userRole/userRole.repository');
 const UserRoleController = require('./controllers/userRole/userRole.controller');
-// calling CategoryRepository and CategoryController
 const CategoryRepository = require('./repositories/category/category.repositry');
 const CategoryController = require('./controllers/category/category.controller');
-// calling categoryRepository and CategoryController
 const SubcategoryRepository = require('./repositories/subcategory/subCategory.repository');
 const SubcategoryController = require('./controllers/subCategory/subCategory.controller');
-// calling UserRepository and UserController
 const UserRepository = require('./repositories/user/user.repository');
 const UserController = require('./controllers/user/user.controller');
 // calling AuctionRepository and AuctionController

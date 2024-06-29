@@ -46,6 +46,7 @@ export default function CategoryProducts() {
 
   useEffect(() => {
     filterByCategory()
+    console.log(currentProducts);
     }, [id]);
 
   function filterByCategory() {
@@ -102,9 +103,9 @@ export default function CategoryProducts() {
                     />
                 ))}
 
-                {!currentProducts && <>
+                {displayedProducts.length === 0 && <>
                 <Typography variant="h3" paddingY={14}>
-                sorry, no tems founded to this Category</Typography>
+                sorry, no items founded to this Category</Typography>
                 </>}
           </Box>
         </Box>

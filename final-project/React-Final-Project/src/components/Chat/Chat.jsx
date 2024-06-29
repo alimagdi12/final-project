@@ -28,6 +28,7 @@ const Chat = () => {
 
   // Initialize socket connection
   useEffect(() => {
+    console.log(userData);
     socket = io("http://localhost:3000", {
       extraHeaders: {
         jwt: localStorage.getItem("token"),
@@ -37,27 +38,31 @@ const Chat = () => {
     socket.on("connect", () => {
      });
 
-    socket.on("chat message", (message) => {
+     socket.on("chat message", async (message) => {
       if (
         (message.sender === userData?._id && message.receiver === id) ||
         (message.sender === id && message.receiver === userData?._id)
       ) {
-        setMessagesByChat((prevMessagesByChat) => ({
-          ...prevMessagesByChat,
-          message,
-        }));
-        getMessages();
-      } else {
-        getConversations();
-      }
-     });
+        console.log("hambozo");
+    
+    
+    if(message.sender !== userData._id){
+      // setMessagesByChat((prevMessagesByChat) => ({
+      //   ...prevMessagesByChat,
+      //   [id]: [...(prevMessagesByChat[id] || []), message],
+      // }));
+      
+await getMessages()
+await  getConversations();
+    }
+    }
+      
+    });
 
-    // Cleanup on component unmount
     return () => {
       socket.disconnect();
     };
   }, [id, userData?._id]);
-
   useEffect(() => {
     setLoader(false);
   }, []);
@@ -79,6 +84,7 @@ const Chat = () => {
       const senderArrays = Object.values(senderMessages);
       setChats(response.data);
       setChatMessages(response.data);
+    
     } catch (error) {
       console.error("Error fetching chat history:", error);
     }
@@ -103,7 +109,7 @@ const Chat = () => {
   useEffect(() => {
     getMessages();
     getConversations();
-  }, []);
+  }, [id, messagesByChat]);
 
   useEffect(() => {
     fetchUserData();
@@ -113,16 +119,37 @@ const Chat = () => {
 
   const sendMessage = async () => {
     const message = { sender: userData?._id, receiver: id, content: input };
-    await socket.emit("chat message", message);
+   await socket.emit("chat message", message);
     setInput("");
-    await getMessages();
-    const x = await getConversations();
+  console.log(message);
 
-    if (x === 0) {
-      await getConversations();
+  // setMessagesByChat((prevMessagesByChat) => ({
+  //   ...prevMessagesByChat,
+  //   [id]: [...(prevMessagesByChat[id] || []), message],
+  // }));
+await getMessages()
+   await  getConversations();
+    if (selectedChat) {
+      console.log(selectedChat);
+      // setSelectedChat((prevSelectedChat) => ({
+      //   ...prevSelectedChat,
+      //   messages: [
+      //     ...(prevSelectedChat.messages || []),
+      //     message,
+      //   ],
+      // }));
+      // await getMessages()
     }
+    else{
+    //await getConversations();
+      
+    }
+ 
   };
+  
 
+
+  
   const handleChatClick = (chat) => {
     const participantId =
       userData._id === chat.participants[0]._id

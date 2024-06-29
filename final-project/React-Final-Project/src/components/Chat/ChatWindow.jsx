@@ -14,7 +14,7 @@ import UserContext from "../../contexts/UserContext";
 import ColorContext from "../../contexts/ColorContext";
 
 const ChatWindow = ({ id, selectedChat, messagesByChat, input, setInput, sendMessage }) => {
-
+console.log(messagesByChat);
   const {userData} = useContext(UserContext)
   const {color} = useContext(ColorContext)
 
