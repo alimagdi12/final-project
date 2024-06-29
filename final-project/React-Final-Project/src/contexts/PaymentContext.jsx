@@ -19,7 +19,7 @@ const {cartItems}= useContext(CartContext)
     
           
             const response = await axios.post(
-                "https://portsaidrentals.onrender.com/api/v1/auth/payment",
+                "http://127.0.0.1:3000/api/v1/auth/payment",
                 data,
                 {
                     headers: {

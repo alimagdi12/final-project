@@ -9,7 +9,7 @@ const {setLoader}= useContext(LoaderContext)
   const fetchProducts = async () => {
    setLoader(true)
     try {
-      const response = await fetch('https://portsaidrentals.onrender.com/api/v1/products/get-products');
+      const response = await fetch('http://127.0.0.1:3000/api/v1/products/get-products');
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }

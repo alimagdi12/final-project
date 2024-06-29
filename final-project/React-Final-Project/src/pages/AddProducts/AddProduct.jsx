@@ -110,7 +110,7 @@ export default function AddProduct() {
           break;
         case 'productDetails':
           tempErrors.productDetails = value ? "" : "This field is required.";
-          if (value && value.length < 3) tempErrors.productDetails = "Folder name must be at least 3 characters long.";
+          if (value && value.length < 3) tempErrors.productDetails = "product details must be at least 3 characters long.";
           break;
         case 'location':
           tempErrors.location = value ? "" : "This field is required.";
@@ -286,7 +286,7 @@ export default function AddProduct() {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h6">Folder Name</Typography>
+            <Typography variant="h6">product details</Typography>
             <TextField
               name="productDetails"
               value={formData.productDetails}

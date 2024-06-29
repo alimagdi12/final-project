@@ -8,7 +8,7 @@ export const ConversationProvider = ({ children }) => {
     const { userData } = useContext(UserContext);
     const [Conversations, setConversations] = useState([]);
     
-    const API_URL = 'https://portsaidrentals.onrender.com/api/v1/auth';
+    const API_URL = 'http://127.0.0.1:3000/api/v1/auth';
 
     useEffect(() => {
         fetchConversations();

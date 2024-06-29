@@ -18,7 +18,7 @@ export const PostsProvider = ({ children }) => {
       //   throw new Error('JWT token not found');
       // }
 
-      const response = await axios.get('https://portsaidrentals.onrender.com/api/v1/auth/blogs', {
+      const response = await axios.get('http://127.0.0.1:3000/api/v1/auth/blogs', {
         headers: {
           'Content-Type': 'multipart/form-data',
           'jwt': token, // Use Bearer token format
@@ -43,7 +43,7 @@ export const PostsProvider = ({ children }) => {
         throw new Error('JWT token not found');
       }
 
-      await axios.delete(`https://portsaidrentals.onrender.com/api/v1/auth/blogs/${postId}`, {
+      await axios.delete(`http://127.0.0.1:3000/api/v1/auth/blogs/${postId}`, {
         headers: {
           'Content-Type': 'application/json',
           'jwt': token, // Use Bearer token format

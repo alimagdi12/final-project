@@ -69,7 +69,7 @@ export const CartProvider = ({ children }) => {
                 const token = localStorage.getItem("token");
                 (token);
                 const response = await axios.post(
-                    "https://portsaidrentals.onrender.com/api/v1/auth/add-to-cart",
+                    "http://127.0.0.1:3000/api/v1/auth/add-to-cart",
                     productForm,
                     {
                         headers: {

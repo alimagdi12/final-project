@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Menu, MenuItem, Typography, Grid, Box } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Menu, MenuItem, Typography, Grid, Box, Avatar } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UserContext from '../../../contexts/UserContext';
 import axios from 'axios';
@@ -11,6 +11,7 @@ const Post = ({ post }) => {
     const { color } = useContext(ColorContext);
     const { fetchPostsData, deletePost } = useContext(PostsContext)
     const [commentText, setCommentText] = useState("");
+    const [comments, setComments] = useState([]);
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const menuOpen = Boolean(anchorEl);
@@ -21,11 +22,11 @@ const Post = ({ post }) => {
 
 
     useEffect(() => {
-        (post);
+        console.log(post);
     }, [])
 
     const handleCommentSubmit = async () => {
-        const comment = { userId: userData._id, content: commentText };
+        const comment = { userId: userData._id, content: commentText , blog:post._id, author: userData._id  };
 
         try {
             await axios.post(`http://127.0.0.1:3000/api/v1/auth/blogs/${post._id}/comments`, comment, {
@@ -42,7 +43,26 @@ const Post = ({ post }) => {
         }
     };
 
-    const handleClickOpen = () => {
+
+const fetchPostComments=async (post)=>{
+    
+    try {
+      const response=  await axios.get(`http://127.0.0.1:3000/api/v1/comments/${post._id}`,  {
+            headers: {
+                'Content-Type': 'application/json',
+                'jwt': localStorage.getItem('token')
+            }
+        });
+        console.log(response);
+        setComments(response.data)
+    } catch (err) {
+        console.error('Error adding comment:', err.response ? err.response.data : err);
+    }
+
+}
+
+    const handleClickOpen = async(post) => {
+        await fetchPostComments(post)
         setOpen(true);
     };
 
@@ -117,14 +137,24 @@ const Post = ({ post }) => {
                             <Typography>{post?.content}</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button sx={{ backgroundColor: color, color: 'white', "&:hover": { color: color, backgroundColor: 'white', outline: `2px solid ${color}` } }} onClick={handleClickOpen}>
+                            <Button sx={{ backgroundColor: color, color: 'white', "&:hover": { color: color, backgroundColor: 'white', outline: `2px solid ${color}` } }} onClick={()=>{handleClickOpen(post)}}>
                                 Show Comments
                             </Button>
                             <Dialog open={open} onClose={handleClose} fullWidth>
                                 <DialogTitle>Comments</DialogTitle>
                                 <DialogContent>
-                                    {post?.comments?.map(comment => (
-                                        <Typography key={comment._id}>{comment.content}</Typography>
+                                    {comments?.map(comment => (
+                                         <Box display="flex" alignItems="center" mb={2} p={2} bgcolor="#f9f9f9" borderRadius={1}>
+                                         <Avatar src={comment?.author?.imageUrl?.images[0]} alt={comment?.author?.firstName} sx={{ mr: 2 }} />
+                                         <Box>
+                                           <Typography variant="subtitle2" fontWeight="bold">
+                                             {comment?.author?.firstName}
+                                           </Typography>
+                                           <Typography variant="body2">
+                                             {comment?.content}
+                                           </Typography>
+                                         </Box>
+                                       </Box>
                                     ))}
                                     <form onSubmit={(e) => { e.preventDefault(); handleCommentSubmit(); }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                         <TextField

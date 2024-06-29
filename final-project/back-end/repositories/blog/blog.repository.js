@@ -1,8 +1,10 @@
 const Blog = require('../../models/blog/blog.model');
 const { ref, uploadBytes, getDownloadURL } = require("firebase/storage");
 const { storage } = require('../../config/firebase/firebase.config');
+const CommentRepository = require('../comment/comment.repository');
 
 class BlogRepository {
+
     async createBlog(body, files) {
         (files);
         try {
@@ -37,7 +39,9 @@ class BlogRepository {
     
 
     async getBlog(blogId) {
-        const blog = await Blog.findById(blogId).populate('author').populate('comments.userId');
+        const blog = await Blog.findById(blogId)
+    .populate('author')              
+    .populate('comments.userId'); 
         if (!blog) throw new Error('Blog not found');
         return blog;
     }
@@ -59,9 +63,11 @@ class BlogRepository {
     }
 
     async addComment(blogId, commentData) {
+const commentRepo = new CommentRepository()
         const blog = await Blog.findById(blogId);
         if (!blog) throw new Error('Blog not found');
-        blog.comments.push(commentData);
+     const com =await commentRepo.createComment(commentData)
+        blog.comments.push(com);
         await blog.save();
         return blog;
     }

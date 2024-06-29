@@ -269,7 +269,7 @@ app.use("/api/v1/auth", [
     blogRoutes(blogController)
 ]);
 app.use("/api/v1/products", productsRoutes(productController));
-app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)]);
+app.use('/api/v1', [productStatusRoutes(productStatusController), auctionRoutes(auctionController)], commentRoutes(commentController));
 app.use('/api/v1/admin', [
     userRoleRoutes(userRoleController),
     categoryRoutes(categoryController),
